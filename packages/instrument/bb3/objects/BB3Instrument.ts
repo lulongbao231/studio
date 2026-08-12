@@ -47,6 +47,7 @@ import { ConnectionBase } from "instrument/connection/connection-base";
 import { bb3InstrumentsMap } from "../global-objects";
 
 import { isArray } from "eez-studio-shared/util";
+import { t } from "eez-studio-shared/i18n";
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -748,7 +749,7 @@ export class BB3Instrument {
                 }
 
                 const progressToastId = notification.info(
-                    "Uploading pinput pages ...",
+                    t("Uploading pinput pages ..."),
                     {
                         autoClose: false,
                         hideProgressBar: false
@@ -757,7 +758,9 @@ export class BB3Instrument {
 
                 for (let i = 0; i < PINOUT_PAGES.length; i++) {
                     notification.update(progressToastId, {
-                        render: `Downloading ${PINOUT_PAGES[i].fileName}...`
+                        render: t("Downloading {fileName}...", {
+                            fileName: PINOUT_PAGES[i].fileName
+                        })
                     });
 
                     const image = await this.pngToJpg(PINOUT_PAGES[i].url);
@@ -774,7 +777,9 @@ export class BB3Instrument {
                     );
 
                     notification.update(progressToastId, {
-                        render: `Uploading ${PINOUT_PAGES[i].fileName} ...`
+                        render: t("Uploading {fileName} ...", {
+                            fileName: PINOUT_PAGES[i].fileName
+                        })
                     });
 
                     await new Promise<void>((resolve, reject) =>
@@ -784,7 +789,7 @@ export class BB3Instrument {
 
                 notification.update(progressToastId, {
                     type: notification.SUCCESS,
-                    render: `Done.`,
+                    render: t("Done."),
                     autoClose: 1000
                 });
             },
@@ -796,8 +801,8 @@ export class BB3Instrument {
         const result = await dialog.showOpenDialog(getCurrentWindow(), {
             properties: ["openFile"],
             filters: [
-                { name: "SREC files", extensions: ["srec"] },
-                { name: "All Files", extensions: ["*"] }
+                { name: t("SREC files"), extensions: ["srec"] },
+                { name: t("All Files"), extensions: ["*"] }
             ]
         });
         const filePaths = result.filePaths;
@@ -812,7 +817,10 @@ export class BB3Instrument {
                 },
                 async connection => {
                     const toastId = notification.info(
-                        `Sending firmware file to the ${this.instrument.name}, please wait ...`,
+                        t(
+                            "Sending firmware file to the {name}, please wait ...",
+                            { name: this.instrument.name }
+                        ),
                         {
                             autoClose: false
                         }
@@ -843,7 +851,7 @@ export class BB3Instrument {
 
                         notification.update(toastId, {
                             type: notification.INFO,
-                            render: `Restarting BB3...`,
+                            render: t("Restarting BB3..."),
                             autoClose: 1000
                         });
 
@@ -851,7 +859,7 @@ export class BB3Instrument {
 
                         notification.update(toastId, {
                             type: notification.SUCCESS,
-                            render: `Loading continues on the BB3 ...`,
+                            render: t("Loading continues on the BB3 ..."),
                             autoClose: 1000
                         });
                     } catch (err) {
@@ -868,7 +876,7 @@ export class BB3Instrument {
     };
 
     async upgradeMasterFirmwareToVersion(selectedFirmwareVersion: string) {
-        const toastId = notification.info("Starting ...", {
+        const toastId = notification.info(t("Starting ..."), {
             autoClose: false
         });
 
@@ -877,7 +885,7 @@ export class BB3Instrument {
         if (!allReleases) {
             notification.update(toastId, {
                 type: notification.ERROR,
-                render: "Press Refresh button ...",
+                render: t("Press Refresh button ..."),
                 autoClose: 1000
             });
             return;
@@ -890,7 +898,9 @@ export class BB3Instrument {
         if (!release) {
             notification.update(toastId, {
                 type: notification.ERROR,
-                render: "Failed to obtain release informations from github.com ...",
+                render: t(
+                    "Failed to obtain release informations from github.com ..."
+                ),
                 autoClose: 1000
             });
             return;
@@ -903,7 +913,9 @@ export class BB3Instrument {
         if (!asset) {
             notification.update(toastId, {
                 type: notification.ERROR,
-                render: "Failed to obtain release asset informations from github.com ...",
+                render: t(
+                    "Failed to obtain release asset informations from github.com ..."
+                ),
                 autoClose: 1000
             });
             return;
@@ -922,7 +934,9 @@ export class BB3Instrument {
                     try {
                         notification.update(toastId, {
                             type: notification.INFO,
-                            render: "Downloading firmware file from the github.com, please wait ..."
+                            render: t(
+                                "Downloading firmware file from the github.com, please wait ..."
+                            )
                         });
 
                         const file = await fetchFileUrl(
@@ -931,7 +945,10 @@ export class BB3Instrument {
 
                         notification.update(toastId, {
                             type: notification.INFO,
-                            render: `Sending firmware file to the ${this.instrument.name}, please wait ...`
+                            render: t(
+                                "Sending firmware file to the {name}, please wait ...",
+                                { name: this.instrument.name }
+                            )
                         });
 
                         await new Promise<void>((resolve, reject) => {
@@ -959,7 +976,7 @@ export class BB3Instrument {
 
                         notification.update(toastId, {
                             type: notification.INFO,
-                            render: `Restarting BB3...`,
+                            render: t("Restarting BB3..."),
                             autoClose: 1000
                         });
 
@@ -967,7 +984,7 @@ export class BB3Instrument {
 
                         notification.update(toastId, {
                             type: notification.SUCCESS,
-                            render: `Loading continues on the BB3 ...`,
+                            render: t("Loading continues on the BB3 ..."),
                             autoClose: 1000
                         });
                     } catch (err) {
@@ -983,7 +1000,9 @@ export class BB3Instrument {
         } catch (err) {
             notification.update(toastId, {
                 type: notification.ERROR,
-                render: `Connection error: ${err.toString()}`,
+                render: t("Connection error: {error}", {
+                    error: err.toString()
+                }),
                 autoClose: 1000
             });
         }

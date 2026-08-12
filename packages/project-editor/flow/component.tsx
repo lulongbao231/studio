@@ -13,6 +13,7 @@ import {
 } from "eez-studio-ui/generic-dialog";
 
 import * as notification from "eez-studio-ui/notification";
+import { t } from "eez-studio-shared/i18n";
 
 import {
     IEezObject,
@@ -218,7 +219,7 @@ export function makeDataPropertyInfo(
                         propertyInfo,
                         {
                             assignableExpression: false,
-                            title: "Expression Builder"
+                            title: t("Expression Builder")
                         },
                         params
                     );
@@ -462,7 +463,7 @@ export function makeExpressionProperty(
                               ) {
                                   menuItems.push(
                                       new MenuItem({
-                                          label: "Convert to input",
+                                          label: t("Convert to input"),
                                           click: () => {
                                               const projectStore =
                                                   getProjectStore(
@@ -525,8 +526,8 @@ export function makeExpressionProperty(
                         assignableExpression: false,
                         title:
                             propertyInfo.flowProperty == "scpi-template-literal"
-                                ? "SCPI Builder"
-                                : "Expression Builder"
+                                ? t("SCPI Builder")
+                                : t("Expression Builder")
                     },
                     params
                 ),
@@ -554,7 +555,7 @@ export function makeAssignableExpressionProperty(
                     propertyInfo,
                     {
                         assignableExpression: true,
-                        title: "Expression Builder"
+                        title: t("Expression Builder")
                     },
                     params
                 ),
@@ -645,7 +646,7 @@ export function componentInputOrOutputUnique(
 
     return (object: any, ruleName: string) => {
         if (!component) {
-            return "Not component descendant";
+            return t("Not component descendant");
         }
 
         const newName = object[ruleName];
@@ -658,7 +659,7 @@ export function componentInputOrOutputUnique(
             isIdentifier = parseIdentifier(newName);
         } catch (err) {}
         if (!isIdentifier) {
-            return "Input name is not a valid identifier. Identifier starts with a letter or an underscore (_), followed by zero or more letters, digits, or underscores. Spaces are not allowed.";
+            return t("Input name is not a valid identifier. Identifier starts with a letter or an underscore (_), followed by zero or more letters, digits, or underscores. Spaces are not allowed.");
         }
 
         if (
@@ -666,7 +667,7 @@ export function componentInputOrOutputUnique(
                 inputOrOutput => inputOrOutput.name == newName
             )
         ) {
-            return "Input name is not unique";
+            return t("Input name is not unique");
         }
 
         return null;
@@ -765,7 +766,7 @@ export class CustomInput extends EezObject implements ComponentInput {
 
             const result = await showGenericDialog({
                 dialogDefinition: {
-                    title: "New Component Input",
+                    title: t("New Component Input"),
                     fields: [
                         {
                             name: "name",
@@ -888,7 +889,7 @@ export class CustomOutput extends EezObject implements ComponentOutput {
 
             const result = await showGenericDialog({
                 dialogDefinition: {
-                    title: "New Component Output",
+                    title: t("New Component Output"),
                     fields: [
                         {
                             name: "name",
@@ -990,7 +991,7 @@ function addBreakpointMenuItems(
         if (uiStateStore?.isBreakpointAddedForComponent(component)) {
             additionalMenuItems.push(
                 new MenuItem({
-                    label: "Remove Breakpoint",
+                    label: t("Remove Breakpoint"),
                     click: () => uiStateStore.removeBreakpoint(component)
                 })
             );
@@ -998,14 +999,14 @@ function addBreakpointMenuItems(
             if (uiStateStore.isBreakpointEnabledForComponent(component)) {
                 additionalMenuItems.push(
                     new MenuItem({
-                        label: "Disable Breakpoint",
+                        label: t("Disable Breakpoint"),
                         click: () => uiStateStore.disableBreakpoint(component)
                     })
                 );
             } else {
                 additionalMenuItems.push(
                     new MenuItem({
-                        label: "Enable Breakpoint",
+                        label: t("Enable Breakpoint"),
                         click: () => uiStateStore.enableBreakpoint(component)
                     })
                 );
@@ -1013,7 +1014,7 @@ function addBreakpointMenuItems(
         } else {
             additionalMenuItems.push(
                 new MenuItem({
-                    label: "Add Breakpoint",
+                    label: t("Add Breakpoint"),
                     click: () => uiStateStore.addBreakpoint(component)
                 })
             );
@@ -1457,39 +1458,39 @@ const AlignAndDistributePropertyGridUI = observer(
             return (
                 <div className="EezStudio_AlignAndDistributeIcons EezStudio_ActionGroups">
                     <div className="EezStudio_ActionGroup">
-                        <div className="EezStudio_ActionGroup_Title">Align</div>
+                        <div className="EezStudio_ActionGroup_Title">{t("Align")}</div>
                         <div className="EezStudio_ActionGroup_Actions">
                             <div className="EezStudio_ActionGroup_Actions_Group">
                                 <IconAction
                                     icon={ALIGN_HORIZONTAL_LEFT_ICON()}
-                                    title="Align left edges"
+                                    title={t("Align left edges")}
                                     onClick={this.onAlignHorizontalLeft}
                                 />
                                 <IconAction
                                     icon={ALIGN_HORIZONTAL_CENTER_ICON()}
-                                    title="Center on vertical axis"
+                                    title={t("Center on vertical axis")}
                                     onClick={this.onAlignHorizontalCenter}
                                 />
                                 <IconAction
                                     icon={ALIGN_HORIZONTAL_RIGHT_ICON()}
-                                    title="Align right edges"
+                                    title={t("Align right edges")}
                                     onClick={this.onAlignHorizontalRight}
                                 />
                             </div>
                             <div className="EezStudio_ActionGroup_Actions_Group">
                                 <IconAction
                                     icon={ALIGN_VERTICAL_TOP_ICON()}
-                                    title="Align top edges"
+                                    title={t("Align top edges")}
                                     onClick={this.onAlignVerticalTop}
                                 />
                                 <IconAction
                                     icon={ALIGN_VERTICAL_CENTER_ICON()}
-                                    title="Center on horizontal axis"
+                                    title={t("Center on horizontal axis")}
                                     onClick={this.onAlignVerticalCenter}
                                 />
                                 <IconAction
                                     icon={ALIGN_VERTICAL_BOTTOM_ICON()}
-                                    title="Align bottom edges"
+                                    title={t("Align bottom edges")}
                                     onClick={this.onAlignVerticalBottom}
                                 />
                             </div>
@@ -1498,34 +1499,34 @@ const AlignAndDistributePropertyGridUI = observer(
                     {this.components.length >= 3 && (
                         <div className="EezStudio_ActionGroup">
                             <div className="EezStudio_ActionGroup_Title">
-                                Distribute
+                                {t("Distribute")}
                             </div>
                             <div className="EezStudio_ActionGroup_Actions">
                                 <div className="EezStudio_ActionGroup_Actions_Group">
                                     <IconAction
                                         icon={DISTRIBUTE_HORIZONTAL_LEFT_ICON()}
-                                        title="Distribute left edges equidistantly"
+                                        title={t("Distribute left edges equidistantly")}
                                         onClick={
                                             this.onDistributeHorizontalLeft
                                         }
                                     />
                                     <IconAction
                                         icon={DISTRIBUTE_HORIZONTAL_CENTER_ICON()}
-                                        title="Distribute centers equidistantly horizontally"
+                                        title={t("Distribute centers equidistantly horizontally")}
                                         onClick={
                                             this.onDistributeHorizontalCenter
                                         }
                                     />
                                     <IconAction
                                         icon={DISTRIBUTE_HORIZONTAL_RIGHT_ICON()}
-                                        title="Distribute right edges equidistantly"
+                                        title={t("Distribute right edges equidistantly")}
                                         onClick={
                                             this.onDistributeHorizontalRight
                                         }
                                     />
                                     <IconAction
                                         icon={DISTRIBUTE_HORIZONTAL_GAPS_ICON()}
-                                        title="Make horizontal gaps equal"
+                                        title={t("Make horizontal gaps equal")}
                                         onClick={
                                             this.onDistributeHorizontalGaps
                                         }
@@ -1534,26 +1535,26 @@ const AlignAndDistributePropertyGridUI = observer(
                                 <div className="EezStudio_ActionGroup_Actions_Group">
                                     <IconAction
                                         icon={DISTRIBUTE_VERTICAL_TOP_ICON()}
-                                        title="Distribute top edges equidistantly"
+                                        title={t("Distribute top edges equidistantly")}
                                         onClick={this.onDistributeVerticalTop}
                                     />
                                     <IconAction
                                         icon={DISTRIBUTE_VERTICAL_CENTER_ICON()}
-                                        title="Distribute centers equidistantly vertically"
+                                        title={t("Distribute centers equidistantly vertically")}
                                         onClick={
                                             this.onDistributeVerticalCenter
                                         }
                                     />
                                     <IconAction
                                         icon={DISTRIBUTE_VERTICAL_BOTTOM_ICON()}
-                                        title="Distribute bottom edges equidistantly"
+                                        title={t("Distribute bottom edges equidistantly")}
                                         onClick={
                                             this.onDistributeVerticalBottom
                                         }
                                     />
                                     <IconAction
                                         icon={DISTRIBUTE_VERTICAL_GAPS_ICON()}
-                                        title="Make vertical gaps equal"
+                                        title={t("Make vertical gaps equal")}
                                         onClick={this.onDistributeVerticalGaps}
                                     />
                                 </div>
@@ -1612,12 +1613,12 @@ const CenterWidgetUI = observer(
                 <div className="EezStudio_AlignAndDistributeIcons">
                     <IconAction
                         icon={ALIGN_HORIZONTAL_CENTER_ICON()}
-                        title="Center horizontally relative to parent"
+                        title={t("Center horizontally relative to parent")}
                         onClick={this.onCenterHorizontally}
                     />
                     <IconAction
                         icon={ALIGN_VERTICAL_CENTER_ICON()}
-                        title="Center vertically relative to parent"
+                        title={t("Center vertically relative to parent")}
                         onClick={this.onCenterVertically}
                     />
                 </div>
@@ -1782,7 +1783,7 @@ export class Component extends EezObject {
             },
             {
                 name: "absolutePosition",
-                displayName: "Absolute pos.",
+                displayName: t("Absolute pos."),
                 type: PropertyType.String,
                 propertyGridGroup: geometryGroup,
                 computed: true,
@@ -1822,7 +1823,7 @@ export class Component extends EezObject {
             },
             {
                 name: "centerWidgetUI",
-                displayName: "Center widget",
+                displayName: t("Center widget"),
                 type: PropertyType.Any,
                 propertyGridGroup: geometryGroup,
                 computed: true,
@@ -1847,7 +1848,7 @@ export class Component extends EezObject {
             },
             {
                 name: "customInputs",
-                displayName: "Inputs",
+                displayName: t("Inputs"),
                 type: PropertyType.Array,
                 typeClass: CustomInput,
                 propertyGridGroup: flowGroup,
@@ -1861,7 +1862,7 @@ export class Component extends EezObject {
             },
             {
                 name: "customOutputs",
-                displayName: "Outputs",
+                displayName: t("Outputs"),
                 type: PropertyType.Array,
                 typeClass: CustomOutput,
                 propertyGridGroup: flowGroup,
@@ -2016,7 +2017,7 @@ export class Component extends EezObject {
                         messages.push(
                             new Message(
                                 MessageType.ERROR,
-                                `Invalid type`,
+                                t("Invalid type"),
                                 getChildOfObject(componentInput, "type")
                             )
                         );
@@ -2034,10 +2035,26 @@ export class Component extends EezObject {
                     messages.push(
                         new Message(
                             MessageType.ERROR,
-                            `No connection to input "${
-                                componentInput.displayName ||
-                                componentInput.name
-                            }"`,
+                            t(
+                                'No connection to input "{inputName}"',
+                                {
+                                    inputName: (() => {
+                                        if (componentInput.displayName) {
+                                            if (
+                                                typeof componentInput
+                                                    .displayName == "string"
+                                            ) {
+                                                return componentInput.displayName;
+                                            }
+                                            return componentInput.displayName(
+                                                component,
+                                                componentInput
+                                            );
+                                        }
+                                        return componentInput.name;
+                                    })()
+                                }
+                            ),
                             component,
                             undefined,
                             true
@@ -2087,7 +2104,7 @@ export class Component extends EezObject {
                         messages.push(
                             new Message(
                                 MessageType.ERROR,
-                                `Invalid type`,
+                                t("Invalid type"),
                                 getChildOfObject(componentOutput, "type")
                             )
                         );
@@ -2105,17 +2122,26 @@ export class Component extends EezObject {
                     messages.push(
                         new Message(
                             MessageType.ERROR,
-                            `Output "${
-                                componentOutput.displayName
-                                    ? typeof componentOutput.displayName ==
-                                      "string"
-                                        ? componentOutput.displayName
-                                        : componentOutput.displayName(
-                                              component,
-                                              componentOutput
-                                          )
-                                    : componentOutput.name
-                            }" is not connected`,
+                            t(
+                                'Output "{outputName}" is not connected',
+                                {
+                                    outputName: (() => {
+                                        if (
+                                            typeof componentOutput.displayName ==
+                                            "string"
+                                        ) {
+                                            return componentOutput.displayName;
+                                        }
+                                        if (componentOutput.displayName) {
+                                            return componentOutput.displayName(
+                                                component,
+                                                componentOutput
+                                            );
+                                        }
+                                        return componentOutput.name;
+                                    })()
+                                }
+                            ),
                             component,
                             undefined,
                             true
@@ -2498,7 +2524,7 @@ export class EventHandler extends EezObject {
         properties: [
             {
                 name: "eventName",
-                displayName: "Event",
+                displayName: t("Event"),
                 type: PropertyType.Enum,
                 enumItems: (eventHandler: EventHandler) => {
                     const eventHandlers = getParent(
@@ -2512,8 +2538,8 @@ export class EventHandler extends EezObject {
                 name: "handlerType",
                 type: PropertyType.Enum,
                 enumItems: [
-                    { id: "flow", label: "Flow" },
-                    { id: "action", label: "Action" }
+                    { id: "flow", label: t("Flow") },
+                    { id: "action", label: t("Action") }
                 ],
                 enumDisallowUndefined: true,
                 disabled: eventHandler =>
@@ -2611,7 +2637,7 @@ export class EventHandler extends EezObject {
                     } as any).length ==
                 0
             ) {
-                notification.info("All event handlers are already defined");
+                notification.info(t("All event handlers are already defined"));
                 return;
             }
 
@@ -2660,7 +2686,7 @@ export class EventHandler extends EezObject {
                             } catch (err) {}
                         }}
                     >
-                        New Action
+                        {t("New Action")}
                     </button>
                 ),
                 visible: (values: any) => {
@@ -2670,11 +2696,11 @@ export class EventHandler extends EezObject {
 
             const result = await showGenericDialog({
                 dialogDefinition: {
-                    title: "New Event Handler",
+                    title: t("New Event Handler"),
                     fields: [
                         {
                             name: "eventName",
-                            displayName: "Event",
+                            displayName: t("Event"),
                             type: "enum",
                             enumItems: (values: any) =>
                                 getEventEnumItems(eventHandlers, values)
@@ -2683,8 +2709,8 @@ export class EventHandler extends EezObject {
                             name: "handlerType",
                             type: "enum",
                             enumItems: [
-                                { id: "flow", label: "Flow" },
-                                { id: "action", label: "Action" }
+                                { id: "flow", label: t("Flow") },
+                                { id: "action", label: t("Action") }
                             ],
                             visible: () =>
                                 project.projectTypeTraits.hasFlowSupport
@@ -2773,7 +2799,7 @@ export class EventHandler extends EezObject {
 
 const eventsGroup: IPropertyGridGroupDefinition = {
     id: "widget-event-handlers",
-    title: "Events",
+    title: t("Events"),
     position: 4
 };
 
@@ -2836,7 +2862,7 @@ export class Widget extends Component {
             },
             {
                 name: "allowOutside",
-                displayName: `Hide "Widget is outside of its parent" warning`,
+                displayName: t('Hide "Widget is outside of its parent" warning'),
                 type: PropertyType.Boolean,
                 propertyGridGroup: geometryGroup,
                 disabled: component => isLVGLProject(component),
@@ -2863,7 +2889,7 @@ export class Widget extends Component {
             },
             {
                 name: "timelineUI",
-                displayName: "Keyframe editor",
+                displayName: t("Keyframe editor"),
                 type: PropertyType.Any,
                 propertyGridGroup: timelineGroup,
                 propertyGridRowComponent: TimelineKeyframePropertyUI,
@@ -3057,7 +3083,7 @@ export class Widget extends Component {
                 if (objects.length === 1) {
                     additionalMenuItems.push(
                         new MenuItem({
-                            label: "Put in Select",
+                            label: t("Put in Select"),
                             click: () => {
                                 const selectWidget = (
                                     objects[0] as Widget
@@ -3071,7 +3097,7 @@ export class Widget extends Component {
                 if (areAllChildrenOfTheSameParent(objects)) {
                     additionalMenuItems.push(
                         new MenuItem({
-                            label: "Put in Container",
+                            label: t("Put in Container"),
                             click: () => {
                                 const containerWidget = Widget.putInContainer(
                                     objects as Widget[]
@@ -3083,7 +3109,7 @@ export class Widget extends Component {
 
                     additionalMenuItems.push(
                         new MenuItem({
-                            label: "Put in List",
+                            label: t("Put in List"),
                             click: () => {
                                 const listWidget = Widget.putInList(
                                     objects as Widget[]
@@ -3095,7 +3121,7 @@ export class Widget extends Component {
 
                     additionalMenuItems.push(
                         new MenuItem({
-                            label: "Create User Widget",
+                            label: t("Create User Widget"),
                             click: async () => {
                                 const layoutWidget =
                                     await Widget.createUserWidgetPage(
@@ -3110,7 +3136,7 @@ export class Widget extends Component {
 
                     additionalMenuItems.push(
                         new MenuItem({
-                            label: "Replace with User Widget",
+                            label: t("Replace with User Widget"),
                             click: async () => {
                                 const layoutWidget =
                                     await Widget.replaceWithUserWidgetPage(
@@ -3127,13 +3153,13 @@ export class Widget extends Component {
                 if (objects.length === 1) {
                     additionalMenuItems.push(
                         new MenuItem({
-                            label: "Resize...",
+                            label: t("Resize..."),
                             click: async () => {
                                 const widget = objects[0] as Widget;
 
                                 const result = await showGenericDialog({
                                     dialogDefinition: {
-                                        title: "Resize Widget",
+                                        title: t("Resize Widget"),
                                         fields: [
                                             {
                                                 name: "width",
@@ -3221,7 +3247,7 @@ export class Widget extends Component {
 
                 additionalMenuItems.push(
                     new MenuItem({
-                        label: "Copy position and size",
+                        label: t("Copy position and size"),
                         click: async () => {
                             positionAndSize = thisObject.rect;
                         }
@@ -3230,7 +3256,7 @@ export class Widget extends Component {
 
                 additionalMenuItems.push(
                     new MenuItem({
-                        label: "Paste position and size",
+                        label: t("Paste position and size"),
                         click: async () => {
                             if (positionAndSize) {
                                 updateObject(thisObject, {
@@ -3266,7 +3292,7 @@ export class Widget extends Component {
                         messages.push(
                             new Message(
                                 MessageType.WARNING,
-                                "Widget is outside of its parent",
+                                t("Widget is outside of its parent"),
                                 getChildOfObject(object, "left")
                             )
                         );
@@ -3276,7 +3302,7 @@ export class Widget extends Component {
                         messages.push(
                             new Message(
                                 MessageType.WARNING,
-                                "Widget is outside of its parent",
+                                t("Widget is outside of its parent"),
                                 getChildOfObject(object, "top")
                             )
                         );
@@ -3289,7 +3315,7 @@ export class Widget extends Component {
                         messages.push(
                             new Message(
                                 MessageType.WARNING,
-                                "Widget is outside of its parent",
+                                t("Widget is outside of its parent"),
                                 getChildOfObject(object, "width")
                             )
                         );
@@ -3302,7 +3328,7 @@ export class Widget extends Component {
                         messages.push(
                             new Message(
                                 MessageType.WARNING,
-                                "Widget is outside of its parent",
+                                t("Widget is outside of its parent"),
                                 getChildOfObject(object, "height")
                             )
                         );
@@ -3787,7 +3813,7 @@ export class Widget extends Component {
         try {
             const result = await showGenericDialog({
                 dialogDefinition: {
-                    title: "User widget name",
+                    title: t("User widget name"),
                     fields: [
                         {
                             name: "name",
@@ -3854,7 +3880,7 @@ export class Widget extends Component {
         try {
             const result = await showGenericDialog({
                 dialogDefinition: {
-                    title: "User widget name",
+                    title: t("User widget name"),
                     fields: [
                         {
                             name: "name",
@@ -4254,7 +4280,7 @@ function renderActionComponent(
                 {seqInputIndex != -1 && (
                     <ComponentInputSpan
                         componentInput={actionNode.inputs[seqInputIndex]}
-                        title="Sequence input"
+                        title={t("Sequence input")}
                     />
                 )}
                 <div
@@ -4280,7 +4306,7 @@ function renderActionComponent(
                 {seqOutputIndex != -1 && (
                     <ComponentOutputSpan
                         componentOutput={actionNode.outputs[seqOutputIndex]}
-                        title="Sequence output"
+                        title={t("Sequence output")}
                     />
                 )}
             </div>
@@ -4590,7 +4616,7 @@ function getProperties(propertyDefinitions: IComponentProperty[]) {
                                     messages.push(
                                         new Message(
                                             MessageType.ERROR,
-                                            `Invalid expression: ${err}`,
+                                            t("Invalid expression: {err}", { err }),
                                             getChildOfObject(
                                                 item,
                                                 propertyInfo.name
@@ -4610,7 +4636,7 @@ function getProperties(propertyDefinitions: IComponentProperty[]) {
                                     messages.push(
                                         new Message(
                                             MessageType.ERROR,
-                                            `Invalid assignable expression: ${err}`,
+                                            t("Invalid assignable expression: {err}", { err }),
                                             getChildOfObject(item, "variable")
                                         )
                                     );
@@ -4905,7 +4931,7 @@ export function checkProperty(
                     messages.push(
                         new Message(
                             MessageType.ERROR,
-                            `Invalid expression: ${err}`,
+                            t("Invalid expression: {err}", { err }),
                             getChildOfObject(object, propertyInfo.name)
                         )
                     );
@@ -4915,7 +4941,7 @@ export function checkProperty(
                     messages.push(
                         new Message(
                             MessageType.ERROR,
-                            `Variable "${value}" not found`,
+                            t('Variable "{value}" not found', { value }),
                             getChildOfObject(component, propertyInfo.name)
                         )
                     );
@@ -4942,7 +4968,7 @@ export function checkProperty(
                     messages.push(
                         new Message(
                             MessageType.ERROR,
-                            `Invalid assignable expression: ${err}`,
+                            t("Invalid assignable expression: {err}", { err }),
                             getChildOfObject(object, propertyInfo.name)
                         )
                     );
@@ -4952,7 +4978,7 @@ export function checkProperty(
                     messages.push(
                         new Message(
                             MessageType.ERROR,
-                            `Variable "${value}" not found`,
+                            t('Variable "{value}" not found', { value }),
                             getChildOfObject(component, propertyInfo.name)
                         )
                     );
@@ -4978,7 +5004,7 @@ export function checkProperty(
                 messages.push(
                     new Message(
                         MessageType.ERROR,
-                        `Invalid template literal: ${err}`,
+                        t("Invalid template literal: {err}", { err }),
                         getChildOfObject(object, propertyInfo.name)
                     )
                 );

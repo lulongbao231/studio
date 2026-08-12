@@ -15,6 +15,7 @@ import {
 import { confirm } from "eez-studio-ui/dialog-electron";
 
 import type { IAppStore } from "instrument/window/history/history";
+import { t } from "eez-studio-shared/i18n";
 import {
     historySessions,
     IHistorySession,
@@ -27,7 +28,7 @@ export function showEditSessionNameDialog(
 ) {
     showGenericDialog({
         dialogDefinition: {
-            title: session ? "Edit Session Name" : "New Session",
+            title: session ? t("Edit Session Name") : t("New Session"),
             fields: [
                 {
                     name: "name",
@@ -37,7 +38,7 @@ export function showEditSessionNameDialog(
                         validators.unique(
                             session,
                             historySessions.sessions,
-                            "A session with this name already exists."
+                            t("A session with this name already exists.")
                         )
                     ]
                 }
@@ -205,7 +206,7 @@ export const SessionList = observer(
         handleDeleteSession = () => {
             const selectedSession = historySessions.selectedSession;
             if (selectedSession) {
-                confirm("Are you sure?", undefined, () => {
+                confirm(t("Are you sure?"), undefined, () => {
                     historySessions.deleteSession(selectedSession);
                 });
             }
@@ -215,8 +216,10 @@ export const SessionList = observer(
             const session = historySessions.selectedSession;
             if (session) {
                 confirm(
-                    "Are you sure?",
-                    "This will irrevocably delete the selected session and all history items belonging to the session.",
+                    t("Are you sure?"),
+                    t(
+                        "This will irrevocably delete the selected session and all history items belonging to the session."
+                    ),
                     () => {
                         historySessions.deleteForeverSession(session);
                     }
@@ -233,7 +236,7 @@ export const SessionList = observer(
                                 <IconAction
                                     key="restore"
                                     icon="material:restore"
-                                    title="Restore selected session"
+                                    title={t("Restore selected session")}
                                     onClick={() =>
                                         historySessions.restoreSession(
                                             historySessions.selectedSession
@@ -246,7 +249,7 @@ export const SessionList = observer(
                                 />
                                 <IconAction
                                     icon="material:delete_forever"
-                                    title="Delete forever session"
+                                    title={t("Delete forever session")}
                                     onClick={this.handleDeleteForeverSession}
                                     enabled={
                                         historySessions.selectedSession !=
@@ -256,8 +259,8 @@ export const SessionList = observer(
                                 <ButtonAction
                                     key="back"
                                     icon="material:arrow_back"
-                                    text="Back"
-                                    title={"Go back to the sessions list"}
+                                    text={t("Back")}
+                                    title={t("Go back to the sessions list")}
                                     onClick={() =>
                                         historySessions.setShowDeleted(false)
                                     }
@@ -268,12 +271,12 @@ export const SessionList = observer(
                             <>
                                 <IconAction
                                     icon="material:add"
-                                    title="Create a new session"
+                                    title={t("Create a new session")}
                                     onClick={this.newSession}
                                 />
                                 <IconAction
                                     icon="material:edit"
-                                    title="Edit session name"
+                                    title={t("Edit session name")}
                                     onClick={this.handleEditSessionName}
                                     enabled={
                                         historySessions.selectedSession.id !==
@@ -282,7 +285,7 @@ export const SessionList = observer(
                                 />
                                 <IconAction
                                     icon="material:delete"
-                                    title="Delete session"
+                                    title={t("Delete session")}
                                     onClick={this.handleDeleteSession}
                                     enabled={
                                         historySessions.selectedSession.id !==
@@ -291,9 +294,13 @@ export const SessionList = observer(
                                 />
                                 {historySessions.deletedSessions.length > 0 && (
                                     <ButtonAction
-                                        text={`Deleted Sessions (${historySessions.deletedSessions.length})`}
+                                        text={t("Deleted Sessions ({count})", {
+                                            count:
+                                                historySessions.deletedSessions
+                                                    .length
+                                        })}
                                         icon="material:delete"
-                                        title="Show deleted sessions"
+                                        title={t("Show deleted sessions")}
                                         onClick={() =>
                                             historySessions.setShowDeleted(true)
                                         }
@@ -332,7 +339,7 @@ export const SessionList = observer(
                                                 }
                                             })}
                                         >
-                                            Name
+                                            {t("Name")}
                                         </th>
                                         <th
                                             className={classNames(
@@ -359,7 +366,7 @@ export const SessionList = observer(
                                                 }
                                             })}
                                         >
-                                            Last Activity
+                                            {t("Last Activity")}
                                         </th>
                                     </tr>
                                 </thead>

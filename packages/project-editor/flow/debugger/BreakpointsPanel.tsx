@@ -9,6 +9,7 @@ import { ProjectContext } from "project-editor/project/context";
 import { IconAction } from "eez-studio-ui/action";
 import { getLabel } from "project-editor/store";
 import { ProjectEditor } from "project-editor/project-editor-interface";
+import { t } from "eez-studio-shared/i18n";
 
 export const BreakpointsPanel = observer(
     class BreakpointsPanel extends React.Component<{}> {
@@ -96,8 +97,8 @@ export const BreakpointsPanel = observer(
                     iconSize={16}
                     title={
                         this.allBreakpointsEnabled
-                            ? "Disable all breakpoints"
-                            : "Enable all breakpoints"
+                            ? t("Disable all breakpoints")
+                            : t("Enable all breakpoints")
                     }
                     onClick={this.toggleEnableAll}
                     enabled={this.context.uiStateStore.breakpoints.size > 0}
@@ -106,7 +107,7 @@ export const BreakpointsPanel = observer(
                     key="remove-selected"
                     icon={"material:delete"}
                     iconSize={16}
-                    title="Remove selected breakpoint"
+                    title={t("Remove selected breakpoint")}
                     onClick={this.removeSelected}
                     enabled={
                         !!this.context.uiStateStore.selectedBreakpoint.get()
@@ -116,7 +117,7 @@ export const BreakpointsPanel = observer(
                     key="remove-all"
                     icon={"material:delete_sweep"}
                     iconSize={16}
-                    title="Remove all breakpoints"
+                    title={t("Remove all breakpoints")}
                     onClick={this.removeAll}
                     enabled={this.context.uiStateStore.breakpoints.size > 0}
                 />
@@ -236,7 +237,9 @@ const BreakpointItem = observer(
                         checked={checked}
                         onChange={this.onChange}
                         title={
-                            checked ? "Disable breakpoint" : "Enable breakpoint"
+                            checked
+                                ? t("Disable breakpoint")
+                                : t("Enable breakpoint")
                         }
                     />
                     <label className="form-check-label">

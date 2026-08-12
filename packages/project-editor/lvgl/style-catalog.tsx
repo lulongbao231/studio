@@ -49,6 +49,7 @@ import { getEnumItems } from "project-editor/ui-components/PropertyGrid/utils";
 import { settingsController } from "home/settings";
 import { registerSystemEnum } from "project-editor/features/variable/value-type";
 import { getLvglCoord } from "project-editor/lvgl/lvgl-versions";
+import { t } from "eez-studio-shared/i18n";
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -184,8 +185,8 @@ const width_property_info: LVGLPropertyInfo = {
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_WIDTH,
         description:
-            "Sets the width of object. Pixel, percentage and LV_SIZE_CONTENT values can be used. Percentage values are relative to the width of the parent's content area.",
-        defaultValue: "Widget dependent",
+            t("Sets the width of object. Pixel, percentage and LV_SIZE_CONTENT values can be used. Percentage values are relative to the width of the parent's content area."),
+        defaultValue: t("Widget dependent"),
         inherited: false,
         layout: true,
         extDraw: false
@@ -198,8 +199,8 @@ const height_property_info: LVGLPropertyInfo = {
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_HEIGHT,
         description:
-            "Sets the height of object. Pixel, percentage and LV_SIZE_CONTENT can be used. Percentage values are relative to the height of the parent's content area.",
-        defaultValue: "Widget dependent",
+            t("Sets the height of object. Pixel, percentage and LV_SIZE_CONTENT can be used. Percentage values are relative to the height of the parent's content area."),
+        defaultValue: t("Widget dependent"),
         inherited: false,
         layout: true,
         extDraw: false
@@ -208,12 +209,12 @@ const height_property_info: LVGLPropertyInfo = {
 
 const min_width_property_info: LVGLPropertyInfo = {
     name: "min_width",
-    displayName: "Min. width",
+    displayName: t("Min. width"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_MIN_WIDTH,
         description:
-            "Sets a minimal width. Pixel and percentage values can be used. Percentage values are relative to the width of the parent's content area.",
+            t("Sets a minimal width. Pixel and percentage values can be used. Percentage values are relative to the width of the parent's content area."),
         defaultValue: "0",
         inherited: false,
         layout: true,
@@ -223,12 +224,12 @@ const min_width_property_info: LVGLPropertyInfo = {
 
 const max_width_property_info: LVGLPropertyInfo = {
     name: "max_width",
-    displayName: "Max. width",
+    displayName: t("Max. width"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_MAX_WIDTH,
         description:
-            "Sets a maximal width. Pixel and percentage values can be used. Percentage values are relative to the width of the parent's content area.",
+            t("Sets a maximal width. Pixel and percentage values can be used. Percentage values are relative to the width of the parent's content area."),
         defaultValue: "LV_COORD_MAX",
         inherited: false,
         layout: true,
@@ -238,12 +239,12 @@ const max_width_property_info: LVGLPropertyInfo = {
 
 const min_height_property_info: LVGLPropertyInfo = {
     name: "min_height",
-    displayName: "Min. height",
+    displayName: t("Min. height"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_MIN_HEIGHT,
         description:
-            "Sets a minimal height. Pixel and percentage values can be used. Percentage values are relative to the width of the parent's content area.",
+            t("Sets a minimal height. Pixel and percentage values can be used. Percentage values are relative to the width of the parent's content area."),
         defaultValue: "0",
         inherited: false,
         layout: true,
@@ -252,12 +253,12 @@ const min_height_property_info: LVGLPropertyInfo = {
 };
 const max_height_property_info: LVGLPropertyInfo = {
     name: "max_height",
-    displayName: "Max. height",
+    displayName: t("Max. height"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_MAX_HEIGHT,
         description:
-            "Sets a maximal height. Pixel and percentage values can be used. Percentage values are relative to the height of the parent's content area.",
+            t("Sets a maximal height. Pixel and percentage values can be used. Percentage values are relative to the height of the parent's content area."),
         defaultValue: "LV_COORD_MAX",
         inherited: false,
         layout: true,
@@ -266,7 +267,7 @@ const max_height_property_info: LVGLPropertyInfo = {
 };
 const length_property_info: LVGLPropertyInfo = {
     name: "length",
-    displayName: "Length",
+    displayName: t("Length"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_LENGTH,
@@ -284,7 +285,7 @@ const x_property_info: LVGLPropertyInfo = {
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_X,
         description:
-            "Set the X coordinate of the object considering the set align. Pixel and percentage values can be used. Percentage values are relative to the width of the parent's content area.",
+            t("Set the X coordinate of the object considering the set align. Pixel and percentage values can be used. Percentage values are relative to the width of the parent's content area."),
         defaultValue: "0",
         inherited: false,
         layout: true,
@@ -298,7 +299,7 @@ const y_property_info: LVGLPropertyInfo = {
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_Y,
         description:
-            "Set the Y coordinate of the object considering the set align. Pixel and percentage values can be used. Percentage values are relative to the height of the parent's content area.",
+            t("Set the Y coordinate of the object considering the set align. Pixel and percentage values can be used. Percentage values are relative to the height of the parent's content area."),
         defaultValue: "0",
         inherited: false,
         layout: true,
@@ -312,7 +313,7 @@ const align_property_info = makeEnumPropertyInfo(
     {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_ALIGN,
         description:
-            "Set the alignment which tells from which point of the parent the X and Y coordinates should be interpreted. The possible values are: LV_ALIGN_DEFAULT, LV_ALIGN_TOP_LEFT/MID/RIGHT, LV_ALIGN_BOTTOM_LEFT/MID/RIGHT, LV_ALIGN_LEFT/RIGHT_MID, LV_ALIGN_CENTER. LV_ALIGN_DEFAULT means LV_ALIGN_TOP_LEFT with LTR base direction and LV_ALIGN_TOP_RIGHT with RTL base direction.",
+            t("Set the alignment which tells from which point of the parent the X and Y coordinates should be interpreted. The possible values are: LV_ALIGN_DEFAULT, LV_ALIGN_TOP_LEFT/MID/RIGHT, LV_ALIGN_BOTTOM_LEFT/MID/RIGHT, LV_ALIGN_LEFT/RIGHT_MID, LV_ALIGN_CENTER. LV_ALIGN_DEFAULT means LV_ALIGN_TOP_LEFT with LTR base direction and LV_ALIGN_TOP_RIGHT with RTL base direction."),
         defaultValue: "LV_ALIGN_DEFAULT",
         inherited: false,
         layout: true,
@@ -352,7 +353,7 @@ const transform_width_property_info: LVGLPropertyInfo = {
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_TRANSFORM_WIDTH,
         description:
-            "Make the object wider on both sides with this value. Pixel and percentage (with lv_pct(x)) values can be used. Percentage values are relative to the object's width.",
+            t("Make the object wider on both sides with this value. Pixel and percentage (with lv_pct(x)) values can be used. Percentage values are relative to the object's width."),
         defaultValue: "0",
         inherited: false,
         layout: false,
@@ -366,7 +367,7 @@ const transform_height_property_info: LVGLPropertyInfo = {
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_TRANSFORM_HEIGHT,
         description:
-            "Make the object higher on both sides with this value. Pixel and percentage (with lv_pct(x)) values can be used. Percentage values are relative to the object's height.",
+            t("Make the object higher on both sides with this value. Pixel and percentage (with lv_pct(x)) values can be used. Percentage values are relative to the object's height."),
         defaultValue: "0",
         inherited: false,
         layout: false,
@@ -376,12 +377,12 @@ const transform_height_property_info: LVGLPropertyInfo = {
 
 const translate_x_property_info: LVGLPropertyInfo = {
     name: "translate_x",
-    displayName: "Translate X",
+    displayName: t("Translate X"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_TRANSLATE_X,
         description:
-            "Move the object with this value in X direction. Applied after layouts, aligns and other positioning. Pixel and percentage (with lv_pct(x)) values can be used. Percentage values are relative to the object's width.",
+            t("Move the object with this value in X direction. Applied after layouts, aligns and other positioning. Pixel and percentage (with lv_pct(x)) values can be used. Percentage values are relative to the object's width."),
         defaultValue: "0",
         inherited: false,
         layout: true,
@@ -391,12 +392,12 @@ const translate_x_property_info: LVGLPropertyInfo = {
 
 const translate_y_property_info: LVGLPropertyInfo = {
     name: "translate_y",
-    displayName: "Translate Y",
+    displayName: t("Translate Y"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_TRANSLATE_Y,
         description:
-            "Move the object with this value in Y direction. Applied after layouts, aligns and other positioning. Pixel and percentage (with lv_pct(x)) values can be used. Percentage values are relative to the object's height.",
+            t("Move the object with this value in Y direction. Applied after layouts, aligns and other positioning. Pixel and percentage (with lv_pct(x)) values can be used. Percentage values are relative to the object's height."),
         defaultValue: "0",
         inherited: false,
         layout: true,
@@ -410,7 +411,7 @@ export const transform_zoom_property_info: LVGLPropertyInfo = {
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_TRANSFORM_ZOOM,
         description:
-            "Zoom an objects. The value 256 (or LV_IMG_ZOOM_NONE) means normal size, 128 half size, 512 double size, and so on",
+            t("Zoom an objects. The value 256 (or LV_IMG_ZOOM_NONE) means normal size, 128 half size, 512 double size, and so on"),
         defaultValue: "0",
         inherited: false,
         layout: true,
@@ -420,12 +421,12 @@ export const transform_zoom_property_info: LVGLPropertyInfo = {
 
 export const transform_scale_x_property_info: LVGLPropertyInfo = {
     name: "transform_scale_x",
-    displayName: "Transform scale X",
+    displayName: t("Transform scale X"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_TRANSFORM_SCALE_X,
         description:
-            "Zoom an object horizontally. The value 256 (or LV_IMG_ZOOM_NONE) means normal size, 128 half size, 512 double size, and so on",
+            t("Zoom an object horizontally. The value 256 (or LV_IMG_ZOOM_NONE) means normal size, 128 half size, 512 double size, and so on"),
         defaultValue: "1",
         inherited: false,
         layout: true,
@@ -435,12 +436,12 @@ export const transform_scale_x_property_info: LVGLPropertyInfo = {
 
 export const transform_scale_y_property_info: LVGLPropertyInfo = {
     name: "transform_scale_y",
-    displayName: "Transform scale Y",
+    displayName: t("Transform scale Y"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_TRANSFORM_SCALE_Y,
         description:
-            "Zoom an object vertically. The value 256 (or LV_IMG_ZOOM_NONE) means normal size, 128 half size, 512 double size, and so on",
+            t("Zoom an object vertically. The value 256 (or LV_IMG_ZOOM_NONE) means normal size, 128 half size, 512 double size, and so on"),
         defaultValue: "1",
         inherited: false,
         layout: true,
@@ -454,7 +455,7 @@ export const transform_angle_property_info: LVGLPropertyInfo = {
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_TRANSFORM_ANGLE,
         description:
-            "Rotate an objects. The value is interpreted in 0.1 degree units. E.g. 450 means 45 deg.",
+            t("Rotate an objects. The value is interpreted in 0.1 degree units. E.g. 450 means 45 deg."),
         defaultValue: "0",
         inherited: false,
         layout: true,
@@ -468,7 +469,7 @@ export const transform_rotation_property_info: LVGLPropertyInfo = {
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_TRANSFORM_ROTATION,
         description:
-            "Rotate an objects. The value is interpreted in 0.1 degree units. E.g. 450 means 45 deg.",
+            t("Rotate an objects. The value is interpreted in 0.1 degree units. E.g. 450 means 45 deg."),
         defaultValue: "0",
         inherited: false,
         layout: true,
@@ -478,12 +479,12 @@ export const transform_rotation_property_info: LVGLPropertyInfo = {
 
 const transform_pivot_x_property_info: LVGLPropertyInfo = {
     name: "transform_pivot_x",
-    displayName: "Transform pivot X",
+    displayName: t("Transform pivot X"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_TRANSFORM_PIVOT_X,
         description:
-            "Set the pivot point's X coordinate for transformations. Relative to the object's top left corner'",
+            t("Set the pivot point's X coordinate for transformations. Relative to the object's top left corner'"),
         defaultValue: "0",
         inherited: false,
         layout: false,
@@ -492,12 +493,12 @@ const transform_pivot_x_property_info: LVGLPropertyInfo = {
 };
 const transform_pivot_y_property_info: LVGLPropertyInfo = {
     name: "transform_pivot_y",
-    displayName: "Transform pivot Y",
+    displayName: t("Transform pivot Y"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_TRANSFORM_PIVOT_Y,
         description:
-            "Set the pivot point's Y coordinate for transformations. Relative to the object's top left corner'",
+            t("Set the pivot point's Y coordinate for transformations. Relative to the object's top left corner'"),
         defaultValue: "0",
         inherited: false,
         layout: false,
@@ -507,7 +508,7 @@ const transform_pivot_y_property_info: LVGLPropertyInfo = {
 
 const transform_skew_x_property_info: LVGLPropertyInfo = {
     name: "transform_skew_x",
-    displayName: "Transform skew X",
+    displayName: t("Transform skew X"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_TRANSFORM_SKEW_X,
@@ -520,7 +521,7 @@ const transform_skew_x_property_info: LVGLPropertyInfo = {
 };
 const transform_skew_y_property_info: LVGLPropertyInfo = {
     name: "transform_skew_y",
-    displayName: "Transform skew Y",
+    displayName: t("Transform skew Y"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_TRANSFORM_SKEW_Y,
@@ -542,7 +543,7 @@ const layout_property_info = makeEnumPropertyInfo(
     {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_LAYOUT,
         description:
-            "Set the layout if the object. The children will be repositioned and resized according to the policies set for the layout. For the possible values see the documentation of the layouts.",
+            t("Set the layout if the object. The children will be repositioned and resized according to the policies set for the layout. For the possible values see the documentation of the layouts."),
         defaultValue: "LV_FLEX_FLOW_ROW",
         inherited: false,
         layout: true,
@@ -561,7 +562,7 @@ const flex_flow_property_info = makeEnumPropertyInfo(
     "Flex flow",
     {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_FLEX_FLOW,
-        description: "Determines a type of Flex layout used",
+        description: t("Determines a type of Flex layout used"),
         defaultValue: "LV_FLEX_FLOW_ROW",
         inherited: false,
         layout: true,
@@ -586,7 +587,7 @@ const flex_main_place_property_info = makeEnumPropertyInfo(
     {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_FLEX_MAIN_PLACE,
         description:
-            "Determines how to distribute the items in their track on the main axis.",
+            t("Determines how to distribute the items in their track on the main axis."),
         defaultValue: "LV_FLEX_ALIGN_START",
         inherited: false,
         layout: true,
@@ -609,7 +610,7 @@ const flex_cross_place_property_info = makeEnumPropertyInfo(
     {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_FLEX_CROSS_PLACE,
         description:
-            "Determines how to distribute the items in their track on the cross axis.",
+            t("Determines how to distribute the items in their track on the cross axis."),
         defaultValue: "LV_FLEX_ALIGN_START",
         inherited: false,
         layout: true,
@@ -628,7 +629,7 @@ const flex_track_place_property_info = makeEnumPropertyInfo(
     "Flex track place",
     {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_FLEX_TRACK_PLACE,
-        description: "Determines how to distribute the tracks",
+        description: t("Determines how to distribute the tracks"),
         defaultValue: "LV_FLEX_ALIGN_START",
         inherited: false,
         layout: true,
@@ -647,12 +648,13 @@ const flex_track_place_property_info = makeEnumPropertyInfo(
 
 const flex_grow_property_info: LVGLPropertyInfo = {
     name: "flex_grow",
-    displayName: "Flex grow",
+    displayName: t("Flex grow"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_FLEX_GROW,
-        description:
-            "Flex grow can be used to make one or more children fill the available space on the track. When more children have grow parameters, the available space will be distributed proportionally to the grow values.",
+        description: t(
+            "Flex grow can be used to make one or more children fill the available space on the track. When more children have grow parameters, the available space will be distributed proportionally to the grow values."
+        ),
         defaultValue: "1",
         inherited: false,
         layout: true,
@@ -665,7 +667,7 @@ const grid_column_align_property_info: LVGLPropertyInfo = makeEnumPropertyInfo(
     "Grid column align",
     {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_GRID_COLUMN_ALIGN,
-        description: "Defines how to distribute the columns.",
+        description: t("Defines how to distribute the columns."),
         defaultValue: "1",
         inherited: false,
         layout: true,
@@ -688,7 +690,7 @@ const grid_row_align_property_info: LVGLPropertyInfo = makeEnumPropertyInfo(
     "Grid row align",
     {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_GRID_ROW_ALIGN,
-        description: "Defines how to distribute the columns.",
+        description: t("Defines how to distribute the columns."),
         defaultValue: "1",
         inherited: false,
         layout: true,
@@ -794,13 +796,13 @@ function dscArrayIsInt16(projectStore: ProjectStore) {
 
 export const grid_row_dsc_array_property_info: LVGLPropertyInfo = {
     name: "grid_row_dsc_array",
-    displayName: "Grid row descriptor",
+    displayName: t("Grid row descriptor"),
     type: PropertyType.NumberArrayAsString,
-    formText: "Defines the size of grid rows as a comma or space-separated list of values. Options: fixed value in pixels (e.g. 50), FR(x) (e.g. FR(1), FR(2), etc.) or CONTENT.",
+    formText: t("Defines the size of grid rows as a comma or space-separated list of values. Options: fixed value in pixels (e.g. 50), FR(x) (e.g. FR(1), FR(2), etc.) or CONTENT."),
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_GRID_ROW_DSC_ARRAY,
         description:
-            "An array to describe the rows of the grid. Should be LV_GRID_TEMPLATE_LAST terminated.",
+            t("An array to describe the rows of the grid. Should be LV_GRID_TEMPLATE_LAST terminated."),
         defaultValue: "1",
         inherited: false,
         layout: true,
@@ -814,13 +816,13 @@ export const grid_row_dsc_array_property_info: LVGLPropertyInfo = {
 
 export const grid_column_dsc_array_property_info: LVGLPropertyInfo = {
     name: "grid_column_dsc_array",
-    displayName: "Grid column descriptor",
+    displayName: t("Grid column descriptor"),
     type: PropertyType.NumberArrayAsString,
-    formText: "Defines the size of grid columns as a comma or space-separated list of values. Options: fixed value in pixels (e.g. 50), FR(x) (e.g. FR(1), FR(2), etc.) or CONTENT. ",
+    formText: t("Defines the size of grid columns as a comma or space-separated list of values. Options: fixed value in pixels (e.g. 50), FR(x) (e.g. FR(1), FR(2), etc.) or CONTENT. "),
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_GRID_COLUMN_DSC_ARRAY,
         description:
-            "An array to describe the columns of the grid. Should be LV_GRID_TEMPLATE_LAST terminated.",
+            t("An array to describe the columns of the grid. Should be LV_GRID_TEMPLATE_LAST terminated."),
         defaultValue: "1",
         inherited: false,
         layout: true,
@@ -834,11 +836,11 @@ export const grid_column_dsc_array_property_info: LVGLPropertyInfo = {
 
 export const grid_cell_column_pos_property_info: LVGLPropertyInfo = {
     name: "grid_cell_column_pos",
-    displayName: "Grid cell column pos",
+    displayName: t("Grid cell column pos"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_GRID_CELL_COLUMN_POS,
-        description: "Set the column in which the object should be placed.",
+        description: t("Set the column in which the object should be placed."),
         defaultValue: "1",
         inherited: false,
         layout: true,
@@ -848,12 +850,12 @@ export const grid_cell_column_pos_property_info: LVGLPropertyInfo = {
 
 export const grid_cell_column_span_property_info: LVGLPropertyInfo = {
     name: "grid_cell_column_span",
-    displayName: "Grid cell column span",
+    displayName: t("Grid cell column span"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_GRID_CELL_COLUMN_SPAN,
         description:
-            "Set how many columns the object should span. Needs to be >= 1.",
+            t("Set how many columns the object should span. Needs to be >= 1."),
         defaultValue: "1",
         inherited: false,
         layout: true,
@@ -866,7 +868,7 @@ const grid_cell_x_align_property_info: LVGLPropertyInfo = makeEnumPropertyInfo(
     "Grid cell X align",
     {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_GRID_CELL_X_ALIGN,
-        description: "Set how to align the object horizontally.",
+        description: t("Set how to align the object horizontally."),
         defaultValue: "1",
         inherited: false,
         layout: true,
@@ -886,11 +888,11 @@ const grid_cell_x_align_property_info: LVGLPropertyInfo = makeEnumPropertyInfo(
 
 export const grid_cell_row_pos_property_info: LVGLPropertyInfo = {
     name: "grid_cell_row_pos",
-    displayName: "Grid cell row pos",
+    displayName: t("Grid cell row pos"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_GRID_CELL_ROW_POS,
-        description: "Set the row in which the object should be placed.",
+        description: t("Set the row in which the object should be placed."),
         defaultValue: "1",
         inherited: false,
         layout: true,
@@ -900,12 +902,12 @@ export const grid_cell_row_pos_property_info: LVGLPropertyInfo = {
 
 export const grid_cell_row_span_property_info: LVGLPropertyInfo = {
     name: "grid_cell_row_span",
-    displayName: "Grid cell row span",
+    displayName: t("Grid cell row span"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_GRID_CELL_ROW_SPAN,
         description:
-            "Set how many rows the object should span. Needs to be >= 1",
+            t("Set how many rows the object should span. Needs to be >= 1"),
         defaultValue: "1",
         inherited: false,
         layout: true,
@@ -918,7 +920,7 @@ const grid_cell_y_align_property_info: LVGLPropertyInfo = makeEnumPropertyInfo(
     "Grid cell Y align",
     {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_GRID_CELL_Y_ALIGN,
-        description: "Set how to align the object vertically.",
+        description: t("Set how to align the object vertically."),
         defaultValue: "1",
         inherited: false,
         layout: true,
@@ -942,12 +944,12 @@ const grid_cell_y_align_property_info: LVGLPropertyInfo = makeEnumPropertyInfo(
 
 export const pad_top_property_info: LVGLPropertyInfo = {
     name: "pad_top",
-    displayName: "Pad Top",
+    displayName: t("Pad Top"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_PAD_TOP,
         description:
-            "Sets the padding on the top. It makes the content area smaller in this direction.",
+            t("Sets the padding on the top. It makes the content area smaller in this direction."),
         defaultValue: "0",
         inherited: false,
         layout: true,
@@ -956,12 +958,12 @@ export const pad_top_property_info: LVGLPropertyInfo = {
 };
 export const pad_bottom_property_info: LVGLPropertyInfo = {
     name: "pad_bottom",
-    displayName: "Pad Bottom",
+    displayName: t("Pad Bottom"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_PAD_BOTTOM,
         description:
-            "Sets the padding on the bottom. It makes the content area smaller in this direction.",
+            t("Sets the padding on the bottom. It makes the content area smaller in this direction."),
         defaultValue: "0",
         inherited: false,
         layout: true,
@@ -970,12 +972,12 @@ export const pad_bottom_property_info: LVGLPropertyInfo = {
 };
 export const pad_left_property_info: LVGLPropertyInfo = {
     name: "pad_left",
-    displayName: "Pad Left",
+    displayName: t("Pad Left"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_PAD_LEFT,
         description:
-            "Sets the padding on the left. It makes the content area smaller in this direction.",
+            t("Sets the padding on the left. It makes the content area smaller in this direction."),
         defaultValue: "0",
         inherited: false,
         layout: true,
@@ -984,12 +986,12 @@ export const pad_left_property_info: LVGLPropertyInfo = {
 };
 export const pad_right_property_info: LVGLPropertyInfo = {
     name: "pad_right",
-    displayName: "Pad Right",
+    displayName: t("Pad Right"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_PAD_RIGHT,
         description:
-            "Sets the padding on the right. It makes the content area smaller in this direction.",
+            t("Sets the padding on the right. It makes the content area smaller in this direction."),
         defaultValue: "0",
         inherited: false,
         layout: true,
@@ -998,11 +1000,11 @@ export const pad_right_property_info: LVGLPropertyInfo = {
 };
 const pad_radial_property_info: LVGLPropertyInfo = {
     name: "pad_radial",
-    displayName: "Pad Radial",
+    displayName: t("Pad Radial"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_PAD_RADIAL,
-        description: "Pad text labels away from the scale ticks.",
+        description: t("Pad text labels away from the scale ticks."),
         defaultValue: "0",
         inherited: false,
         layout: false,
@@ -1011,11 +1013,11 @@ const pad_radial_property_info: LVGLPropertyInfo = {
 };
 const pad_row_property_info: LVGLPropertyInfo = {
     name: "pad_row",
-    displayName: "Pad Row",
+    displayName: t("Pad Row"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_PAD_ROW,
-        description: "Sets the padding between the rows. Used by the layouts.",
+        description: t("Sets the padding between the rows. Used by the layouts."),
         defaultValue: "0",
         inherited: false,
         layout: true,
@@ -1024,12 +1026,12 @@ const pad_row_property_info: LVGLPropertyInfo = {
 };
 const pad_column_property_info: LVGLPropertyInfo = {
     name: "pad_column",
-    displayName: "Pad Column",
+    displayName: t("Pad Column"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_PAD_COLUMN,
         description:
-            "Sets the padding between the columns. Used by the layouts.",
+            t("Sets the padding between the columns. Used by the layouts."),
         defaultValue: "0",
         inherited: false,
         layout: true,
@@ -1042,12 +1044,12 @@ const pad_column_property_info: LVGLPropertyInfo = {
 //
 const margin_top_property_info: LVGLPropertyInfo = {
     name: "margin_top",
-    displayName: "Margin Top",
+    displayName: t("Margin Top"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_MARGIN_TOP,
         description:
-            "Sets the margin on the top. The object will keep this space from its siblings in layouts.",
+            t("Sets the margin on the top. The object will keep this space from its siblings in layouts."),
         defaultValue: "0",
         inherited: false,
         layout: true,
@@ -1056,12 +1058,12 @@ const margin_top_property_info: LVGLPropertyInfo = {
 };
 const margin_bottom_property_info: LVGLPropertyInfo = {
     name: "margin_bottom",
-    displayName: "Margin Bottom",
+    displayName: t("Margin Bottom"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_MARGIN_BOTTOM,
         description:
-            "Sets the margin on the bottom. The object will keep this space from its siblings in layouts.",
+            t("Sets the margin on the bottom. The object will keep this space from its siblings in layouts."),
         defaultValue: "0",
         inherited: false,
         layout: true,
@@ -1070,12 +1072,12 @@ const margin_bottom_property_info: LVGLPropertyInfo = {
 };
 const margin_left_property_info: LVGLPropertyInfo = {
     name: "margin_left",
-    displayName: "Margin Left",
+    displayName: t("Margin Left"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_MARGIN_LEFT,
         description:
-            "Sets the margin on the left. The object will keep this space from its siblings in layouts.",
+            t("Sets the margin on the left. The object will keep this space from its siblings in layouts."),
         defaultValue: "0",
         inherited: false,
         layout: true,
@@ -1084,12 +1086,12 @@ const margin_left_property_info: LVGLPropertyInfo = {
 };
 const margin_right_property_info: LVGLPropertyInfo = {
     name: "margin_right",
-    displayName: "Margin Right",
+    displayName: t("Margin Right"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_MARGIN_RIGHT,
         description:
-            "Sets the margin on the right. The object will keep this space from its siblings in layouts.",
+            t("Sets the margin on the right. The object will keep this space from its siblings in layouts."),
         defaultValue: "0",
         inherited: false,
         layout: true,
@@ -1103,11 +1105,11 @@ const margin_right_property_info: LVGLPropertyInfo = {
 
 const bg_color_property_info: LVGLPropertyInfo = {
     name: "bg_color",
-    displayName: "Bg Color",
+    displayName: t("Bg Color"),
     type: PropertyType.ThemedColor,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_BG_COLOR,
-        description: "Set the background color of the object.",
+        description: t("Set the background color of the object."),
         defaultValue: "0xffffff",
         inherited: false,
         layout: false,
@@ -1116,12 +1118,12 @@ const bg_color_property_info: LVGLPropertyInfo = {
 };
 export const bg_opa_property_info: LVGLPropertyInfo = {
     name: "bg_opa",
-    displayName: "Bg Opacity",
+    displayName: t("Bg Opacity"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_BG_OPA,
         description:
-            "Set the opacity of the background. Value 0, LV_OPA_0 or LV_OPA_TRANSP means fully transparent, 255, LV_OPA_100 or LV_OPA_COVER means fully covering, other values or LV_OPA_10, LV_OPA_20, etc means semi transparency.",
+            t("Set the opacity of the background. Value 0, LV_OPA_0 or LV_OPA_TRANSP means fully transparent, 255, LV_OPA_100 or LV_OPA_COVER means fully covering, other values or LV_OPA_10, LV_OPA_20, etc means semi transparency."),
         defaultValue: "LV_OPA_TRANSP",
         inherited: false,
         layout: false,
@@ -1130,12 +1132,12 @@ export const bg_opa_property_info: LVGLPropertyInfo = {
 };
 const bg_grad_color_property_info: LVGLPropertyInfo = {
     name: "bg_grad_color",
-    displayName: "Bg Grad. color",
+    displayName: t("Bg Grad. color"),
     type: PropertyType.ThemedColor,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_BG_GRAD_COLOR,
         description:
-            "Set the gradient color of the background. Used only if grad_dir is not LV_GRAD_DIR_NONE",
+            t("Set the gradient color of the background. Used only if grad_dir is not LV_GRAD_DIR_NONE"),
         defaultValue: "0x000000",
         inherited: false,
         layout: false,
@@ -1148,7 +1150,7 @@ const bg_grad_dir_property_info = makeEnumPropertyInfo(
     {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_BG_GRAD_DIR,
         description:
-            "Set the direction of the gradient of the background. The possible values are LV_GRAD_DIR_NONE/HOR/VER.",
+            t("Set the direction of the gradient of the background. The possible values are LV_GRAD_DIR_NONE/HOR/VER."),
         defaultValue: "LV_GRAD_DIR_NONE",
         inherited: false,
         layout: false,
@@ -1163,12 +1165,12 @@ const bg_grad_dir_property_info = makeEnumPropertyInfo(
 );
 const bg_main_stop_property_info: LVGLPropertyInfo = {
     name: "bg_main_stop",
-    displayName: "Bg Main Stop",
+    displayName: t("Bg Main Stop"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_BG_MAIN_STOP,
         description:
-            "Set the point from which the background color should start for gradients. 0 means to top/left side, 255 the bottom/right side, 128 the center, and so on",
+            t("Set the point from which the background color should start for gradients. 0 means to top/left side, 255 the bottom/right side, 128 the center, and so on"),
         defaultValue: "0",
         inherited: false,
         layout: false,
@@ -1177,12 +1179,12 @@ const bg_main_stop_property_info: LVGLPropertyInfo = {
 };
 const bg_grad_stop_property_info: LVGLPropertyInfo = {
     name: "bg_grad_stop",
-    displayName: "Bg Gradient Stop",
+    displayName: t("Bg Gradient Stop"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_BG_GRAD_STOP,
         description:
-            "Set the point from which the background's gradient color should start. 0 means to top/left side, 255 the bottom/right side, 128 the center, and so on",
+            t("Set the point from which the background's gradient color should start. 0 means to top/left side, 255 the bottom/right side, 128 the center, and so on"),
         defaultValue: "255",
         inherited: false,
         layout: false,
@@ -1218,8 +1220,9 @@ const bg_grad_property_info: LVGLPropertyInfo = {
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_BG_GRAD,
-        description:
-            "Set the gradient definition. The pointed instance must exist while the object is alive. NULL to disable. It wraps BG_GRAD_COLOR, BG_GRAD_DIR, BG_MAIN_STOP and BG_GRAD_STOP into one descriptor and allows creating gradients with more colors too.",
+        description: t(
+            "Set the gradient definition. The pointed instance must exist while the object is alive. NULL to disable. It wraps BG_GRAD_COLOR, BG_GRAD_DIR, BG_MAIN_STOP and BG_GRAD_STOP into one descriptor and allows creating gradients with more colors too."
+        ),
         defaultValue: "NULL",
         inherited: false,
         layout: false,
@@ -1232,7 +1235,7 @@ const bg_dither_mode_property_info = makeEnumPropertyInfo(
     {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_BG_DITHER_MODE,
         description:
-            "Set the dithering mode of the gradient of the background. The possible values are LV_DITHER_NONE/ORDERED/ERR_DIFF.",
+            t("Set the dithering mode of the gradient of the background. The possible values are LV_DITHER_NONE/ORDERED/ERR_DIFF."),
         defaultValue: "LV_DITHER_NONE",
         inherited: false,
         layout: false,
@@ -1247,13 +1250,13 @@ const bg_dither_mode_property_info = makeEnumPropertyInfo(
 );
 const bg_img_src_property_info: LVGLPropertyInfo = {
     name: "bg_img_src",
-    displayName: "Bg Image Source",
+    displayName: t("Bg Image Source"),
     type: PropertyType.ObjectReference,
     referencedObjectCollectionPath: "bitmaps",
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_BG_IMG_SRC,
         description:
-            "Set a background image. Can be a pointer to lv_img_dsc_t, a path to a file or an LV_SYMBOL_...",
+            t("Set a background image. Can be a pointer to lv_img_dsc_t, a path to a file or an LV_SYMBOL_..."),
         defaultValue: "NULL",
         inherited: false,
         layout: false,
@@ -1262,12 +1265,12 @@ const bg_img_src_property_info: LVGLPropertyInfo = {
 };
 const bg_img_opa_property_info: LVGLPropertyInfo = {
     name: "bg_img_opa",
-    displayName: "Bg Image Opacity",
+    displayName: t("Bg Image Opacity"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_BG_IMG_OPA,
         description:
-            "Set the opacity of the background image. Value 0, LV_OPA_0 or LV_OPA_TRANSP means fully transparent, 255, LV_OPA_100 or LV_OPA_COVER means fully covering, other values or LV_OPA_10, LV_OPA_20, etc means semi transparency.",
+            t("Set the opacity of the background image. Value 0, LV_OPA_0 or LV_OPA_TRANSP means fully transparent, 255, LV_OPA_100 or LV_OPA_COVER means fully covering, other values or LV_OPA_10, LV_OPA_20, etc means semi transparency."),
         defaultValue: "LV_OPA_COVER",
         inherited: false,
         layout: false,
@@ -1276,11 +1279,11 @@ const bg_img_opa_property_info: LVGLPropertyInfo = {
 };
 const bg_img_recolor_property_info: LVGLPropertyInfo = {
     name: "bg_img_recolor",
-    displayName: "Bg Image Recolor",
+    displayName: t("Bg Image Recolor"),
     type: PropertyType.ThemedColor,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_BG_IMG_RECOLOR,
-        description: "Set a color to mix to the background image.",
+        description: t("Set a color to mix to the background image."),
         defaultValue: "0x000000",
         inherited: false,
         layout: false,
@@ -1289,12 +1292,12 @@ const bg_img_recolor_property_info: LVGLPropertyInfo = {
 };
 const bg_img_recolor_opa_property_info: LVGLPropertyInfo = {
     name: "bg_img_recolor_opa",
-    displayName: "Bg Image Recolor Opa.",
+    displayName: t("Bg Image Recolor Opa."),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_BG_IMG_RECOLOR_OPA,
         description:
-            "Set the intensity of background image recoloring. Value 0, LV_OPA_0 or LV_OPA_TRANSP means no mixing, 255, LV_OPA_100 or LV_OPA_COVER means full recoloring, other values or LV_OPA_10, LV_OPA_20, etc are interpreted proportionally.",
+            t("Set the intensity of background image recoloring. Value 0, LV_OPA_0 or LV_OPA_TRANSP means no mixing, 255, LV_OPA_100 or LV_OPA_COVER means full recoloring, other values or LV_OPA_10, LV_OPA_20, etc are interpreted proportionally."),
         defaultValue: "LV_OPA_TRANSP",
         inherited: false,
         layout: false,
@@ -1303,13 +1306,13 @@ const bg_img_recolor_opa_property_info: LVGLPropertyInfo = {
 };
 const bg_img_tiled_property_info: LVGLPropertyInfo = {
     name: "bg_img_tiled",
-    displayName: "Bg Image Tiled",
+    displayName: t("Bg Image Tiled"),
     type: PropertyType.Boolean,
     checkboxStyleSwitch: true,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_BG_IMG_TILED,
         description:
-            "If enabled the background image will be tiled. The possible values are true or false.",
+            t("If enabled the background image will be tiled. The possible values are true or false."),
         defaultValue: "0",
         inherited: false,
         layout: false,
@@ -1323,11 +1326,11 @@ const bg_img_tiled_property_info: LVGLPropertyInfo = {
 
 const border_color_property_info: LVGLPropertyInfo = {
     name: "border_color",
-    displayName: "Border Color",
+    displayName: t("Border Color"),
     type: PropertyType.ThemedColor,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_BORDER_COLOR,
-        description: "Set the color of the border",
+        description: t("Set the color of the border"),
         defaultValue: "0x000000",
         inherited: false,
         layout: false,
@@ -1336,12 +1339,12 @@ const border_color_property_info: LVGLPropertyInfo = {
 };
 const border_opa_property_info: LVGLPropertyInfo = {
     name: "border_opa",
-    displayName: "Border Opacity",
+    displayName: t("Border Opacity"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_BORDER_OPA,
         description:
-            "Set the opacity of the border. Value 0, LV_OPA_0 or LV_OPA_TRANSP means fully transparent, 255, LV_OPA_100 or LV_OPA_COVER means fully covering, other values or LV_OPA_10, LV_OPA_20, etc means semi transparency.",
+            t("Set the opacity of the border. Value 0, LV_OPA_0 or LV_OPA_TRANSP means fully transparent, 255, LV_OPA_100 or LV_OPA_COVER means fully covering, other values or LV_OPA_10, LV_OPA_20, etc means semi transparency."),
         defaultValue: "LV_OPA_COVER",
         inherited: false,
         layout: false,
@@ -1350,12 +1353,12 @@ const border_opa_property_info: LVGLPropertyInfo = {
 };
 export const border_width_property_info: LVGLPropertyInfo = {
     name: "border_width",
-    displayName: "Border Width",
+    displayName: t("Border Width"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_BORDER_WIDTH,
         description:
-            "Set hte width of the border. Only pixel values can be used.",
+            t("Set hte width of the border. Only pixel values can be used."),
         defaultValue: "0",
         inherited: false,
         layout: true,
@@ -1550,7 +1553,7 @@ const border_side_property_info = makeEnumPropertyInfo(
     {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_BORDER_SIDE,
         description:
-            "Set only which side(s) the border should be drawn. The possible values are LV_BORDER_SIDE_NONE/TOP/BOTTOM/LEFT/RIGHT/INTERNAL. OR-ed values can be used as well, e.g. LV_BORDER_SIDE_TOP | LV_BORDER_SIDE_LEFT.",
+            t("Set only which side(s) the border should be drawn. The possible values are LV_BORDER_SIDE_NONE/TOP/BOTTOM/LEFT/RIGHT/INTERNAL. OR-ed values can be used as well, e.g. LV_BORDER_SIDE_TOP | LV_BORDER_SIDE_LEFT."),
         defaultValue: "LV_BORDER_SIDE_NONE",
         inherited: false,
         layout: false,
@@ -1675,13 +1678,13 @@ const border_side_property_info = makeEnumPropertyInfo(
 
 const border_post_property_info: LVGLPropertyInfo = {
     name: "border_post",
-    displayName: "Border Post",
+    displayName: t("Border Post"),
     type: PropertyType.Boolean,
     checkboxStyleSwitch: true,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_BORDER_POST,
         description:
-            "Sets whether the border should be drawn before or after the children are drawn. true: after children, false: before children",
+            t("Sets whether the border should be drawn before or after the children are drawn. true: after children, false: before children"),
         defaultValue: "0",
         inherited: false,
         layout: false,
@@ -1695,11 +1698,11 @@ const border_post_property_info: LVGLPropertyInfo = {
 
 const outline_width_property_info: LVGLPropertyInfo = {
     name: "outline_width",
-    displayName: "Outline Width",
+    displayName: t("Outline Width"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_OUTLINE_WIDTH,
-        description: "Set the width of the outline in pixels.",
+        description: t("Set the width of the outline in pixels."),
         defaultValue: "0",
         inherited: false,
         layout: false,
@@ -1708,11 +1711,11 @@ const outline_width_property_info: LVGLPropertyInfo = {
 };
 const outline_color_property_info: LVGLPropertyInfo = {
     name: "outline_color",
-    displayName: "Outline Color",
+    displayName: t("Outline Color"),
     type: PropertyType.ThemedColor,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_OUTLINE_COLOR,
-        description: "Set the color of the outline.",
+        description: t("Set the color of the outline."),
         defaultValue: "0x000000",
         inherited: false,
         layout: false,
@@ -1721,12 +1724,12 @@ const outline_color_property_info: LVGLPropertyInfo = {
 };
 const outline_opa_property_info: LVGLPropertyInfo = {
     name: "outline_opa",
-    displayName: "Outline Opacity",
+    displayName: t("Outline Opacity"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_OUTLINE_OPA,
         description:
-            "Set the opacity of the outline. Value 0, LV_OPA_0 or LV_OPA_TRANSP means fully transparent, 255, LV_OPA_100 or LV_OPA_COVER means fully covering, other values or LV_OPA_10, LV_OPA_20, etc means semi transparency.",
+            t("Set the opacity of the outline. Value 0, LV_OPA_0 or LV_OPA_TRANSP means fully transparent, 255, LV_OPA_100 or LV_OPA_COVER means fully covering, other values or LV_OPA_10, LV_OPA_20, etc means semi transparency."),
         defaultValue: "LV_OPA_COVER",
         inherited: false,
         layout: false,
@@ -1735,12 +1738,12 @@ const outline_opa_property_info: LVGLPropertyInfo = {
 };
 const outline_pad_property_info: LVGLPropertyInfo = {
     name: "outline_pad",
-    displayName: "Outline Padding",
+    displayName: t("Outline Padding"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_OUTLINE_PAD,
         description:
-            "Set the padding of the outline, i.e. the gap between object and the outline.",
+            t("Set the padding of the outline, i.e. the gap between object and the outline."),
         defaultValue: "0",
         inherited: false,
         layout: false,
@@ -1754,12 +1757,12 @@ const outline_pad_property_info: LVGLPropertyInfo = {
 
 const shadow_width_property_info: LVGLPropertyInfo = {
     name: "shadow_width",
-    displayName: "Shadow Width",
+    displayName: t("Shadow Width"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_SHADOW_WIDTH,
         description:
-            "Set the width of the shadow in pixels. The value should be >= 0.",
+            t("Set the width of the shadow in pixels. The value should be >= 0."),
         defaultValue: "0",
         inherited: false,
         layout: false,
@@ -1768,11 +1771,11 @@ const shadow_width_property_info: LVGLPropertyInfo = {
 };
 const shadow_ofs_x_property_info: LVGLPropertyInfo = {
     name: "shadow_ofs_x",
-    displayName: "Shadow X Offset",
+    displayName: t("Shadow X Offset"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_SHADOW_OFS_X,
-        description: "Set an offset on the shadow in pixels in X direction.",
+        description: t("Set an offset on the shadow in pixels in X direction."),
         defaultValue: "0",
         inherited: false,
         layout: false,
@@ -1781,11 +1784,11 @@ const shadow_ofs_x_property_info: LVGLPropertyInfo = {
 };
 const shadow_ofs_y_property_info: LVGLPropertyInfo = {
     name: "shadow_ofs_y",
-    displayName: "Shadow Y Offset",
+    displayName: t("Shadow Y Offset"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_SHADOW_OFS_Y,
-        description: "Set an offset on the shadow in pixels in Y direction.",
+        description: t("Set an offset on the shadow in pixels in Y direction."),
         defaultValue: "0",
         inherited: false,
         layout: false,
@@ -1794,12 +1797,12 @@ const shadow_ofs_y_property_info: LVGLPropertyInfo = {
 };
 const shadow_spread_property_info: LVGLPropertyInfo = {
     name: "shadow_spread",
-    displayName: "Shadow Spread",
+    displayName: t("Shadow Spread"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_SHADOW_SPREAD,
         description:
-            "Make the shadow calculation to use a larger or smaller rectangle as base. The value can be in pixel to make the area larger/smaller",
+            t("Make the shadow calculation to use a larger or smaller rectangle as base. The value can be in pixel to make the area larger/smaller"),
         defaultValue: "0",
         inherited: false,
         layout: false,
@@ -1808,11 +1811,11 @@ const shadow_spread_property_info: LVGLPropertyInfo = {
 };
 const shadow_color_property_info: LVGLPropertyInfo = {
     name: "shadow_color",
-    displayName: "Shadow Color",
+    displayName: t("Shadow Color"),
     type: PropertyType.ThemedColor,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_SHADOW_COLOR,
-        description: "Set the color of the shadow",
+        description: t("Set the color of the shadow"),
         defaultValue: "0x000000",
         inherited: false,
         layout: false,
@@ -1821,12 +1824,12 @@ const shadow_color_property_info: LVGLPropertyInfo = {
 };
 const shadow_opa_property_info: LVGLPropertyInfo = {
     name: "shadow_opa",
-    displayName: "Shadow Opacity",
+    displayName: t("Shadow Opacity"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_SHADOW_OPA,
         description:
-            "Set the opacity of the shadow. Value 0, LV_OPA_0 or LV_OPA_TRANSP means fully transparent, 255, LV_OPA_100 or LV_OPA_COVER means fully covering, other values or LV_OPA_10, LV_OPA_20, etc means semi transparency.",
+            t("Set the opacity of the shadow. Value 0, LV_OPA_0 or LV_OPA_TRANSP means fully transparent, 255, LV_OPA_100 or LV_OPA_COVER means fully covering, other values or LV_OPA_10, LV_OPA_20, etc means semi transparency."),
         defaultValue: "LV_OPA_COVER",
         inherited: false,
         layout: false,
@@ -1840,12 +1843,12 @@ const shadow_opa_property_info: LVGLPropertyInfo = {
 
 const img_opa_property_info: LVGLPropertyInfo = {
     name: "img_opa",
-    displayName: "Image Opacity",
+    displayName: t("Image Opacity"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_IMG_OPA,
         description:
-            "Set the opacity of an image. Value 0, LV_OPA_0 or LV_OPA_TRANSP means fully transparent, 255, LV_OPA_100 or LV_OPA_COVER means fully covering, other values or LV_OPA_10, LV_OPA_20, etc means semi transparency.",
+            t("Set the opacity of an image. Value 0, LV_OPA_0 or LV_OPA_TRANSP means fully transparent, 255, LV_OPA_100 or LV_OPA_COVER means fully covering, other values or LV_OPA_10, LV_OPA_20, etc means semi transparency."),
         defaultValue: "LV_OPA_COVER",
         inherited: false,
         layout: false,
@@ -1854,11 +1857,11 @@ const img_opa_property_info: LVGLPropertyInfo = {
 };
 const img_recolor_property_info: LVGLPropertyInfo = {
     name: "img_recolor",
-    displayName: "Image Recolor",
+    displayName: t("Image Recolor"),
     type: PropertyType.ThemedColor,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_IMG_RECOLOR,
-        description: "Set color to mix to the image.",
+        description: t("Set color to mix to the image."),
         defaultValue: "0x000000",
         inherited: false,
         layout: false,
@@ -1867,12 +1870,12 @@ const img_recolor_property_info: LVGLPropertyInfo = {
 };
 const img_recolor_opa_property_info: LVGLPropertyInfo = {
     name: "img_recolor_opa",
-    displayName: "Image Recolor Opa.",
+    displayName: t("Image Recolor Opa."),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_IMG_RECOLOR_OPA,
         description:
-            "Set the intensity of the color mixing. Value 0, LV_OPA_0 or LV_OPA_TRANSP means fully transparent, 255, LV_OPA_100 or LV_OPA_COVER means fully covering, other values or LV_OPA_10, LV_OPA_20, etc means semi transparency.",
+            t("Set the intensity of the color mixing. Value 0, LV_OPA_0 or LV_OPA_TRANSP means fully transparent, 255, LV_OPA_100 or LV_OPA_COVER means fully covering, other values or LV_OPA_10, LV_OPA_20, etc means semi transparency."),
         defaultValue: "0",
         inherited: false,
         layout: false,
@@ -1886,11 +1889,11 @@ const img_recolor_opa_property_info: LVGLPropertyInfo = {
 
 const line_width_property_info: LVGLPropertyInfo = {
     name: "line_width",
-    displayName: "Line Width",
+    displayName: t("Line Width"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_LINE_WIDTH,
-        description: "Set the width of the lines in pixel.",
+        description: t("Set the width of the lines in pixel."),
         defaultValue: "0",
         inherited: false,
         layout: false,
@@ -1899,12 +1902,12 @@ const line_width_property_info: LVGLPropertyInfo = {
 };
 const line_dash_width_property_info: LVGLPropertyInfo = {
     name: "line_dash_width",
-    displayName: "Line Dash Width",
+    displayName: t("Line Dash Width"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_LINE_DASH_WIDTH,
         description:
-            "Set the width of dashes in pixel. Note that dash works only on horizontal and vertical lines",
+            t("Set the width of dashes in pixel. Note that dash works only on horizontal and vertical lines"),
         defaultValue: "0",
         inherited: false,
         layout: false,
@@ -1913,12 +1916,12 @@ const line_dash_width_property_info: LVGLPropertyInfo = {
 };
 const line_dash_gap_property_info: LVGLPropertyInfo = {
     name: "line_dash_gap",
-    displayName: "Line Dash Gap",
+    displayName: t("Line Dash Gap"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_LINE_DASH_GAP,
         description:
-            "Set the gap between dashes in pixel. Note that dash works only on horizontal and vertical lines",
+            t("Set the gap between dashes in pixel. Note that dash works only on horizontal and vertical lines"),
         defaultValue: "0",
         inherited: false,
         layout: false,
@@ -1927,13 +1930,13 @@ const line_dash_gap_property_info: LVGLPropertyInfo = {
 };
 const line_rounded_property_info: LVGLPropertyInfo = {
     name: "line_rounded",
-    displayName: "Line Rounded",
+    displayName: t("Line Rounded"),
     type: PropertyType.Boolean,
     checkboxStyleSwitch: true,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_LINE_ROUNDED,
         description:
-            "Make the end points of the lines rounded. true: rounded, false: perpendicular line ending",
+            t("Make the end points of the lines rounded. true: rounded, false: perpendicular line ending"),
         defaultValue: "0",
         inherited: false,
         layout: false,
@@ -1942,11 +1945,11 @@ const line_rounded_property_info: LVGLPropertyInfo = {
 };
 const line_color_property_info: LVGLPropertyInfo = {
     name: "line_color",
-    displayName: "Line Color",
+    displayName: t("Line Color"),
     type: PropertyType.ThemedColor,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_LINE_COLOR,
-        description: "Set the color fo the lines.",
+        description: t("Set the color fo the lines."),
         defaultValue: "0x000000",
         inherited: false,
         layout: false,
@@ -1955,11 +1958,11 @@ const line_color_property_info: LVGLPropertyInfo = {
 };
 const line_opa_property_info: LVGLPropertyInfo = {
     name: "line_opa",
-    displayName: "Line Opacity",
+    displayName: t("Line Opacity"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_LINE_OPA,
-        description: "Set the opacity of the lines.",
+        description: t("Set the opacity of the lines."),
         defaultValue: "LV_OPA_COVER",
         inherited: false,
         layout: false,
@@ -1973,11 +1976,11 @@ const line_opa_property_info: LVGLPropertyInfo = {
 
 const arc_width_property_info: LVGLPropertyInfo = {
     name: "arc_width",
-    displayName: "Arc Width",
+    displayName: t("Arc Width"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_ARC_WIDTH,
-        description: "Set the width (thickness) of the arcs in pixel.",
+        description: t("Set the width (thickness) of the arcs in pixel."),
         defaultValue: "0",
         inherited: false,
         layout: false,
@@ -1986,13 +1989,13 @@ const arc_width_property_info: LVGLPropertyInfo = {
 };
 const arc_rounded_property_info: LVGLPropertyInfo = {
     name: "arc_rounded",
-    displayName: "Arc Rounded",
+    displayName: t("Arc Rounded"),
     type: PropertyType.Boolean,
     checkboxStyleSwitch: true,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_ARC_ROUNDED,
         description:
-            "Make the end points of the arcs rounded. true: rounded, false: perpendicular line ending",
+            t("Make the end points of the arcs rounded. true: rounded, false: perpendicular line ending"),
         defaultValue: "0",
         inherited: false,
         layout: false,
@@ -2001,11 +2004,11 @@ const arc_rounded_property_info: LVGLPropertyInfo = {
 };
 const arc_color_property_info: LVGLPropertyInfo = {
     name: "arc_color",
-    displayName: "Arc Color",
+    displayName: t("Arc Color"),
     type: PropertyType.ThemedColor,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_ARC_COLOR,
-        description: "Set the color of the arc.",
+        description: t("Set the color of the arc."),
         defaultValue: "0x000000",
         inherited: false,
         layout: false,
@@ -2014,11 +2017,11 @@ const arc_color_property_info: LVGLPropertyInfo = {
 };
 const arc_opa_property_info: LVGLPropertyInfo = {
     name: "arc_opa",
-    displayName: "Arc Opacity",
+    displayName: t("Arc Opacity"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_ARC_OPA,
-        description: "Set the opacity of the arcs.",
+        description: t("Set the opacity of the arcs."),
         defaultValue: "LV_OPA_COVER",
         inherited: false,
         layout: false,
@@ -2027,13 +2030,13 @@ const arc_opa_property_info: LVGLPropertyInfo = {
 };
 const arc_img_src_property_info: LVGLPropertyInfo = {
     name: "arc_img_src",
-    displayName: "Arc Image Source",
+    displayName: t("Arc Image Source"),
     type: PropertyType.ObjectReference,
     referencedObjectCollectionPath: "bitmaps",
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_ARC_IMG_SRC,
         description:
-            "Set an image from which the arc will be masked out. It's useful to display complex effects on the arcs. Can be a pointer to lv_img_dsc_t or a path to a file",
+            t("Set an image from which the arc will be masked out. It's useful to display complex effects on the arcs. Can be a pointer to lv_img_dsc_t or a path to a file"),
         defaultValue: "NULL",
         inherited: false,
         layout: false,
@@ -2047,11 +2050,11 @@ const arc_img_src_property_info: LVGLPropertyInfo = {
 
 const text_color_property_info: LVGLPropertyInfo = {
     name: "text_color",
-    displayName: "Text Color",
+    displayName: t("Text Color"),
     type: PropertyType.ThemedColor,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_TEXT_COLOR,
-        description: "Sets the color of the text.",
+        description: t("Sets the color of the text."),
         defaultValue: "0x000000",
         inherited: true,
         layout: false,
@@ -2060,12 +2063,12 @@ const text_color_property_info: LVGLPropertyInfo = {
 };
 const text_opa_property_info: LVGLPropertyInfo = {
     name: "text_opa",
-    displayName: "Text Opacity",
+    displayName: t("Text Opacity"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_TEXT_OPA,
         description:
-            "Set the opacity of the text. Value 0, LV_OPA_0 or LV_OPA_TRANSP means fully transparent, 255, LV_OPA_100 or LV_OPA_COVER means fully covering, other values or LV_OPA_10, LV_OPA_20, etc means semi transparency.",
+            t("Set the opacity of the text. Value 0, LV_OPA_0 or LV_OPA_TRANSP means fully transparent, 255, LV_OPA_100 or LV_OPA_COVER means fully covering, other values or LV_OPA_10, LV_OPA_20, etc means semi transparency."),
         defaultValue: "LV_OPA_COVER",
         inherited: true,
         layout: false,
@@ -2074,7 +2077,7 @@ const text_opa_property_info: LVGLPropertyInfo = {
 };
 export const text_font_property_info: LVGLPropertyInfo = {
     name: "text_font",
-    displayName: "Text Font",
+    displayName: t("Text Font"),
     type: PropertyType.Enum,
     referencedObjectCollectionPath: "fonts",
     enumItems: (propertyValueHolder: PropertyValueHolder) => {
@@ -2092,7 +2095,7 @@ export const text_font_property_info: LVGLPropertyInfo = {
     },
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_TEXT_FONT,
-        description: "Set the font of the text (a pointer lv_font_t *).",
+        description: t("Set the font of the text (a pointer lv_font_t *)."),
         defaultValue: "LV_FONT_DEFAULT",
         inherited: true,
         layout: true,
@@ -2101,11 +2104,11 @@ export const text_font_property_info: LVGLPropertyInfo = {
 };
 const text_letter_space_property_info: LVGLPropertyInfo = {
     name: "text_letter_space",
-    displayName: "Text Letter Space",
+    displayName: t("Text Letter Space"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_TEXT_LETTER_SPACE,
-        description: "Set the letter space in pixels",
+        description: t("Set the letter space in pixels"),
         defaultValue: "0",
         inherited: true,
         layout: true,
@@ -2114,11 +2117,11 @@ const text_letter_space_property_info: LVGLPropertyInfo = {
 };
 const text_line_space_property_info: LVGLPropertyInfo = {
     name: "text_line_space",
-    displayName: "Text Line Space",
+    displayName: t("Text Line Space"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_TEXT_LINE_SPACE,
-        description: "Set the line space in pixels.",
+        description: t("Set the line space in pixels."),
         defaultValue: "0",
         inherited: true,
         layout: true,
@@ -2293,7 +2296,7 @@ const text_decor_property_info = makeEnumPropertyInfo(
     {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_TEXT_DECOR,
         description:
-            "Set decoration for the text. The possible values are LV_TEXT_DECOR_NONE/UNDERLINE/STRIKETHROUGH. OR-ed values can be used as well.",
+            t("Set decoration for the text. The possible values are LV_TEXT_DECOR_NONE/UNDERLINE/STRIKETHROUGH. OR-ed values can be used as well."),
         defaultValue: "LV_TEXT_DECOR_NONE",
         inherited: true,
         layout: false,
@@ -2366,7 +2369,7 @@ const text_align_property_info = makeEnumPropertyInfo(
     {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_TEXT_ALIGN,
         description:
-            "Set how to align the lines of the text. Note that it doesn't align the object itself, only the lines inside the object. The possible values are LV_TEXT_ALIGN_LEFT/CENTER/RIGHT/AUTO. LV_TEXT_ALIGN_AUTO detect the text base direction and uses left or right alignment accordingly",
+            t("Set how to align the lines of the text. Note that it doesn't align the object itself, only the lines inside the object. The possible values are LV_TEXT_ALIGN_LEFT/CENTER/RIGHT/AUTO. LV_TEXT_ALIGN_AUTO detect the text base direction and uses left or right alignment accordingly"),
         defaultValue: "LV_TEXT_ALIGN_AUTO",
         inherited: true,
         layout: true,
@@ -2382,12 +2385,12 @@ const text_align_property_info = makeEnumPropertyInfo(
 
 export const radius_property_info: LVGLPropertyInfo = {
     name: "radius",
-    displayName: "Radius",
+    displayName: t("Radius"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_RADIUS,
         description:
-            "Set the radius on every corner. The value is interpreted in pixel (>= 0) or LV_RADIUS_CIRCLE for max. radius",
+            t("Set the radius on every corner. The value is interpreted in pixel (>= 0) or LV_RADIUS_CIRCLE for max. radius"),
         defaultValue: "0",
         inherited: false,
         layout: false,
@@ -2397,12 +2400,12 @@ export const radius_property_info: LVGLPropertyInfo = {
 
 const radial_offset_property_info: LVGLPropertyInfo = {
     name: "radial_offset",
-    displayName: "Radial Offset",
+    displayName: t("Radial Offset"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_RADIAL_OFFSET,
         description:
-            "Move start point of object (e.g. scale tick) radially",
+            t("Move start point of object (e.g. scale tick) radially"),
         defaultValue: "0",
         inherited: false,
         layout: false,
@@ -2412,13 +2415,13 @@ const radial_offset_property_info: LVGLPropertyInfo = {
 
 const clip_corner_property_info: LVGLPropertyInfo = {
     name: "clip_corner",
-    displayName: "Clip corner",
+    displayName: t("Clip corner"),
     type: PropertyType.Boolean,
     checkboxStyleSwitch: true,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_CLIP_CORNER,
         description:
-            "Enable to clip the overflowed content on the rounded corner. Can be true or false.",
+            t("Enable to clip the overflowed content on the rounded corner. Can be true or false."),
         defaultValue: "0",
         inherited: false,
         layout: false,
@@ -2427,12 +2430,12 @@ const clip_corner_property_info: LVGLPropertyInfo = {
 };
 export const opa_property_info: LVGLPropertyInfo = {
     name: "opa",
-    displayName: "Opacity",
+    displayName: t("Opacity"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_OPA,
         description:
-            "Scale down all opacity values of the object by this factor. Value 0, LV_OPA_0 or LV_OPA_TRANSP means fully transparent, 255, LV_OPA_100 or LV_OPA_COVER means fully covering, other values or LV_OPA_10, LV_OPA_20, etc means semi transparency.",
+            t("Scale down all opacity values of the object by this factor. Value 0, LV_OPA_0 or LV_OPA_TRANSP means fully transparent, 255, LV_OPA_100 or LV_OPA_COVER means fully covering, other values or LV_OPA_10, LV_OPA_20, etc means semi transparency."),
         defaultValue: "LV_OPA_COVER",
         inherited: true,
         layout: false,
@@ -2444,7 +2447,7 @@ const color_filter_dsc_property_info: LVGLPropertyInfo = {
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_COLOR_FILTER_DSC,
-        description: "Mix a color to all colors of the object.",
+        description: t("Mix a color to all colors of the object."),
         defaultValue: "NULL",
         inherited: false,
         layout: false,
@@ -2456,7 +2459,7 @@ const color_filter_opa_property_info: LVGLPropertyInfo = {
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_COLOR_FILTER_OPA,
-        description: "The intensity of mixing of color filter.",
+        description: t("The intensity of mixing of color filter."),
         defaultValue: "LV_OPA_TRANSP",
         inherited: false,
         layout: false,
@@ -2466,11 +2469,11 @@ const color_filter_opa_property_info: LVGLPropertyInfo = {
 const anim_property_info: LVGLPropertyInfo = {
     name: "anim",
     type: PropertyType.String,
-    formText: "e.g., delay=1000, repeat_delay=1000, repeat_count=3 (any order, all optional, repeat_count=-1 for infinite)",
+    formText: t("e.g., delay=1000, repeat_delay=1000, repeat_count=3 (any order, all optional, repeat_count=-1 for infinite)"),
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_ANIM,
         description:
-            "The animation template for the object's animation. Should be a pointer to lv_anim_t. The animation parameters are widget specific, e.g. animation time could be the E.g. blink time of the cursor on the text area or scroll time of a roller. See the widgets' documentation to learn more.",
+            t("The animation template for the object's animation. Should be a pointer to lv_anim_t. The animation parameters are widget specific, e.g. animation time could be the E.g. blink time of the cursor on the text area or scroll time of a roller. See the widgets' documentation to learn more."),
         defaultValue: "NULL",
         inherited: false,
         layout: false,
@@ -2483,7 +2486,7 @@ const anim_time_property_info: LVGLPropertyInfo = {
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_ANIM_TIME,
         description:
-            "The animation time in milliseconds. Its meaning is widget specific. E.g. blink time of the cursor on the text area or scroll time of a roller. See the widgets' documentation to learn more.",
+            t("The animation time in milliseconds. Its meaning is widget specific. E.g. blink time of the cursor on the text area or scroll time of a roller. See the widgets' documentation to learn more."),
         defaultValue: "0",
         inherited: false,
         layout: false,
@@ -2508,7 +2511,7 @@ const anim_speed_property_info: LVGLPropertyInfo = {
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_ANIM_SPEED,
         description:
-            "The animation speed in pixel/sec. Its meaning is widget specific. E.g. scroll speed of label. See the widgets' documentation to learn more.",
+            t("The animation speed in pixel/sec. Its meaning is widget specific. E.g. scroll speed of label. See the widgets' documentation to learn more."),
         defaultValue: "0",
         inherited: false,
         layout: false,
@@ -2521,7 +2524,7 @@ const transition_property_info: LVGLPropertyInfo = {
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_TRANSITION,
         description:
-            "An initialized lv_style_transition_dsc_t to describe a transition.",
+            t("An initialized lv_style_transition_dsc_t to describe a transition."),
         defaultValue: "NULL",
         inherited: false,
         layout: false,
@@ -2534,7 +2537,7 @@ const blend_mode_property_info = makeEnumPropertyInfo(
     {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_BLEND_MODE,
         description:
-            "Describes how to blend the colors to the background. The possible values are LV_BLEND_MODE_NORMAL/ADDITIVE/SUBTRACTIVE/MULTIPLY",
+            t("Describes how to blend the colors to the background. The possible values are LV_BLEND_MODE_NORMAL/ADDITIVE/SUBTRACTIVE/MULTIPLY"),
         defaultValue: "LV_BLEND_MODE_NORMAL",
         inherited: false,
         layout: false,
@@ -2555,7 +2558,7 @@ const base_dir_property_info = makeEnumPropertyInfo(
     {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_BASE_DIR,
         description:
-            "Set the base direction of the object. The possible values are LV_BIDI_DIR_LTR/RTL/AUTO.",
+            t("Set the base direction of the object. The possible values are LV_BIDI_DIR_LTR/RTL/AUTO."),
         defaultValue: "LV_BASE_DIR_AUTO",
         inherited: true,
         layout: true,
@@ -2575,9 +2578,8 @@ export interface LVGLPropertiesGroup {
 
 export const lvglProperties: LVGLPropertiesGroup[] = [
     {
-        groupName: "POSITION AND SIZE",
-        groupDescription:
-            "Properties related to size, position, alignment and layout of the objects.",
+        groupName: t("POSITION AND SIZE"),
+        groupDescription: t("Properties related to size, position, alignment and layout of the objects."),
         properties: [
             align_property_info,
             width_property_info,
@@ -2614,8 +2616,8 @@ export const lvglProperties: LVGLPropertiesGroup[] = [
     },
 
     {
-        groupName: "LAYOUT",
-        groupDescription: "Properties to describe layout.",
+        groupName: t("LAYOUT"),
+        groupDescription: t("Properties to describe layout."),
         properties: [
             layout_property_info,
 
@@ -2639,9 +2641,8 @@ export const lvglProperties: LVGLPropertiesGroup[] = [
     },
 
     {
-        groupName: "PADDING",
-        groupDescription:
-            "Properties to describe spacing between the parent's sides and the children and among the children. Very similar to the padding properties in HTML.",
+        groupName: t("PADDING"),
+        groupDescription: t("Properties to describe spacing between the parent's sides and the children and among the children. Very similar to the padding properties in HTML."),
         properties: [
             pad_top_property_info,
             pad_bottom_property_info,
@@ -2654,9 +2655,8 @@ export const lvglProperties: LVGLPropertiesGroup[] = [
     },
 
     {
-        groupName: "MARGIN",
-        groupDescription:
-            "Properties to describe spacing around an object. Very similar to the margin properties in HTML.",
+        groupName: t("MARGIN"),
+        groupDescription: t("Properties to describe spacing around an object. Very similar to the margin properties in HTML."),
         properties: [
             margin_top_property_info,
             margin_bottom_property_info,
@@ -2666,9 +2666,8 @@ export const lvglProperties: LVGLPropertiesGroup[] = [
     },
 
     {
-        groupName: "BACKGROUND",
-        groupDescription:
-            "Properties to describe the background color and image of the objects.",
+        groupName: t("BACKGROUND"),
+        groupDescription: t("Properties to describe the background color and image of the objects."),
         properties: [
             bg_color_property_info,
             bg_opa_property_info,
@@ -2693,8 +2692,8 @@ export const lvglProperties: LVGLPropertiesGroup[] = [
     },
 
     {
-        groupName: "BORDER",
-        groupDescription: "Properties to describe the borders",
+        groupName: t("BORDER"),
+        groupDescription: t("Properties to describe the borders"),
         properties: [
             border_color_property_info,
             border_opa_property_info,
@@ -2705,9 +2704,8 @@ export const lvglProperties: LVGLPropertiesGroup[] = [
     },
 
     {
-        groupName: "OUTLINE",
-        groupDescription:
-            "Properties to describe the outline. It's like a border but drawn outside of the rectangles.",
+        groupName: t("OUTLINE"),
+        groupDescription: t("Properties to describe the outline. It's like a border but drawn outside of the rectangles."),
         properties: [
             outline_width_property_info,
             outline_color_property_info,
@@ -2717,9 +2715,8 @@ export const lvglProperties: LVGLPropertiesGroup[] = [
     },
 
     {
-        groupName: "SHADOW",
-        groupDescription:
-            "Properties to describe the shadow drawn under the rectangles.",
+        groupName: t("SHADOW"),
+        groupDescription: t("Properties to describe the shadow drawn under the rectangles."),
         properties: [
             shadow_width_property_info,
             shadow_ofs_x_property_info,
@@ -2731,8 +2728,8 @@ export const lvglProperties: LVGLPropertiesGroup[] = [
     },
 
     {
-        groupName: "IMAGE",
-        groupDescription: "Properties to describe the images",
+        groupName: t("IMAGE"),
+        groupDescription: t("Properties to describe the images"),
         properties: [
             img_opa_property_info,
             img_recolor_property_info,
@@ -2741,8 +2738,8 @@ export const lvglProperties: LVGLPropertiesGroup[] = [
     },
 
     {
-        groupName: "LINE",
-        groupDescription: "Properties to describe line-like objects",
+        groupName: t("LINE"),
+        groupDescription: t("Properties to describe line-like objects"),
         properties: [
             line_width_property_info,
             line_dash_width_property_info,
@@ -2754,8 +2751,8 @@ export const lvglProperties: LVGLPropertiesGroup[] = [
     },
 
     {
-        groupName: "ARC",
-        groupDescription: "TODO",
+        groupName: t("ARC"),
+        groupDescription: t("TODO"),
         properties: [
             arc_width_property_info,
             arc_rounded_property_info,
@@ -2766,9 +2763,8 @@ export const lvglProperties: LVGLPropertiesGroup[] = [
     },
 
     {
-        groupName: "TEXT",
-        groupDescription:
-            "Properties to describe the properties of text. All these properties are inherited.",
+        groupName: t("TEXT"),
+        groupDescription: t("Properties to describe the properties of text. All these properties are inherited."),
         properties: [
             text_color_property_info,
             text_opa_property_info,
@@ -2781,8 +2777,8 @@ export const lvglProperties: LVGLPropertiesGroup[] = [
     },
 
     {
-        groupName: "MISCELLANEOUS",
-        groupDescription: "Mixed properties for various purposes.",
+        groupName: t("MISCELLANEOUS"),
+        groupDescription: t("Mixed properties for various purposes."),
         properties: [
             radius_property_info,
             radial_offset_property_info,

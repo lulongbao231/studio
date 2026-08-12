@@ -1,3 +1,4 @@
+import { t } from "eez-studio-shared/i18n";
 import React from "react";
 import { observable, makeObservable } from "mobx";
 
@@ -60,7 +61,7 @@ export class LVGLLabelWidget extends LVGLWidget {
             ),
             {
                 name: "useStaticText",
-                displayName: "Use static text",
+                displayName: t("Use static text"),
                 type: PropertyType.Boolean,
                 propertyGridGroup: specificGroup,
                 checkboxStyleSwitch: true,
@@ -202,7 +203,7 @@ export class LVGLLabelWidget extends LVGLWidget {
                     "const char *",
                     "new_val",
                     this.text,
-                    "Failed to evaluate Text in Label widget"
+                    t("Failed to evaluate Text in Label widget")
                 );
 
                 const cur_val = code.callObjectFunctionWithAssignment(

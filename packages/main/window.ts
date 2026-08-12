@@ -10,6 +10,7 @@ import {
     settingsSetWindowBoundsIntoParams
 } from "main/settings";
 import { sourceRootDir } from "eez-studio-shared/util";
+import { t } from "eez-studio-shared/i18n";
 import {
     PROJECT_TAB_ID_PREFIX,
     RUN_PROJECT_TAB_ID_PREFIX
@@ -319,7 +320,7 @@ ipcMain.on("printPDF", (event: any, { content, options }: any) => {
 
     ipcMain.once("readyToPrintPDF", async event => {
         const showSaveDialogPromise = dialog.showSaveDialog(senderWindow, {
-            filters: [{ name: "PDF files", extensions: ["pdf"] }]
+            filters: [{ name: t("PDF files"), extensions: ["pdf"] }]
         });
 
         let data;
@@ -328,7 +329,7 @@ ipcMain.on("printPDF", (event: any, { content, options }: any) => {
             data = await printWindow.webContents.printToPDF(options);
         } catch (err) {
             await dialog.showMessageBox(senderWindow, {
-                title: "Print to PDF - EEZ Studio",
+                title: t("Print to PDF"),
                 message: err.toString()
             });
         } finally {
@@ -348,7 +349,7 @@ ipcMain.on("printPDF", (event: any, { content, options }: any) => {
                 shell.openPath(filePath);
             } catch (err) {
                 await dialog.showMessageBox(senderWindow, {
-                    title: "Print to PDF - EEZ Studio",
+                    title: t("Print to PDF"),
                     message: err.toString()
                 });
             }

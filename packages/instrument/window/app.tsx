@@ -23,6 +23,7 @@ import type { INavigationItem } from "instrument/window/navigation";
 import type { InstrumentObject } from "instrument/instrument-object";
 import { Icon } from "eez-studio-ui/icon";
 import { settingsController } from "home/settings";
+import { t } from "eez-studio-shared/i18n";
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -55,7 +56,7 @@ export const EditInstrumentLabelDialog = observer(
                     <PropertyList>
                         <TextInputProperty
                             key="label"
-                            name="Label"
+                            name={t("Label")}
                             value={this.label}
                             onChange={action(value => (this.label = value))}
                         />
@@ -121,8 +122,8 @@ export const AppBar = observer(
                         }}
                     />
                     {this.instrument.recordHistory
-                        ? "Pause History Recording"
-                        : "Resume History Recording"}
+                        ? t("Pause History Recording")
+                        : t("Resume History Recording")}
                 </button>
             );
 
@@ -134,7 +135,7 @@ export const AppBar = observer(
                             className="btn btn-success btn-sm"
                             onClick={this.handleConnectClick}
                         >
-                            Connect
+                            {t("Connect")}
                         </button>
                         {recordHistoryButton}
                     </div>
@@ -147,7 +148,7 @@ export const AppBar = observer(
                             className="btn btn-danger btn-sm"
                             onClick={this.handleDisconnectClick}
                         >
-                            Disconnect
+                            {t("Disconnect")}
                         </button>
                         {recordHistoryButton}
                     </div>
@@ -162,7 +163,7 @@ export const AppBar = observer(
                             className="btn btn-danger btn-sm"
                             onClick={this.handleDisconnectClick}
                         >
-                            Abort
+                            {t("Abort")}
                         </button>
                         {recordHistoryButton}
                     </div>
@@ -191,11 +192,11 @@ export const AppBar = observer(
                     sendFile = (
                         <ButtonAction
                             icon="material:file_upload"
-                            text="Send File"
+                            text={t("Send File")}
                             onClick={
                                 this.instrument.sendFileToInstrumentHandler
                             }
-                            title="Send file to instrument"
+                            title={t("Send file to instrument")}
                             className={"btn-primary"}
                         ></ButtonAction>
                     );
@@ -220,7 +221,7 @@ export const AppBar = observer(
                             <IconAction
                                 icon="material:edit"
                                 onClick={this.onEditInstrumentLabel}
-                                title="Edit Instrument Label"
+                                title={t("Edit Instrument Label")}
                             ></IconAction>
                         </div>
                         {connectionStatus}

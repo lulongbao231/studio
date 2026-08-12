@@ -1,4 +1,5 @@
 import { humanize } from "eez-studio-shared/string";
+import { t } from "eez-studio-shared/i18n";
 import * as notification from "eez-studio-ui/notification";
 
 import {
@@ -744,17 +745,17 @@ export function getAddItemName(object: IEezObject) {
 
     const project = getProject(parent);
     if (parent == project.userWidgets) {
-        return "User Widget";
+        return t("User Widget");
     }
     if (parent == project.actions) {
-        return "User Action";
+        return t("User Action");
     }
     if (getParent(parent) == project.lvglStyles || getParent(parent) instanceof ProjectEditor.LVGLStyleClass) {
-        return "Style";
+        return t("Style");
     }
 
     if (getParent(parent) == project.lvglGroups) {
-        return "Group";
+        return t("Group");
     }
 
     return humanize(getClass(parent).name);
@@ -777,7 +778,10 @@ export async function addItem(object: IEezObject) {
     } catch (err) {
         if (err !== undefined) {
             notification.error(
-                `Adding ${getClass(parent).name} failed: ${err}!`
+                t("Adding {name} failed: {error}!", {
+                    name: getClass(parent).name,
+                    error: `${err}`
+                })
             );
         }
         return null;
@@ -915,8 +919,8 @@ export function deleteItems(objects: IEezObject[], callback?: () => void) {
     if (objects.length === 1) {
         if (ProjectEditor.documentSearch.isReferenced(objects[0])) {
             confirm(
-                "Are you sure you want to delete this item?",
-                "It is used in other parts.",
+                t("Are you sure you want to delete this item?"),
+                t("It is used in other parts."),
                 doDelete
             );
         } else {
@@ -934,8 +938,8 @@ export function deleteItems(objects: IEezObject[], callback?: () => void) {
 
         if (isAnyItemReferenced) {
             confirm(
-                "Are you sure you want to delete this items?",
-                "Some of them are used in other parts.",
+                t("Are you sure you want to delete this items?"),
+                t("Some of them are used in other parts."),
                 doDelete
             );
         } else {

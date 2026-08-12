@@ -28,6 +28,7 @@ import {
 } from "eez-studio-ui/properties";
 import { IListNode, ListItem } from "eez-studio-ui/list";
 import { Icon } from "eez-studio-ui/icon";
+import { t } from "eez-studio-shared/i18n";
 
 import {
     ChartMode,
@@ -470,19 +471,19 @@ class WaveformLinkProperties {
         return [
             <TextInputProperty
                 key="label"
-                name="Label"
+                name={t("Label")}
                 value={this.props.label || ""}
                 onChange={action((value: string) => (this.props.label = value))}
             />,
             <ColorInputProperty
                 key="color"
-                name="Color"
+                name={t("Color")}
                 value={this.props.color || "#ffffff"}
                 onChange={action((value: string) => (this.props.color = value))}
             />,
             <ColorInputProperty
                 key="colorInverse"
-                name="Color inverse"
+                name={t("Color inverse")}
                 value={this.props.colorInverse || "#000000"}
                 onChange={action(
                     (value: string) => (this.props.colorInverse = value)
@@ -676,7 +677,7 @@ const MultiWaveformConfigurationDialog = observer(
             );
 
             if (changedHistoryItems.length > 0) {
-                beginTransaction("Edit chart configuration");
+                beginTransaction(t("Edit chart configuration"));
 
                 changedHistoryItems.forEach(changedHistoryItem => {
                     logUpdate(

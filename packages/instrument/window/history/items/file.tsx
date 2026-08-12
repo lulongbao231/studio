@@ -31,6 +31,7 @@ import { SAMPLING_RATE_UNIT } from "eez-studio-shared/units";
 import { Toolbar } from "eez-studio-ui/toolbar";
 import { IconAction, TextAction } from "eez-studio-ui/action";
 import { Icon } from "eez-studio-ui/icon";
+import { t } from "eez-studio-shared/i18n";
 
 import pdfToPng from "pdf-services/pdf-to-png";
 
@@ -222,7 +223,7 @@ export const FileHistoryItemComponent = observer(
                 });
             }
 
-            filters.push({ name: "All Files", extensions: ["*"] });
+            filters.push({ name: t("All Files"), extensions: ["*"] });
 
             let options: SaveDialogOptions = { filters };
             if (this.props.historyItem.sourceFilePath) {
@@ -246,7 +247,7 @@ export const FileHistoryItemComponent = observer(
                 }
 
                 await writeBinaryData(filePath, this.props.historyItem.data);
-                notification.success(`Saved as "${filePath}"`);
+                notification.success(t('Saved as "{filePath}"', { filePath }));
             }
         };
 
@@ -267,7 +268,7 @@ export const FileHistoryItemComponent = observer(
             let data = await convertToCsv();
 
             if (!data) {
-                notification.error(`Failed to convert to CSV!`);
+                notification.error(t("Failed to convert to CSV!"));
                 runInAction(() => (this.onSaveAsCsvInProgress = false));
                 return;
             }
@@ -275,10 +276,10 @@ export const FileHistoryItemComponent = observer(
             let options: SaveDialogOptions = {
                 filters: [
                     {
-                        name: "CSV Files",
+                        name: t("CSV Files"),
                         extensions: ["csv"]
                     },
-                    { name: "All Files", extensions: ["*"] }
+                    { name: t("All Files"), extensions: ["*"] }
                 ]
             };
             if (this.props.historyItem.sourceFilePath) {
@@ -300,7 +301,7 @@ export const FileHistoryItemComponent = observer(
 
                 try {
                     await writeBinaryData(filePath, data);
-                    notification.success(`Saved as "${filePath}"`);
+                    notification.success(t('Saved as "{filePath}"', { filePath }));
                 } catch (err) {
                     console.error(err);
                     notification.error(err.toString());
@@ -316,10 +317,10 @@ export const FileHistoryItemComponent = observer(
                     Buffer.from(this.props.historyItem.data, "binary")
                 );
                 clipboard.writeImage(image);
-                notification.success("Image copied to the clipboard");
+                notification.success(t("Image copied to the clipboard"));
             } else if (this.props.historyItem.isText) {
                 clipboard.writeText(this.props.historyItem.data.toString());
-                notification.success("Text copied to the clipboard");
+                notification.success(t("Text copied to the clipboard"));
             }
         };
 
@@ -378,8 +379,8 @@ export const FileHistoryItemComponent = observer(
                         {this.props.historyItem.direction === "upload" && (
                             <Toolbar>
                                 <TextAction
-                                    text="Abort"
-                                    title="Abort file transfer"
+                                    text={t("Abort")}
+                                    title={t("Abort file transfer")}
                                     onClick={this.onAbortFileTransfer}
                                 />
                             </Toolbar>
@@ -392,20 +393,20 @@ export const FileHistoryItemComponent = observer(
             ) {
                 body = (
                     <div className="text-danger">
-                        <div>Failed!</div>
+                        <div>{t("Failed!")}</div>
                         <div>{this.props.historyItem.error}</div>
                     </div>
                 );
             } else if (this.props.historyItem.state === "timeout") {
                 body = (
                     <div className="text-danger">
-                        <div>Timeout!</div>
+                        <div>{t("Timeout!")}</div>
                     </div>
                 );
             } else if (this.props.historyItem.state === "abort") {
                 body = (
                     <div className="text-danger">
-                        <div>Aborted!</div>
+                        <div>{t("Aborted!")}</div>
                     </div>
                 );
             } else if (this.props.historyItem.transferSucceeded) {
@@ -424,14 +425,14 @@ export const FileHistoryItemComponent = observer(
                                     "plotter" && (
                                     <IconAction
                                         icon="material:save"
-                                        title="Save file"
+                                        title={t("Save file")}
                                         onClick={this.onSave}
                                     />
                                 )}
                                 {this.props.historyItem.convertToCsv && (
                                     <IconAction
                                         icon="material:save"
-                                        title="Save as CSV file"
+                                        title={t("Save as CSV file")}
                                         onClick={this.onSaveAsCsv}
                                         overlayText={"CSV"}
                                         enabled={!this.onSaveAsCsvInProgress}
@@ -441,7 +442,7 @@ export const FileHistoryItemComponent = observer(
                                     this.props.historyItem.isText) && (
                                     <IconAction
                                         icon="material:content_copy"
-                                        title="Copy to clipboard"
+                                        title={t("Copy to clipboard")}
                                         onClick={this.onCopy}
                                     />
                                 )}

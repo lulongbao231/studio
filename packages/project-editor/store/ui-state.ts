@@ -1,4 +1,5 @@
 import fs from "fs";
+import { t } from "eez-studio-shared/i18n";
 import { computed, makeObservable } from "mobx";
 import { observable, extendObservable, action, toJS, runInAction } from "mobx";
 import { each } from "lodash";
@@ -342,7 +343,7 @@ export class UIStateStore {
                 "utf8"
             );
         } catch (err) {
-            notification.error("Failed to save UI state: " + err);
+            notification.error(t("Failed to save UI state:") + " " + err);
         }
     }
 

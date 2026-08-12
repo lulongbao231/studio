@@ -4,6 +4,7 @@ import { observer } from "mobx-react";
 import classNames from "classnames";
 
 import { IconAction } from "eez-studio-ui/action";
+import { t } from "eez-studio-shared/i18n";
 
 import { ProjectContext } from "project-editor/project/context";
 import { Messages } from "project-editor/ui-components/Output";
@@ -287,7 +288,7 @@ const Toolbar = observer(
                                 ? "material:expand_less"
                                 : "material:expand_more"
                         }
-                        title="Toggle Replace"
+                        title={t("Toggle Replace")}
                         iconSize={20}
                         onClick={() => this.toggleReplace()}
                         style={{ marginTop: 2 }}
@@ -299,7 +300,7 @@ const Toolbar = observer(
                                 <input
                                     className="form-control search-replace-input"
                                     type="text"
-                                    placeholder="Search"
+                                    placeholder={t("Search")}
                                     value={
                                         this.context.uiStateStore
                                             .searchPattern ?? ""
@@ -329,7 +330,7 @@ const Toolbar = observer(
                             <div className="btn-group" role="group">
                                 <IconAction
                                     icon={MATCH_CASE_ICON}
-                                    title="Match Case"
+                                    title={t("Match Case")}
                                     iconSize={20}
                                     selected={
                                         this.context.uiStateStore
@@ -339,7 +340,7 @@ const Toolbar = observer(
                                 />
                                 <IconAction
                                     icon={MATCH_WHOLE_WORD_ICON}
-                                    title="Match Whole Word"
+                                    title={t("Match Whole Word")}
                                     iconSize={20}
                                     selected={
                                         this.context.uiStateStore
@@ -350,7 +351,7 @@ const Toolbar = observer(
                             </div>
                             <div className="btn-group" role="group">
                                 <IconAction
-                                    title="Refresh Search Results"
+                                    title={t("Refresh Search Results")}
                                     icon="material:refresh"
                                     onClick={() => this.startSearch()}
                                     enabled={this.startSearchEnabled}
@@ -359,13 +360,13 @@ const Toolbar = observer(
 
                             <div className="btn-group" role="group">
                                 <IconAction
-                                    title="Next Result"
+                                    title={t("Next Result")}
                                     icon="material:arrow_downward"
                                     onClick={() => this.nextResult()}
                                     enabled={this.nextResultEnabled}
                                 />
                                 <IconAction
-                                    title="Previous Result"
+                                    title={t("Previous Result")}
                                     icon="material:arrow_upward"
                                     onClick={() => this.previousResult()}
                                     enabled={this.previousResultEnabled}
@@ -378,7 +379,7 @@ const Toolbar = observer(
                                 <input
                                     className={"form-control replace-input"}
                                     type="text"
-                                    placeholder="Replace"
+                                    placeholder={t("Replace")}
                                     value={
                                         this.context.uiStateStore.replaceText
                                     }
@@ -386,14 +387,14 @@ const Toolbar = observer(
                                 />
                                 <div className="btn-group" role="group">
                                     <IconAction
-                                        title="Replace Selected"
+                                        title={t("Replace Selected")}
                                         icon={REPLACE_SELECTED_ICON}
                                         iconSize={20}
                                         onClick={() => this.replaceSelected()}
                                         enabled={this.replaceSelectedEnabled}
                                     />
                                     <IconAction
-                                        title="Replace All"
+                                        title={t("Replace All")}
                                         icon={REPLACE_ALL_ICON}
                                         iconSize={20}
                                         onClick={() => this.replaceAll()}

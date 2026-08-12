@@ -23,6 +23,7 @@ import {
     extensions
 } from "eez-studio-shared/extensions/extensions";
 import { IEditor, IHomeSection } from "eez-studio-shared/extensions/extension";
+import { t } from "eez-studio-shared/i18n";
 
 import { ITab } from "eez-studio-ui/tabs";
 
@@ -90,9 +91,14 @@ export class HomeTab implements IHomeTab {
     modified: boolean = false;
 
     id = "home";
-    title = "Home";
     icon = "material:home";
     category: HomeTabCategory = "none";
+
+    get title() {
+        return t("Home");
+    }
+
+    set title(_value: string) {}
 
     get titleStr() {
         return this.title;
@@ -127,11 +133,16 @@ class HistoryTab implements IHomeTab {
     modified: boolean = false;
 
     id = "history";
-    title = "History";
     icon = "material:history";
     category: HomeTabCategory = "instrument";
 
     dispose: IReactionDisposer;
+
+    get title() {
+        return t("History");
+    }
+
+    set title(_value: string) {}
 
     get titleStr() {
         return this.title;
@@ -224,9 +235,14 @@ class ShortcutsAndGroupsTab implements IHomeTab {
     modified: boolean = false;
 
     id = "shortcutsAndGroups";
-    title = "Shortcuts and Groups";
     icon = "material:playlist_play";
     category: HomeTabCategory = "instrument";
+
+    get title() {
+        return t("Shortcuts and Groups");
+    }
+
+    set title(_value: string) {}
 
     get titleStr() {
         return this.title;
@@ -492,7 +508,7 @@ export class ProjectEditorTab implements IHomeTab {
         } catch (err) {
             console.log(err);
             runInAction(() => {
-                this.error = "Failed to load file!";
+                this.error = t("Failed to load file!");
             });
         }
     }
@@ -799,11 +815,12 @@ export class ProjectEditorTab implements IHomeTab {
                 return path.basename(this.filePath, ".eez-project");
             }
             return (
-                path.basename(this.filePath, ".eez-dashboard") + " dashboard"
+                path.basename(this.filePath, ".eez-dashboard") +
+                t(" dashboard")
             );
         }
 
-        return "Untitled project";
+        return t("Untitled project");
     }
 
     get tooltipTitle() {
@@ -948,7 +965,7 @@ export class ProjectEditorTab implements IHomeTab {
             this.addListeners();
         }
 
-        notification.info("Project reloaded");
+        notification.info(t("Project reloaded"));
     }
 
     loadDebugInfo(filePath: string) {

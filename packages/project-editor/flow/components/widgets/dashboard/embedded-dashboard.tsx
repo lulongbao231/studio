@@ -1,6 +1,7 @@
 import path from "path";
 import { ipcRenderer } from "electron";
 import React from "react";
+import { t } from "eez-studio-shared/i18n";
 import {
     observable,
     makeObservable,
@@ -232,7 +233,7 @@ const EmbeddedDashboardElement = observer(
                 };
 
                 if (isCycleDetected(parentProjectStore)) {
-                    this.error = "Cycle detected in Embedded Dashboard widget";
+                    this.error = t("Cycle detected in Embedded Dashboard widget");
                 } else {
                     this.error = undefined;
                     this.loadDashboard = new LoadDashboard(
@@ -244,7 +245,7 @@ const EmbeddedDashboardElement = observer(
                 }
             } else {
                 if (!this.props.flowContext.projectStore.runtime) {
-                    this.error = "Dashboard not specified";
+                    this.error = t("Dashboard not specified");
                 }
             }
         }
@@ -297,7 +298,7 @@ const EmbeddedDashboardElement = observer(
             } else {
                 content = (
                     <>
-                        <p>Embedded dashboard:</p>
+                        <p>{t("Embedded dashboard:")}</p>
                         <pre className="EezStudio_EmbeddedDashboardWidget_Pre">
                             {this.props.widget.getDashboardInfo(
                                 this.props.flowContext
@@ -371,7 +372,7 @@ const OpenEmbeddedDashboard = observer(
                         size="small"
                         onClick={this.openDashboard}
                     >
-                        Open Dashboard
+                        {t("Open Dashboard")}
                     </Button>
                 </div>
             );
@@ -421,7 +422,7 @@ export class EmbeddedDashboardWidget extends Widget {
         enabledInComponentPalette: (projectType: ProjectType) =>
             projectType === ProjectType.DASHBOARD,
 
-        componentPaletteLabel: "Embedded Dashboard",
+        componentPaletteLabel: t("Embedded Dashboard"),
 
         properties: [
             makeDataPropertyInfo("data", {

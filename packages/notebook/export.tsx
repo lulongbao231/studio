@@ -9,6 +9,7 @@ import { values } from "mobx";
 
 import { stringCompare } from "eez-studio-shared/string";
 import { db } from "eez-studio-shared/db";
+import { t } from "eez-studio-shared/i18n";
 import { IStore } from "eez-studio-shared/store";
 
 import { DropdownIconAction, DropdownItem } from "eez-studio-ui/action";
@@ -189,9 +190,10 @@ async function doExport(
             }
 
             notification.update(progressToastId, {
-                render: `Exporting item ${index + 1} of ${
-                    itemsToExport.length
-                } ...`,
+                render: t("Exporting item {current} of {total} ...", {
+                    current: index + 1,
+                    total: itemsToExport.length
+                }),
                 type: notification.INFO
             });
 
@@ -217,8 +219,8 @@ export async function exportActivityLogItems(
 ) {
     const result = await dialog.showSaveDialog(getCurrentWindow(), {
         filters: [
-            { name: "EEZ Notebook files", extensions: ["eez-notebook"] },
-            { name: "All Files", extensions: ["*"] }
+            { name: t("EEZ Notebook files"), extensions: ["eez-notebook"] },
+            { name: t("All Files"), extensions: ["*"] }
         ]
     });
 
@@ -228,7 +230,7 @@ export async function exportActivityLogItems(
             filePath += ".eez-notebook";
         }
 
-        const progressToastId = notification.info("Exporting...", {
+        const progressToastId = notification.info(t("Exporting..."), {
             autoClose: false
         });
 
@@ -237,14 +239,14 @@ export async function exportActivityLogItems(
                 notification.update(progressToastId, {
                     render: (
                         <div>
-                            <p>Export succeeded!</p>
+                            <p>{t("Export succeeded!")}</p>
                             <button
                                 className="btn btn-sm"
                                 onClick={() => {
                                     shell.showItemInFolder(filePath);
                                 }}
                             >
-                                Show in Folder
+                                {t("Show in Folder")}
                             </button>
                         </div>
                     ),
@@ -264,7 +266,7 @@ async function addItemsToNotebook(
     notebookId: string
 ) {
     const progressToastId = notification.info(
-        "Exporting items to notebook...",
+        t("Exporting items to notebook..."),
         {
             autoClose: false
         }
@@ -311,12 +313,12 @@ async function addItemsToNotebook(
         notification.update(progressToastId, {
             render: (
                 <div>
-                    <p>Items added to notebook!</p>
+                    <p>{t("Items added to notebook!")}</p>
                     <button
                         className="btn btn-sm"
                         onClick={() => showNotebook(notebookId)}
                     >
-                        Show Notebook
+                        {t("Show Notebook")}
                     </button>
                 </div>
             ),
@@ -330,7 +332,9 @@ async function addItemsToNotebook(
         db.exec(`ROLLBACK TRANSACTION`);
 
         notification.update(progressToastId, {
-            render: `Failed to add items to notebook (${err})`,
+            render: t("Failed to add items to notebook ({err})", {
+                err: `${err}`
+            }),
             type: notification.ERROR,
             autoClose: 5000
         });
@@ -345,14 +349,14 @@ function addToNewNotebook(store: IStore, items: IActivityLogEntry[]) {
             fields: [
                 {
                     name: "name",
-                    displayName: "Notebook name",
+                    displayName: t("Notebook name"),
                     type: "string",
                     validators: [
                         validators.required,
                         validators.unique(
                             {},
                             values(notebooks),
-                            "Notebook with the same name already exists"
+                            t("Notebook with the same name already exists")
                         )
                     ]
                 }
@@ -384,7 +388,7 @@ function addToExistingNotebook(store: IStore, items: IActivityLogEntry[]) {
             fields: [
                 {
                     name: "id",
-                    displayName: "Notebook",
+                    displayName: t("Notebook"),
                     type: "enum",
                     enumItems: sortedNotebooks
                 }
@@ -428,19 +432,19 @@ export function exportTool(controller: IActivityLogController) {
         <DropdownIconAction
             key="notebook/export"
             icon="material:library_add"
-            title="Export selected history items to notebook"
+            title={t("Export selected history items to notebook")}
         >
             <DropdownItem
-                text="Export as notebook file"
+                text={t("Export as notebook file")}
                 onClick={() => exportActivityLogItems(controller.store, items)}
             />
             <DropdownItem
-                text="Export to a new notebook"
+                text={t("Export to a new notebook")}
                 onClick={() => addToNewNotebook(controller.store, items)}
             />
             {notebooks.size > 0 && (
                 <DropdownItem
-                    text="Export to an existing notebook"
+                    text={t("Export to an existing notebook")}
                     onClick={() =>
                         addToExistingNotebook(controller.store, items)
                     }

@@ -7,6 +7,7 @@ import { FlowState, RuntimeBase } from "project-editor/flow/runtime/runtime";
 import { getFlowStateLabel } from "project-editor/flow/debugger/logs";
 import { Panel } from "project-editor/ui-components/Panel";
 import { ProjectContext } from "project-editor/project/context";
+import { t } from "eez-studio-shared/i18n";
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -54,7 +55,7 @@ export const ActiveFlowsPanel = observer(
                                     className="form-check-label"
                                     htmlFor="EezStudio_DebuggerPanel_ActiveFlows_ShowFinishedFlows"
                                 >
-                                    Show finished flows
+                                    {t("Show finished flows")}
                                 </label>
                             </div>
                         ]}
@@ -122,7 +123,7 @@ const FlowsTree = observer(
 
             return {
                 id: "all",
-                label: "All",
+                label: t("All"),
                 children: getChildren(this.props.runtime.flowStates),
                 selected: false,
                 expanded: true

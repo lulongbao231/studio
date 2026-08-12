@@ -7,6 +7,8 @@ import { registerActionComponents } from "project-editor/flow/component";
 import { toJS } from "mobx";
 import { CSV_ICON } from "project-editor/ui-components/icons";
 
+import { t } from "eez-studio-shared/i18n";
+
 ////////////////////////////////////////////////////////////////////////////////
 
 const componentHeaderColor = "#FFDFD3";
@@ -62,31 +64,31 @@ registerActionComponents("Dashboard Specific", [
         execute: (context: IDashboardComponentContext) => {
             const input = context.evalProperty<string>("input");
             if (input == undefined || typeof input != "string") {
-                context.throwError(`Invalid Input property`);
+                context.throwError(t("Invalid Input property"));
                 return;
             }
 
             const delimiter = context.evalProperty<string>("delimiter");
             if (delimiter == undefined || typeof delimiter != "string") {
-                context.throwError(`Invalid Delimiter property`);
+                context.throwError(t("Invalid Delimiter property"));
                 return;
             }
 
             const from = context.evalProperty<number>("from");
             if (from != undefined && typeof from != "number") {
-                context.throwError(`Invalid From property`);
+                context.throwError(t("Invalid From property"));
                 return;
             }
 
             const to = context.evalProperty<number>("to");
             if (to != undefined && typeof to != "number") {
-                context.throwError(`Invalid To property`);
+                context.throwError(t("Invalid To property"));
                 return;
             }
 
             const outputType = context.getOutputType("result");
             if (outputType == undefined) {
-                context.throwError(`Result output not found`);
+                context.throwError(t("Result output not found"));
                 return;
             }
 
@@ -94,9 +96,7 @@ registerActionComponents("Dashboard Specific", [
                 outputType.kind != "array" &&
                 !(outputType.kind == "basic" && outputType.valueType == "json")
             ) {
-                context.throwError(
-                    `Result output type is not an array or json`
-                );
+                context.throwError(t("Result output type is not an array or json"));
                 return;
             }
 
@@ -106,7 +106,7 @@ registerActionComponents("Dashboard Specific", [
 
                 if (elementType.kind != "object") {
                     context.throwError(
-                        `Result output value type is not an array of struct`
+                        t("Result output value type is not an array of struct")
                     );
                     return;
                 }
@@ -198,13 +198,13 @@ registerActionComponents("Dashboard Specific", [
         execute: (context: IDashboardComponentContext) => {
             const input = context.evalProperty("input");
             if (input == undefined) {
-                context.throwError(`Invalid Input property`);
+                context.throwError(t("Invalid Input property"));
                 return;
             }
 
             const delimiter = context.evalProperty<string>("delimiter");
             if (delimiter == undefined || typeof delimiter != "string") {
-                context.throwError(`Invalid Delimiter property`);
+                context.throwError(t("Invalid Delimiter property"));
                 return;
             }
 

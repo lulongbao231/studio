@@ -1,5 +1,6 @@
 import React from "react";
 import { observer } from "mobx-react";
+import { t } from "eez-studio-shared/i18n";
 
 import { sourceRootDir } from "eez-studio-shared/util";
 
@@ -124,7 +125,7 @@ export const ComponentHelp = observer(
                     </div>
 
                     <div className="EezStudio_Component_Documentation_Body">
-                        <BodySection title="Description">
+                        <BodySection title={t("Description")}>
                             {this.props.componentInfo.renderDescription(
                                 this.props.generateHTML
                             )}
@@ -152,7 +153,7 @@ export const ComponentHelp = observer(
                         )}
 
                         {!this.props.componentInfo.isEmptyExamples() && (
-                            <BodySection title="Examples">
+                            <BodySection title={t("Examples")}>
                                 {this.props.componentInfo.renderExamples(
                                     this.props.generateHTML
                                 )}

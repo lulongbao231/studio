@@ -6,6 +6,7 @@ import { MenuItem } from "@electron/remote";
 import { Rect } from "eez-studio-shared/geometry";
 
 import { humanize } from "eez-studio-shared/string";
+import { t } from "eez-studio-shared/i18n";
 import { Checkbox } from "project-editor/ui-components/PropertyGrid/Checkbox";
 
 import {
@@ -97,25 +98,25 @@ import { FIT_HEIGHT_TO_CONTENT_ICON, FIT_WIDTH_TO_CONTENT_ICON, PERCENT_ICON, PX
 
 const generalGroup: IPropertyGridGroupDefinition = {
     id: "lvgl-general",
-    title: "General",
+    title: t("General"),
     position: 0
 };
 
 export const flagsGroup: IPropertyGridGroupDefinition = {
     id: "lvgl-flags",
-    title: "Flags",
+    title: t("Flags"),
     position: 4
 };
 
 const styleGroup: IPropertyGridGroupDefinition = {
     id: "lvgl-style",
-    title: "Style",
+    title: t("Style"),
     position: 3
 };
 
 export const statesGroup: IPropertyGridGroupDefinition = {
     id: "lvgl-states",
-    title: "States",
+    title: t("States"),
     position: 4
 };
 
@@ -214,7 +215,7 @@ export const GeometryProperties = observer(
                         updateObject={this.props.updateObject}
                     />
 
-                    <div title="Width">W</div>
+                    <div title={t("Width")}>W</div>
                     <Property
                         propertyInfo={
                             findPropertyByNameInClassInfo(
@@ -238,7 +239,7 @@ export const GeometryProperties = observer(
                         updateObject={this.props.updateObject}
                     />
 
-                    <div title="Height">H</div>
+                    <div title={t("Height")}>H</div>
                     <Property
                         propertyInfo={
                             findPropertyByNameInClassInfo(
@@ -629,7 +630,7 @@ export class LVGLWidget extends Widget {
         properties: [
             {
                 name: "identifier",
-                displayName: "Name",
+                displayName: t("Name"),
                 type: PropertyType.String,
                 isOptional: true,
                 propertyGridGroup: generalGroup,
@@ -640,7 +641,7 @@ export class LVGLWidget extends Widget {
                 type: PropertyType.String,
                 propertyGridGroup: generalGroup,
                 computed: true,
-                formText: `This identifier will be used in the generated source code in the "Objects" struct. It is different from the "Name" above because in the source code we are following "lowercase with underscore" naming convention.`,
+                formText: t(`This identifier will be used in the generated source code in the "Objects" struct. It is different from the "Name" above because in the source code we are following "lowercase with underscore" naming convention.`),
                 disabled: (object: LVGLWidget) => object.codeIdentifier == undefined
             },
             {
@@ -655,8 +656,8 @@ export class LVGLWidget extends Widget {
                 name: "leftUnit",
                 type: PropertyType.Enum,
                 enumItems: [
-                    { id: "px", label: "Pixels", icon: PX_ICON },
-                    { id: "%", label: "Percent", icon: PERCENT_ICON }
+                    { id: "px", label: t("Pixels"), icon: PX_ICON },
+                    { id: "%", label: t("Percent"), icon: PERCENT_ICON }
                 ],
                 enumDisallowUndefined: true,
                 propertyGridGroup: geometryGroup,
@@ -675,8 +676,8 @@ export class LVGLWidget extends Widget {
                 name: "topUnit",
                 type: PropertyType.Enum,
                 enumItems: [
-                    { id: "px", label: "Pixels", icon: PX_ICON },
-                    { id: "%", label: "Percent", icon: PERCENT_ICON }
+                    { id: "px", label: t("Pixels"), icon: PX_ICON },
+                    { id: "%", label: t("Percent"), icon: PERCENT_ICON }
                 ],
                 enumDisallowUndefined: true,
                 propertyGridGroup: geometryGroup,
@@ -695,9 +696,9 @@ export class LVGLWidget extends Widget {
                 name: "widthUnit",
                 type: PropertyType.Enum,
                 enumItems: [
-                    { id: "px", label: "Pixels", icon: PX_ICON },
-                    { id: "%", label: "Percent", icon: PERCENT_ICON },
-                    { id: "content", label: "Content", icon: FIT_WIDTH_TO_CONTENT_ICON }
+                    { id: "px", label: t("Pixels"), icon: PX_ICON },
+                    { id: "%", label: t("Percent"), icon: PERCENT_ICON },
+                    { id: "content", label: t("Content"), icon: FIT_WIDTH_TO_CONTENT_ICON }
                 ],
                 enumDisallowUndefined: true,
                 propertyGridGroup: geometryGroup,
@@ -716,9 +717,9 @@ export class LVGLWidget extends Widget {
                 name: "heightUnit",
                 type: PropertyType.Enum,
                 enumItems: [
-                    { id: "px", label: "Pixels", icon: PX_ICON },
-                    { id: "%", label: "Percent", icon: PERCENT_ICON },
-                    { id: "content", label: "Content", icon: FIT_HEIGHT_TO_CONTENT_ICON }
+                    { id: "px", label: t("Pixels"), icon: PX_ICON },
+                    { id: "%", label: t("Percent"), icon: PERCENT_ICON },
+                    { id: "content", label: t("Content"), icon: FIT_HEIGHT_TO_CONTENT_ICON }
                 ],
                 enumDisallowUndefined: true,
                 propertyGridGroup: geometryGroup,
@@ -736,7 +737,7 @@ export class LVGLWidget extends Widget {
             },
             {
                 name: "absolutePosition",
-                displayName: "Absolute pos.",
+                displayName: t("Absolute pos."),
                 type: PropertyType.String,
                 propertyGridGroup: geometryGroup,
                 computed: true,
@@ -751,12 +752,12 @@ export class LVGLWidget extends Widget {
                 hideInPropertyGrid: true
             },
             ...makeLvglExpressionProperty("hiddenFlag", "boolean", "input", ["literal", "expression"], {
-                displayName: "Hidden",
+                displayName: t("Hidden"),
                 propertyGridGroup: flagsGroup,
                 disabled: (widget: LVGLWidget) => !flagEnabledInWidget(widget, "HIDDEN")
             }),
             ...makeLvglExpressionProperty("clickableFlag", "boolean", "input", ["literal", "expression"], {
-                displayName: "Clickable",
+                displayName: t("Clickable"),
                 propertyGridGroup: flagsGroup,
                 disabled: (widget: LVGLWidget) => !flagEnabledInWidget(widget, "CLICKABLE")
             }),
@@ -770,24 +771,24 @@ export class LVGLWidget extends Widget {
             },
             {
                 name: "flagScrollbarMode",
-                displayName: "Scrollbar mode",
+                displayName: t("Scrollbar mode"),
                 type: PropertyType.Enum,
                 enumItems: [
                     {
                         id: "off",
-                        label: "OFF"
+                        label: t("OFF")
                     },
                     {
                         id: "on",
-                        label: "ON"
+                        label: t("ON")
                     },
                     {
                         id: "active",
-                        label: "ACTIVE"
+                        label: t("ACTIVE")
                     },
                     {
                         id: "auto",
-                        label: "AUTO"
+                        label: t("AUTO")
                     }
                 ],
                 enumDisallowUndefined: false,
@@ -795,40 +796,40 @@ export class LVGLWidget extends Widget {
             },
             {
                 name: "flagScrollDirection",
-                displayName: "Scroll direction",
+                displayName: t("Scroll direction"),
                 type: PropertyType.Enum,
                 enumItems: [
                     {
                         id: "none",
-                        label: "NONE"
+                        label: t("NONE")
                     },
                     {
                         id: "top",
-                        label: "TOP"
+                        label: t("TOP")
                     },
                     {
                         id: "left",
-                        label: "LEFT"
+                        label: t("LEFT")
                     },
                     {
                         id: "bottom",
-                        label: "BOTTOM"
+                        label: t("BOTTOM")
                     },
                     {
                         id: "right",
-                        label: "RIGHT"
+                        label: t("RIGHT")
                     },
                     {
                         id: "hor",
-                        label: "HOR"
+                        label: t("HOR")
                     },
                     {
                         id: "ver",
-                        label: "VER"
+                        label: t("VER")
                     },
                     {
                         id: "all",
-                        label: "ALL"
+                        label: t("ALL")
                     }
                 ],
                 enumDisallowUndefined: false,
@@ -836,24 +837,24 @@ export class LVGLWidget extends Widget {
             },
             {
                 name: "scrollSnapX",
-                displayName: "Scroll snap X",
+                displayName: t("Scroll snap X"),
                 type: PropertyType.Enum,
                 enumItems: [
                     {
                         id: "none",
-                        label: "NONE"
+                        label: t("NONE")
                     },
                     {
                         id: "start",
-                        label: "START"
+                        label: t("START")
                     },
                     {
                         id: "end",
-                        label: "END"
+                        label: t("END")
                     },
                     {
                         id: "center",
-                        label: "CENTER"
+                        label: t("CENTER")
                     }
                 ],
                 enumDisallowUndefined: false,
@@ -861,35 +862,35 @@ export class LVGLWidget extends Widget {
             },
             {
                 name: "scrollSnapY",
-                displayName: "Scroll snap Y",
+                displayName: t("Scroll snap Y"),
                 type: PropertyType.Enum,
                 enumItems: [
                     {
                         id: "none",
-                        label: "NONE"
+                        label: t("NONE")
                     },
                     {
                         id: "start",
-                        label: "START"
+                        label: t("START")
                     },
                     {
                         id: "end",
-                        label: "END"
+                        label: t("END")
                     },
                     {
                         id: "center",
-                        label: "CENTER"
+                        label: t("CENTER")
                     }
                 ],
                 enumDisallowUndefined: false,
                 propertyGridGroup: flagsGroup
             },
             ...makeLvglExpressionProperty("checkedState", "boolean", "assignable", ["literal", "expression"], {
-                displayName: "Checked",
+                displayName: t("Checked"),
                 propertyGridGroup: statesGroup
             }),
             ...makeLvglExpressionProperty("disabledState", "boolean", "input", ["literal", "expression"], {
-                displayName: "Disabled",
+                displayName: t("Disabled"),
                 propertyGridGroup: statesGroup
             }),
             {
@@ -922,7 +923,7 @@ export class LVGLWidget extends Widget {
                         if (widget.localStyles.hasModifications) {
                             menuItems.push(
                                 new MenuItem({
-                                    label: "Reset All Modifications",
+                                    label: t("Reset All Modifications"),
                                     click: () => {
                                         widget.localStyles.resetAllModifications();
                                     }
@@ -931,13 +932,13 @@ export class LVGLWidget extends Widget {
 
                             menuItems.push(
                                 new MenuItem({
-                                    label: "Create New Style",
+                                    label: t("Create New Style"),
                                     click: async () => {
                                         const projectStore = getProjectStore(widget);
 
                                         const result = await showGenericDialog({
                                             dialogDefinition: {
-                                                title: "New Style",
+                                                title: t("New Style"),
                                                 fields: [
                                                     {
                                                         name: "name",
@@ -1002,7 +1003,7 @@ export class LVGLWidget extends Widget {
                             if (widget.useStyle) {
                                 menuItems.push(
                                     new MenuItem({
-                                        label: "Update Style",
+                                        label: t("Update Style"),
                                         click: async () => {
                                             const projectStore = getProjectStore(widget);
 
@@ -1264,7 +1265,7 @@ export class LVGLWidget extends Widget {
 
                 if (lvglIdentifier && lvglIdentifier.widgets.length > 1) {
                     messages.push(
-                        new Message(MessageType.ERROR, `Duplicate identifier`, getChildOfObject(widget, "identifier"))
+                        new Message(MessageType.ERROR, t("Duplicate identifier"), getChildOfObject(widget, "identifier"))
                     );
                 }
             }
@@ -1277,7 +1278,9 @@ export class LVGLWidget extends Widget {
                     messages.push(
                         new Message(
                             MessageType.ERROR,
-                            `Style "${widget.useStyle}" is not for this widget type`,
+                            t('Style "{name}" is not for this widget type', {
+                                name: widget.useStyle
+                            }),
                             getChildOfObject(widget, "useStyle")
                         )
                     );
@@ -1663,7 +1666,7 @@ export class LVGLWidget extends Widget {
                         "checkedState",
                         this.checkedState as string,
                         value,
-                        "Failed to assign Checked state"
+                        t("Failed to assign Checked state")
                     );
                 });
             });
@@ -1848,7 +1851,7 @@ export class LVGLWidget extends Widget {
                     "bool",
                     "new_val",
                     this.hiddenFlag as string,
-                    "Failed to evaluate Hidden flag"
+                    t("Failed to evaluate Hidden flag")
                 );
 
                 const cur_val = code.callObjectFunctionWithAssignment(
@@ -1879,7 +1882,7 @@ export class LVGLWidget extends Widget {
                     "bool",
                     "new_val",
                     this.clickableFlag as string,
-                    "Failed to evaluate Clickable flag"
+                    t("Failed to evaluate Clickable flag")
                 );
 
                 const cur_val = code.callObjectFunctionWithAssignment(
@@ -1947,7 +1950,7 @@ export class LVGLWidget extends Widget {
                     "bool",
                     "new_val",
                     this.checkedState as string,
-                    "Failed to evaluate Checked state"
+                    t("Failed to evaluate Checked state")
                 );
 
                 const cur_val = code.callObjectFunctionWithAssignment(
@@ -1978,7 +1981,7 @@ export class LVGLWidget extends Widget {
                     "bool",
                     "new_val",
                     this.disabledState as string,
-                    "Failed to evaluate Disabled state"
+                    t("Failed to evaluate Disabled state")
                 );
 
                 const cur_val = code.callObjectFunctionWithAssignment(

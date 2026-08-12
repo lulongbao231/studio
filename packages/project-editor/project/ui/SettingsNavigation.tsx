@@ -28,6 +28,7 @@ import {
 } from "project-editor/project/project";
 import { ProjectContext } from "project-editor/project/context";
 import { Panel } from "project-editor/ui-components/Panel";
+import { t } from "eez-studio-shared/i18n";
 import { PropertyGrid } from "project-editor/ui-components/PropertyGrid";
 import {
     TreeAdapter,
@@ -73,7 +74,7 @@ const ProjectFeature = observer(
 
         onRemove = () => {
             confirm(
-                "Are you sure you want to remove this feature?",
+                t("Are you sure you want to remove this feature?"),
                 undefined,
                 () => {
                     if (this.context.project) {
@@ -137,9 +138,9 @@ const ProjectFeature = observer(
                         <button
                             className="btn btn-secondary float-right"
                             disabled={true}
-                            title="This feature can't be removed"
+                            title={t("This feature can't be removed")}
                         >
-                            Remove
+                            {t("Remove")}
                         </button>
                     );
                 } else {
@@ -147,9 +148,9 @@ const ProjectFeature = observer(
                         <button
                             className="btn btn-secondary float-right"
                             onClick={this.onRemove}
-                            title="Remove feature from the project"
+                            title={t("Remove feature from the project")}
                         >
-                            Remove
+                            {t("Remove")}
                         </button>
                     );
                 }
@@ -158,9 +159,9 @@ const ProjectFeature = observer(
                     <button
                         className="btn btn-success float-right"
                         onClick={this.onAdd}
-                        title="Add feature to the project"
+                        title={t("Add feature to the project")}
                     >
-                        Add
+                        {t("Add")}
                     </button>
                 );
             }
@@ -456,7 +457,7 @@ export const SettingsContent = observer(
                 return (
                     <div className="EezStudio_SettingsEditor">
                         <PropertyGrid objects={[this.object]} />
-                        <h3>Project features</h3>
+                        <h3>{t("Project features")}</h3>
                         <div className="d-flex flex-wrap">
                             {projectFeatures}
                         </div>
@@ -656,9 +657,12 @@ const AddButton = observer(
                 this.props.objectAdapter.selectedObject &&
                 canAdd(this.props.objectAdapter.selectedObject) && (
                     <IconAction
-                        title={`Add ${getAddItemName(
-                            this.props.objectAdapter.selectedObject
-                        )}...`}
+                        title={t("Add {name}...", {
+                            name:
+                                getAddItemName(
+                                    this.props.objectAdapter.selectedObject
+                                ) ?? ""
+                        })}
                         icon="material:add"
                         iconSize={16}
                         onClick={this.onAdd}
@@ -682,7 +686,7 @@ const DeleteButton = observer(
         render() {
             return (
                 <IconAction
-                    title="Delete Selected Item"
+                    title={t("Delete Selected Item")}
                     icon="material:delete"
                     iconSize={16}
                     onClick={this.onDelete}

@@ -18,6 +18,8 @@ import { confirmSave } from "eez-studio-shared/util-renderer";
 
 import * as notification from "eez-studio-ui/notification";
 
+import { t } from "eez-studio-shared/i18n";
+
 import {
     IEezObject,
     PropertyType,
@@ -567,11 +569,11 @@ export class ProjectStore {
             } else {
                 return (
                     path.basename(this.filePath, ".eez-dashboard") +
-                    " dashboard"
+                    t(" dashboard")
                 );
             }
         } else {
-            return "Untitled project";
+            return t("Untitled project");
         }
     }
 
@@ -707,10 +709,10 @@ export class ProjectStore {
                 const result = await dialog.showSaveDialog(getCurrentWindow(), {
                     filters: [
                         {
-                            name: "EEZ Project",
+                            name: t("EEZ Project"),
                             extensions: ["eez-project"]
                         },
-                        { name: "All Files", extensions: ["*"] }
+                        { name: t("All Files"), extensions: ["*"] }
                     ],
                     defaultPath: this.filePath
                 });
@@ -743,7 +745,7 @@ export class ProjectStore {
                 build: {
                     configurations: [
                         {
-                            name: "Default"
+                            name: t("Default")
                         }
                     ],
                     files: []
@@ -785,7 +787,10 @@ export class ProjectStore {
         if (this.project && this.isModified) {
             return new Promise<boolean>(resolve => {
                 confirmSave({
-                    description: `Project "${this.title}" has been modified.\n`,
+                    description: t(
+                        'Project "{title}" has been modified.\n',
+                        { title: this.title }
+                    ),
                     saveCallback: async () => {
                         resolve(await this.saveToFile(false));
                     },
@@ -829,14 +834,14 @@ export class ProjectStore {
                 this.layoutModels.root,
                 LayoutModels.OUTPUT_TAB_ID
             );
-            notification.error("Build failed. Check Output panel for errors.");
+            notification.error(t("Build failed. Check Output panel for errors."));
         } else {
             runInAction(() => {
                 this.lastSuccessfulBuildRevision = this.lastRevisionStable;
             });
             // Don't show "Build successful" if Docker build will follow (in Full Simulator mode)
             if (!this.layoutModels?.isDockerSimulatorMode) {
-                notification.info("Build successful.", { autoClose: 1000 });
+                notification.info(t("Build successful."), { autoClose: 1000 });
             }
         }
         return result;
@@ -855,7 +860,7 @@ export class ProjectStore {
     }
 
     async buildAndInstallExtensions() {
-        notification.info(`Building extensions ...`);
+        notification.info(t("Building extensions ..."));
 
         const extensionFilePaths = await ProjectEditor.build.buildExtensions(
             this
@@ -866,7 +871,7 @@ export class ProjectStore {
                 const extension = await installExtension(extensionFilePath, {
                     notFound() {
                         notification.info(
-                            "This is not a valid extension package file.",
+                            t("This is not a valid extension package file."),
                             undefined
                         );
                     },
@@ -892,9 +897,9 @@ export class ProjectStore {
 
                 if (extension) {
                     notification.success(
-                        `Extension "${
-                            extension.displayName || extension.name
-                        }" installed`
+                        t('Extension "{name}" installed', {
+                            name: extension.displayName || extension.name
+                        })
                     );
                 }
             } catch (err) {
@@ -1616,8 +1621,8 @@ export class ProjectStore {
 
         if (canPasteWithDependencies(this)) {
             confirm(
-                "Do you want to paste with all the dependencies?",
-                "Clipboard content is from the different project.",
+                t("Do you want to paste with all the dependencies?"),
+                t("Clipboard content is from the different project."),
                 () => pasteWithDependencies(this),
                 () => pasteToSelectedPanel()
             );
@@ -1633,7 +1638,7 @@ export class ProjectStore {
 
         const result = await showGenericDialog({
             dialogDefinition: {
-                title: "Find Project Component",
+                title: t("Find Project Component"),
                 fields: [
                     {
                         name: "componentPath",
@@ -1647,7 +1652,7 @@ export class ProjectStore {
             }
         });
 
-        const progressToastId = notification.info("Searching...", {
+        const progressToastId = notification.info(t("Searching..."), {
             autoClose: false
         });
 
@@ -1674,7 +1679,7 @@ export class ProjectStore {
                     );
 
                     notification.update(progressToastId, {
-                        render: "Found.",
+                        render: t("Found."),
                         type: notification.SUCCESS,
                         autoClose: 1000
                     });
@@ -1684,7 +1689,7 @@ export class ProjectStore {
         }
 
         notification.update(progressToastId, {
-            render: "Not found.",
+            render: t("Not found."),
             type: notification.ERROR,
             autoClose: false
         });

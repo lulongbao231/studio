@@ -1,6 +1,7 @@
 import React from "react";
 import { observer } from "mobx-react";
 import { dialog, getCurrentWindow } from "@electron/remote";
+import { t } from "eez-studio-shared/i18n";
 
 import { guid } from "eez-studio-shared/guid";
 
@@ -23,7 +24,7 @@ export const FileInputProperty = observer(
 
             const result = await dialog.showOpenDialog(getCurrentWindow(), {
                 properties: ["openFile"],
-                filters: [{ name: "All Files", extensions: ["*"] }]
+                filters: [{ name: t("All Files"), extensions: ["*"] }]
             });
 
             const filePaths = result.filePaths;
@@ -48,7 +49,7 @@ export const FileInputProperty = observer(
                     />
                     <button
                         className="btn btn-secondary"
-                        title="Select file"
+                        title={t("Select file")}
                         onClick={this.onSelectFile}
                     >
                         &hellip;

@@ -1,6 +1,7 @@
 import React from "react";
 import { observer } from "mobx-react";
 
+import { t } from "eez-studio-shared/i18n";
 import { formatDateTimeLong } from "eez-studio-shared/util";
 
 import type { IAppStore } from "instrument/window/history/history";
@@ -33,7 +34,7 @@ export const UnknownHistoryItemComponent = observer(
                         this.props.appStore
                     )}
                     <PreventDraggable tag="pre">
-                        Unknown history item: {message}
+                        {t("Unknown history item: {message}", { message })}
                     </PreventDraggable>
                 </div>
             );

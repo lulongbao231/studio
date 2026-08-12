@@ -38,6 +38,7 @@ import { isArray } from "eez-studio-shared/util";
 import type { UserProperty } from "project-editor/flow/user-property";
 import { IObjectVariableValueFieldDescription } from "eez-studio-types";
 import { SearchInput } from "eez-studio-ui/search-input";
+import { t } from "eez-studio-shared/i18n";
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -65,7 +66,7 @@ export const WatchPanel = observer(
         onAddExpression = async () => {
             const result = await showGenericDialog({
                 dialogDefinition: {
-                    title: "New Watch Expression",
+                    title: t("New Watch Expression"),
                     fields: [
                         {
                             name: "expression",
@@ -93,7 +94,7 @@ export const WatchPanel = observer(
 
             const result = await showGenericDialog({
                 dialogDefinition: {
-                    title: "Edit Watch Expression",
+                    title: t("Edit Watch Expression"),
                     fields: [
                         {
                             name: "expression",
@@ -145,14 +146,14 @@ export const WatchPanel = observer(
                                 key="add"
                                 icon="material:add"
                                 iconSize={20}
-                                title="Add Watch Expression"
+                                title={t("Add Watch Expression")}
                                 onClick={this.onAddExpression}
                             />,
                             <IconAction
                                 key="edit"
                                 icon="material:edit"
                                 iconSize={20}
-                                title="Edit Watch Expression"
+                                title={t("Edit Watch Expression")}
                                 onClick={this.onEditExpression}
                                 enabled={this.selectedExpression.get() != -1}
                             />,
@@ -160,7 +161,7 @@ export const WatchPanel = observer(
                                 key="delete"
                                 icon="material:delete"
                                 iconSize={20}
-                                title="Delete Watch Expression"
+                                title={t("Delete Watch Expression")}
                                 onClick={this.onDeleteEpression}
                                 enabled={this.selectedExpression.get() != -1}
                             />
@@ -238,17 +239,17 @@ const WatchTable = observer(
 
             result.push({
                 name: "name",
-                title: "Name"
+                title: t("Name")
             });
 
             result.push({
                 name: "value",
-                title: "Value"
+                title: t("Value")
             });
 
             result.push({
                 name: "type",
-                title: "Type"
+                title: t("Type")
             });
 
             return result;
@@ -467,7 +468,7 @@ const WatchTable = observer(
 
             return observable({
                 id: "expressions",
-                name: "Expressions",
+                name: t("Expressions"),
                 value: undefined,
                 type: "",
                 children: () =>
@@ -593,7 +594,7 @@ const WatchTable = observer(
         get globalVariables() {
             return observable({
                 id: "global-variables",
-                name: "Global variables",
+                name: t("Global variables"),
                 value: undefined,
                 type: "",
                 children: () =>
@@ -619,7 +620,7 @@ const WatchTable = observer(
 
             return observable({
                 id: "local-variables",
-                name: "Local variables",
+                name: t("Local variables"),
                 value: undefined,
                 type: "",
                 children: () =>
@@ -738,7 +739,7 @@ const WatchTable = observer(
 
             return observable({
                 id: "component-inputs",
-                name: "Component inputs",
+                name: t("Component inputs"),
                 value: undefined,
                 type: "",
                 children: () =>

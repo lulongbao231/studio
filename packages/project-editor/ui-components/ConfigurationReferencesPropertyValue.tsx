@@ -1,5 +1,7 @@
 import React from "react";
 
+import { t } from "eez-studio-shared/i18n";
+
 import { ProjectContext } from "project-editor/project/context";
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -27,7 +29,7 @@ export class ConfigurationReferencesPropertyValue extends React.Component<{
                             onChange={() => this.props.onChange(undefined)}
                             readOnly={readOnly}
                         />
-                        All build configurations
+                        {t("All build configurations")}
                     </label>
                 </div>
                 <div className="form-check">
@@ -40,7 +42,7 @@ export class ConfigurationReferencesPropertyValue extends React.Component<{
                             onChange={() => this.props.onChange([])}
                             readOnly={readOnly}
                         />
-                        Selected build configurations
+                        {t("Selected build configurations")}
                     </label>
                 </div>
                 {this.props.value && (

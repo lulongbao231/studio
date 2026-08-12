@@ -5,6 +5,7 @@ import {
     runInAction,
     makeObservable
 } from "mobx";
+import { t } from "eez-studio-shared/i18n";
 
 import { beginTransaction, commitTransaction } from "eez-studio-shared/store";
 import { objectClone } from "eez-studio-shared/util";
@@ -166,13 +167,13 @@ export class List {
                 if (this.studioList) {
                     tableList.id = this.studioList.id;
                     tableList.name = this.studioList.name;
-                    beginTransaction("Update instrument list");
+                    beginTransaction(t("Update instrument list"));
                     this.bb3Instrument.appStore.instrumentListStore.updateObject(
                         objectClone(tableList)
                     );
                 } else {
                     tableList.name = listOnInstrument.name;
-                    beginTransaction("Import instrument list");
+                    beginTransaction(t("Import instrument list"));
                     this.bb3Instrument.appStore.instrumentListStore.createObject(
                         objectClone(tableList)
                     );
@@ -250,7 +251,7 @@ export class List {
                     this.listOnInstrument = listOnInstrument;
                 });
 
-                beginTransaction("Update instrument list modified date");
+                beginTransaction(t("Update instrument list modified date"));
                 this.bb3Instrument.appStore.instrumentListStore.updateObject({
                     id: studioList.id,
                     modifiedAt: listOnInstrument.date

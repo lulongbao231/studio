@@ -3,6 +3,7 @@ import { action, makeObservable } from "mobx";
 import { observer } from "mobx-react";
 
 import { IconAction } from "eez-studio-ui/action";
+import { t } from "eez-studio-shared/i18n";
 
 import { ProjectContext } from "project-editor/project/context";
 import { Messages } from "project-editor/ui-components/Output";
@@ -121,13 +122,13 @@ const Toolbar = observer(
                 <div className="EezStudio_ToolbarReferences">
                     <div className="btn-group" role="group">
                         <IconAction
-                            title="Next Result"
+                            title={t("Next Result")}
                             icon="material:arrow_downward"
                             onClick={() => this.nextResult()}
                             enabled={this.nextResultEnabled}
                         />
                         <IconAction
-                            title="Previous Result"
+                            title={t("Previous Result")}
                             icon="material:arrow_upward"
                             onClick={() => this.previousResult()}
                             enabled={this.previousResultEnabled}

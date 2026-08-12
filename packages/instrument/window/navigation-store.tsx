@@ -13,6 +13,8 @@ import type { InstrumentAppStore } from "instrument/window/app-store";
 import type * as ScriptsModule from "instrument/window/scripts";
 import type * as ShortcutsModule from "instrument/window/shortcuts";
 
+import { t } from "eez-studio-shared/i18n";
+
 import type * as TerminalModule from "instrument/window/terminal/terminal";
 
 import type * as DeletedHistoryItemsModule from "instrument/window/history/deleted-history-items-view";
@@ -67,7 +69,7 @@ export class NavigationStore {
         this.terminalNavigationItem = {
             id: "terminal",
             icon: "material:navigate_next",
-            title: "Terminal",
+            title: t("Terminal"),
             renderContent: () => {
                 const { render } =
                     require("instrument/window/terminal/terminal") as typeof TerminalModule;
@@ -109,7 +111,7 @@ export class NavigationStore {
         this.scriptsNavigationItem = {
             id: "scripts",
             icon: "material:slideshow",
-            title: "Scripts",
+            title: t("Scripts"),
             renderContent: () => {
                 const { render } =
                     require("instrument/window/scripts") as typeof ScriptsModule;
@@ -125,7 +127,7 @@ export class NavigationStore {
         this.shortcutsAndGroupsNavigationItem = {
             id: "shortcutsAndGroups",
             icon: "material:playlist_play",
-            title: "Shortcuts",
+            title: t("Shortcuts"),
             renderContent: () => {
                 const { render } =
                     require("instrument/window/shortcuts") as typeof ShortcutsModule;
@@ -141,7 +143,7 @@ export class NavigationStore {
         this.listsNavigationItem = {
             id: "lists",
             icon: "material:timeline",
-            title: "Lists",
+            title: t("Lists"),
             renderContent: () => {
                 const { render } =
                     require("instrument/window/lists/lists") as typeof ListsModule;
@@ -170,7 +172,7 @@ export class NavigationStore {
             return {
                 id: "start-page",
                 icon: "material:dashboard",
-                title: "Start Page",
+                title: t("Start Page"),
                 renderContent: () => {
                     const { render } =
                         require("instrument/bb3") as typeof Bb3Module;

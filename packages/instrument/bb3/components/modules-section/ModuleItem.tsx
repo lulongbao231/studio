@@ -8,6 +8,7 @@ import { Loader } from "eez-studio-ui/loader";
 import { Module } from "instrument/bb3/objects/Module";
 import { openLink } from "instrument/bb3/helpers";
 import { MODULE_FIRMWARE_RELEASES_PAGE } from "instrument/bb3/conf";
+import { t } from "eez-studio-shared/i18n";
 
 const OtherReleases = observer(
     ({
@@ -48,7 +49,7 @@ const OtherReleases = observer(
                         aria-expanded="false"
                         aria-controls={`allModuleReleases${module.slotIndex}`}
                     >
-                        Other versions{" "}
+                        {t("Other versions")}{" "}
                         <i className="material-icons chevron-right">
                             chevron_right
                         </i>
@@ -61,7 +62,7 @@ const OtherReleases = observer(
                     <table className="table table-bordered">
                         <thead>
                             <tr>
-                                <th scope="col">Version</th>
+                                <th scope="col">{t("Version")}</th>
                                 <th scope="col"></th>
                             </tr>
                         </thead>
@@ -92,8 +93,8 @@ const OtherReleases = observer(
                                                 release.version,
                                                 firmwareVersion
                                             ) > 0
-                                                ? "Upgrade"
-                                                : "Downgrade"}
+                                                ? t("Upgrade")
+                                                : t("Downgrade")}
                                         </button>
                                     </td>
                                 </tr>
@@ -124,7 +125,7 @@ const ReleaseInfo = observer(
         if (!latestFirmwareVersion) {
             return (
                 <div className="alert alert-danger border mb-0" role="alert">
-                    Could not get info about the latest firmware version!
+                    {t("Could not get info about the latest firmware version!")}
                 </div>
             );
         }
@@ -134,11 +135,13 @@ const ReleaseInfo = observer(
                 <>
                     <div className="d-flex align-items-center fs-6">
                         <span className="badge rounded-pill bg-warning text-dark fs-6 me-3">
-                            New release!
+                            {t("New release!")}
                         </span>
                         <span>
-                            A new firmware version{" "}
-                            <b>{latestFirmwareVersion}</b> is available (
+                            {t("A new firmware version {version} is available", {
+                                version: latestFirmwareVersion
+                            })}{" "}
+                            (
                             <a
                                 href="#"
                                 onClick={() =>
@@ -151,7 +154,7 @@ const ReleaseInfo = observer(
                                     )
                                 }
                             >
-                                release notes
+                                {t("release notes")}
                             </a>
                             ).
                         </span>
@@ -165,7 +168,7 @@ const ReleaseInfo = observer(
                                 )
                             }
                         >
-                            Upgrade
+                            {t("Upgrade")}
                         </button>
                     </div>
                     <OtherReleases
@@ -179,7 +182,7 @@ const ReleaseInfo = observer(
         return (
             <>
                 <div className="text-success fs-6">
-                    This is the latest firmware version!
+                    {t("This is the latest firmware version!")}
                 </div>
                 <OtherReleases
                     module={module}

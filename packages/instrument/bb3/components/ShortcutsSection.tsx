@@ -9,12 +9,13 @@ import { executeShortcut } from "instrument/window/script";
 import { InstrumentAppStore } from "instrument/window/app-store";
 
 import { Section } from "instrument/bb3/components/Section";
+import { t } from "eez-studio-shared/i18n";
 
 export const ShortcutsSection = observer(
     ({ appStore }: { appStore: InstrumentAppStore }) => {
         return (
             <Section
-                title="Shortcuts"
+                title={t("Shortcuts")}
                 body={
                     <ShortcutsToolbar
                         appStore={appStore}

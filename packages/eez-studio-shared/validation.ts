@@ -12,19 +12,22 @@ export {
 
 import { isArray } from "eez-studio-shared/util";
 import { isValidPath } from "./util-electron";
+import { t } from "eez-studio-shared/i18n";
 
-const VALIDATION_MESSAGE_INVALID_VALUE = "Invalid value.";
-export const VALIDATION_MESSAGE_REQUIRED = "Please fill out this field.";
-export const VALIDATION_MESSAGE_RANGE_INCLUSIVE =
-    "Please enter value between ${min} and ${max}.";
-export const VALIDATION_MESSAGE_RANGE_INCLUSIVE_WITHOUT_MAX =
-    "Please enter value greater than or equal to ${min}.";
-const VALIDATION_MESSAGE_RANGE_EXCLUSIVE =
-    "Please enter value between (not included) ${min} and ${max}.";
-const VALIDATION_MESSAGE_RANGE_EXCLUSIVE_WITHOUT_MAX =
-    "Please enter value greater than ${min}.";
-const VALIDATION_MESSAGE_NOT_UNIQUE = "This field has no unique value.";
-const VALIDATION_MESSAGE_INVALID_CHAR = 'Character "${char}" is not allowed.';
+const VALIDATION_MESSAGE_INVALID_VALUE = () => t("Invalid value.");
+export const VALIDATION_MESSAGE_REQUIRED = () =>
+    t("Please fill out this field.");
+export const VALIDATION_MESSAGE_RANGE_INCLUSIVE = () =>
+    t("Please enter value between ${min} and ${max}.");
+export const VALIDATION_MESSAGE_RANGE_INCLUSIVE_WITHOUT_MAX = () =>
+    t("Please enter value greater than or equal to ${min}.");
+const VALIDATION_MESSAGE_RANGE_EXCLUSIVE = () =>
+    t("Please enter value between (not included) ${min} and ${max}.");
+const VALIDATION_MESSAGE_RANGE_EXCLUSIVE_WITHOUT_MAX = () =>
+    t("Please enter value greater than ${min}.");
+const VALIDATION_MESSAGE_NOT_UNIQUE = () => t("This field has no unique value.");
+const VALIDATION_MESSAGE_INVALID_CHAR = () =>
+    t('Character "${char}" is not allowed.');
 
 export type Rule = (
     object: any,
@@ -41,7 +44,7 @@ export const validators = {
             object[ruleName] == undefined ||
             object[ruleName].toString().trim() === ""
         ) {
-            return VALIDATION_MESSAGE_REQUIRED;
+            return VALIDATION_MESSAGE_REQUIRED();
         }
         return null;
     },
@@ -51,14 +54,14 @@ export const validators = {
             const value = object[ruleName];
             if (max !== undefined) {
                 if (value < min || value > max) {
-                    return VALIDATION_MESSAGE_RANGE_INCLUSIVE.replace(
+                    return VALIDATION_MESSAGE_RANGE_INCLUSIVE().replace(
                         "${min}",
                         min.toString()
                     ).replace("${max}", max.toString());
                 }
             } else {
                 if (value < min) {
-                    return VALIDATION_MESSAGE_RANGE_INCLUSIVE_WITHOUT_MAX.replace(
+                    return VALIDATION_MESSAGE_RANGE_INCLUSIVE_WITHOUT_MAX().replace(
                         "${min}",
                         min.toString()
                     );
@@ -73,14 +76,14 @@ export const validators = {
             const value = object[ruleName];
             if (max !== undefined) {
                 if (value <= min || value >= max) {
-                    return VALIDATION_MESSAGE_RANGE_EXCLUSIVE.replace(
+                    return VALIDATION_MESSAGE_RANGE_EXCLUSIVE().replace(
                         "${min}",
                         min.toString()
                     ).replace("${max}", max.toString());
                 }
             } else {
                 if (value <= min) {
-                    return VALIDATION_MESSAGE_RANGE_EXCLUSIVE_WITHOUT_MAX.replace(
+                    return VALIDATION_MESSAGE_RANGE_EXCLUSIVE_WITHOUT_MAX().replace(
                         "${min}",
                         min.toString()
                     );
@@ -102,7 +105,7 @@ export const validators = {
                         element !== origObject && element[ruleName] === value
                 )
             ) {
-                return message || VALIDATION_MESSAGE_NOT_UNIQUE;
+                return message || VALIDATION_MESSAGE_NOT_UNIQUE();
             }
             return null;
         };
@@ -111,7 +114,7 @@ export const validators = {
     integer: (object: any, ruleName: string) => {
         let value = filterInteger(object[ruleName]);
         if (isNaN(value) || typeof value !== "number") {
-            return VALIDATION_MESSAGE_INVALID_VALUE;
+            return VALIDATION_MESSAGE_INVALID_VALUE();
         }
         return null;
     },
@@ -122,7 +125,7 @@ export const validators = {
         }
         let value = filterInteger(object[ruleName]);
         if (isNaN(value) || typeof value !== "number") {
-            return VALIDATION_MESSAGE_INVALID_VALUE;
+            return VALIDATION_MESSAGE_INVALID_VALUE();
         }
         return null;
     },
@@ -131,7 +134,7 @@ export const validators = {
         return function (object: any, ruleName: string) {
             let value = UNITS[unit].parseValue(object[ruleName].toString());
             if (typeof value !== "number" || isNaN(value)) {
-                return VALIDATION_MESSAGE_INVALID_VALUE;
+                return VALIDATION_MESSAGE_INVALID_VALUE();
             }
             return null;
         };
@@ -154,7 +157,7 @@ export const validators = {
             }
 
             if (invalidCharFound) {
-                return VALIDATION_MESSAGE_INVALID_CHAR.replace(
+                return VALIDATION_MESSAGE_INVALID_CHAR().replace(
                     "${char}",
                     invalidCharFound
                 );
@@ -171,7 +174,7 @@ export const validators = {
 
         return isValidPath(object[ruleName], false)
             ? null
-            : "Invalid file name";
+            : t("Invalid file name");
     }
 };
 

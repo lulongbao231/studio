@@ -21,6 +21,7 @@ import type { IActivityLogEntry } from "instrument/window/history/activity-log";
 
 import type { IAppStore, History } from "instrument/window/history/history";
 import type { IHistoryItem } from "instrument/window/history/item";
+import { t } from "eez-studio-shared/i18n";
 
 export class Filters {
     connectsAndDisconnects: boolean = true;
@@ -388,7 +389,9 @@ export const FiltersComponent = observer(
                 <div className="EezStudio_FiltersComponentContainer">
                     <PropertyList>
                         <BooleanProperty
-                            name={`Connects and disconnects (${filterStats.connectsAndDisconnects})`}
+                            name={t("Connects and disconnects ({count})", {
+                                count: filterStats.connectsAndDisconnects
+                            })}
                             value={
                                 this.props.appStore.filters
                                     .connectsAndDisconnects
@@ -400,7 +403,9 @@ export const FiltersComponent = observer(
                             )}
                         />
                         <BooleanProperty
-                            name={`SCPI commands, queries and query results (${filterStats.scpi})`}
+                            name={t("SCPI commands, queries and query results ({count})", {
+                                count: filterStats.scpi
+                            })}
                             value={this.props.appStore.filters.scpi}
                             onChange={action(
                                 (value: boolean) =>
@@ -408,7 +413,9 @@ export const FiltersComponent = observer(
                             )}
                         />
                         <BooleanProperty
-                            name={`Downloaded files (${filterStats.downloadedFiles})`}
+                            name={t("Downloaded files ({count})", {
+                                count: filterStats.downloadedFiles
+                            })}
                             value={this.props.appStore.filters.downloadedFiles}
                             onChange={action(
                                 (value: boolean) =>
@@ -417,7 +424,9 @@ export const FiltersComponent = observer(
                             )}
                         />
                         <BooleanProperty
-                            name={`Uploaded files (${filterStats.uploadedFiles})`}
+                            name={t("Uploaded files ({count})", {
+                                count: filterStats.uploadedFiles
+                            })}
                             value={this.props.appStore.filters.uploadedFiles}
                             onChange={action(
                                 (value: boolean) =>
@@ -426,7 +435,9 @@ export const FiltersComponent = observer(
                             )}
                         />
                         <BooleanProperty
-                            name={`Attached files (${filterStats.attachedFiles})`}
+                            name={t("Attached files ({count})", {
+                                count: filterStats.attachedFiles
+                            })}
                             value={this.props.appStore.filters.attachedFiles}
                             onChange={action(
                                 (value: boolean) =>
@@ -435,7 +446,9 @@ export const FiltersComponent = observer(
                             )}
                         />
                         <BooleanProperty
-                            name={`Charts (${filterStats.charts})`}
+                            name={t("Charts ({count})", {
+                                count: filterStats.charts
+                            })}
                             value={this.props.appStore.filters.charts}
                             onChange={action(
                                 (value: boolean) =>
@@ -446,7 +459,9 @@ export const FiltersComponent = observer(
                         {(this.props.appStore.instrument.id == "0" ||
                             this.props.appStore.instrument.listsProperty) && (
                             <BooleanProperty
-                                name={`Lists (${filterStats.lists})`}
+                                name={t("Lists ({count})", {
+                                    count: filterStats.lists
+                                })}
                                 value={this.props.appStore.filters.lists}
                                 onChange={action(
                                     (value: boolean) =>
@@ -456,7 +471,9 @@ export const FiltersComponent = observer(
                             />
                         )}
                         <BooleanProperty
-                            name={`Notes (${filterStats.notes})`}
+                            name={t("Notes ({count})", {
+                                count: filterStats.notes
+                            })}
                             value={this.props.appStore.filters.notes}
                             onChange={action(
                                 (value: boolean) =>
@@ -464,7 +481,9 @@ export const FiltersComponent = observer(
                             )}
                         />
                         <BooleanProperty
-                            name={`Launched scripts (${filterStats.launchedScripts})`}
+                            name={t("Launched scripts ({count})", {
+                                count: filterStats.launchedScripts
+                            })}
                             value={this.props.appStore.filters.launchedScripts}
                             onChange={action(
                                 (value: boolean) =>
@@ -474,7 +493,9 @@ export const FiltersComponent = observer(
                         />
 
                         <BooleanProperty
-                            name={`Tabulators (${filterStats.tabulators})`}
+                            name={t("Tabulators ({count})", {
+                                count: filterStats.tabulators
+                            })}
                             value={this.props.appStore.filters.tabulators}
                             onChange={action(
                                 (value: boolean) =>
@@ -484,7 +505,9 @@ export const FiltersComponent = observer(
                         />
 
                         <BooleanProperty
-                            name={`Audio and video (${filterStats.media})`}
+                            name={t("Audio and video ({count})", {
+                                count: filterStats.media
+                            })}
                             value={this.props.appStore.filters.media}
                             onChange={action(
                                 (value: boolean) =>
@@ -493,7 +516,7 @@ export const FiltersComponent = observer(
                         />
 
                         <ButtonProperty
-                            name="Select All"
+                            name={t("Select All")}
                             className="btn-secondary"
                             onChange={() =>
                                 this.props.appStore.filters.setAll(true)
@@ -502,7 +525,7 @@ export const FiltersComponent = observer(
                         ></ButtonProperty>
 
                         <ButtonProperty
-                            name="Deselect All"
+                            name={t("Deselect All")}
                             className="btn-secondary"
                             onChange={() =>
                                 this.props.appStore.filters.setAll(false)

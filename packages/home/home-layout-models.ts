@@ -5,6 +5,7 @@ import {
     AbstractLayoutModels,
     ILayoutModel
 } from "eez-studio-ui/layout-models";
+import { t } from "eez-studio-shared/i18n";
 
 export class LayoutModels extends AbstractLayoutModels {
     static EXTENSION_MANAGER_MASTER_TABSET: FlexLayout.IJsonTabSetNode = {
@@ -18,7 +19,7 @@ export class LayoutModels extends AbstractLayoutModels {
             {
                 type: "tab",
                 enableClose: false,
-                name: "Master",
+                name: t("Master"),
                 component: "Master"
             }
         ]
@@ -35,7 +36,7 @@ export class LayoutModels extends AbstractLayoutModels {
             {
                 type: "tab",
                 enableClose: false,
-                name: "Details",
+                name: t("Details"),
                 component: "Details"
             }
         ]
@@ -52,7 +53,7 @@ export class LayoutModels extends AbstractLayoutModels {
             {
                 type: "tab",
                 enableClose: false,
-                name: "TOC",
+                name: t("TOC"),
                 component: "TOC"
             }
         ]
@@ -69,7 +70,7 @@ export class LayoutModels extends AbstractLayoutModels {
             {
                 type: "tab",
                 enableClose: false,
-                name: "Content",
+                name: t("Content"),
                 component: "Content"
             }
         ]

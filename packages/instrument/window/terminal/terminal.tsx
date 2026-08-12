@@ -19,6 +19,7 @@ import { CommandsBrowser } from "instrument/window/terminal/commands-browser";
 import { parseScpi, SCPI_PART_QUERY } from "eez-studio-shared/scpi-parser";
 import { AppBar } from "instrument/window/app";
 import { TerminalState } from "instrument/window/terminal/terminalState";
+import { t } from "eez-studio-shared/i18n";
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -168,7 +169,7 @@ const Input = observer(
                             <IconAction
                                 icon="material:help"
                                 onClick={this.handleHelpClick}
-                                title="Show/hide commands catalog"
+                                title={t("Show/hide commands catalog")}
                             />
                         )}
                     </div>
@@ -204,14 +205,14 @@ const Input = observer(
                                 }}
                             >
                                 <option value="no-line-ending">
-                                    No line ending
+                                    {t("No line ending")}
                                 </option>
-                                <option value="newline">Newline</option>
+                                <option value="newline">{t("Newline")}</option>
                                 <option value="carriage-return">
-                                    Carriage return
+                                    {t("Carriage return")}
                                 </option>
                                 <option value="both-nl-and-cr">
-                                    Both NL &amp; CR
+                                    {t("Both NL & CR")}
                                 </option>
                             </select>
                         </div>
@@ -224,7 +225,7 @@ const Input = observer(
                                 this.props.appStore.instrument.connection
                                     .isConnected
                             }
-                            title="Run command"
+                            title={t("Run command")}
                         />
                     </div>
                 </div>

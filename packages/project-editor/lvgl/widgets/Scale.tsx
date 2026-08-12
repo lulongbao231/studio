@@ -1,3 +1,4 @@
+import { t } from "eez-studio-shared/i18n";
 import React from "react";
 import { observable, makeObservable } from "mobx";
 import { observer } from "mobx-react";
@@ -98,7 +99,7 @@ export class LVGLScaleSection extends EezObject {
         properties: [
             {
                 name: "identifier",
-                displayName: "Name",
+                displayName: t("Name"),
                 type: PropertyType.String,
                 isOptional: true
             },
@@ -106,14 +107,16 @@ export class LVGLScaleSection extends EezObject {
                 name: "codeIdentifier",
                 type: PropertyType.String,
                 computed: true,
-                formText: `This identifier will be used in the generated source code. It is different from the "Name" above because in the source code we are following "lowercase with underscore" naming convention.`,
+                formText: t(
+                    "This identifier will be used in the generated source code. It is different from the \"Name\" above because in the source code we are following \"lowercase with underscore\" naming convention."
+                ),
                 disabled: (object: LVGLWidget) => object.codeIdentifier == undefined
             },            
             ...makeLvglExpressionProperty("minValue", "integer", "input", ["literal", "expression"], {
-                displayName: "Min value"
+                displayName: t("Min value")
             }),
             ...makeLvglExpressionProperty("maxValue", "integer", "input", ["literal", "expression"], {
-                displayName: "Max value"
+                displayName: t("Max value")
             }),
 
             {
@@ -129,19 +132,19 @@ export class LVGLScaleSection extends EezObject {
 
             {
                 name: "mainWidth",
-                displayName: "Main width",
+                displayName: t("Main width"),
                 type: PropertyType.Number,
                 isOptional: true
             },
             {
                 name: "mainColor",
-                displayName: "Main color",
+                displayName: t("Main color"),
                 type: PropertyType.ThemedColor,
                 isOptional: true
             },
             {
                 name: "mainOpacity",
-                displayName: "Main opacity",
+                displayName: t("Main opacity"),
                 type: PropertyType.Number,
                 isOptional: true
             },
@@ -151,19 +154,19 @@ export class LVGLScaleSection extends EezObject {
 
             {
                 name: "minorTicksWidth",
-                displayName: "Minor ticks width",
+                displayName: t("Minor ticks width"),
                 type: PropertyType.Number,
                 isOptional: true
             },
             {
                 name: "minorTicksColor",
-                displayName: "Minor ticks color",
+                displayName: t("Minor ticks color"),
                 type: PropertyType.ThemedColor,
                 isOptional: true
             },
             {
                 name: "minorTicksOpacity",
-                displayName: "Minor ticks opacity",
+                displayName: t("Minor ticks opacity"),
                 type: PropertyType.Number,
                 isOptional: true
             },
@@ -173,19 +176,19 @@ export class LVGLScaleSection extends EezObject {
 
             {
                 name: "majorTicksWidth",
-                displayName: "Major ticks width",
+                displayName: t("Major ticks width"),
                 type: PropertyType.Number,
                 isOptional: true
             },
             {
                 name: "majorTicksColor",
-                displayName: "Major ticks color",
+                displayName: t("Major ticks color"),
                 type: PropertyType.ThemedColor,
                 isOptional: true
             },
             {
                 name: "majorTicksOpacity",
-                displayName: "Major ticks opacity",
+                displayName: t("Major ticks opacity"),
                 type: PropertyType.Number,
                 isOptional: true
             },
@@ -194,19 +197,19 @@ export class LVGLScaleSection extends EezObject {
             makePropertiesSection("labelsStyles"),
             {
                 name: "labelsTextColor",
-                displayName: "Labels text color",
+                displayName: t("Labels text color"),
                 type: PropertyType.ThemedColor,
                 isOptional: true
             },
             {
                 name: "labelsTextOpacity",
-                displayName: "Labels text opacity",
+                displayName: t("Labels text opacity"),
                 type: PropertyType.Number,
                 isOptional: true
             },
             {
                 name: "labelsTextFont",
-                displayName: "Labels text font",
+                displayName: t("Labels text font"),
                 type: PropertyType.Enum,
                 enumItems: text_font_property_info.enumItems,
                 isOptional: true,
@@ -214,7 +217,7 @@ export class LVGLScaleSection extends EezObject {
             }
         ],
 
-        listLabel: (section: LVGLScaleSection, collapsed: boolean) => "Section",
+        listLabel: (section: LVGLScaleSection, collapsed: boolean) => t("Section"),
 
         defaultValue: {
             minValue: 0,
@@ -264,7 +267,7 @@ export class LVGLScaleSection extends EezObject {
                     messages.push(
                         new Message(
                             MessageType.ERROR,
-                            `Min value must be an integer`,
+                            t("Min value must be an integer"),
                             getChildOfObject(section, "minValue")
                         )
                     );
@@ -278,7 +281,7 @@ export class LVGLScaleSection extends EezObject {
                     messages.push(
                         new Message(
                             MessageType.ERROR,
-                            `Invalid expression: ${err}`,
+                            t("Invalid expression: {err}", { err }),
                             getChildOfObject(section, "minValue")
                         )
                     );
@@ -294,7 +297,7 @@ export class LVGLScaleSection extends EezObject {
                     messages.push(
                         new Message(
                             MessageType.ERROR,
-                            `Max value must be an integer`,
+                            t("Max value must be an integer"),
                             getChildOfObject(section, "maxValue")
                         )
                     );
@@ -308,7 +311,7 @@ export class LVGLScaleSection extends EezObject {
                     messages.push(
                         new Message(
                             MessageType.ERROR,
-                            `Invalid expression: ${err}`,
+                            t("Invalid expression: {err}", { err }),
                             getChildOfObject(section, "maxValue")
                         )
                     );
@@ -325,7 +328,13 @@ export class LVGLScaleSection extends EezObject {
                         messages.push(
                             new Message(
                                 MessageType.ERROR,
-                                `The style "${section.useStyle}" is for widget type "${widgetType}" and cannot be used for Scale widgets.`,
+                                t(
+                                    'The style "{style}" is for widget type "{widgetType}" and cannot be used for Scale widgets.',
+                                    {
+                                        style: section.useStyle,
+                                        widgetType
+                                    }
+                                ),
                                 getChildOfObject(section, "useStyle")
                             )
                         );
@@ -456,16 +465,16 @@ export class LVGLScaleWidget extends LVGLWidget {
                 propertyGridGroup: specificGroup
             },
             ...makeLvglExpressionProperty("minValue", "integer", "input", ["literal", "expression"], {
-                displayName: "Min value",
+                displayName: t("Min value"),
                 propertyGridGroup: specificGroup
             }),
             ...makeLvglExpressionProperty("maxValue", "integer", "input", ["literal", "expression"], {
-                displayName: "Max value",
+                displayName: t("Max value"),
                 propertyGridGroup: specificGroup
             }),
             {
                 name: "angleRange",
-                displayName: "Angle range",
+                displayName: t("Angle range"),
                 type: PropertyType.Number,
                 propertyGridGroup: specificGroup
             },
@@ -474,26 +483,26 @@ export class LVGLScaleWidget extends LVGLWidget {
             }),
             {
                 name: "totalTickCount",
-                displayName: "Total tick count",
+                displayName: t("Total tick count"),
                 type: PropertyType.Number,
                 propertyGridGroup: specificGroup
             },
             {
                 name: "majorTickEvery",
-                displayName: "Major tick every",
+                displayName: t("Major tick every"),
                 type: PropertyType.Number,
                 propertyGridGroup: specificGroup
             },
             {
                 name: "postDraw",
-                displayName: "Post draw",
+                displayName: t("Post draw"),
                 type: PropertyType.Boolean,
                 checkboxStyleSwitch: true,
                 propertyGridGroup: specificGroup
             },
             {
                 name: "drawTicksOnTop",
-                displayName: "Draw ticks on top",
+                displayName: t("Draw ticks on top"),
                 type: PropertyType.Boolean,
                 checkboxStyleSwitch: true,
                 propertyGridGroup: specificGroup
@@ -506,10 +515,10 @@ export class LVGLScaleWidget extends LVGLWidget {
             },
             {
                 name: "labelTexts",
-                displayName: "Label texts",
+                displayName: t("Label texts"),
                 type: PropertyType.MultilineText,
                 propertyGridGroup: specificGroup,
-                formText: "Comma-separated list of label texts"
+                formText: t("Comma-separated list of label texts")
             },
 
             // Main line styles (straight line mode - LV_PART_MAIN)
@@ -517,7 +526,7 @@ export class LVGLScaleWidget extends LVGLWidget {
 
             {
                 name: "mainLineWidth",
-                displayName: "Main line width",
+                displayName: t("Main line width"),
                 type: PropertyType.Number,
                 isOptional: true,
                 propertyGridGroup: specificGroup,
@@ -526,7 +535,7 @@ export class LVGLScaleWidget extends LVGLWidget {
             },
             {
                 name: "mainLineColor",
-                displayName: "Main line color",
+                displayName: t("Main line color"),
                 type: PropertyType.ThemedColor,
                 isOptional: true,
                 propertyGridGroup: specificGroup,
@@ -535,7 +544,7 @@ export class LVGLScaleWidget extends LVGLWidget {
             },
             {
                 name: "mainLineOpacity",
-                displayName: "Main line opacity",
+                displayName: t("Main line opacity"),
                 type: PropertyType.Number,
                 isOptional: true,
                 propertyGridGroup: specificGroup,
@@ -546,7 +555,7 @@ export class LVGLScaleWidget extends LVGLWidget {
             // Main arc styles (round mode - LV_PART_MAIN)
             {
                 name: "mainArcWidth",
-                displayName: "Main arc width",
+                displayName: t("Main arc width"),
                 type: PropertyType.Number,
                 isOptional: true,
                 propertyGridGroup: specificGroup,
@@ -555,7 +564,7 @@ export class LVGLScaleWidget extends LVGLWidget {
             },
             {
                 name: "mainArcColor",
-                displayName: "Main arc color",
+                displayName: t("Main arc color"),
                 type: PropertyType.ThemedColor,
                 isOptional: true,
                 propertyGridGroup: specificGroup,
@@ -564,7 +573,7 @@ export class LVGLScaleWidget extends LVGLWidget {
             },
             {
                 name: "mainArcOpacity",
-                displayName: "Main arc opacity",
+                displayName: t("Main arc opacity"),
                 type: PropertyType.Number,
                 isOptional: true,
                 propertyGridGroup: specificGroup,
@@ -573,7 +582,7 @@ export class LVGLScaleWidget extends LVGLWidget {
             },
             {
                 name: "mainArcRounded",
-                displayName: "Main arc rounded",
+                displayName: t("Main arc rounded"),
                 type: PropertyType.Boolean,
                 isOptional: true,
                 checkboxStyleSwitch: true,
@@ -583,7 +592,7 @@ export class LVGLScaleWidget extends LVGLWidget {
             },
             {
                 name: "mainArcImageSrc",
-                displayName: "Main arc image",
+                displayName: t("Main arc image"),
                 type: PropertyType.ObjectReference,
                 isOptional: true,
                 referencedObjectCollectionPath: "bitmaps",
@@ -596,28 +605,28 @@ export class LVGLScaleWidget extends LVGLWidget {
             makePropertiesSection("minorTicksStyles"),
             {
                 name: "minorTicksLength",
-                displayName: "Minor ticks length",
+                displayName: t("Minor ticks length"),
                 type: PropertyType.Number,
                 isOptional: true,
                 propertyGridGroup: specificGroup
             },
             {
                 name: "minorTicksWidth",
-                displayName: "Minor ticks width",
+                displayName: t("Minor ticks width"),
                 type: PropertyType.Number,
                 isOptional: true,
                 propertyGridGroup: specificGroup
             },
             {
                 name: "minorTicksColor",
-                displayName: "Minor ticks color",
+                displayName: t("Minor ticks color"),
                 type: PropertyType.ThemedColor,
                 isOptional: true,
                 propertyGridGroup: specificGroup
             },
             {
                 name: "minorTicksOpacity",
-                displayName: "Minor ticks opacity",
+                displayName: t("Minor ticks opacity"),
                 type: PropertyType.Number,
                 isOptional: true,
                 propertyGridGroup: specificGroup
@@ -627,28 +636,28 @@ export class LVGLScaleWidget extends LVGLWidget {
             makePropertiesSection("majorTicksStyles"),
             {
                 name: "majorTicksLength",
-                displayName: "Major ticks length",
+                displayName: t("Major ticks length"),
                 type: PropertyType.Number,
                 isOptional: true,
                 propertyGridGroup: specificGroup
             },
             {
                 name: "majorTicksWidth",
-                displayName: "Major ticks width",
+                displayName: t("Major ticks width"),
                 type: PropertyType.Number,
                 isOptional: true,
                 propertyGridGroup: specificGroup
             },
             {
                 name: "majorTicksColor",
-                displayName: "Major ticks color",
+                displayName: t("Major ticks color"),
                 type: PropertyType.ThemedColor,
                 isOptional: true,
                 propertyGridGroup: specificGroup
             },
             {
                 name: "majorTicksOpacity",
-                displayName: "Major ticks opacity",
+                displayName: t("Major ticks opacity"),
                 type: PropertyType.Number,
                 isOptional: true,
                 propertyGridGroup: specificGroup
@@ -658,21 +667,21 @@ export class LVGLScaleWidget extends LVGLWidget {
             makePropertiesSection("labelsStyles"),
             {
                 name: "labelsTextColor",
-                displayName: "Labels text color",
+                displayName: t("Labels text color"),
                 type: PropertyType.ThemedColor,
                 isOptional: true,
                 propertyGridGroup: specificGroup
             },
             {
                 name: "labelsTextOpacity",
-                displayName: "Labels text opacity",
+                displayName: t("Labels text opacity"),
                 type: PropertyType.Number,
                 isOptional: true,
                 propertyGridGroup: specificGroup
             },
             {
                 name: "labelsTextFont",
-                displayName: "Labels text font",
+                displayName: t("Labels text font"),
                 type: PropertyType.Enum,
                 enumItems: text_font_property_info.enumItems,
                 isOptional: true,
@@ -797,7 +806,7 @@ export class LVGLScaleWidget extends LVGLWidget {
                 messages.push(
                     new Message(
                         MessageType.ERROR,
-                        `Angle range must be an integer`,
+                        t("Angle range must be an integer"),
                         getChildOfObject(widget, "angleRange")
                     )
                 );
@@ -810,7 +819,7 @@ export class LVGLScaleWidget extends LVGLWidget {
                     !Number.isInteger(Number(widget.rotation))
                 ) {
                     messages.push(
-                        new Message(MessageType.ERROR, `Rotation must be an integer`, getChildOfObject(widget, "rotation"))
+                        new Message(MessageType.ERROR, t("Rotation must be an integer"), getChildOfObject(widget, "rotation"))
                     );
                 }
             }
@@ -824,7 +833,7 @@ export class LVGLScaleWidget extends LVGLWidget {
                     messages.push(
                         new Message(
                             MessageType.ERROR,
-                            `Min value must be an integer`,
+                            t("Min value must be an integer"),
                             getChildOfObject(widget, "minValue")
                         )
                     );
@@ -840,7 +849,7 @@ export class LVGLScaleWidget extends LVGLWidget {
                     messages.push(
                         new Message(
                             MessageType.ERROR,
-                            `Max value must be an integer`,
+                            t("Max value must be an integer"),
                             getChildOfObject(widget, "maxValue")
                         )
                     );
@@ -855,7 +864,7 @@ export class LVGLScaleWidget extends LVGLWidget {
                 messages.push(
                     new Message(
                         MessageType.ERROR,
-                        `Total tick count must be an integer`,
+                        t("Total tick count must be an integer"),
                         getChildOfObject(widget, "totalTickCount")
                     )
                 );
@@ -869,7 +878,7 @@ export class LVGLScaleWidget extends LVGLWidget {
                 messages.push(
                     new Message(
                         MessageType.ERROR,
-                        `Major tick every must be an integer`,
+                        t("Major tick every must be an integer"),
                         getChildOfObject(widget, "majorTickEvery")
                     )
                 );
@@ -984,7 +993,7 @@ export class LVGLScaleWidget extends LVGLWidget {
                     "int32_t",
                     "new_val",
                     this.minValue as string,
-                    "Failed to evaluate Min value in Scale widget"
+                    t("Failed to evaluate Min value in Scale widget")
                 );
 
                 const cur_val = code.callObjectFunctionWithAssignment(
@@ -1013,7 +1022,7 @@ export class LVGLScaleWidget extends LVGLWidget {
                     "int32_t",
                     "new_val",
                     this.maxValue as string,
-                    "Failed to evaluate Max value in Scale widget"
+                    t("Failed to evaluate Max value in Scale widget")
                 );
 
                 const cur_val = code.callObjectFunctionWithAssignment(
@@ -1052,7 +1061,7 @@ export class LVGLScaleWidget extends LVGLWidget {
                     "int32_t",
                     "new_val",
                     this.rotation as string,
-                    "Failed to evaluate Rotation in Scale widget"
+                    t("Failed to evaluate Rotation in Scale widget")
                 );
 
                 const cur_val = code.callObjectFunctionWithAssignment(

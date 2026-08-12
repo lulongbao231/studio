@@ -1,5 +1,7 @@
 import type { Component } from "project-editor/flow/component";
 import type { Assets, DataBuffer } from "project-editor/build/assets";
+
+import { t } from "eez-studio-shared/i18n";
 import type {
     ExpressionNode,
     IdentifierExpressionNode
@@ -316,7 +318,7 @@ function buildExpressionNode(
             node.callee.object.type != "Identifier" ||
             node.callee.property.type != "Identifier"
         ) {
-            throw "Invalid call expression";
+            throw t("Invalid call expression");
         }
 
         let functionName = `${node.callee.object.name}.${node.callee.property.name}`;

@@ -20,6 +20,7 @@ import {
 } from "instrument/window/history/list-component";
 import { createHistoryItem } from "instrument/window/history/item-factory";
 import type { IAppStore, History } from "instrument/window/history/history";
+import { t } from "eez-studio-shared/i18n";
 
 function isHomeHistoryAppStore(appStore: IAppStore) {
     return appStore.instrument.id === "0";
@@ -344,12 +345,12 @@ export const Scrapbook = observer(
                                                         event.target.checked)
                                             )}
                                         />
-                                        Show all instruments
+                                        {t("Show all instruments")}
                                     </label>
                                 </div>
                             )}
                             <div>
-                                <span>Thumbnail size</span>
+                                <span>{t("Thumbnail size")}</span>
                                 <input
                                     type="range"
                                     value={theScrapbook.thumbnailSize}

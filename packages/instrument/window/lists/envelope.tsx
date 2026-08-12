@@ -82,6 +82,7 @@ import {
 } from "instrument/window/lists/common-tools";
 import { TableLineController } from "instrument/window/lists/table";
 import { getTableListData } from "instrument/window/lists/table-data";
+import { t } from "eez-studio-shared/i18n";
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -356,7 +357,7 @@ const EditEnvelopeValue = observer(
                     this.timeError = this.powerLimitError;
                 }
             } else {
-                this.timeError = "Invalid value";
+                this.timeError = t("Invalid value");
                 this.props.onTimeChange(this.props.time!);
             }
         };
@@ -381,7 +382,7 @@ const EditEnvelopeValue = observer(
                     this.valueError = this.powerLimitError;
                 }
             } else {
-                this.valueError = "Invalid value";
+                this.valueError = t("Invalid value");
                 this.props.onValueChange(this.props.value);
             }
         };
@@ -398,7 +399,7 @@ const EditEnvelopeValue = observer(
                                             className="btn btn-sm btn-danger"
                                             onClick={this.props.onRemove}
                                         >
-                                            Remove
+                                            {t("Remove")}
                                         </button>
                                     )}
                                 </td>
@@ -411,7 +412,7 @@ const EditEnvelopeValue = observer(
                             {this.props.time !== undefined && (
                                 <tr>
                                     <td>
-                                        <label>Time</label>
+                                        <label>{t("Time")}</label>
                                     </td>
                                     <td>
                                         <input
@@ -462,14 +463,14 @@ const EditEnvelopeValue = observer(
                                         onClick={this.props.onSave}
                                         disabled={!this.canSave}
                                     >
-                                        Save
+                                        {t("Save")}
                                     </button>
                                     &nbsp;
                                     <button
                                         className="btn btn-default"
                                         onClick={this.props.onClose}
                                     >
-                                        Cancel
+                                        {t("Cancel")}
                                     </button>
                                 </td>
                             </tr>
@@ -980,15 +981,16 @@ export class EnvelopeLineController extends LineController {
         const maxVoltage = getMaxVoltage(this.instrument);
         for (let i = 0; i < this.tableListData.voltage.length; i++) {
             if (this.tableListData.voltage[i] < 0) {
-                return "Voltage must be >= 0";
+                return t("Voltage must be >= 0");
             }
             if (this.tableListData.voltage[i] > maxVoltage) {
                 return (
-                    "Voltage must be <= " +
-                    VOLTAGE_UNIT.formatValue(
-                        maxVoltage,
-                        this.instrument.getDigits(VOLTAGE_UNIT)
-                    )
+                    t("Voltage must be <= {value}", {
+                        value: VOLTAGE_UNIT.formatValue(
+                            maxVoltage,
+                            this.instrument.getDigits(VOLTAGE_UNIT)
+                        )
+                    })
                 );
             }
         }
@@ -996,15 +998,16 @@ export class EnvelopeLineController extends LineController {
         const maxCurrent = getMaxCurrent(this.instrument);
         for (let i = 0; i < this.tableListData.current.length; i++) {
             if (this.tableListData.current[i] < 0) {
-                return "Current must be >= 0";
+                return t("Current must be >= 0");
             }
             if (this.tableListData.current[i] > maxCurrent) {
                 return (
-                    "Current must be <= " +
-                    CURRENT_UNIT.formatValue(
-                        maxCurrent,
-                        this.instrument.getDigits(VOLTAGE_UNIT)
-                    )
+                    t("Current must be <= {value}", {
+                        value: CURRENT_UNIT.formatValue(
+                            maxCurrent,
+                            this.instrument.getDigits(VOLTAGE_UNIT)
+                        )
+                    })
                 );
             }
         }
@@ -1095,10 +1098,11 @@ export class EnvelopeLineController extends LineController {
         this.values.splice(cursor.valueIndex, 0, newValue);
         cursor.error =
             time < 0
-                ? "Time must be >= 0"
+                ? t("Time must be >= 0")
                 : time > this.list.data.duration
-                ? "Time must be <= " +
-                  TIME_UNIT.formatValue(this.list.data.duration)
+                ? t("Time must be <= {value}", {
+                      value: TIME_UNIT.formatValue(this.list.data.duration)
+                  })
                 : this.limitError;
         this.values.splice(cursor.valueIndex, 1);
 
@@ -1474,7 +1478,7 @@ const EnvelopeChartsHeader = observer(
                         },
                         {
                             name: "numSamples",
-                            displayName: "No. of samples",
+                            displayName: t("No. of samples"),
                             type: "integer",
                             validators: [
                                 validators.rangeInclusive(
@@ -1650,28 +1654,28 @@ const EnvelopeChartsHeader = observer(
                     <Toolbar>
                         <Toolbar>
                             <ButtonAction
-                                text="Edit Properties"
+                                text={t("Edit Properties")}
                                 className="btn-secondary"
-                                title="Edit properties"
+                                title={t("Edit properties")}
                                 onClick={this.editProperties}
                             />
                             <DropdownButtonAction
-                                text="Clear Points"
-                                title="Clear points"
+                                text={t("Clear Points")}
+                                title={t("Clear points")}
                                 className="btn-secondary"
                             >
                                 <DropdownItem
-                                    text="Clear All Points"
+                                    text={t("Clear All Points")}
                                     onClick={this.clearAllPoints}
                                     disabled={!this.canClearAllPoints}
                                 />
                                 <DropdownItem
-                                    text="Clear All Voltage Points"
+                                    text={t("Clear All Voltage Points")}
                                     onClick={this.clearAllVoltagePoints}
                                     disabled={!this.canClearAllVoltagePoints}
                                 />
                                 <DropdownItem
-                                    text="Clear All Current Points"
+                                    text={t("Clear All Current Points")}
                                     onClick={this.clearAllCurrentPoints}
                                     disabled={!this.canClearAllCurrentPoints}
                                 />

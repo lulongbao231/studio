@@ -1,4 +1,5 @@
 import { dialog, getCurrentWindow } from "@electron/remote";
+import { t } from "eez-studio-shared/i18n";
 
 export function info(message: string, detail: string | undefined) {
     return dialog.showMessageBox(getCurrentWindow(), {
@@ -7,7 +8,7 @@ export function info(message: string, detail: string | undefined) {
         message: message,
         detail: detail,
         noLink: true,
-        buttons: ["OK"]
+        buttons: [t("OK")]
     });
 }
 
@@ -18,7 +19,7 @@ export function error(message: string, detail: string | undefined) {
         message: message,
         detail: detail,
         noLink: true,
-        buttons: ["OK"]
+        buttons: [t("OK")]
     });
 }
 
@@ -34,7 +35,7 @@ export async function confirm(
         message: message,
         detail: detail,
         noLink: true,
-        buttons: ["Yes", "No"],
+        buttons: [t("Yes"), t("No")],
         cancelId: 1
     });
     const buttonIndex = result.response;
@@ -55,7 +56,7 @@ export async function confirmPromise(
         message: message,
         detail: detail,
         noLink: true,
-        buttons: ["Yes", "No"],
+        buttons: [t("Yes"), t("No")],
         cancelId: 1
     });
     const buttonIndex = result.response;
@@ -76,7 +77,7 @@ export async function confirmWithButtons(
         message: message,
         detail: detail,
         noLink: true,
-        buttons: buttons || ["Yes", "No"],
+        buttons: buttons || [t("Yes"), t("No")],
         cancelId: 1
     });
     return result.response;

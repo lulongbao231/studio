@@ -9,6 +9,7 @@ import fs from "fs";
 import path from "path";
 import { getName, NamingConvention } from "project-editor/build/helper";
 import * as notification from "eez-studio-ui/notification";
+import { t } from "eez-studio-shared/i18n";
 
 let extractBusy = false;
 
@@ -127,7 +128,7 @@ export class ExtractFont implements IFontExtract {
         let toastId;
         function createToast() {
             toastId = notification.info(
-                `Extracting font "${fontName}"...`,
+                t('Extracting font "{fontName}"...', { fontName }),
                 { autoClose: false, isLoading: true }
             );
         }
@@ -196,7 +197,9 @@ export class ExtractFont implements IFontExtract {
 
             if (toastId) {
                 notification.update(toastId!, {
-                    render: `Font "${fontName}" extracted successfully.`,
+                    render: t('Font "{fontName}" extracted successfully.', {
+                        fontName
+                    }),
                     type: notification.SUCCESS,
                     isLoading: false,
                     autoClose: 1000
@@ -214,7 +217,10 @@ export class ExtractFont implements IFontExtract {
             }
 
             notification.update(toastId!, {
-                render: `Font "${fontName}" extraction failed: ${err.message}`,
+                render: t('Font "{fontName}" extraction failed: {error}', {
+                    fontName,
+                    error: err.message
+                }),
                 type: notification.ERROR,
                 isLoading: false,
                 autoClose: false

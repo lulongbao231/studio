@@ -13,6 +13,8 @@ import {
     IActivityLogEntry
 } from "instrument/window/history/activity-log";
 
+import { t } from "eez-studio-shared/i18n";
+
 import type { FileState } from "instrument/connection/file-state";
 import { FileTransfer } from "instrument/connection/file-transfer";
 import type { Connection } from "instrument/connection/connection-main";
@@ -160,7 +162,7 @@ export class FileUpload extends FileTransfer {
         } catch (err) {
             console.error(err);
             this.state = "error";
-            this.error = "Can't read data from the file";
+            this.error = t("Can't read data from the file");
         }
 
         this.updateLog();
@@ -305,7 +307,7 @@ export class FileUpload extends FileTransfer {
                 this.chunkIndex++;
             } else {
                 this.state = "error";
-                this.error = "Can't read data from the file";
+                this.error = t("Can't read data from the file");
             }
 
             this.updateLog();

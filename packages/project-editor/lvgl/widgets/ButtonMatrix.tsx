@@ -1,3 +1,4 @@
+import { t } from "eez-studio-shared/i18n";
 import React from "react";
 import { makeObservable, observable } from "mobx";
 
@@ -63,56 +64,56 @@ class LVGLMatrixButton extends EezObject {
             },
             {
                 name: "ctrlHidden",
-                displayName: "HIDDEN",
+                displayName: t("HIDDEN"),
                 type: PropertyType.Boolean,
                 checkboxStyleSwitch: true,
                 hideInPropertyGrid: (button: LVGLMatrixButton) => button.newLine
             },
             {
                 name: "ctrlNoRepeat",
-                displayName: "NO_REPEAT",
+                displayName: t("NO_REPEAT"),
                 type: PropertyType.Boolean,
                 checkboxStyleSwitch: true,
                 hideInPropertyGrid: (button: LVGLMatrixButton) => button.newLine
             },
             {
                 name: "ctrlDisabled",
-                displayName: "DISABLED",
+                displayName: t("DISABLED"),
                 type: PropertyType.Boolean,
                 checkboxStyleSwitch: true,
                 hideInPropertyGrid: (button: LVGLMatrixButton) => button.newLine
             },
             {
                 name: "ctrlCheckable",
-                displayName: "CHECKABLE",
+                displayName: t("CHECKABLE"),
                 type: PropertyType.Boolean,
                 checkboxStyleSwitch: true,
                 hideInPropertyGrid: (button: LVGLMatrixButton) => button.newLine
             },
             {
                 name: "ctrlChecked",
-                displayName: "CHECKED",
+                displayName: t("CHECKED"),
                 type: PropertyType.Boolean,
                 checkboxStyleSwitch: true,
                 hideInPropertyGrid: (button: LVGLMatrixButton) => button.newLine
             },
             {
                 name: "ctrlClickTrig",
-                displayName: "CLICK_TRIG",
+                displayName: t("CLICK_TRIG"),
                 type: PropertyType.Boolean,
                 checkboxStyleSwitch: true,
                 hideInPropertyGrid: (button: LVGLMatrixButton) => button.newLine
             },
             {
                 name: "ctrlPopover",
-                displayName: "POPOVER",
+                displayName: t("POPOVER"),
                 type: PropertyType.Boolean,
                 checkboxStyleSwitch: true,
                 hideInPropertyGrid: (button: LVGLMatrixButton) => button.newLine
             },
             {
                 name: "ctrlRecolor",
-                displayName: "RECOLOR",
+                displayName: t("RECOLOR"),
                 type: PropertyType.Boolean,
                 checkboxStyleSwitch: true,
                 hideInPropertyGrid: (button: LVGLMatrixButton) =>
@@ -122,14 +123,14 @@ class LVGLMatrixButton extends EezObject {
             },
             {
                 name: "ctrlCustom1",
-                displayName: "CUSTOM_1",
+                displayName: t("CUSTOM_1"),
                 type: PropertyType.Boolean,
                 checkboxStyleSwitch: true,
                 hideInPropertyGrid: (button: LVGLMatrixButton) => button.newLine
             },
             {
                 name: "ctrlCustom2",
-                displayName: "CUSTOM_2",
+                displayName: t("CUSTOM_2"),
                 type: PropertyType.Boolean,
                 checkboxStyleSwitch: true,
                 hideInPropertyGrid: (button: LVGLMatrixButton) => button.newLine
@@ -139,7 +140,7 @@ class LVGLMatrixButton extends EezObject {
         listLabel: (button: LVGLMatrixButton, collapsed: boolean) => {
             if (button.newLine) {
                 if (collapsed) {
-                    return "New line";
+                    return t("New line");
                 } else {
                     return "";
                 }
@@ -186,7 +187,7 @@ class LVGLMatrixButton extends EezObject {
                     messages.push(
                         new Message(
                             MessageType.ERROR,
-                            `The width must be in the range of 1..7`,
+                            t("The width must be in the range of 1..7"),
                             getChildOfObject(button, "width")
                         )
                     );

@@ -1,4 +1,5 @@
 import React from "react";
+import { t } from "eez-studio-shared/i18n";
 import { makeObservable, observable } from "mobx";
 
 import { makeDerivedClassInfo, PropertyType } from "project-editor/core/object";
@@ -197,7 +198,7 @@ export class LVGLSpinboxWidget extends LVGLWidget {
                     "int32_t",
                     "new_val",
                     this.step as string,
-                    "Failed to evaluate Step in Spinbox widget"
+                    t("Failed to evaluate Step in Spinbox widget")
                 );
 
                 const cur_val = code.callObjectFunctionWithAssignment(
@@ -237,7 +238,7 @@ export class LVGLSpinboxWidget extends LVGLWidget {
                             "step",
                             this.step as string,
                             value,
-                            "Failed to assign Step in Spinbox widget"
+                            t("Failed to assign Step in Spinbox widget")
                         );
                     });
                 }
@@ -253,7 +254,7 @@ export class LVGLSpinboxWidget extends LVGLWidget {
                     "int32_t",
                     "new_val",
                     this.value as string,
-                    "Failed to evaluate Value in Spinbox widget"
+                    t("Failed to evaluate Value in Spinbox widget")
                 );
 
                 const cur_val = code.callObjectFunctionWithAssignment(
@@ -293,7 +294,7 @@ export class LVGLSpinboxWidget extends LVGLWidget {
                             "value",
                             this.value as string,
                             value,
-                            "Failed to assign Value in Spinbox widget"
+                            t("Failed to assign Value in Spinbox widget")
                         );
                     });
                 }

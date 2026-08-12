@@ -14,6 +14,7 @@ import {
     VALIDATION_MESSAGE_REQUIRED
 } from "eez-studio-shared/validation";
 import { humanize } from "eez-studio-shared/string";
+import { t } from "eez-studio-shared/i18n";
 import { easingFunctions } from "eez-studio-shared/easing-functions";
 import { Icon } from "eez-studio-ui/icon";
 import { Button } from "eez-studio-ui/button";
@@ -181,17 +182,17 @@ export class TimelineKeyframe extends EezObject {
                     );
 
                     if (x.value.easingFunction == "linear") {
-                        return `${label} to ${x.value.value}`;
+                        return `${label} ${t("to")} ${x.value.value}`;
                     } else {
-                        return `${label} to ${x.value.value}/${x.value.easingFunction}`;
+                        return `${label} ${t("to")} ${x.value.value}/${x.value.easingFunction}`;
                     }
                 })
                 .join(", ");
 
             if (start == end) {
-                return `At ${end} s set ` + values;
+                return t("At {end} s set ", { end }) + values;
             }
-            return `From ${start} s to ${end} s animate ` + values;
+            return t("From {start} s to {end} s animate ", { start, end }) + values;
         },
         beforeLoadHook: (
             keyframe: TimelineKeyframe,
@@ -624,21 +625,21 @@ const NumberInput = observer(
             this.value = e.target.value;
 
             if (!this.value) {
-                this.error = VALIDATION_MESSAGE_REQUIRED;
+                this.error = VALIDATION_MESSAGE_REQUIRED();
                 return;
             }
 
             let value = parseFloat(this.value);
             if (isNaN(value)) {
-                this.error = "Not a number";
-                e.target.setCustomValidity("Not a number");
+                this.error = t("Not a number");
+                e.target.setCustomValidity(t("Not a number"));
                 return;
             }
 
             if (this.props.min != undefined) {
                 if (this.props.max != undefined) {
                     if (value < this.props.min || value > this.props.max) {
-                        this.error = VALIDATION_MESSAGE_RANGE_INCLUSIVE.replace(
+                        this.error = VALIDATION_MESSAGE_RANGE_INCLUSIVE().replace(
                             "${min}",
                             this.props.min.toString()
                         ).replace("${max}", this.props.max.toString());
@@ -647,7 +648,7 @@ const NumberInput = observer(
                 } else {
                     if (value < this.props.min) {
                         this.error =
-                            VALIDATION_MESSAGE_RANGE_INCLUSIVE_WITHOUT_MAX.replace(
+                            VALIDATION_MESSAGE_RANGE_INCLUSIVE_WITHOUT_MAX().replace(
                                 "${min}",
                                 this.props.min.toString()
                             );
@@ -1238,7 +1239,7 @@ export const TimelineKeyframePropertyUI = observer(
                 }
             }
 
-            const label = `Control pt ${index + 1}`;
+            const label = t("Control pt {index}", { index: index + 1 });
 
             return (
                 <tr>
@@ -1372,9 +1373,9 @@ export const TimelineKeyframePropertyUI = observer(
                     <tbody>
                         <tr>
                             <td className="duration-heading"></td>
-                            <td className="duration-heading">Start</td>
-                            <td className="duration-heading">End</td>
-                            <td className="duration-heading">Duration</td>
+                            <td className="duration-heading">{t("Start")}</td>
+                            <td className="duration-heading">{t("End")}</td>
+                            <td className="duration-heading">{t("Duration")}</td>
                         </tr>
                         <tr>
                             <td></td>
@@ -1433,16 +1434,25 @@ export const TimelineKeyframePropertyUI = observer(
                             </td>
                         </tr>
                         <tr>
-                            <td className="property-heading">Property</td>
-                            <td className="property-heading">From Value</td>
-                            <td className="property-heading">To Value</td>
                             <td className="property-heading">
-                                Easing{" "}
+                                {t("Property")}
+                            </td>
+                            <td className="property-heading">
+                                {t("From Value")}
+                            </td>
+                            <td className="property-heading">
+                                {t("To Value")}
+                            </td>
+                            <td className="property-heading">
+                                {t("Easing")}
                                 <a>
                                     <Icon
                                         icon="material:info"
-                                        title="Open easing functions help page in the system browser"
+                                        title={t(
+                                            "Open easing functions help page in the system browser"
+                                        )}
                                         style={{ cursor: "pointer" }}
+
                                         onClick={async () => {
                                             const { shell } = await import(
                                                 "electron"
@@ -1525,8 +1535,8 @@ export const TimelineKeyframePropertyUI = observer(
                                 onClick={this.onDeleteKeyframes}
                             >
                                 {keyframes.length > 1
-                                    ? "Delete Keyframes"
-                                    : "Delete Keyframe"}
+                                    ? t("Delete Keyframes")
+                                    : t("Delete Keyframe")}
                             </Button>
                         </div>
                     )}
@@ -1542,8 +1552,8 @@ export const TimelineKeyframePropertyUI = observer(
                                 onClick={this.onInsertKeyframes}
                             >
                                 {this.keyframes.length > 1
-                                    ? "Insert Keyframes"
-                                    : "Insert Keyframe"}
+                                    ? t("Insert Keyframes")
+                                    : t("Insert Keyframe")}
                             </Button>
                         </div>
                     )}

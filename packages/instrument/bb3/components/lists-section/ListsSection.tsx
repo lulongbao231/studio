@@ -8,11 +8,12 @@ import { BB3Instrument } from "instrument/bb3/objects/BB3Instrument";
 import { Section } from "instrument/bb3/components/Section";
 import { ListsSectionGlobalActions } from "instrument/bb3/components/lists-section/ListsSectionGlobalActions";
 import { ListsSectionList } from "instrument/bb3/components/lists-section/ListsSectionList";
+import { t } from "eez-studio-shared/i18n";
 
 export const ListsSection = observer(({ bb3Instrument }: { bb3Instrument: BB3Instrument }) => {
     return (
         <Section
-            title="Lists"
+            title={t("Lists")}
             titleControls={
                 bb3Instrument.refreshInProgress ? null : (
                     <ListsSectionGlobalActions bb3Instrument={bb3Instrument} />
@@ -25,7 +26,9 @@ export const ListsSection = observer(({ bb3Instrument }: { bb3Instrument: BB3Ins
                     <>
                         {bb3Instrument.listsOnInstrumentFetchError && (
                             <div className="alert alert-danger" role="alert">
-                                Failed to get info about lists on the instruments!
+                                {t(
+                                    "Failed to get info about lists on the instruments!"
+                                )}
                             </div>
                         )}
                         {bb3Instrument.lists && (

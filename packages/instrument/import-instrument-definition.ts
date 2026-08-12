@@ -8,21 +8,26 @@ import { showGenericDialog } from "eez-studio-ui/generic-dialog";
 import * as notification from "eez-studio-ui/notification";
 
 import { importInstrumentDefinitionAsProject } from "instrument/import-instrument-definition-as-project";
+import { t } from "eez-studio-shared/i18n";
 
 function confirmMessage(extension: IExtension) {
-    return `You are about to install version ${extension.version} of the '${
-        extension.displayName || extension.name
-    }' instrument definition extension.`;
+    return t(
+        "You are about to install version {version} of the {name} instrument definition extension.",
+        {
+            version: extension.version,
+            name: extension.displayName || extension.name
+        }
+    );
 }
 
 const BUTTON_INSTRUCTIONS = `
-Click 'OK' to replace the installed version.
-Click 'Cancel' to stop the installation.`;
+${t("Click 'OK' to replace the installed version.")}
+${t("Click 'Cancel' to stop the installation.")}`;
 
-const BUTTONS = ["OK", "Cancel"];
+const BUTTONS = [t("OK"), t("Cancel")];
 
 export async function importInstrumentDefinitionAsExtension(filePath: string) {
-    const progressToastId = notification.info("Importing...", {
+    const progressToastId = notification.info(t("Importing..."), {
         autoClose: false
     });
 
@@ -31,7 +36,7 @@ export async function importInstrumentDefinitionAsExtension(filePath: string) {
             checkExtensionType(type: string) {
                 if (type !== "instrument") {
                     notification.update(progressToastId, {
-                        render: "This is not an instrument definition file.",
+                        render: t("This is not an instrument definition file."),
                         type: notification.ERROR,
                         autoClose: 5000
                     });
@@ -41,7 +46,9 @@ export async function importInstrumentDefinitionAsExtension(filePath: string) {
             },
             notFound() {
                 notification.update(progressToastId, {
-                    render: "This is not a valid instrument definition file.",
+                    render: t(
+                        "This is not a valid instrument definition file."
+                    ),
                     type: notification.ERROR,
                     autoClose: 5000
                 });
@@ -53,7 +60,10 @@ export async function importInstrumentDefinitionAsExtension(filePath: string) {
                 return (
                     (await confirmWithButtons(
                         confirmMessage(newExtension),
-                        `The newer version ${existingExtension.version} is already installed.${BUTTON_INSTRUCTIONS}`,
+                        t(
+                            "The newer version {version} is already installed.",
+                            { version: existingExtension.version }
+                        ) + BUTTON_INSTRUCTIONS,
                         BUTTONS
                     )) === 0
                 );
@@ -65,7 +75,10 @@ export async function importInstrumentDefinitionAsExtension(filePath: string) {
                 return (
                     (await confirmWithButtons(
                         confirmMessage(newExtension),
-                        `The older version ${existingExtension.version} is already installed.${BUTTON_INSTRUCTIONS}`,
+                        t(
+                            "The older version {version} is already installed.",
+                            { version: existingExtension.version }
+                        ) + BUTTON_INSTRUCTIONS,
                         BUTTONS
                     )) === 0
                 );
@@ -77,7 +90,8 @@ export async function importInstrumentDefinitionAsExtension(filePath: string) {
                 return (
                     (await confirmWithButtons(
                         confirmMessage(newExtension),
-                        `That version is already installed.${BUTTON_INSTRUCTIONS}`,
+                        t("That version is already installed.") +
+                            BUTTON_INSTRUCTIONS,
                         BUTTONS
                     )) === 0
                 );
@@ -86,15 +100,15 @@ export async function importInstrumentDefinitionAsExtension(filePath: string) {
 
         if (extension) {
             notification.update(progressToastId, {
-                render: `Instrument definition "${
-                    extension.displayName || extension.name
-                }" imported`,
+                render: t('Instrument definition "{name}" imported', {
+                    name: extension.displayName || extension.name
+                }),
                 type: notification.SUCCESS,
                 autoClose: 5000
             });
         } else {
             notification.update(progressToastId, {
-                render: `Import canceled`,
+                render: t("Import canceled"),
                 type: notification.INFO,
                 autoClose: 500
             });
@@ -120,11 +134,11 @@ export function importInstrumentDefinition(
                     enumItems: [
                         {
                             id: "extension",
-                            label: "Instrument Extension (IEXT)"
+                            label: t("Instrument Extension (IEXT)")
                         },
                         {
                             id: "project",
-                            label: "Project"
+                            label: t("Project")
                         }
                     ]
                 }
@@ -148,10 +162,10 @@ export function importInstrumentDefinition(
                         ) + ".eez-project",
                     filters: [
                         {
-                            name: "EEZ Project",
+                            name: t("EEZ Project"),
                             extensions: ["eez-project"]
                         },
-                        { name: "All Files", extensions: ["*"] }
+                        { name: t("All Files"), extensions: ["*"] }
                     ]
                 });
                 let projectFilePath = result.filePath;

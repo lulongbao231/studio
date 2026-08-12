@@ -9,6 +9,8 @@ import type {
 
 import { registerActionComponents } from "project-editor/flow/component";
 
+import { t } from "eez-studio-shared/i18n";
+
 import { onWasmFlowRuntimeTerminate } from "project-editor/flow/runtime/wasm-worker";
 
 import { isArray } from "eez-studio-shared/util";
@@ -118,19 +120,21 @@ registerActionComponents("Dashboard Specific", [
         execute: (context: IDashboardComponentContext) => {
             const commandValue: any = context.evalProperty("command");
             if (typeof commandValue != "string") {
-                context.throwError("command is not a string");
+                context.throwError(t("command is not a string"));
                 return;
             }
             const argsValue: any = context.evalProperty("arguments");
             if (!isArray(argsValue)) {
-                context.throwError("arguments is not an array");
+                context.throwError(t("arguments is not an array"));
                 return;
             }
 
             const i = argsValue.findIndex((arg: any) => typeof arg != "string");
             if (i != -1) {
                 context.throwError(
-                    `argument at position ${i + 1} is not a string`
+                    t("argument at position {n} is not a string", {
+                        n: i + 1
+                    })
                 );
                 return;
             }

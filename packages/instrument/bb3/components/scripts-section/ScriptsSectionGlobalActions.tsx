@@ -1,6 +1,8 @@
 import React from "react";
 import { observer } from "mobx-react";
 
+import { t } from "eez-studio-shared/i18n";
+
 import { BB3Instrument } from "instrument/bb3/objects/BB3Instrument";
 
 export const ScriptsSectionGlobalActions = observer(
@@ -18,7 +20,7 @@ export const ScriptsSectionGlobalActions = observer(
                 className="btn btn-sm btn-primary text-nowrap"
                 onClick={bb3Instrument.installAllScripts}
             >
-                Install All
+                {t("Install All")}
             </button>
         );
     }

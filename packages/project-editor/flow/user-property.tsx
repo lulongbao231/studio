@@ -56,6 +56,7 @@ import {
 } from "project-editor/flow/expression";
 import { uniqueForVariableAndUserProperty } from "project-editor/features/variable/variable";
 import { guid } from "eez-studio-shared/guid";
+import { t } from "eez-studio-shared/i18n";
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -155,7 +156,7 @@ export class UserProperty extends EezObject {
 
             const result = await showGenericDialog({
                 dialogDefinition: {
-                    title: "New User Property",
+                    title: t("New User Property"),
                     fields: [
                         {
                             name: "name",
@@ -212,7 +213,7 @@ export class UserProperty extends EezObject {
                     messages.push(
                         new Message(
                             MessageType.ERROR,
-                            `Invalid type`,
+                            t("Invalid type"),
                             userProperty
                         )
                     );
@@ -504,7 +505,7 @@ export class UserPropertyValues extends EezObject {
     };
 
     static classInfo: ClassInfo = {
-        label: () => "User Properties",
+        label: () => t("User Properties"),
 
         properties: [
             {
@@ -567,10 +568,12 @@ export class UserPropertyValues extends EezObject {
                             messages.push(
                                 new Message(
                                     MessageType.ERROR,
-                                    `${
-                                        userProperty.displayName ||
-                                        userProperty.name
-                                    }: invalid assignable expression (${err})`,
+                                    t("{name}: invalid assignable expression ({err})", {
+                                        name:
+                                            userProperty.displayName ||
+                                            userProperty.name,
+                                        err
+                                    }),
                                     makeValueObjectForUserProperty(
                                         userPropertyValues,
                                         userProperty
@@ -585,10 +588,12 @@ export class UserPropertyValues extends EezObject {
                             messages.push(
                                 new Message(
                                     MessageType.ERROR,
-                                    `${
-                                        userProperty.displayName ||
-                                        userProperty.name
-                                    }: invalid expression (${err})`,
+                                    t("{name}: invalid expression ({err})", {
+                                        name:
+                                            userProperty.displayName ||
+                                            userProperty.name,
+                                        err
+                                    }),
                                     makeValueObjectForUserProperty(
                                         userPropertyValues,
                                         userProperty
@@ -601,9 +606,9 @@ export class UserPropertyValues extends EezObject {
                     messages.push(
                         new Message(
                             MessageType.ERROR,
-                            `${
-                                userProperty.displayName || userProperty.name
-                            }: not set`,
+                            t("{name}: not set", {
+                                name: userProperty.displayName || userProperty.name
+                            }),
                             makeValueObjectForUserProperty(
                                 userPropertyValues,
                                 userProperty

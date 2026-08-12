@@ -1,6 +1,7 @@
 import React from "react";
 import { observable, runInAction, makeObservable } from "mobx";
 import { observer } from "mobx-react";
+import { t } from "eez-studio-shared/i18n";
 import { InstrumentObject } from "instrument/instrument-object";
 import { getExtensionFolderPath } from "eez-studio-shared/extensions/extension-folder";
 import { ProjectStore } from "project-editor/store";
@@ -104,7 +105,7 @@ export class DashboardProject {
         } catch (err) {
             console.log(err);
             runInAction(() => {
-                this.error = "Failed to load file!";
+                this.error = t("Failed to load file!");
             });
         }
     };
@@ -134,7 +135,7 @@ export class DashboardProject {
 
             body = (
                 <div className="alert alert-primary">
-                    Instrument is not connected
+                    {t("Instrument is not connected")}
                 </div>
             );
         } else if (!this.projectStore) {
@@ -155,11 +156,13 @@ export class DashboardProject {
                 <div>
                     {this.runtime && this.runtime.error && (
                         <div className="alert alert-danger">
-                            Start error: {this.runtime.error}
+                            {t("Start error: {error}", {
+                                error: this.runtime.error
+                            })}
                         </div>
                     )}
                     <button className="btn btn-primary" onClick={this.reload}>
-                        Start
+                        {t("Start")}
                     </button>
                 </div>
             );
@@ -167,14 +170,16 @@ export class DashboardProject {
             body = (
                 <div>
                     <div className="alert alert-danger">
-                        Execution error: {this.projectStore.runtime.error}
+                        {t("Execution error: {error}", {
+                            error: this.projectStore.runtime.error
+                        })}
                     </div>
                     <div>
                         <button
                             className="btn btn-primary"
                             onClick={this.reload}
                         >
-                            Reload
+                            {t("Reload")}
                         </button>
                     </div>
                 </div>

@@ -8,6 +8,8 @@ import classNames from "classnames";
 import { Icon } from "eez-studio-ui/icon";
 import { IconAction } from "eez-studio-ui/action";
 
+import { t } from "eez-studio-shared/i18n";
+
 ////////////////////////////////////////////////////////////////////////////////
 
 export interface IDialogOptions {
@@ -236,7 +238,7 @@ export const Dialog = observer(
                     onClick: this.onCancel,
                     disabled: this.disableButtons,
                     style: { marginLeft: "auto" },
-                    text: this.props.cancelButtonText || "Cancel"
+                    text: this.props.cancelButtonText || t("Cancel")
                 });
             }
 
@@ -252,7 +254,7 @@ export const Dialog = observer(
                             ? !this.props.okEnabled()
                             : false),
                     style: {},
-                    text: this.props.okButtonText || "OK"
+                    text: this.props.okButtonText || t("OK")
                 });
             }
 
@@ -516,7 +518,7 @@ export const BootstrapDialog = observer(
                                             type="button"
                                             className="btn-close float-right"
                                             disabled={props.disableButtons}
-                                            aria-label="Close"
+                                            aria-label={t("Close")}
                                             onClick={props.onCancel}
                                         ></button>
                                     )}

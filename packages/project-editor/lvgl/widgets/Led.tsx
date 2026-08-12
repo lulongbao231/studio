@@ -1,4 +1,5 @@
 import React from "react";
+import { t } from "eez-studio-shared/i18n";
 import { makeObservable, observable } from "mobx";
 
 import { makeDerivedClassInfo, MessageType } from "project-editor/core/object";
@@ -43,8 +44,9 @@ export class LVGLLedWidget extends LVGLWidget {
                 ["literal", "expression"],
                 {
                     propertyGridGroup: specificGroup,
-                    formText:
+                    formText: t(
                         "The brightness should be between 0 (darkest) and 255 (lightest)."
+                    )
                 }
             )
         ],
@@ -70,7 +72,7 @@ export class LVGLLedWidget extends LVGLWidget {
                     messages.push(
                         new Message(
                             MessageType.ERROR,
-                            `invalid color`,
+                            t("invalid color"),
                             getChildOfObject(object, "color")
                         )
                     );
@@ -162,7 +164,7 @@ export class LVGLLedWidget extends LVGLWidget {
                     "uint32_t",
                     "new_val",
                     this.color as string,
-                    "Failed to evaluate Color in Led widget"
+                    t("Failed to evaluate Color in Led widget")
                 );
                 if (code.lvglBuild) {
                     if (code.isV9) {
@@ -221,7 +223,7 @@ export class LVGLLedWidget extends LVGLWidget {
                     "int32_t",
                     "new_val",
                     this.brightness as string,
-                    "Failed to evaluate Brightness in Led widget"
+                    t("Failed to evaluate Brightness in Led widget")
                 );
 
                 if (code.lvglBuild) {

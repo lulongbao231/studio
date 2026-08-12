@@ -11,6 +11,7 @@ import type { IAppStore } from "instrument/window/history/history";
 import { HistoryItem } from "instrument/window/history/item";
 import { IActivityLogEntry } from "instrument/window/history/activity-log";
 import { HistoryItemInstrumentInfo } from "../HistoryItemInstrumentInfo";
+import { t } from "eez-studio-shared/i18n";
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -48,7 +49,7 @@ export const ScriptHistoryItemComponent = observer(
                         <table className="table">
                             <tbody>
                                 <tr>
-                                    <td>Name</td>
+                                    <td>{t("Name")}</td>
                                     <td>
                                         {
                                             this.props.historyItem.scriptMessage
@@ -57,7 +58,7 @@ export const ScriptHistoryItemComponent = observer(
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>Type</td>
+                                    <td>{t("Type")}</td>
                                     <td>
                                         {
                                             this.props.historyItem.scriptMessage
@@ -68,7 +69,7 @@ export const ScriptHistoryItemComponent = observer(
                                 {this.props.historyItem.scriptMessage
                                     .parameters && (
                                     <tr>
-                                        <td>Parameters</td>
+                                        <td>{t("Parameters")}</td>
                                         <td>
                                             <pre>
                                                 {JSON.stringify(
@@ -82,7 +83,7 @@ export const ScriptHistoryItemComponent = observer(
                                 )}
                                 {this.props.historyItem.scriptMessage.done && (
                                     <tr>
-                                        <td>Result:</td>
+                                        <td>{t("Result:")}</td>
                                         <td>
                                             {this.props.historyItem
                                                 .scriptMessage.error ? (
@@ -93,7 +94,7 @@ export const ScriptHistoryItemComponent = observer(
                                                     }
                                                 </div>
                                             ) : (
-                                                "Success"
+                                                t("Success")
                                             )}
                                         </td>
                                     </tr>

@@ -1,6 +1,8 @@
 import type { Project } from "project-editor/project/project";
 import type { Component } from "project-editor/flow/component";
 import type { ExpressionNode } from "project-editor/flow/expression/node";
+
+import { t } from "eez-studio-shared/i18n";
 import {
     ValueType,
     getStructureFromType
@@ -226,7 +228,7 @@ export function findValueTypeInExpressionNode(
             node.callee.object.type != "Identifier" ||
             node.callee.property.type != "Identifier"
         ) {
-            throw "Invalid call expression";
+            throw t("Invalid call expression");
         }
 
         let functionName = `${node.callee.object.name}.${node.callee.property.name}`;

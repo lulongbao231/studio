@@ -4,6 +4,7 @@ import { observer } from "mobx-react";
 import { Toolbar } from "eez-studio-ui/toolbar";
 import { ButtonAction } from "eez-studio-ui/action";
 import type { IChartsController } from "eez-studio-ui/chart/chart";
+import { t } from "eez-studio-shared/i18n";
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -38,24 +39,24 @@ export const WaveformToolbar = observer(
                             (!this.props.options ||
                                 this.props.options.showConfigureButton) && (
                                 <ButtonAction
-                                    text="Configure"
+                                    text={t("Configure")}
                                     className="btn-primary"
-                                    title="Configure chart"
+                                    title={t("Configure chart")}
                                     onClick={this.configureChart}
                                 />
                             )}
                     </Toolbar>
                     <Toolbar>
                         <ButtonAction
-                            text="Zoom to Fit"
+                            text={t("Zoom to Fit")}
                             className="btn-secondary"
-                            title="Zoom to Fit"
+                            title={t("Zoom to Fit")}
                             onClick={this.props.chartsController.zoomAll}
                         />
                         <ButtonAction
-                            text="Zoom 100%"
+                            text={t("Zoom 100%")}
                             className="btn-secondary"
-                            title="Zoom 100% (1px per sample)"
+                            title={t("Zoom 100% (1px per sample)")}
                             onClick={this.props.chartsController.zoomDefault}
                         />
                     </Toolbar>

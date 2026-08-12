@@ -3,6 +3,9 @@ import React from "react";
 import { observable, makeObservable, runInAction } from "mobx";
 
 import { validators } from "eez-studio-shared/validation";
+
+import { t } from "eez-studio-shared/i18n";
+
 import {
     makeDerivedClassInfo,
     registerClass,
@@ -118,16 +121,15 @@ export const NativeActionImplementationInfoPropertyUI = observer(
                     <div className="EezStudio_PropertyGrid_TipBox_Description">
                         <div className="EezStudio_PropertyGrid_TipBox_Header">
                             <Icon icon="material:lightbulb_outline" />
-                            <span>TIP</span>
+                            <span>{t("TIP")}</span>
                         </div>
                         <div className="EezStudio_PropertyGrid_TipBox_DescriptionText">
                             {this.hasFlowSupport
-                                ? "For native user action "
-                                : "For user action "}
-                            you must provide implementation function. Below is a
-                            basic implementation code for such function. You can
-                            copy and paste it into some source file in your
-                            project.
+                                ? t("For native user action ")
+                                : t("For user action ")}
+                            {t(
+                                "you must provide implementation function. Below is a basic implementation code for such function. You can copy and paste it into some source file in your project."
+                            )}
                         </div>
                         <div className="EezStudio_PropertyGrid_TipBox_Toolbar">
                             <select
@@ -144,7 +146,7 @@ export const NativeActionImplementationInfoPropertyUI = observer(
                             <IconAction
                                 icon="material:content_copy"
                                 iconSize={20}
-                                title="Copy to Clipboard"
+                                title={t("Copy to Clipboard")}
                                 onClick={() => {
                                     clipboard.writeText(code);
                                 }}
@@ -286,7 +288,7 @@ export class Action extends Flow {
                     {projectStore.projectTypeTraits.hasFlowSupport &&
                         action.implementationType == "native" && (
                             <span className="EezStudio_ListLabel_Badge">
-                                NATIVE
+                                {t("NATIVE")}
                             </span>
                         )}
                     <span>{action.name}</span>
@@ -306,7 +308,7 @@ export class Action extends Flow {
 
             const result = await showGenericDialog({
                 dialogDefinition: {
-                    title: "New Action",
+                    title: t("New Action"),
                     fields: [
                         {
                             name: "name",
@@ -323,11 +325,11 @@ export class Action extends Flow {
                             enumItems: [
                                 {
                                     id: "flow",
-                                    label: "Flow"
+                                    label: t("Flow")
                                 },
                                 {
                                     id: "native",
-                                    label: "Native"
+                                    label: t("Native")
                                 }
                             ],
                             visible: () =>
@@ -410,10 +412,10 @@ registerClass("Action", Action);
 const feature: ProjectEditorFeature = {
     name: "eezstudio-project-feature-action",
     version: "0.1.0",
-    description: "User actions support for your project",
+    description: t("User actions support for your project"),
     author: "EEZ",
     authorLogo: "../eez-studio-ui/_images/eez_logo.png",
-    displayName: "User Actions",
+    displayName: t("User Actions"),
     mandatory: true,
     key: "actions",
     type: PropertyType.Array,
@@ -425,7 +427,7 @@ const feature: ProjectEditorFeature = {
             messages.push(
                 new Message(
                     MessageType.ERROR,
-                    "Max. 32000 actions are supported",
+                    t("Max. 32000 actions are supported"),
                     object
                 )
             );

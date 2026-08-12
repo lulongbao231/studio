@@ -14,6 +14,7 @@ import { ButtonAction } from "eez-studio-ui/action";
 import type { History, SearchResult } from "instrument/window/history/history";
 import type { IActivityLogEntry } from "instrument/window/history/activity-log-interfaces";
 import { createHistoryItem } from "instrument/window/history/item-factory";
+import { t } from "eez-studio-shared/i18n";
 
 export const SearchResultComponent = observer(
     class SearchResultComponent extends React.Component<{
@@ -65,9 +66,11 @@ export const SearchResults = observer(
             let info;
 
             if (this.props.history.search.searchResults.length > 0) {
-                info = `${this.props.history.search.searchResults.length} log items found`;
+                info = t("{count} log items found", {
+                    count: this.props.history.search.searchResults.length
+                });
             } else if (!this.props.history.search.searchInProgress) {
-                info = `No log item found.`;
+                info = t("No log item found.");
             }
 
             return (
@@ -83,8 +86,8 @@ export const SearchResults = observer(
                             {this.props.history.search.searchInProgress && (
                                 <div className="EezStudio_SearchResultsInfo_StopButtonContainer">
                                     <ButtonAction
-                                        text="Stop"
-                                        title="Stop search"
+                                        text={t("Stop")}
+                                        title={t("Stop search")}
                                         className="btn-sm btn-secondary"
                                         onClick={() =>
                                             this.props.history.search.stopSearch()

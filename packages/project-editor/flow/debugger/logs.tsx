@@ -19,6 +19,7 @@ import {
     getOutputDisplayName
 } from "project-editor/flow/helper";
 import type { LogItemType } from "project-editor/flow/flow-interfaces";
+import { t } from "eez-studio-shared/i18n";
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -51,7 +52,9 @@ export class ActionStartLogItem extends LogItem {
     }
 
     get label() {
-        return `Action start: ${getLabel(this.flowState!.flow)}`;
+        return t("Action start: {flow}", {
+            flow: getLabel(this.flowState!.flow)
+        });
     }
 }
 
@@ -61,7 +64,9 @@ export class ActionEndLogItem extends LogItem {
     }
 
     get label() {
-        return `Action end: ${getLabel(this.flowState!.flow)}`;
+        return t("Action end: {flow}", {
+            flow: getLabel(this.flowState!.flow)
+        });
     }
 }
 
@@ -77,7 +82,9 @@ export class ExecuteComponentLogItem extends LogItem {
     }
 
     get label() {
-        return `Execute component: ${getQueueTaskLabel(this.queueTask)}`;
+        return t("Execute component: {component}", {
+            component: getQueueTaskLabel(this.queueTask)
+        });
     }
 }
 
@@ -87,7 +94,9 @@ export class ExecuteWidgetActionLogItem extends LogItem {
     }
 
     get label() {
-        return `Execute widget action: ${getLabel(this.component!)}`;
+        return t("Execute widget action: {component}", {
+            component: getLabel(this.component!)
+        });
     }
 }
 
@@ -97,7 +106,9 @@ export class WidgetActionNotDefinedLogItem extends LogItem {
     }
 
     get label() {
-        return `Widget action not defined: ${getLabel(this.component!)}`;
+        return t("Widget action not defined: {component}", {
+            component: getLabel(this.component!)
+        });
     }
 }
 
@@ -107,7 +118,9 @@ export class WidgetActionNotFoundLogItem extends LogItem {
     }
 
     get label() {
-        return `Widget action not found: ${(this.component as Widget).action}`;
+        return t("Widget action not found: {action}", {
+            action: (this.component as Widget).action ?? ""
+        });
     }
 }
 
@@ -121,9 +134,10 @@ export class NoConnectionLogItem extends LogItem {
     }
 
     get label() {
-        return `Action ${getLabel(
-            this.component!
-        )} has no connection from output ${this.output}`;
+        return t("Action {component} has no connection from output {output}", {
+            component: getLabel(this.component!),
+            output: this.output ?? ""
+        });
     }
 }
 
@@ -151,18 +165,21 @@ export class OutputValueLogItem extends LogItem {
             }
         }
 
-        return `Output value from [${
-            this.output ||
-            getOutputDisplayName(
-                this.connectionLine.sourceComponent,
-                this.connectionLine.output
-            )
-        }] to [${getLabel(
-            this.connectionLine.targetComponent!
-        )}/${getInputDisplayName(
-            this.connectionLine.targetComponent,
-            this.connectionLine.input
-        )}]: ${value}`;
+        return t("Output value from [{from}] to [{to}]: {value}", {
+            from:
+                this.output ||
+                getOutputDisplayName(
+                    this.connectionLine.sourceComponent,
+                    this.connectionLine.output
+                ),
+            to: `${getLabel(
+                this.connectionLine.targetComponent!
+            )}/${getInputDisplayName(
+                this.connectionLine.targetComponent,
+                this.connectionLine.input
+            )}`,
+            value
+        });
     }
 }
 
@@ -172,9 +189,10 @@ export class ExecutionErrorLogItem extends LogItem {
     }
 
     get label() {
-        return `Execution error in ${getLabel(
-            this.component!
-        )}: ${this.error.toString()}`;
+        return t("Execution error in {component}: {error}", {
+            component: getLabel(this.component!),
+            error: this.error.toString()
+        });
     }
 }
 
@@ -184,7 +202,7 @@ export class NoStartActionComponentLogItem extends LogItem {
     }
 
     get label() {
-        return `There is no StartActionComponent`;
+        return t("There is no StartActionComponent");
     }
 }
 

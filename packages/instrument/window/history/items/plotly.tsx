@@ -17,6 +17,7 @@ import { HistoryItem } from "instrument/window/history/item";
 
 import { HistoryItemInstrumentInfo } from "../HistoryItemInstrumentInfo";
 import { PLOTTER_ICON } from "project-editor/ui-components/icons";
+import { t } from "eez-studio-shared/i18n";
 
 import { HistoryItemPreview } from "instrument/window/history/item-preview";
 import { getScrapbookStore } from "../scrapbook";
@@ -188,10 +189,10 @@ export const PlotterHistoryItemComponent = observer(
             const result = await dialog.showSaveDialog(getCurrentWindow(), {
                 filters: [
                     {
-                        name: "CSV Files",
+                        name: t("CSV Files"),
                         extensions: ["csv"]
                     },
-                    { name: "All Files", extensions: ["*"] }
+                    { name: t("All Files"), extensions: ["*"] }
                 ],
                 defaultPath: "plotly.csv"
             });
@@ -204,7 +205,7 @@ export const PlotterHistoryItemComponent = observer(
 
                 try {
                     await writeTextFile(filePath, data);
-                    notification.success(`Saved as "${filePath}"`);
+                    notification.success(t('Saved as "{filePath}"', { filePath }));
                 } catch (err) {
                     console.error(err);
                     notification.error(err.toString());
@@ -231,10 +232,10 @@ export const PlotterHistoryItemComponent = observer(
             const result = await dialog.showSaveDialog(getCurrentWindow(), {
                 filters: [
                     {
-                        name: "JSON Files",
+                        name: t("JSON Files"),
                         extensions: ["json"]
                     },
-                    { name: "All Files", extensions: ["*"] }
+                    { name: t("All Files"), extensions: ["*"] }
                 ],
                 defaultPath: "plotly.json"
             });
@@ -247,7 +248,7 @@ export const PlotterHistoryItemComponent = observer(
 
                 try {
                     await writeTextFile(filePath, jsonStr);
-                    notification.success(`Exported to "${filePath}"`);
+                    notification.success(t('Exported to "{filePath}"', { filePath }));
                 } catch (err) {
                     console.error(err);
                     notification.error(err.toString());
@@ -266,10 +267,10 @@ export const PlotterHistoryItemComponent = observer(
             const result = await dialog.showOpenDialog(getCurrentWindow(), {
                 filters: [
                     {
-                        name: "JSON Files",
+                        name: t("JSON Files"),
                         extensions: ["json"]
                     },
-                    { name: "All Files", extensions: ["*"] }
+                    { name: t("All Files"), extensions: ["*"] }
                 ]
             });
 
@@ -288,7 +289,7 @@ export const PlotterHistoryItemComponent = observer(
                         json.config
                     );
 
-                    notification.success(`Imported from "${filePath}"`);
+                    notification.success(t('Imported from "{filePath}"', { filePath }));
                 } catch (err) {
                     console.error(err);
                     notification.error(err.toString());
@@ -306,7 +307,7 @@ export const PlotterHistoryItemComponent = observer(
                 <Toolbar>
                     <IconAction
                         icon="material:save"
-                        title="Save as CSV file"
+                        title={t("Save as CSV file")}
                         onClick={this.onExportCSV}
                         overlayText={"CSV"}
                         enabled={!this.actionInProgress}
@@ -314,7 +315,7 @@ export const PlotterHistoryItemComponent = observer(
 
                     <IconAction
                         icon="material:file_download"
-                        title="Export to JSON file"
+                        title={t("Export to JSON file")}
                         onClick={this.onExportJSON}
                         overlayText={"JSON"}
                         style={{ marginLeft: 10 }}
@@ -323,7 +324,7 @@ export const PlotterHistoryItemComponent = observer(
 
                     <IconAction
                         icon="material:file_upload"
-                        title="Import from JSON file"
+                        title={t("Import from JSON file")}
                         onClick={this.onImportJSON}
                         overlayText={"JSON"}
                         style={{ marginLeft: 5 }}

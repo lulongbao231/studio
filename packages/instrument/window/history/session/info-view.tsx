@@ -8,6 +8,7 @@ import {
     historySessions,
     SESSION_FREE_ID
 } from "instrument/window/history/session/store";
+import { t } from "eez-studio-shared/i18n";
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -33,13 +34,13 @@ export const SessionInfo = observer(
                 <div className="EezStudio_SessionInfoContainer">
                     {this.activeSessionName && (
                         <>
-                            <span>In session:</span>
+                            <span>{t("In session:")}</span>
                             <span>{this.activeSessionName}</span>
                         </>
                     )}
                     <IconAction
                         icon="material:list"
-                        title="View sessions list"
+                        title={t("View sessions list")}
                         onClick={
                             this.props.appStore.navigationStore
                                 .navigateToSessionsList

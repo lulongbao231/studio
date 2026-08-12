@@ -9,6 +9,7 @@ import {
 } from "mobx";
 import { observer } from "mobx-react";
 import { map } from "lodash";
+import { t } from "eez-studio-shared/i18n";
 
 import { humanize } from "eez-studio-shared/string";
 import { UNITS } from "eez-studio-shared/units";
@@ -719,7 +720,7 @@ export const GenericDialog = observer(
                                             }}
                                             style={{ marginLeft: 20 }}
                                         >
-                                            Abort
+                                            {t("Abort")}
                                         </button>
                                     </>
                                 )}

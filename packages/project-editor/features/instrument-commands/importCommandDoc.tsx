@@ -14,6 +14,8 @@ import { observer } from "mobx-react";
 
 import { humanize } from "eez-studio-shared/string";
 
+import { t } from "eez-studio-shared/i18n";
+
 import { Loader } from "eez-studio-ui/loader";
 
 import { createObject, objectToJS, ProjectStore } from "project-editor/store";
@@ -113,8 +115,8 @@ class FindChanges {
             ) {
                 reject(
                     this.projectStore.project.scpi
-                        ? "SCPI help folder is not defined"
-                        : "Commands help folder is not defined"
+                        ? t("SCPI help folder is not defined")
+                        : t("Commands help folder is not defined")
                 );
                 return;
             }
@@ -547,7 +549,7 @@ export const ImportCommandsDocDialog = observer(
                         className="btn btn-primary"
                         onClick={this.onCancel}
                     >
-                        Close
+                        {t("Close")}
                     </button>
                 ];
             } else if (this.changes) {
@@ -605,9 +607,9 @@ export const ImportCommandsDocDialog = observer(
                                             }
                                             type="checkbox"
                                         />{" "}
-                                        Command
+                                        {t("Command")}
                                     </th>
-                                    <th className="col-4">To</th>
+                                    <th className="col-4">{t("To")}</th>
                                 </tr>
                             );
                         } else if (section === "deleted") {
@@ -621,9 +623,9 @@ export const ImportCommandsDocDialog = observer(
                                             }
                                             type="checkbox"
                                         />{" "}
-                                        Command
+                                        {t("Command")}
                                     </th>
-                                    <th className="col-4">From</th>
+                                    <th className="col-4">{t("From")}</th>
                                 </tr>
                             );
                         } else if (section === "updated") {
@@ -637,9 +639,9 @@ export const ImportCommandsDocDialog = observer(
                                             }
                                             type="checkbox"
                                         />{" "}
-                                        Command
+                                        {t("Command")}
                                     </th>
-                                    <th className="col-4">In</th>
+                                    <th className="col-4">{t("In")}</th>
                                 </tr>
                             );
                         }
@@ -702,7 +704,7 @@ export const ImportCommandsDocDialog = observer(
                             className="btn btn-default"
                             onClick={this.onCancel}
                         >
-                            Cancel
+                            {t("Cancel")}
                         </button>,
                         <button
                             key="cancel"
@@ -711,12 +713,12 @@ export const ImportCommandsDocDialog = observer(
                             onClick={this.onOk}
                             disabled={!this.hasSelectedChanges}
                         >
-                            OK
+                            {t("OK")}
                         </button>
                     ];
                 } else {
                     content = (
-                        <h4 style={{ textAlign: "center" }}>No changes!</h4>
+                        <h4 style={{ textAlign: "center" }}>{t("No changes!")}</h4>
                     );
 
                     buttons = [
@@ -726,7 +728,7 @@ export const ImportCommandsDocDialog = observer(
                             className="btn btn-primary"
                             onClick={this.onCancel}
                         >
-                            Close
+                            {t("Close")}
                         </button>
                     ];
                 }
@@ -750,13 +752,13 @@ export const ImportCommandsDocDialog = observer(
                         <div className="modal-content">
                             <div className="modal-header">
                                 <h5 className="modal-title" id="myModalLabel">
-                                    Detected Instrument Command Changes
+                                    {t("Detected Instrument Command Changes")}
                                 </h5>
                                 <button
                                     type="button"
                                     className="btn-close float-right"
                                     onClick={this.onCancel}
-                                    aria-label="Close"
+                                    aria-label={t("Close")}
                                 ></button>
                             </div>
                             <div className="modal-body">{content}</div>

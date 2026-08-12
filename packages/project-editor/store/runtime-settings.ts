@@ -1,4 +1,5 @@
 import fs from "fs";
+import { t } from "eez-studio-shared/i18n";
 import { makeObservable, observable, toJS, runInAction, action } from "mobx";
 
 import * as notification from "eez-studio-ui/notification";
@@ -209,7 +210,7 @@ export class RuntimeSettings {
                     "utf8"
                 );
             } catch (err) {
-                notification.error("Failed to save runtime settings: " + err);
+                notification.error(t("Failed to save runtime settings:") + " " + err);
             }
         }
     }

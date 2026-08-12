@@ -14,6 +14,8 @@ import { Dialog, showDialog } from "eez-studio-ui/dialog";
 import { Loader } from "eez-studio-ui/loader";
 import { Icon } from "eez-studio-ui/icon";
 
+import { t } from "eez-studio-shared/i18n";
+
 import {
     EezObject,
     getParent,
@@ -80,10 +82,8 @@ import {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-const NOT_COMPATIBLE_WITH_PROJECT_TYPE =
-    "Not compatible with this project type, will be skipped.";
-
-////////////////////////////////////////////////////////////////////////////////
+const NOT_COMPATIBLE_WITH_PROJECT_TYPE = () =>
+    t("Not compatible with this project type, will be skipped.");
 
 type ObjectWithName = { name: string } & EezObject;
 
@@ -264,7 +264,7 @@ class PasteObject {
         }
 
         if (this.conflictResolutionName.trim() == "") {
-            return VALIDATION_MESSAGE_REQUIRED;
+            return VALIDATION_MESSAGE_REQUIRED();
         }
 
         if (this.object instanceof ProjectEditor.VariableClass) {
@@ -326,7 +326,7 @@ class PasteObject {
             }
         }
 
-        return "This name already exists.";
+        return t("This name already exists.");
     }
 }
 
@@ -834,7 +834,7 @@ class PasteWithDependenciesModel {
             ) {
                 return {
                     kind: "not-compatible",
-                    message: NOT_COMPATIBLE_WITH_PROJECT_TYPE
+                    message: NOT_COMPATIBLE_WITH_PROJECT_TYPE()
                 };
             }
 
@@ -846,8 +846,10 @@ class PasteWithDependenciesModel {
                 return {
                     kind: "not-compatible",
                     message: hasWidgets
-                        ? "No Page, UserWidget or UserAction selected, will be skipped."
-                        : "No Page or UserWidget selected, will be skipped."
+                        ? t(
+                              "No Page, UserWidget or UserAction selected, will be skipped."
+                          )
+                        : t("No Page or UserWidget selected, will be skipped.")
                 };
             }
 
@@ -858,8 +860,9 @@ class PasteWithDependenciesModel {
             ) {
                 return {
                     kind: "not-compatible",
-                    message:
+                    message: t(
                         "Can't paste Flow Fragment with the Widgets to the User Action, will be skipped."
+                    )
                 };
             }
 
@@ -874,7 +877,7 @@ class PasteWithDependenciesModel {
             ) {
                 return {
                     kind: "not-compatible",
-                    message: "Destination project has no flow support."
+                    message: t("Destination project has no flow support.")
                 };
             }
 
@@ -893,7 +896,7 @@ class PasteWithDependenciesModel {
             ) {
                 return {
                     kind: "not-compatible",
-                    message: "Destination project has no flow support."
+                    message: t("Destination project has no flow support.")
                 };
             }
         }
@@ -909,7 +912,7 @@ class PasteWithDependenciesModel {
             ) {
                 return {
                     kind: "not-compatible",
-                    message: NOT_COMPATIBLE_WITH_PROJECT_TYPE
+                    message: NOT_COMPATIBLE_WITH_PROJECT_TYPE()
                 };
             }
 
@@ -940,7 +943,7 @@ class PasteWithDependenciesModel {
             ) {
                 return {
                     kind: "not-compatible",
-                    message: NOT_COMPATIBLE_WITH_PROJECT_TYPE
+                    message: NOT_COMPATIBLE_WITH_PROJECT_TYPE()
                 };
             }
         }
@@ -1487,21 +1490,21 @@ export const ResolvePasteConflictsDialog = observer(
             return (
                 <Dialog
                     modal={false}
-                    okButtonText="Paste"
+                    okButtonText={t("Paste")}
                     okEnabled={this.onOkEnabled}
                     onOk={this.onOk}
                     onCancel={this.props.onCancel}
                 >
                     <div className="EezStudio_ResolvePasteConflictsDialog">
                         {posteObjectsWithConflicts.length == 0 ? (
-                            "No conflicts found."
+                            t("No conflicts found.")
                         ) : (
                             <table>
                                 <thead>
                                     <tr>
-                                        <th>Object Type</th>
-                                        <th>Object Name</th>
-                                        <th>Conflict Resolution</th>
+                                        <th>{t("Object Type")}</th>
+                                        <th>{t("Object Name")}</th>
+                                        <th>{t("Conflict Resolution")}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -1526,11 +1529,11 @@ export const ResolvePasteConflictsDialog = observer(
                                                 : classInfo.icon;
 
                                             let objectType = isUserWidget
-                                                ? "User Widget"
+                                                ? t("User Widget")
                                                 : isFlowFragment
-                                                ? "Flow Fragment"
+                                                ? t("Flow Fragment")
                                                 : pasteObject.isLocalVariable
-                                                ? "Local Variable"
+                                                ? t("Local Variable")
                                                 : getClass(object).name;
 
                                             return (
@@ -1592,9 +1595,9 @@ const ConflictResolution = observer(
             const { pasteObject } = this.props;
 
             if (pasteObject.conflict.kind == "doesnt-exists") {
-                return "No conflict - Doesn't exists.";
+                return t("No conflict - Doesn't exists.");
             } else if (pasteObject.conflict.kind == "exists-same") {
-                return "No conflict - Exists, but same.";
+                return t("No conflict - Exists, but same.");
             } else if (pasteObject.conflict.kind == "not-compatible") {
                 return pasteObject.conflict.message;
             }
@@ -1610,12 +1613,12 @@ const ConflictResolution = observer(
                                     .value as any)
                         )}
                     >
-                        <option value="rename-source">Rename source</option>
+                        <option value="rename-source">{t("Rename source")}</option>
                         <option value="rename-destination">
-                            Rename destination
+                            {t("Rename destination")}
                         </option>
-                        <option value="replace">Replace</option>
-                        <option value="keep">Keep</option>
+                        <option value="replace">{t("Replace")}</option>
+                        <option value="keep">{t("Keep")}</option>
                     </select>
                     {(pasteObject.conflictResolution == "rename-source" ||
                         pasteObject.conflictResolution ==
@@ -1629,7 +1632,7 @@ const ConflictResolution = observer(
                                     (pasteObject.conflictResolutionName =
                                         event.target.value)
                             )}
-                            placeholder="Name"
+                            placeholder={t("Name")}
                         ></input>
                     )}
                     {pasteObject.conflictResolutionError && (
@@ -1746,7 +1749,7 @@ const FindAllPasteDependenciesProgressDialog = observer(
                 >
                     <div className="EezStudio_FindAllPasteDependenciesProgressDialog">
                         <div>
-                            <div>Searching for dependencies ...</div>
+                            <div>{t("Searching for dependencies ...")}</div>
                             <Loader />
                         </div>
                     </div>
@@ -1796,7 +1799,7 @@ export function showResolvePasteConflictsDialog(
         {
             jsPanel: {
                 id: "resolve-paste-conflicts-dialog",
-                title: "Paste - Resolve Conflicts",
+                title: t("Paste - Resolve Conflicts"),
                 width: 800,
                 height: 600
             }
@@ -2126,7 +2129,7 @@ export function getAllObjects(project: Project) {
                 page.name == FLOW_FRAGMENT_PAGE_NAME &&
                 page.components.length > 0
             ) {
-                addObject("Flow Fragment", {
+                addObject(t("Flow Fragment"), {
                     object: page,
                     name: page.name,
                     icon: ProjectEditor.PageClass.classInfo.icon!
@@ -2138,7 +2141,7 @@ export function getAllObjects(project: Project) {
     if (project.variables) {
         if (project.variables.globalVariables) {
             project.variables.globalVariables.forEach(variable => {
-                addObject("Variables", {
+                addObject(t("Variables"), {
                     object: variable,
                     name: variable.name,
                     icon: ProjectEditor.VariableClass.classInfo.icon!
@@ -2148,7 +2151,7 @@ export function getAllObjects(project: Project) {
 
         if (project.variables.structures) {
             project.variables.structures.forEach(structure => {
-                addObject("Structures", {
+                addObject(t("Structures"), {
                     object: structure,
                     name: structure.name,
                     icon: ProjectEditor.StructureClass.classInfo.icon!
@@ -2158,7 +2161,7 @@ export function getAllObjects(project: Project) {
 
         if (project.variables.enums) {
             project.variables.enums.forEach(enumObject => {
-                addObject("Enums", {
+                addObject(t("Enums"), {
                     object: enumObject,
                     name: enumObject.name,
                     icon: ProjectEditor.EnumClass.classInfo.icon!
@@ -2169,7 +2172,7 @@ export function getAllObjects(project: Project) {
 
     if (project.actions) {
         project.actions.forEach(action => {
-            addObject("User Actions", {
+            addObject(t("User Actions"), {
                 object: action,
                 name: action.name,
                 icon: ProjectEditor.ActionClass.classInfo.icon!
@@ -2180,7 +2183,7 @@ export function getAllObjects(project: Project) {
     if (project.userPages) {
         project.userPages.forEach(page => {
             if (page.name != FLOW_FRAGMENT_PAGE_NAME) {
-                addObject("Pages", {
+                addObject(t("Pages"), {
                     object: page,
                     name: page.name,
                     icon: ProjectEditor.PageClass.classInfo.icon!
@@ -2191,7 +2194,7 @@ export function getAllObjects(project: Project) {
 
     if (project.userWidgets) {
         project.userWidgets.forEach(userWidget => {
-            addObject("User Widgets", {
+            addObject(t("User Widgets"), {
                 object: userWidget,
                 name: userWidget.name,
                 icon: USER_WIDGET_ICON
@@ -2202,7 +2205,7 @@ export function getAllObjects(project: Project) {
     if (project.styles) {
         function addStyles(styles: Style[]) {
             styles.forEach(style => {
-                addObject("Styles", {
+                addObject(t("Styles"), {
                     object: style,
                     name: style.name,
                     icon: ProjectEditor.StyleClass.classInfo.icon!
@@ -2218,7 +2221,7 @@ export function getAllObjects(project: Project) {
     if (project.lvglStyles) {
         function addStyles(styles: LVGLStyle[]) {
             styles.forEach(style => {
-                addObject("LVGL Styles", {
+                addObject(t("LVGL Styles"), {
                     object: style,
                     name: style.name,
                     icon: ProjectEditor.StyleClass.classInfo.icon!
@@ -2233,7 +2236,7 @@ export function getAllObjects(project: Project) {
 
     if (project.bitmaps) {
         project.bitmaps.forEach(bitmap => {
-            addObject("Bitmaps", {
+            addObject(t("Bitmaps"), {
                 object: bitmap,
                 name: bitmap.name,
                 icon: ProjectEditor.BitmapClass.classInfo.icon!
@@ -2243,7 +2246,7 @@ export function getAllObjects(project: Project) {
 
     if (project.fonts) {
         project.fonts.forEach(font => {
-            addObject("Fonts", {
+            addObject(t("Fonts"), {
                 object: font,
                 name: font.name,
                 icon: ProjectEditor.FontClass.classInfo.icon!
@@ -2253,7 +2256,7 @@ export function getAllObjects(project: Project) {
 
     if (project.colors) {
         project.colors.forEach(color => {
-            addObject("Colors", {
+            addObject(t("Colors"), {
                 object: color,
                 name: color.name,
                 icon: ProjectEditor.ColorClass.classInfo.icon!

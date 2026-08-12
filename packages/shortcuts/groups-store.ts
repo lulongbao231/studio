@@ -1,4 +1,5 @@
 import { values } from "mobx";
+import { t } from "eez-studio-shared/i18n";
 
 import { isRenderer } from "eez-studio-shared/util-electron";
 
@@ -76,14 +77,14 @@ if (isRenderer()) {
 export const groups = collection.objects;
 
 export function addGroup(group: Partial<IGroup>) {
-    beginTransaction("Add shortcuts group");
+    beginTransaction(t("Add shortcuts group"));
     let result = store.createObject(group);
     commitTransaction();
     return result;
 }
 
 export function updateGroup(changes: Partial<IGroup>) {
-    beginTransaction("Edit shortcuts group");
+    beginTransaction(t("Edit shortcuts group"));
 
     if (changes.name) {
         const group = groups.get(changes.id!);
@@ -105,7 +106,7 @@ export function updateGroup(changes: Partial<IGroup>) {
 }
 
 export function deleteGroup(group: Partial<IGroup>) {
-    beginTransaction("Delete shortcuts group");
+    beginTransaction(t("Delete shortcuts group"));
 
     store.deleteObject(group);
 

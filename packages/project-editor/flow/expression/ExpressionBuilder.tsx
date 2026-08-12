@@ -13,6 +13,7 @@ import classNames from "classnames";
 import { map } from "lodash";
 
 import { humanize, stringCompare } from "eez-studio-shared/string";
+import { t } from "eez-studio-shared/i18n";
 
 import { ITreeNode, Tree } from "eez-studio-ui/tree";
 
@@ -664,7 +665,7 @@ const SelectItemDialog = observer(
             ) {
                 children.push({
                     id: "component-inputs",
-                    label: "Component inputs",
+                    label: t("Component inputs"),
                     children: this.componentInputs.map(componentInput => ({
                         id: componentInput.name,
                         label: (
@@ -689,7 +690,7 @@ const SelectItemDialog = observer(
             if (this.userProperties.length) {
                 children.push({
                     id: "user-properties",
-                    label: "User properties",
+                    label: t("User properties"),
                     children: this.userProperties.map(userProperty => ({
                         id: userProperty.name,
                         label: (
@@ -714,7 +715,7 @@ const SelectItemDialog = observer(
             if (this.localVariables.length) {
                 children.push({
                     id: "local-variables",
-                    label: "Local variables",
+                    label: t("Local variables"),
                     children: this.localVariables.map(localVariable => ({
                         id: localVariable.name,
                         label: (
@@ -739,7 +740,7 @@ const SelectItemDialog = observer(
             if (this.globalVariables.length) {
                 children.push({
                     id: "global-variables",
-                    label: "Global variables",
+                    label: t("Global variables"),
                     children: this.globalVariables.map(globalVariable => ({
                         id: globalVariable.fullName,
                         label: (
@@ -765,7 +766,7 @@ const SelectItemDialog = observer(
                 nonEmpty: children.length > 0,
                 node: this.searchTreeNode({
                     id: "all",
-                    label: "All",
+                    label: t("All"),
                     children,
                     selected: false,
                     expanded: true
@@ -782,7 +783,7 @@ const SelectItemDialog = observer(
             if (!this.props.assignableExpression) {
                 children.push({
                     id: "system-variables",
-                    label: "System variables",
+                    label: t("System variables"),
                     children: [
                         {
                             id: FLOW_ITERATOR_INDEX_VARIABLE,
@@ -816,7 +817,7 @@ const SelectItemDialog = observer(
                 if (enumTypes.length) {
                     children.push({
                         id: "enumerations",
-                        label: "Enumerations",
+                        label: t("Enumerations"),
                         children: enumTypes.map(enumeration => ({
                             id: enumeration.name,
                             label: enumeration.name,
@@ -842,7 +843,7 @@ const SelectItemDialog = observer(
 
                 children.push({
                     id: "built-in-constants",
-                    label: "Built-in Constants",
+                    label: t("Built-in Constants"),
                     children: map(
                         builtInConstants(this.context),
                         (constant, constantName) => ({
@@ -865,7 +866,7 @@ const SelectItemDialog = observer(
                 nonEmpty: children.length > 0,
                 node: this.searchTreeNode({
                     id: "all",
-                    label: "All",
+                    label: t("All"),
                     children,
                     selected: false,
                     expanded: true
@@ -882,7 +883,7 @@ const SelectItemDialog = observer(
             if (!this.props.assignableExpression) {
                 children.push({
                     id: "binary-operators",
-                    label: "Binary operators",
+                    label: t("Binary operators"),
                     children: this.getBinaryOperators(binaryOperators),
                     selected: false,
                     expanded: true
@@ -890,7 +891,7 @@ const SelectItemDialog = observer(
 
                 children.push({
                     id: "logical-operators",
-                    label: "Logical operators",
+                    label: t("Logical operators"),
                     children: this.getBinaryOperators(logicalOperators),
                     selected: false,
                     expanded: true
@@ -901,7 +902,7 @@ const SelectItemDialog = observer(
                     id: "conditional-operator",
                     label: (
                         <>
-                            <span>Conditional operator</span>
+                            <span>{t("Conditional operator")}</span>
                             <span className="EezStudio_ExpressionBuilder_OperatorSign">
                                 A ? B : C
                             </span>
@@ -915,7 +916,7 @@ const SelectItemDialog = observer(
 
                 children.push({
                     id: "unary-operators",
-                    label: "Unary operators",
+                    label: t("Unary operators"),
                     children: this.getUnaryOperators(unaryOperators),
                     selected: false,
                     expanded: true
@@ -926,7 +927,7 @@ const SelectItemDialog = observer(
                 nonEmpty: children.length > 0,
                 node: this.searchTreeNode({
                     id: "all",
-                    label: "All",
+                    label: t("All"),
                     children,
                     selected: false,
                     expanded: true
@@ -943,7 +944,7 @@ const SelectItemDialog = observer(
             if (!this.props.assignableExpression) {
                 children.push({
                     id: "built-in-functions",
-                    label: "Built-in Functions",
+                    label: t("Built-in Functions"),
                     children: Object.keys(builtInFunctions)
                         .filter(functionName => {
                             const func = builtInFunctions[functionName];
@@ -978,7 +979,7 @@ const SelectItemDialog = observer(
                 nonEmpty: children.length > 0,
                 node: this.searchTreeNode({
                     id: "all",
-                    label: "All",
+                    label: t("All"),
                     children,
                     selected: false,
                     expanded: true
@@ -996,7 +997,7 @@ const SelectItemDialog = observer(
                 if (this.context.project.texts) {
                     children.push({
                         id: "text-resources",
-                        label: "Text resources",
+                        label: t("Text resources"),
                         children: map(
                             this.context.project.texts.resources,
                             text => {
@@ -1021,7 +1022,7 @@ const SelectItemDialog = observer(
                 nonEmpty: children.length > 0,
                 node: this.searchTreeNode({
                     id: "all",
-                    label: "All",
+                    label: t("All"),
                     children,
                     selected: false,
                     expanded: true
@@ -1168,7 +1169,7 @@ const SelectItemDialog = observer(
 
                     instrumentsSelector = (
                         <div>
-                            <span>Instrument</span>
+                            <span>{t("Instrument")}</span>
                             <select
                                 className="form-select"
                                 value={this.expressionBuilderState.instrumentId}
@@ -1223,7 +1224,7 @@ const SelectItemDialog = observer(
                                                 "expression")
                                     )}
                                 >
-                                    Expression
+                                    {t("Expression")}
                                 </a>
                             </li>
                         </ul>
@@ -1240,7 +1241,7 @@ const SelectItemDialog = observer(
             return (
                 <Dialog
                     modal={false}
-                    okButtonText="Ok"
+                    okButtonText={t("OK")}
                     okEnabled={this.onOkEnabled}
                     onOk={this.onOk}
                     onCancel={this.props.onCancel}

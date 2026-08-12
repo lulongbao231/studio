@@ -18,6 +18,7 @@ import { db } from "eez-studio-shared/db";
 
 import * as notification from "eez-studio-ui/notification";
 import { guid } from "eez-studio-shared/guid";
+import { t } from "eez-studio-shared/i18n";
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -26,7 +27,7 @@ export const SESSION_FREE_ID = "free";
 const SESSION_FREE: IHistorySession = observable({
     id: SESSION_FREE_ID,
     uuid: "e06929d6-b97e-4d65-bcb0-0c9f00058dd6",
-    name: "Free mode",
+    name: t("Free mode"),
     folder: "",
     isActive: false,
     deleted: false
@@ -140,7 +141,7 @@ class HistorySessions {
             this.activeSession.id !== SESSION_FREE_ID ||
             (sessionId && sessionId !== SESSION_FREE_ID)
         ) {
-            beginTransaction("Activate session");
+            beginTransaction(t("Activate session"));
 
             if (this.activeSession.id !== SESSION_FREE_ID) {
                 historySessionsStore.updateObject({
@@ -185,7 +186,7 @@ class HistorySessions {
     };
 
     createNewSession = (name: string) => {
-        beginTransaction("Create session");
+        beginTransaction(t("Create session"));
 
         const sessionId = historySessionsStore.createObject({
             uuid: guid(),
@@ -204,7 +205,7 @@ class HistorySessions {
             return;
         }
 
-        beginTransaction("Update session name");
+        beginTransaction(t("Update session name"));
 
         historySessionsStore.updateObject({
             id: session.id,
@@ -219,7 +220,7 @@ class HistorySessions {
             return;
         }
 
-        beginTransaction("Delete session");
+        beginTransaction(t("Delete session"));
 
         historySessionsStore.deleteObject(session);
 
@@ -242,7 +243,7 @@ class HistorySessions {
         );
 
         let progressToastId = notification.info(
-            "Deleting session history items ...",
+            t("Deleting session history items ..."),
             {
                 autoClose: false,
                 closeButton: false,

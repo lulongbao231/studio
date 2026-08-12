@@ -6,6 +6,8 @@ import * as FlexLayout from "flexlayout-react";
 
 import { FlexLayoutContainer } from "eez-studio-ui/FlexLayout";
 
+import { t } from "eez-studio-shared/i18n";
+
 import { isObjectExists } from "project-editor/store";
 import { ProjectContext } from "project-editor/project/context";
 import { Style } from "./style";
@@ -73,7 +75,9 @@ const StylesNavigation = observer(
             }
 
             if (component === "preview") {
-                return <StyleEditor width={480} height={272} text="Hello!" />;
+                return (
+                    <StyleEditor width={480} height={272} text={t("Hello!")} />
+                );
             }
 
             return null;

@@ -9,6 +9,8 @@ import {
 import { observer } from "mobx-react";
 import classNames from "classnames";
 
+import { t } from "eez-studio-shared/i18n";
+
 import { Point, pointDistance, Rect } from "eez-studio-shared/geometry";
 
 import { Draggable } from "eez-studio-ui/draggable";
@@ -254,11 +256,11 @@ export const FlowViewer = observer(
                     {this.props.legend === true && (
                         <h6 className="EezStudio_ChangesFlowViewer_Legend shadow-sm p-1 m-2 border rounded">
                             <span className="bullet added"></span>
-                            <span>ADDED</span>
+                            <span>{t("ADDED")}</span>
                             <span className="bullet removed"></span>
-                            <span>REMOVED</span>
+                            <span>{t("REMOVED")}</span>
                             <span className="bullet updated"></span>
-                            <span>UPDATED</span>
+                            <span>{t("UPDATED")}</span>
                         </h6>
                     )}
                 </div>

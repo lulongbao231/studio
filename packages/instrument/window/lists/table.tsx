@@ -50,6 +50,7 @@ import {
 import { showGenericDialog } from "eez-studio-ui/generic-dialog";
 
 import type { IAppStore } from "instrument/window/history/history";
+import { t } from "eez-studio-shared/i18n";
 
 import {
     BaseList,
@@ -466,9 +467,9 @@ const TableChartsHeader = observer(
                 <Header className="EezStudio_ListChartViewHeader">
                     <Toolbar>
                         <ButtonAction
-                            text="Edit Properties"
+                            text={t("Edit Properties")}
                             className="btn-secondary"
-                            title="Edit properties"
+                            title={t("Edit properties")}
                             onClick={this.editProperties}
                         />
                         <CommonTools
@@ -703,7 +704,7 @@ export const Table = observer(
                     $(
                         `.EezStudio_TableListEditor_Cell_${index}_${key}`
                     ).focus();
-                    this.props.setError("Invalid value");
+                    this.props.setError(t("Invalid value"));
                     return;
                 }
 
@@ -713,7 +714,7 @@ export const Table = observer(
                         $(
                             `.EezStudio_TableListEditor_Cell_${index}_${key}`
                         ).focus();
-                        this.props.setError("Invalid value");
+                        this.props.setError(t("Invalid value"));
                         return;
                     }
                 }
@@ -751,9 +752,9 @@ export const Table = observer(
                     <thead>
                         <tr>
                             <th />
-                            <th>Dwell</th>
-                            <th>Voltage</th>
-                            <th>Current</th>
+                            <th>{t("Dwell")}</th>
+                            <th>{t("Voltage")}</th>
+                            <th>{t("Current")}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -1036,49 +1037,49 @@ export const TableDetailsView = observer(
                     <VerticalHeaderWithBody>
                         <ToolbarHeader className="EezStudio_TableListEditorToolbarHeader">
                             <DropdownButtonAction
-                                text="Insert"
-                                title="Insert rows"
+                                text={t("Insert")}
+                                title={t("Insert rows")}
                                 className="btn-secondary"
                             >
                                 <DropdownItem
-                                    text="Insert row above"
+                                    text={t("Insert row above")}
                                     onClick={this.insertRowAbove}
                                     disabled={!this.canInsertRowAbove}
                                 />
                                 <DropdownItem
-                                    text="Insert row below"
+                                    text={t("Insert row below")}
                                     onClick={this.insertRowBelow}
                                     disabled={!this.canInsertRowBelow}
                                 />
                             </DropdownButtonAction>
                             <DropdownButtonAction
-                                text="Delete"
-                                title="Delete cells"
+                                text={t("Delete")}
+                                title={t("Delete cells")}
                                 className="btn-secondary"
                             >
                                 <DropdownItem
-                                    text="Delete row"
+                                    text={t("Delete row")}
                                     onClick={this.deleteRow}
                                     disabled={!this.canDeleteRow}
                                 />
                                 <DropdownItem
-                                    text="Clear column from cursor down"
+                                    text={t("Clear column from cursor down")}
                                     onClick={this.clearColumn}
                                     disabled={!this.canClearColumn}
                                 />
                                 <DropdownItem
-                                    text="Delete all from cursor down"
+                                    text={t("Delete all from cursor down")}
                                     onClick={this.deleteAllFromCursor}
                                     disabled={!this.canDeleteAllFromCursor}
                                 />
                                 <DropdownItem
-                                    text="Delete all"
+                                    text={t("Delete all")}
                                     onClick={this.deleteAll}
                                 />
                             </DropdownButtonAction>
                             {this.isMaxPointsReached && (
                                 <div className="text-success">
-                                    Max no. of points reached.
+                                    {t("Max no. of points reached.")}
                                 </div>
                             )}
                             {<div className="text-danger">{this.error}</div>}

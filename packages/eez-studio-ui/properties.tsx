@@ -8,6 +8,8 @@ import { formatBytes } from "eez-studio-shared/formatBytes";
 import { guid } from "eez-studio-shared/guid";
 import { capitalize } from "eez-studio-shared/string";
 
+import { t } from "eez-studio-shared/i18n";
+
 import { ListContainer, List, IListNode } from "eez-studio-ui/list";
 
 export const PropertyEnclosure = observer(
@@ -752,7 +754,7 @@ export const KeybindingProperty = observer(
                         {input}
                         <button
                             className="btn btn-secondary"
-                            title="Clear"
+                            title={t("Clear")}
                             onClick={this.onDeleteKeybinding}
                         >
                             &times;
@@ -947,7 +949,7 @@ export class AbsoluteFileInputProperty extends React.Component<
     onSelect = async () => {
         const result = await dialog.showOpenDialog(getCurrentWindow(), {
             properties: ["openFile"],
-            filters: [{ name: "All Files", extensions: ["*"] }]
+            filters: [{ name: t("All Files"), extensions: ["*"] }]
         });
 
         if (result.filePaths && result.filePaths[0]) {

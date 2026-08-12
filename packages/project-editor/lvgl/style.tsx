@@ -5,6 +5,7 @@ import { observer } from "mobx-react";
 import * as FlexLayout from "flexlayout-react";
 
 import { validators } from "eez-studio-shared/validation";
+import { t } from "eez-studio-shared/i18n";
 
 import { FlexLayoutContainer } from "eez-studio-ui/FlexLayout";
 import { showGenericDialog } from "eez-studio-ui/generic-dialog";
@@ -209,13 +210,12 @@ export class LVGLStyle extends EezObject {
                     </div>
                     {lvglStyle.redundantModifications.length > 0 && (
                         <div>
-                            {lvglStyle.redundantModifications.length} redundant
-                            {lvglStyle.redundantModifications.length == 1
-                                ? " modification"
-                                : " modifications"}
+                            {t("Redundant modifications: {count}", {
+                                count: lvglStyle.redundantModifications.length
+                            })}
                         </div>
                     )}
-                    {isDefault && <div>Default</div>}
+                    {isDefault && <div>{t("Default")}</div>}
                 </div>
             );
         },
@@ -224,7 +224,7 @@ export class LVGLStyle extends EezObject {
 
             const result = await showGenericDialog({
                 dialogDefinition: {
-                    title: "New Style",
+                    title: t("New Style"),
                     fields: [
                         {
                             name: "name",
@@ -331,7 +331,7 @@ export class LVGLStyle extends EezObject {
                 );
                 menuItems.push(
                     new MenuItem({
-                        label: "Remove Redundant Modifications",
+                        label: t("Remove Redundant Modifications"),
                         click: () => {
                             thisObject.removeRedundantModifications();
                         }
@@ -709,7 +709,7 @@ export class LVGLStyles extends EezObject {
     }
 
     static classInfo: ClassInfo = {
-        label: () => "Styles",
+        label: () => t("Styles"),
         properties: [
             {
                 name: "styles",
@@ -884,10 +884,10 @@ export const LVGLSelectedStyleEditor = observer(
 const feature: ProjectEditorFeature = {
     name: "eezstudio-project-feature-lvgl-style",
     version: "0.1.0",
-    description: "Styles support for your project",
+    description: t("Styles support for your project"),
     author: "EEZ",
     authorLogo: "../eez-studio-ui/_images/eez_logo.png",
-    displayName: "Styles",
+    displayName: t("Styles"),
     mandatory: true,
     key: "lvglStyles",
     type: PropertyType.Object,

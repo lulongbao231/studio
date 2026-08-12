@@ -9,6 +9,8 @@ import {
 
 import * as notification from "eez-studio-ui/notification";
 
+import { t } from "eez-studio-shared/i18n";
+
 import type { ExampleProject } from "project-editor/project/ui/Wizard";
 
 export const EEZ_PROJECT_EXAMPLES_REPOSITORY =
@@ -50,7 +52,9 @@ class ExamplesCatalog {
             });
         } catch (error) {
             notification.error(
-                `Failed to load eez-project examples catalog (${error})`
+                t("Failed to load eez-project examples catalog ({error})", {
+                    error: `${error}`
+                })
             );
         }
 
@@ -59,7 +63,7 @@ class ExamplesCatalog {
             runInAction(() => (this.catalogVersion = catalogVersion));
             this.checkNewVersionOfCatalog();
         } catch (error) {
-            notification.error(`Failed to load catalog version (${error})`);
+            notification.error(t("Failed to load catalog version ({error})", { error }));
         }
     }
 
@@ -116,7 +120,7 @@ class ExamplesCatalog {
         } catch (error) {
             console.error(error);
             notification.error(
-                `Failed to download eez-project examples catalog version`
+                t("Failed to download eez-project examples catalog version")
             );
         }
 
@@ -161,7 +165,7 @@ class ExamplesCatalog {
         req.open("GET", CATALOG_DOWNLOAD_URL);
 
         const progressToastId = notification.info(
-            "Downloading eez-project examples catalog ...",
+            t("Downloading eez-project examples catalog ..."),
             {
                 autoClose: false,
                 hideProgressBar: false
@@ -171,8 +175,19 @@ class ExamplesCatalog {
         req.addEventListener("progress", event => {
             notification.update(progressToastId, {
                 render: event.total
-                    ? `Downloading eez-project examples catalog: ${event.loaded} of ${event.total}`
-                    : `Downloading eez-project examples catalog: ${event.loaded}`
+                    ? t(
+                          "Downloading eez-project examples catalog: {loaded} of {total}",
+                          {
+                              loaded: event.loaded,
+                              total: event.total
+                          }
+                      )
+                    : t(
+                          "Downloading eez-project examples catalog: {loaded}",
+                          {
+                              loaded: event.loaded
+                          }
+                      )
             });
         });
 
@@ -195,7 +210,7 @@ class ExamplesCatalog {
 
             notification.update(progressToastId, {
                 type: notification.SUCCESS,
-                render: `The latest eez-project examples catalog successfully downloaded.`,
+                render: t("The latest eez-project examples catalog successfully downloaded."),
                 autoClose: 5000
             });
         });
@@ -204,7 +219,7 @@ class ExamplesCatalog {
             console.error("eez-project examples catalog download error", error);
             notification.update(progressToastId, {
                 type: notification.ERROR,
-                render: `Failed to download eez-project examples catalog.`,
+                render: t("Failed to download eez-project examples catalog."),
                 autoClose: 5000
             });
         });

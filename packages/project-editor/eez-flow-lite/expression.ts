@@ -11,6 +11,8 @@ import type { Component } from "project-editor/flow/component";
 import { Page } from "project-editor/features/page/page";
 import { Action } from "project-editor/features/action/action";
 
+import { t } from "eez-studio-shared/i18n";
+
 import { expressionParser } from "project-editor/flow/expression/parser";
 import {
     ExpressionNode,
@@ -100,7 +102,7 @@ export function buildExpression(
                 node.callee.object.type != "Identifier" ||
                 node.callee.property.type != "Identifier"
             ) {
-                throw "Invalid call expression";
+                throw t("Invalid call expression");
             }
 
             let functionName = `${node.callee.object.name}_${node.callee.property.name}`;
@@ -566,7 +568,7 @@ function evalConstantExpressionNode(
                 node.callee.object.type != "Identifier" ||
                 node.callee.property.type != "Identifier"
             ) {
-                throw "Invalid call expression";
+                throw t("Invalid call expression");
             }
 
             let functionName = `${node.callee.object.name}.${node.callee.property.name}`;
@@ -809,7 +811,7 @@ function findValueTypeInExpressionNode(
             node.callee.object.type != "Identifier" ||
             node.callee.property.type != "Identifier"
         ) {
-            throw "Invalid call expression";
+            throw t("Invalid call expression");
         }
 
         let functionName = `${node.callee.object.name}.${node.callee.property.name}`;
@@ -1063,7 +1065,7 @@ function evalExpressionWithContext(
                 node.callee.object.type != "Identifier" ||
                 node.callee.property.type != "Identifier"
             ) {
-                throw "Invalid call expression";
+                throw t("Invalid call expression");
             }
 
             let functionName = `${node.callee.object.name}.${node.callee.property.name}`;

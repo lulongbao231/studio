@@ -1,5 +1,7 @@
 import { objectClone } from "eez-studio-shared/util";
 import { Rect } from "eez-studio-shared/geometry";
+
+import { t } from "eez-studio-shared/i18n";
 import { TreeObjectAdapter } from "project-editor/core/objectAdapter";
 import { IEezObject, MessageType } from "project-editor/core/object";
 import {
@@ -1331,7 +1333,7 @@ function buildWidget(object: Widget | Page) {
             getProjectStore(object).outputSectionsStore.write(
                 Section.OUTPUT,
                 MessageType.ERROR,
-                "List item widget is missing",
+                t("List item widget is missing"),
                 widget
             );
             itemWidget = undefined;

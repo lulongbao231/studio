@@ -1,4 +1,5 @@
 import React from "react";
+import { t } from "eez-studio-shared/i18n";
 import {
     observable,
     computed,
@@ -77,15 +78,15 @@ export const GroupsToolbarButtons = observer(
             return [
                 <ButtonAction
                     key="addGroup"
-                    text="Add Group"
-                    title="Add group"
+                    text={t("Add Group")}
+                    title={t("Add group")}
                     onClick={this.addGroup}
                     className="btn-success"
                 />,
                 <ButtonAction
                     key="shortcuts"
-                    text="Show Shortcuts"
-                    title="Show shortcuts"
+                    text={t("Show Shortcuts")}
+                    title={t("Show shortcuts")}
                     onClick={this.showShortcuts}
                     className="btn-secondary"
                 />
@@ -158,12 +159,12 @@ class GroupRow implements IRow {
             <Toolbar>
                 <IconAction
                     icon="material:edit"
-                    title="Edit group"
+                    title={t("Edit group")}
                     onClick={this.editGroup}
                 />
                 <IconAction
                     icon="material:delete"
-                    title="Delete group"
+                    title={t("Delete group")}
                     onClick={this.deleteGroup}
                 />
             </Toolbar>
@@ -194,9 +195,11 @@ class GroupRow implements IRow {
 
     deleteGroup = () => {
         confirm(
-            "Are you sure?",
+            t("Are you sure?"),
             this.props.numShortcuts > 0
-                ? "This will delete all the shortcuts belonging to this group!"
+                ? t(
+                      "This will delete all the shortcuts belonging to this group!"
+                  )
                 : undefined,
             () => {
                 this.props.groupsStore.deleteGroup(this.props.group);
@@ -295,12 +298,12 @@ export const Groups = observer(
 
             result.push({
                 name: "name",
-                title: "Name",
+                title: t("Name"),
                 sortEnabled: true
             });
             result.push({
                 name: "numShortcuts",
-                title: "# Shortcuts",
+                title: t("# Shortcuts"),
                 sortEnabled: true
             });
             result.push({

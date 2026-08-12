@@ -11,6 +11,7 @@ import {
 } from "project-editor/core/object";
 
 import { humanize } from "eez-studio-shared/string";
+import { t } from "eez-studio-shared/i18n";
 
 import { ProjectEditor } from "project-editor/project-editor-interface";
 import {
@@ -350,7 +351,7 @@ export class LVGLStylesDefinition extends EezObject {
                                         messages.push(
                                             new Message(
                                                 MessageType.ERROR,
-                                                `invalid color`,
+                                                t("invalid color"),
                                                 valueObject
                                             )
                                         );
@@ -387,10 +388,12 @@ export class LVGLStylesDefinition extends EezObject {
                                     messages.push(
                                         new Message(
                                             MessageType.ERROR,
-                                            `Bitmap not found for style property ${part} - ${state} - ${
-                                                propertyInfo.displayName ||
-                                                humanize(propertyInfo.name)
-                                            }`,
+                                            t("Bitmap not found for style property {part} - {state} - {property}", {
+                                                part,
+                                                state,
+                                                property: `${propertyInfo.displayName ||
+                                                    humanize(propertyInfo.name)}`
+                                            }),
                                             valueObject
                                         )
                                     );
@@ -425,10 +428,12 @@ export class LVGLStylesDefinition extends EezObject {
                                     messages.push(
                                         new Message(
                                             MessageType.ERROR,
-                                            `Font not found for style property ${part} - ${state} - ${
-                                                propertyInfo.displayName ||
-                                                humanize(propertyInfo.name)
-                                            }`,
+                                            t("Font not found for style property {part} - {state} - {property}", {
+                                                part,
+                                                state,
+                                                property: `${propertyInfo.displayName ||
+                                                    humanize(propertyInfo.name)}`
+                                            }),
                                             valueObject
                                         )
                                     );

@@ -28,6 +28,7 @@ import {
     propertyNotSetMessage,
     propertySetButNotUsedMessage
 } from "project-editor/store";
+import { t } from "eez-studio-shared/i18n";
 
 import {
     Project,
@@ -126,7 +127,7 @@ export class TextDashboardWidget extends Widget {
                 propertyGridGroup: generalGroup
             },
             makeDataPropertyInfo("data", {
-                displayName: "Text"
+                displayName: t("Text")
             }),
             makeStylePropertyInfo("style", "Default style")
         ],
@@ -428,7 +429,7 @@ export class TextInputWidget extends Widget {
 
         properties: [
             makeDataPropertyInfo("data", {
-                displayName: "Value"
+                displayName: t("Value")
             }),
             makeDataPropertyInfo("readOnly"),
             makeDataPropertyInfo("placehoder"),
@@ -905,7 +906,7 @@ export class CheckboxWidget extends Widget {
 
         properties: [
             makeDataPropertyInfo("data", {
-                displayName: "Value"
+                displayName: t("Value")
             }),
             makeExpressionProperty(
                 {
@@ -1101,7 +1102,7 @@ export class RadioWidget extends Widget {
             makeAssignableExpressionProperty(
                 {
                     name: "variable",
-                    displayName: "Group variable",
+                    displayName: t("Group variable"),
                     type: PropertyType.MultilineText,
                     propertyGridGroup: specificGroup
                 },
@@ -1264,7 +1265,7 @@ export class SwitchDashboardWidget extends Widget {
 
         properties: [
             makeDataPropertyInfo("data", {
-                displayName: "Value"
+                displayName: t("Value")
             }),
             makeDataPropertyInfo("enabled"),
             makeStylePropertyInfo("style", "Default style")
@@ -1413,7 +1414,7 @@ export class DropDownListDashboardWidget extends Widget {
             projectType === ProjectType.DASHBOARD,
 
         componentPaletteGroupName: "!1Input",
-        componentPaletteLabel: "Dropdown",
+        componentPaletteLabel: t("Dropdown"),
 
         properties: [
             makeDataPropertyInfo("data", {}, "integer"),
@@ -1784,7 +1785,7 @@ export class QRCodeDashboardWidget extends Widget {
 
         properties: [
             makeDataPropertyInfo("data", {
-                displayName: "Text"
+                displayName: t("Text")
             }),
             {
                 name: "errorCorrection",
@@ -1935,7 +1936,7 @@ export class ButtonDashboardWidget extends Widget {
 
         properties: [
             makeDataPropertyInfo("data", {
-                displayName: "Label"
+                displayName: t("Label")
             }),
             makeDataPropertyInfo("enabled"),
             makeStylePropertyInfo("style", "Default style"),
@@ -2115,7 +2116,7 @@ const BitmapWidgetPropertyGridUI = observer(
                     size="small"
                     onClick={this.resizeToFitBitmap}
                 >
-                    Resize to Fit Bitmap
+                    {t("Resize to Fit Bitmap")}
                 </Button>
             );
         }
@@ -2202,7 +2203,7 @@ export class BitmapDashboardWidget extends Widget {
                 messages.push(
                     new Message(
                         MessageType.ERROR,
-                        "Either bitmap or data must be set",
+                        t("Either bitmap or data must be set"),
                         object
                     )
                 );
@@ -2211,7 +2212,7 @@ export class BitmapDashboardWidget extends Widget {
                     messages.push(
                         new Message(
                             MessageType.ERROR,
-                            "Both bitmap and data set, only bitmap is used",
+                            t("Both bitmap and data set, only bitmap is used"),
                             object
                         )
                     );

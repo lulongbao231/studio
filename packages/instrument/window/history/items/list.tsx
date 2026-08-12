@@ -24,6 +24,7 @@ import type { IAppStore } from "instrument/window/history/history";
 import { HistoryItem } from "instrument/window/history/item";
 import { getTableListData } from "instrument/window/lists/table-data";
 import { HistoryItemInstrumentInfo } from "../HistoryItemInstrumentInfo";
+import { t } from "eez-studio-shared/i18n";
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -143,14 +144,14 @@ export const ListHistoryItemComponent = observer(
                                 {this.listId && (
                                     <IconAction
                                         icon="material:edit"
-                                        title="Open List in Editor"
+                                        title={t("Open List in Editor")}
                                         onClick={this.onOpen}
                                     />
                                 )}
                                 {this.list && (
                                     <IconAction
                                         icon="material:save"
-                                        title="Save List"
+                                        title={t("Save List")}
                                         onClick={this.onSave}
                                     />
                                 )}

@@ -81,6 +81,7 @@ import { preloadAllBitmaps } from "project-editor/features/bitmap/bitmap";
 import { releaseRuntimeDashboardStates } from "project-editor/flow/runtime/component-execution-states";
 import { findBitmap } from "project-editor/project/assets";
 import { hasClass } from "eez-studio-shared/dom";
+import { t } from "eez-studio-shared/i18n";
 
 interface IGlobalVariableBase {
     variable: IVariable;
@@ -215,7 +216,7 @@ export class WasmRuntime extends RemoteRuntime {
                 LayoutModels.OUTPUT_TAB_ID
             );
             if (outputSection.numErrors > 0) {
-                this.stopRuntimeWithError("Build error");
+                this.stopRuntimeWithError(t("Build error"));
                 this.projectStore.setEditorMode();
                 return;
             }
@@ -223,7 +224,7 @@ export class WasmRuntime extends RemoteRuntime {
 
         this.assetsMap = result.GUI_ASSETS_DATA_MAP_JS as AssetsMap;
         if (!this.assetsMap) {
-            this.stopRuntimeWithError("Build error");
+            this.stopRuntimeWithError(t("Build error"));
             this.projectStore.setEditorMode();
             return;
         }
@@ -332,7 +333,9 @@ export class WasmRuntime extends RemoteRuntime {
         if (this.error) {
             if (notifyUser) {
                 notification.error(
-                    `Flow stopped with error: ${this.error.toString()}`
+                    t("Flow stopped with error: {error}", {
+                        error: this.error.toString()
+                    })
                 );
             }
         }

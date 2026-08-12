@@ -9,6 +9,8 @@ import {
     runInAction
 } from "mobx";
 
+import { t } from "eez-studio-shared/i18n";
+
 import {
     fetchUrlOrReadFromCache,
     isDev,
@@ -831,7 +833,7 @@ class Model {
                 )
                 .sort(componentsNameCompare);
 
-            let label = getComponentGroupDisplayName(groupName);
+            let label = t(getComponentGroupDisplayName(groupName));
 
             return {
                 id,
@@ -936,14 +938,14 @@ class Model {
             const children = [
                 getComponentSectionTreeChild(
                     projectType + "__actionComponents",
-                    "ACTIONS",
+                    t("Actions"),
                     components,
                     "action",
                     projectType
                 ),
                 getComponentSectionTreeChild(
                     projectType + "__widgetComponents",
-                    "WIDGETS",
+                    t("Widgets"),
                     components,
                     "widget",
                     projectType
@@ -979,11 +981,11 @@ class Model {
         if (this.groupByProjectType) {
             rootNode = {
                 id: "_root",
-                label: "Root",
+                label: t("Root"),
                 children: [
                     getProjectTypeTreeChild(
                         "__dashboardComponents",
-                        "Dashboard",
+                        t("Dashboard"),
                         ProjectType.DASHBOARD,
                         DASHBOARD_PROJECT_ICON(32)
                     ),
@@ -1007,18 +1009,18 @@ class Model {
         } else {
             rootNode = {
                 id: "_root",
-                label: "Root",
+                label: t("Root"),
                 children: [
                     getComponentSectionTreeChild(
                         "__actionComponents",
-                        "ACTIONS",
+                        t("Actions"),
                         this.allComponents,
                         "action",
                         ProjectType.UNDEFINED
                     ),
                     getComponentSectionTreeChild(
                         "__widgetComponents",
-                        "WIDGETS",
+                        t("Widgets"),
                         this.allComponents,
                         "widget",
                         ProjectType.UNDEFINED

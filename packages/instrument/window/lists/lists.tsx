@@ -54,6 +54,7 @@ import {
     createTableListFromData
 } from "instrument/window/lists/factory";
 import { getTableListData } from "instrument/window/lists/table-data";
+import { t } from "eez-studio-shared/i18n";
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -127,7 +128,7 @@ const MasterView = observer(
                         },
                         {
                             name: "numSamples",
-                            displayName: "No. of samples",
+                            displayName: t("No. of samples"),
                             type: "integer",
                             validators: [
                                 validators.rangeInclusive(
@@ -151,7 +152,7 @@ const MasterView = observer(
                 }
             })
                 .then(async result => {
-                    beginTransaction("Add instrument list");
+                    beginTransaction(t("Add instrument list"));
                     let listId =
                         this.props.appStore.instrumentListStore.createObject({
                             type: result.values.type,
@@ -185,8 +186,8 @@ const MasterView = observer(
         };
 
         removeList = () => {
-            confirm("Are you sure?", undefined, () => {
-                beginTransaction("Remove instrument list");
+            confirm(t("Are you sure?"), undefined, () => {
+                beginTransaction(t("Remove instrument list"));
                 this.props.appStore.instrumentListStore.deleteObject(
                     this.props.selectedList!.toJS()
                 );
@@ -201,13 +202,13 @@ const MasterView = observer(
                         <IconAction
                             icon="material:add"
                             iconSize={16}
-                            title="Add list"
+                            title={t("Add list")}
                             onClick={this.addList}
                         />
                         <IconAction
                             icon="material:delete"
                             iconSize={16}
-                            title="Remove list"
+                            title={t("Remove list")}
                             enabled={!!this.props.selectedList}
                             onClick={this.removeList}
                         />
@@ -429,7 +430,7 @@ export async function saveTableListData(
         defaultPath: listName
             ? getValidFileNameFromFileName(listName) + ".list"
             : undefined,
-        filters: [{ name: "EEZ List Files", extensions: ["list"] }]
+        filters: [{ name: t("EEZ List Files"), extensions: ["list"] }]
     });
     let filePath = result.filePath;
     if (filePath) {
@@ -443,9 +444,9 @@ export async function saveTableListData(
                 tableListData,
                 getCsvDataColumnDefinitions(instrument)
             );
-            notification.success(`List exported to "${filePath}".`);
+            notification.success(t('List exported to "{filePath}".', { filePath }));
         } catch (err) {
-            error("Failed to write list file.", err.toString());
+            error(t("Failed to write list file."), err.toString());
         }
     }
 }
@@ -477,8 +478,8 @@ export const ListsButtons = observer(
             const result = await dialog.showOpenDialog(getCurrentWindow(), {
                 properties: ["openFile"],
                 filters: [
-                    { name: "CSV Files", extensions: ["csv"] },
-                    { name: "All Files", extensions: ["*"] }
+                    { name: t("CSV Files"), extensions: ["csv"] },
+                    { name: t("All Files"), extensions: ["*"] }
                 ]
             });
 
@@ -490,7 +491,7 @@ export const ListsButtons = observer(
                 );
 
                 if (!data) {
-                    error("Failed to load CSV file.", undefined);
+                    error(t("Failed to load CSV file."), undefined);
                     return;
                 }
 
@@ -525,7 +526,7 @@ export const ListsButtons = observer(
                         list.name = result.values.name;
                         list.description = result.values.description;
 
-                        beginTransaction("Import instrument list");
+                        beginTransaction(t("Import instrument list"));
                         let listId =
                             this.props.appStore.instrumentListStore.createObject(
                                 list.toJS()
@@ -581,7 +582,11 @@ export const ListsButtons = observer(
             try {
                 await connection.acquire(false);
             } catch (err) {
-                notification.error(`Failed to get list: ${err.toString()}`);
+                notification.error(
+                    t("Failed to get list: {error}", {
+                        error: err.toString()
+                    })
+                );
                 return;
             }
 
@@ -592,7 +597,11 @@ export const ListsButtons = observer(
                     channelIndex
                 ));
             } catch (err) {
-                notification.error(`Failed to get list: ${err.toString()}`);
+                notification.error(
+                    t("Failed to get list: {error}", {
+                        error: err.toString()
+                    })
+                );
                 return;
             } finally {
                 connection.release();
@@ -631,7 +640,7 @@ export const ListsButtons = observer(
                     tableList.name = result.values.name;
                     tableList.description = result.values.description;
 
-                    beginTransaction("Get instrument list");
+                    beginTransaction(t("Get instrument list"));
                     let listId =
                         this.props.appStore.instrumentListStore.createObject(
                             tableList.toJS()
@@ -689,7 +698,9 @@ export const ListsButtons = observer(
                     await connection.acquire(false);
                 } catch (err) {
                     notification.error(
-                        `Failed to send list: ${err.toString()}`
+                        t("Failed to send list: {error}", {
+                            error: err.toString()
+                        })
                     );
                     return;
                 }
@@ -705,10 +716,12 @@ export const ListsButtons = observer(
                             voltage: toJS(channel.voltage)
                         }
                     );
-                    notification.success(`List sent.`);
+                    notification.success(t("List sent."));
                 } catch (err) {
                     notification.error(
-                        `Failed to send list: ${err.toString()}`
+                        t("Failed to send list: {error}", {
+                            error: err.toString()
+                        })
                     );
                 } finally {
                     connection.release();
@@ -742,10 +755,10 @@ export const ListsButtons = observer(
                 <React.Fragment>
                     {this.props.appStore.undoManager.modified && (
                         <ButtonAction
-                            text="Save"
+                            text={t("Save")}
                             icon="material:save"
                             className="btn-secondary"
-                            title="Save changes"
+                            title={t("Save changes")}
                             onClick={() => {
                                 this.updateModifedAt();
                                 this.props.appStore.undoManager.commit();
@@ -754,23 +767,23 @@ export const ListsButtons = observer(
                     )}
                     <ButtonAction
                         key="import"
-                        text="Import"
-                        title="Import list from file"
+                        text={t("Import")}
+                        title={t("Import list from file")}
                         className="btn-secondary"
                         onClick={this.import}
                     />
                     <ButtonAction
                         key="export"
-                        text="Export"
-                        title="Export list to file"
+                        text={t("Export")}
+                        title={t("Export list to file")}
                         className="btn-secondary"
                         enabled={this.selectedList !== undefined}
                         onClick={this.export}
                     />
                     <ButtonAction
                         key="get"
-                        text="Get"
-                        title="Get list from instrument channel"
+                        text={t("Get")}
+                        title={t("Get list from instrument channel")}
                         className="btn-secondary"
                         enabled={
                             this.props.appStore.instrument.connection
@@ -780,8 +793,8 @@ export const ListsButtons = observer(
                     />
                     <ButtonAction
                         key="send"
-                        text="Send"
-                        title="Send list to instrument channel"
+                        text={t("Send")}
+                        title={t("Send list to instrument channel")}
                         className="btn-secondary"
                         enabled={
                             this.props.appStore.instrument.connection

@@ -1,4 +1,5 @@
 import React from "react";
+import { t } from "eez-studio-shared/i18n";
 import { observable, makeObservable } from "mobx";
 
 import { PropertyType, makeDerivedClassInfo } from "project-editor/core/object";
@@ -237,7 +238,7 @@ export class LVGLSliderWidget extends LVGLWidget {
                     "int32_t",
                     "new_val",
                     this.min as string,
-                    "Failed to evaluate Min in Slider widget"
+                    t("Failed to evaluate Min in Slider widget")
                 );
 
                 const cur_val = code.callObjectFunctionWithAssignment(
@@ -276,7 +277,7 @@ export class LVGLSliderWidget extends LVGLWidget {
                     "int32_t",
                     "new_val",
                     this.max as string,
-                    "Failed to evaluate Max in Slider widget"
+                    t("Failed to evaluate Max in Slider widget")
                 );
 
                 const cur_val = code.callObjectFunctionWithAssignment(
@@ -348,7 +349,7 @@ export class LVGLSliderWidget extends LVGLWidget {
                     "int32_t",
                     "new_val",
                     this.value as string,
-                    "Failed to evaluate Value in Slider widget"
+                    t("Failed to evaluate Value in Slider widget")
                 );
 
                 const cur_val = code.callObjectFunctionWithAssignment(
@@ -394,7 +395,7 @@ export class LVGLSliderWidget extends LVGLWidget {
                             "value",
                             this.value as string,
                             value,
-                            "Failed to assign Value in Slider widget"
+                            t("Failed to assign Value in Slider widget")
                         );
                     });
                 }
@@ -451,7 +452,7 @@ export class LVGLSliderWidget extends LVGLWidget {
                         "int32_t",
                         "new_val",
                         this.valueLeft as string,
-                        "Failed to evaluate Value left in Slider widget"
+                        t("Failed to evaluate Value left in Slider widget")
                     );
 
                     const cur_val = code.callObjectFunctionWithAssignment(
@@ -503,7 +504,7 @@ export class LVGLSliderWidget extends LVGLWidget {
                                     "valueLeft",
                                     this.value as string,
                                     value,
-                                    "Failed to assign Value left in Slider widget"
+                                    t("Failed to assign Value left in Slider widget")
                                 );
                             }
                         );

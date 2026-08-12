@@ -31,6 +31,7 @@ import { objectEqual } from "eez-studio-shared/util";
 import { isRenderer } from "eez-studio-shared/util-electron";
 import type { IUnit } from "eez-studio-shared/units";
 import { db } from "eez-studio-shared/db";
+import { t } from "eez-studio-shared/i18n";
 
 import type * as MainWindowModule from "main/window";
 
@@ -92,7 +93,7 @@ const UNKNOWN_INSTRUMENT_EXTENSION: IExtension = {
     preInstalled: false,
     extensionType: "iext",
     id: "",
-    name: "Unknown instrument",
+    name: t("Unknown instrument"),
     version: "no version",
     author: "no author",
     image: "../eez-studio-ui/_images/object-implementation-not-found.svg",
@@ -631,13 +632,13 @@ export class InstrumentObject {
         if (!this.lastConnection) {
             return {
                 color: "#666",
-                label: "Newly added"
+                label: t("Newly added")
             };
         } else {
             if (this.connection.isConnected) {
                 return {
                     color: "green",
-                    label: "Connected"
+                    label: t("Connected")
                 };
             } else {
                 if (
@@ -645,14 +646,14 @@ export class InstrumentObject {
                 ) {
                     return {
                         color: "#ccc",
-                        label: "Not found"
+                        label: t("Not found")
                     };
                 } else if (
                     this.connection.errorCode !== ConnectionErrorCode.NONE
                 ) {
                     return {
                         color: "#ccc",
-                        label: "Disconnected",
+                        label: t("Disconnected"),
                         error: this.connection.error
                     };
                 } else {
@@ -660,7 +661,7 @@ export class InstrumentObject {
                         color: this.connection.isTransitionState
                             ? "loader"
                             : "red",
-                        label: "Disconnected"
+                        label: t("Disconnected")
                     };
                 }
             }
@@ -775,7 +776,7 @@ export class InstrumentObject {
         if (label !== this.label) {
             this.label = label;
 
-            beginTransaction("Change instrument label");
+            beginTransaction(t("Change instrument label"));
             store.updateObject({
                 id: this.id,
                 label
@@ -786,7 +787,7 @@ export class InstrumentObject {
 
     setIdn(idn: string) {
         if (idn !== this.idn) {
-            beginTransaction("Change instrument IDN");
+            beginTransaction(t("Change instrument IDN"));
             store.updateObject({
                 id: this.id,
                 idn
@@ -797,7 +798,7 @@ export class InstrumentObject {
 
     setConnectionParameters(connectionParameters: ConnectionParameters) {
         if (!objectEqual(connectionParameters, this.lastConnection)) {
-            beginTransaction("Change instrument connection settings");
+            beginTransaction(t("Change instrument connection settings"));
             store.updateObject({
                 id: this.id,
                 lastConnection: toJS(connectionParameters)
@@ -815,7 +816,7 @@ export class InstrumentObject {
                 this.lastFileUploadInstructions
             )
         ) {
-            beginTransaction("Change instrument upload settings");
+            beginTransaction(t("Change instrument upload settings"));
             store.updateObject({
                 id: this.id,
                 lastFileUploadInstructions: toJS(fileUploadInstructions)
@@ -826,7 +827,7 @@ export class InstrumentObject {
 
     setAutoConnect(autoConnect: boolean) {
         if (autoConnect !== this.autoConnect) {
-            beginTransaction("Change instrument auto connect");
+            beginTransaction(t("Change instrument auto connect"));
             store.updateObject({
                 id: this.id,
                 autoConnect
@@ -839,7 +840,7 @@ export class InstrumentObject {
         if (commandLineEnding !== this.commandLineEnding) {
             this.commandLineEnding = commandLineEnding;
 
-            beginTransaction("Change instrument command line ending");
+            beginTransaction(t("Change instrument command line ending"));
             store.updateObject({
                 id: this.id,
                 commandLineEnding
@@ -880,7 +881,7 @@ export class InstrumentObject {
     };
 
     restore() {
-        beginTransaction("Restore instrument");
+        beginTransaction(t("Restore instrument"));
         store.undeleteObject(this);
         commitTransaction();
     }

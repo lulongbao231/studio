@@ -5,6 +5,8 @@ import * as FlexLayout from "flexlayout-react";
 import { IconAction } from "eez-studio-ui/action";
 import { FlexLayoutContainer } from "eez-studio-ui/FlexLayout";
 
+import { t } from "eez-studio-shared/i18n";
+
 import { IEezObject } from "project-editor/core/object";
 import { ProjectContext } from "project-editor/project/context";
 import { ListNavigation } from "project-editor/ui-components/ListNavigation";
@@ -81,7 +83,7 @@ export const SubsystemsList = observer(
                 additionalButtons = [
                     <IconAction
                         key="refresh"
-                        title="Refresh with content from SCPI help folder"
+                        title={t("Refresh with content from SCPI help folder")}
                         icon="material:refresh"
                         iconSize={16}
                         onClick={this.handleRefresh}
@@ -199,7 +201,7 @@ export const ScpiHelpPreview = observer(
                     />
                 );
             } else {
-                return <div>No help page defined!</div>;
+                return <div>{t("No help page defined!")}</div>;
             }
         }
     }

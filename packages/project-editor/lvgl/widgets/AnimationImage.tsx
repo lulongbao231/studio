@@ -1,3 +1,4 @@
+import { t } from "eez-studio-shared/i18n";
 import React from "react";
 import { makeObservable, observable } from "mobx";
 
@@ -43,7 +44,7 @@ class LVGLAnimationImage extends EezObject {
             collapsed
                 ? animationImage.image
                     ? animationImage.image
-                    : "Image not set"
+                    : t("Image not set")
                 : "",
 
         defaultValue: {},
@@ -99,7 +100,7 @@ class LVGLAnimationImage extends EezObject {
             if (parentObject.length == 0) {
                 fields.push({
                     name: "numImages",
-                    displayName: "No. of images",
+                    displayName: t("No. of images"),
                     type: "integer"
                 });
             }
@@ -188,7 +189,7 @@ export class LVGLAnimationImageWidget extends LVGLWidget {
             },
             {
                 name: "repeat",
-                displayName: "Repeat count",
+                displayName: t("Repeat count"),
                 type: PropertyType.Number,
                 propertyGridGroup: specificGroup,
                 hideInPropertyGrid: (widget: LVGLAnimationImageWidget) =>

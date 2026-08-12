@@ -37,6 +37,7 @@ import type { DlogWaveform } from "instrument/window/waveform/dlog";
 import type * as ChartPreviewModule from "instrument/window/chart-preview";
 
 import { isArray } from "eez-studio-shared/util";
+import { t } from "eez-studio-shared/i18n";
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -56,7 +57,7 @@ class WaveformDefinition extends EezObject {
             makeExpressionProperty(
                 {
                     name: "chartData",
-                    displayName: "Chart data",
+                    displayName: t("Chart data"),
                     type: PropertyType.MultilineText
                 },
                 "any"
@@ -79,7 +80,7 @@ class WaveformDefinition extends EezObject {
             makeExpressionProperty(
                 {
                     name: "unitName",
-                    displayName: "Unit",
+                    displayName: t("Unit"),
                     type: PropertyType.MultilineText,
                     formText: `"voltage", "current", "watt", "power", "time", "frequency", "joule"`
                 },
@@ -88,7 +89,7 @@ class WaveformDefinition extends EezObject {
             makeExpressionProperty(
                 {
                     name: "color",
-                    displayName: "Color",
+                    displayName: t("Color"),
                     type: PropertyType.MultilineText
                 },
                 "string"
@@ -150,24 +151,24 @@ export class EEZChartWidget extends Widget {
             }),
             {
                 name: "chartType",
-                displayName: "Chart mode",
+                displayName: t("Chart mode"),
                 type: PropertyType.Enum,
                 enumItems: [
                     {
                         id: "single",
-                        label: "Single chart"
+                        label: t("Single chart")
                     },
                     {
                         id: "multi",
-                        label: "Multiple charts"
+                        label: t("Multiple charts")
                     },
                     {
                         id: "dlog",
-                        label: "EEZ DLOG"
+                        label: t("EEZ DLOG")
                     },
                     {
                         id: "history-item",
-                        label: "Instrument History Item"
+                        label: t("Instrument History Item")
                     }
                 ],
                 enumDisallowUndefined: true,
@@ -176,7 +177,7 @@ export class EEZChartWidget extends Widget {
             makeExpressionProperty(
                 {
                     name: "chartData",
-                    displayName: "Chart data",
+                    displayName: t("Chart data"),
                     type: PropertyType.MultilineText,
                     propertyGridGroup: specificGroup,
                     disabled: (widget: EEZChartWidget) =>
@@ -272,7 +273,7 @@ export class EEZChartWidget extends Widget {
             makeExpressionProperty(
                 {
                     name: "historyItemID",
-                    displayName: "History item ID",
+                    displayName: t("History item ID"),
                     type: PropertyType.MultilineText,
                     propertyGridGroup: specificGroup,
                     disabled: (widget: EEZChartWidget) =>

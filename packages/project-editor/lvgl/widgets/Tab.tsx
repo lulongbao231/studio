@@ -1,4 +1,5 @@
 import React from "react";
+import { t } from "eez-studio-shared/i18n";
 import { observable, makeObservable } from "mobx";
 
 import {
@@ -74,7 +75,7 @@ export class LVGLTabWidget extends LVGLWidget {
                 messages.push(
                     new Message(
                         MessageType.ERROR,
-                        `Invalid position of Tab widget inside Widgets Structure`,
+                        t("Invalid position of Tab widget inside Widgets Structure"),
                         widget
                     )
                 );
@@ -181,7 +182,7 @@ export class LVGLTabWidget extends LVGLWidget {
                         "const char *",
                         "new_val",
                         this.tabName,
-                        "Failed to evaluate Tab name in Tab widget"
+                        t("Failed to evaluate Tab name in Tab widget")
                     );
 
                     let tabview = code.callFreeFunctionWithAssignment(

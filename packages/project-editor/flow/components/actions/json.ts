@@ -4,6 +4,8 @@ import { registerActionComponents } from "project-editor/flow/component";
 import { toJS } from "mobx";
 import { JSON_ICON } from "project-editor/ui-components/icons";
 
+import { t } from "eez-studio-shared/i18n";
+
 ////////////////////////////////////////////////////////////////////////////////
 
 const componentHeaderColor = "#FFDFD3";
@@ -41,7 +43,7 @@ registerActionComponents("Dashboard Specific", [
         execute: (context: IDashboardComponentContext) => {
             const value = context.evalProperty<string>("value");
             if (value == undefined || typeof value != "string") {
-                context.throwError(`Invalid value property`);
+                context.throwError(t("Invalid value property"));
                 return;
             }
 
@@ -86,7 +88,7 @@ registerActionComponents("Dashboard Specific", [
         execute: (context: IDashboardComponentContext) => {
             const value = context.evalProperty("value");
             if (value == undefined) {
-                context.throwError(`Invalid value property`);
+                context.throwError(t("Invalid value property"));
                 return;
             }
 

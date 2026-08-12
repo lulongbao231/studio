@@ -1,0 +1,11 @@
+# DESCRIPTION
+
+使用此部件作为其他部件的容器。
+
+# PROPERTIES
+
+# INPUTS [EMPTY]
+
+# OUTPUTS [EMPTY]
+
+# EXAMPLES [EMPTY]

@@ -2,8 +2,10 @@ import React from "react";
 
 import { Dialog, showDialog } from "eez-studio-ui/dialog";
 import { PropertyList, RichTextProperty } from "eez-studio-ui/properties";
+import { t } from "eez-studio-shared/i18n";
 
 class NoteDialog extends React.Component<{
+    title: string;
     note?: string;
     callback: (note: string) => void;
 }> {
@@ -27,7 +29,7 @@ class NoteDialog extends React.Component<{
     render() {
         return (
             <Dialog
-                title="Add Note"
+                title={this.props.title}
                 size="large"
                 modal={true}
                 onOk={this.handleSubmit}
@@ -45,12 +47,14 @@ class NoteDialog extends React.Component<{
 }
 
 export function showAddNoteDialog(callback: (note: string) => void) {
-    showDialog(<NoteDialog callback={callback} />);
+    showDialog(<NoteDialog title={t("Add Note")} callback={callback} />);
 }
 
 export function showEditNoteDialog(
     note: string,
     callback: (note: string) => void
 ) {
-    showDialog(<NoteDialog callback={callback} note={note} />);
+    showDialog(
+        <NoteDialog title={t("Edit Note")} callback={callback} note={note} />
+    );
 }

@@ -14,6 +14,8 @@ import * as fs from "fs";
 import { runInAction } from "mobx";
 import { app } from "@electron/remote";
 
+import { t } from "eez-studio-shared/i18n";
+
 import type { ProjectStore } from "project-editor/store";
 import { Section } from "project-editor/store/output-sections";
 import {
@@ -87,7 +89,7 @@ export class DockerBuildManager {
      */
     private getBuildOutputPath(projectStore: ProjectStore): string {
         if (!projectStore.filePath) {
-            throw new Error("Project must be saved before building");
+            throw new Error(t("Project must be saved before building"));
         }
 
         const projectDir = path.dirname(projectStore.filePath);
@@ -102,7 +104,7 @@ export class DockerBuildManager {
         logFn: (message: string, type?: LogType) => void
     ): ProjectInfo {
         if (!projectStore.filePath) {
-            throw new Error("Project must be saved before building");
+            throw new Error(t("Project must be saved before building"));
         }
 
         const projectData = projectStore.project;
@@ -147,7 +149,7 @@ export class DockerBuildManager {
 
         // Check if project is saved
         if (!projectPath) {
-            logFn("Please save the project before running the full simulator", "error");
+            logFn(t("Please save the project before running the full simulator"), "error");
             return;
         }
 
@@ -164,16 +166,16 @@ export class DockerBuildManager {
 
         // If we have build output and not forcing rebuild, show preview immediately
         if (hasOutput && !forceRebuild) {
-            logFn("=== Starting Full Simulator ===", "info");
-            logFn("Starting preview server...", "info");
+            logFn(t("=== Starting Full Simulator ==="), "info");
+            logFn(t("Starting preview server..."), "info");
             let previewUrl
             try {
                 previewUrl = await previewServer.start(outputPath);
             } catch (error) {
-                projectState.setError(`Error starting preview server: ${error}`);
+                projectState.setError(t("Error starting preview server: {error}", { error }));
                 return;
             }
-            logFn(`Preview server running at ${previewUrl}`, "success");
+            logFn(t("Preview server running at {url}", { url: previewUrl }), "success");
 
             // Clear preview logs for new session
             projectState.clearPreviewLogs();
@@ -182,7 +184,7 @@ export class DockerBuildManager {
                 projectState.setRunning(previewUrl);
             });
 
-            logFn("=== Full Simulator Ready ===", "success");
+            logFn(t("=== Full Simulator Ready ==="), "success");
             return;
         }
 
@@ -192,7 +194,7 @@ export class DockerBuildManager {
 
         if (!canBuild) {
             logFn(
-                `Build already in progress for another project: ${dockerBuildState.getBuildingProjectName()}. Please wait for it to complete.`,
+                t("Build already in progress for another project: {name}. Please wait for it to complete.", { name: dockerBuildState.getBuildingProjectName() ?? "" }),
                 "warning"
             );
             return;
@@ -202,36 +204,36 @@ export class DockerBuildManager {
         resetAbort();
 
         if (previewServer.isRunning) {
-            logFn("Stopping preview server...", "info");
+            logFn(t("Stopping preview server..."), "info");
             await previewServer.stop();
-            logFn("Preview server stopped", "success");
+            logFn(t("Preview server stopped"), "success");
         }        
 
         const startTime = Date.now();
 
         try {
             runInAction(() => {
-                projectState.setBuilding("Initializing...");
+                projectState.setBuilding(t("Initializing..."));
             });
 
-            logFn("=== Starting Full Simulator Build ===", "info");
+            logFn(t("=== Starting Full Simulator Build ==="), "info");
 
             // Check Docker build resources
             if (!this.checkDockerBuildResources()) {
                 throw new Error(
-                    "Docker build resources not found. Please ensure the docker-build folder is present."
+                    t("Docker build resources not found. Please ensure the docker-build folder is present.")
                 );
             }
 
             // Check Docker
             runInAction(() => {
-                projectState.setBuilding("Checking Docker...");
+                projectState.setBuilding(t("Checking Docker..."));
             });
 
             const dockerReady = await checkDocker(logFn);
             if (!dockerReady) {
                 throw new Error(
-                    "Docker is not available. Please install and start Docker Desktop."
+                    t("Docker is not available. Please install and start Docker Desktop.")
                 );
             }
 
@@ -239,12 +241,12 @@ export class DockerBuildManager {
 
             // Build the EEZ project first
             runInAction(() => {
-                projectState.setBuilding("Building EEZ project...");
+                projectState.setBuilding(t("Building EEZ project..."));
             });
 
             let lastRevisionStable = projectStore.lastRevisionStable;
 
-            logFn("Building EEZ project...", "info");
+            logFn(t("Building EEZ project..."), "info");
             await projectStore.build();
 
             // Check if build produced errors
@@ -253,17 +255,17 @@ export class DockerBuildManager {
                     .numErrors > 0
             ) {
                 throw new Error(
-                    "EEZ project build failed with errors. Please fix the errors and try again."
+                    t("EEZ project build failed with errors. Please fix the errors and try again.")
                 );
             }
 
-            logFn("EEZ project built successfully", "success");
+            logFn(t("EEZ project built successfully"), "success");
 
             if (dockerBuildState.isCancelled) return;
 
             // Build project info
             runInAction(() => {
-                projectState.setBuilding("Reading project configuration...");
+                projectState.setBuilding(t("Reading project configuration..."));
             });
 
             const projectInfo = this.buildProjectInfo(projectStore, logFn);
@@ -277,10 +279,10 @@ export class DockerBuildManager {
             // built and changed the shared Docker volume)
             if (projectState.needsCleanBuild) {
                 runInAction(() => {
-                    projectState.setBuilding("Cleaning build cache...");
+                    projectState.setBuilding(t("Cleaning build cache..."));
                 });
 
-                logFn("Another project has built since last build - performing clean build first...", "info");
+                logFn(t("Another project has built since last build - performing clean build first..."), "info");
                 await cleanBuild(buildConfig, logFn);
 
                 if (dockerBuildState.isCancelled) return;
@@ -288,7 +290,7 @@ export class DockerBuildManager {
 
             // Setup Docker project
             runInAction(() => {
-                projectState.setBuilding("Setting up Docker environment...");
+                projectState.setBuilding(t("Setting up Docker environment..."));
             });
 
             const setupResult = await setupProject(
@@ -301,7 +303,7 @@ export class DockerBuildManager {
 
             // Build with Docker
             runInAction(() => {
-                projectState.setBuilding("Building with Emscripten...");
+                projectState.setBuilding(t("Building with Emscripten..."));
             });
 
             await buildProject(
@@ -315,7 +317,7 @@ export class DockerBuildManager {
 
             // Extract build output
             runInAction(() => {
-                projectState.setBuilding("Extracting build files...");
+                projectState.setBuilding(t("Extracting build files..."));
             });
 
             await extractBuild(outputPath, buildConfig, logFn);
@@ -332,18 +334,18 @@ export class DockerBuildManager {
 
             // Start preview server
             runInAction(() => {
-                projectState.setBuilding("Starting preview server...");
+                projectState.setBuilding(t("Starting preview server..."));
             });
 
-            logFn("Starting preview server...", "info");
+            logFn(t("Starting preview server..."), "info");
             let previewUrl;
             try {
                 previewUrl = await previewServer.start(outputPath);
             } catch (error) {
-                projectState.setError(`Error starting preview server: ${error}`);
+                projectState.setError(t("Error starting preview server: {error}", { error }));
                 return;
             }
-            logFn(`Preview server running at ${previewUrl}`, "success");
+            logFn(t("Preview server running at {url}", { url: previewUrl }), "success");
 
             // Clear preview logs for new session
             projectState.clearPreviewLogs();
@@ -353,11 +355,11 @@ export class DockerBuildManager {
             });
 
             const duration = ((Date.now() - startTime) / 1000).toFixed(1);
-            logFn(`=== Full Simulator Ready (${duration}s) ===`, "success");
+            logFn(t("=== Full Simulator Ready ({duration}s) ===", { duration }), "success");
         } catch (error) {
             const errorMessage =
                 error instanceof Error ? error.message : String(error);
-            logFn(`Error: ${errorMessage}`, "error");
+            logFn(t("Error: {error}", { error: errorMessage }), "error");
 
             runInAction(() => {
                 projectState.setError(errorMessage);
@@ -381,9 +383,9 @@ export class DockerBuildManager {
         const projectState = dockerBuildState.getProjectState(projectPath);
         
         if (previewServer.isRunning) {
-            logFn("Stopping preview server...", "info");
+            logFn(t("Stopping preview server..."), "info");
             await previewServer.stop();
-            logFn("Preview server stopped", "success");
+            logFn(t("Preview server stopped"), "success");
 
             runInAction(() => {
                 projectState.setIdle();
@@ -416,9 +418,9 @@ export class DockerBuildManager {
         }
 
         if (previewServer.isRunning) {
-            logFn("Stopping preview server...", "info");
+            logFn(t("Stopping preview server..."), "info");
             await previewServer.stop();
-            logFn("Preview server stopped", "success");
+            logFn(t("Preview server stopped"), "success");
         }
 
         runInAction(() => {
@@ -442,7 +444,7 @@ export class DockerBuildManager {
 
         if (dockerBuildState.isBuilding) {
             logFn(
-                `Cannot clean: build in progress for ${dockerBuildState.getBuildingProjectName()}. Please wait for it to complete.`,
+                t("Cannot clean: build in progress for {name}. Please wait for it to complete.", { name: dockerBuildState.getBuildingProjectName() ?? "" }),
                 "warning"
             );
             return;
@@ -457,7 +459,7 @@ export class DockerBuildManager {
         } catch (error) {
             const errorMessage =
                 error instanceof Error ? error.message : String(error);
-            logFn(`Clean failed: ${errorMessage}`, "error");
+            logFn(t("Clean failed: {error}", { error: errorMessage }), "error");
         }
     }
 
@@ -469,7 +471,7 @@ export class DockerBuildManager {
 
         if (dockerBuildState.isBuilding) {
             logFn(
-                `Cannot clean: build in progress for ${dockerBuildState.getBuildingProjectName()}. Please wait for it to complete.`,
+                t("Cannot clean: build in progress for {name}. Please wait for it to complete.", { name: dockerBuildState.getBuildingProjectName() ?? "" }),
                 "warning"
             );
             return;
@@ -484,7 +486,7 @@ export class DockerBuildManager {
         } catch (error) {
             const errorMessage =
                 error instanceof Error ? error.message : String(error);
-            logFn(`Clean all failed: ${errorMessage}`, "error");
+            logFn(t("Clean all failed: {error}", { error: errorMessage }), "error");
         }
     }
 }

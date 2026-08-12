@@ -2,6 +2,7 @@ import React from "react";
 import { observable, makeObservable } from "mobx";
 
 import { validators } from "eez-studio-shared/validation";
+import { t } from "eez-studio-shared/i18n";
 
 import { showGenericDialog } from "eez-studio-ui/generic-dialog";
 
@@ -61,8 +62,8 @@ export class UseDashboardProject extends EezObject {
                 name: "projectFilePath",
                 type: PropertyType.RelativeFile,
                 fileFilters: [
-                    { name: "EEZ Project", extensions: ["eez-project"] },
-                    { name: "All Files", extensions: ["*"] }
+                    { name: t("EEZ Project"), extensions: ["eez-project"] },
+                    { name: t("All Files"), extensions: ["*"] }
                 ],
                 isOptional: false
             }
@@ -80,7 +81,7 @@ export class UseDashboardProject extends EezObject {
                     messages.push(
                         new Message(
                             MessageType.ERROR,
-                            "File doesn't exists",
+                            t("File doesn't exists"),
                             getChildOfObject(object, "projectFilePath")
                         )
                     );
@@ -165,7 +166,7 @@ export class ExtensionDefinition extends EezObject {
             },
             {
                 name: "extensionName",
-                displayName: "IEXT name",
+                displayName: t("IEXT name"),
                 type: PropertyType.String,
                 defaultValue: undefined
             },
@@ -176,7 +177,7 @@ export class ExtensionDefinition extends EezObject {
             },
             {
                 name: "idn",
-                displayName: "IDN",
+                displayName: t("IDN"),
                 type: PropertyType.String,
                 defaultValue: undefined,
                 disabled: isNotScpiProject
@@ -188,20 +189,20 @@ export class ExtensionDefinition extends EezObject {
             },
             {
                 name: "idfName",
-                displayName: "IDF name",
+                displayName: t("IDF name"),
                 type: PropertyType.String,
                 disabled: isNotScpiProject
             },
             {
                 name: "idfShortName",
-                displayName: "IDF short name",
+                displayName: t("IDF short name"),
                 type: PropertyType.String,
                 defaultValue: undefined,
                 disabled: isNotScpiProject
             },
             {
                 name: "idfFirmwareVersion",
-                displayName: "IDF firmware version",
+                displayName: t("IDF firmware version"),
                 type: PropertyType.String,
                 defaultValue: undefined,
                 disabled: isNotScpiProject
@@ -209,15 +210,15 @@ export class ExtensionDefinition extends EezObject {
             {
                 name: "idfGuid",
                 displayName: object =>
-                    isNotScpiProject(object) ? "GUID" : "IDF GUID",
+                    isNotScpiProject(object) ? t("GUID") : t("IDF GUID"),
                 type: PropertyType.GUID
             },
             {
                 name: "idfRevisionNumber",
                 displayName: object =>
                     isNotScpiProject(object)
-                        ? "Extension version"
-                        : "IDF revision number (extension version)",
+                        ? t("Extension version")
+                        : t("IDF revision number (extension version)"),
                 type: PropertyType.String,
                 defaultValue: undefined
             },
@@ -225,21 +226,21 @@ export class ExtensionDefinition extends EezObject {
                 name: "idfDescription",
                 displayName: object =>
                     isNotScpiProject(object)
-                        ? "Description"
-                        : "IDF description",
+                        ? t("Description")
+                        : t("IDF description"),
                 type: PropertyType.String,
                 defaultValue: undefined
             },
             {
                 name: "idfSupportedModels",
-                displayName: "IDF supported models",
+                displayName: t("IDF supported models"),
                 type: PropertyType.String,
                 defaultValue: undefined,
                 disabled: isNotScpiProject
             },
             {
                 name: "idfRevisionComments",
-                displayName: "IDF revision comments",
+                displayName: t("IDF revision comments"),
                 type: PropertyType.String,
                 defaultValue: undefined,
                 disabled: isNotScpiProject
@@ -247,20 +248,20 @@ export class ExtensionDefinition extends EezObject {
             {
                 name: "idfAuthor",
                 displayName: object =>
-                    isNotScpiProject(object) ? "Author" : "IDF author",
+                    isNotScpiProject(object) ? t("Author") : t("IDF author"),
                 type: PropertyType.String,
                 defaultValue: undefined
             },
             {
                 name: "sdlFriendlyName",
-                displayName: "SDL friendly name",
+                displayName: t("SDL friendly name"),
                 type: PropertyType.String,
                 defaultValue: undefined,
                 disabled: isNotScpiProject
             },
             {
                 name: "useDashboardProjects",
-                displayName: "Dashboard projects",
+                displayName: t("Dashboard projects"),
                 type: PropertyType.Array,
                 typeClass: UseDashboardProject,
                 defaultValue: []
@@ -269,7 +270,7 @@ export class ExtensionDefinition extends EezObject {
         newItem: async (parent: IEezObject) => {
             const result = await showGenericDialog({
                 dialogDefinition: {
-                    title: "New Instrument Definition File",
+                    title: t("New Instrument Definition File"),
                     fields: [
                         {
                             name: "name",
@@ -390,11 +391,12 @@ registerClass("ExtensionDefinition", ExtensionDefinition);
 const feature: ProjectEditorFeature = {
     name: "eezstudio-project-feature-extension-definitions",
     version: "0.1.0",
-    description:
-        "This feature adds support for IEXT definitions into your project",
+    description: t(
+        "This feature adds support for IEXT definitions into your project"
+    ),
     author: "EEZ",
     authorLogo: "../eez-studio-ui/_images/eez_logo.png",
-    displayName: "IEXT defs",
+    displayName: t("IEXT defs"),
     mandatory: false,
     key: "extensionDefinitions",
     type: PropertyType.Array,

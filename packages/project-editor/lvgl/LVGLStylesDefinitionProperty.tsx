@@ -1,4 +1,5 @@
 import { humanize } from "eez-studio-shared/string";
+import { t } from "eez-studio-shared/i18n";
 import { observer } from "mobx-react";
 import { computed, makeObservable, runInAction } from "mobx";
 import classNames from "classnames";
@@ -302,14 +303,16 @@ export const LVGLStylesDefinitionTree = observer(
 
             return {
                 id: "root",
-                label: "Root",
+                label: t("Root"),
                 children: parts
                     ? [
                           ...(totalModifications > 0 ? [{
                             id: "_totalModifications",
                             label: (
                                 <span className="EezStudio_LVGLStyle_PartLabel">
-                                    {`Changed (${totalModifications})`}
+                                    {t("Changed ({totalModifications})", {
+                                        totalModifications
+                                    })}
                                 </span>
                             ),
                             children: [],
@@ -323,7 +326,7 @@ export const LVGLStylesDefinitionTree = observer(
                               const numModifications =
                                   this.getNumModificationsForPart(part);
 
-                              const partLabel = humanize(part) + " part";
+                              const partLabel = humanize(part) + t(" part");
 
                               return {
                                   id: part,
@@ -346,7 +349,10 @@ export const LVGLStylesDefinitionTree = observer(
                                       >
                                           {numModifications == 0
                                               ? partLabel
-                                              : `${partLabel} (${numModifications})`}
+                                              : t("{partLabel} ({numModifications})", {
+                                                    partLabel,
+                                                    numModifications
+                                                })}
                                       </span>
                                   ),
                                   children: LVGL_STYLE_STATES.map(state => {
@@ -378,7 +384,10 @@ export const LVGLStylesDefinitionTree = observer(
                                               >
                                                   {numModifications == 0
                                                       ? state
-                                                      : `${state} (${numModifications})`}
+                                                      : t("{state} ({numModifications})", {
+                                                            state,
+                                                            numModifications
+                                                        })}
                                               </span>
                                           ),
                                           children: [],

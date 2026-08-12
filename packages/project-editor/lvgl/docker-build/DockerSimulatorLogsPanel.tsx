@@ -1,4 +1,5 @@
 import React from "react";
+import { t } from "eez-studio-shared/i18n";
 import { observer } from "mobx-react";
 import classNames from "classnames";
 
@@ -66,21 +67,21 @@ export const DockerSimulatorLogsPanel = observer(
                                 <>
                                     <TextAction
                                         icon="material:build"
-                                        title="Build and start simulator"
-                                        text="Build"
+                                        title={t("Build and start simulator")}
+                                        text={t("Build")}
                                         iconSize={20}
                                         onClick={this.handleBuild}
                                     />
                                     <TextAction
                                         icon="material:delete"
-                                        title="Clean Build (remove build cache and rebuild)"
-                                        text="Clean Build"
+                                        title={t("Clean Build (remove build cache and rebuild)")}
+                                        text={t("Clean Build")}
                                         onClick={this.handleCleanBuild}
                                     />
                                     <TextAction
                                         icon="material:delete_sweep"
-                                        title="Clean All (remove Docker volume and rebuild from scratch)"
-                                        text="Clean All"
+                                        title={t("Clean All (remove Docker volume and rebuild from scratch)")}
+                                        text={t("Clean All")}
                                         onClick={this.handleCleanAll}
                                     />
                                 </>
@@ -88,8 +89,8 @@ export const DockerSimulatorLogsPanel = observer(
                             {isBuilding && (
                                 <TextAction
                                     icon="material:stop"
-                                    title="Stop build"
-                                    text="Stop"
+                                    title={t("Stop build")}
+                                    text={t("Stop")}
                                     onClick={this.handleStop}
                                 />
                             )}
@@ -97,7 +98,7 @@ export const DockerSimulatorLogsPanel = observer(
                         <div className="EezStudio_DockerSimulatorLogsPanel_RightButtons">
                             <IconAction
                                 icon="material:clear_all"
-                                title="Clear logs"
+                                title={t("Clear logs")}
                                 onClick={this.handleClear}
                             />
                         </div>

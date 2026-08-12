@@ -1,4 +1,5 @@
 import React from "react";
+import { t } from "eez-studio-shared/i18n";
 import { observable, computed, values, makeObservable } from "mobx";
 import { observer } from "mobx-react";
 
@@ -71,7 +72,7 @@ class ShortcutsStore {
     }
 
     addShortcut(shortcutToAdd: Partial<IShortcut>) {
-        beginTransaction("Add shortcut");
+        beginTransaction(t("Add shortcut"));
         let id = addShortcut(shortcutToAdd);
         commitTransaction();
         return id;
@@ -82,7 +83,7 @@ class ShortcutsStore {
             shortcut.id!
         );
 
-        beginTransaction("Edit shortcut");
+        beginTransaction(t("Edit shortcut"));
 
         updateShortcut(shortcut);
 
@@ -103,7 +104,7 @@ class ShortcutsStore {
         const sameShortcuts = this.getSameShortcutsFromDifferentExtensions(
             shortcut.id!
         );
-        beginTransaction("Delete shortcut");
+        beginTransaction(t("Delete shortcut"));
         deleteShortcut(shortcut);
         sameShortcuts.forEach(sameShortcut => deleteShortcut(sameShortcut));
         commitTransaction();

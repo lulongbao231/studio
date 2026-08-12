@@ -4,6 +4,7 @@ import { observer } from "mobx-react";
 import classNames from "classnames";
 
 import { humanize } from "eez-studio-shared/string";
+import { t } from "eez-studio-shared/i18n";
 
 import { Icon } from "eez-studio-ui/icon";
 
@@ -114,7 +115,7 @@ export const RenderVariableStatusPropertyUI = observer(
                                 marginTop: 10
                             }}
                         >
-                            Stored value:
+                            {t("Stored value:")}
                         </div>
                         <CodeEditor
                             mode="json"
@@ -139,7 +140,7 @@ export const RenderVariableStatusPropertyUI = observer(
                                 );
                             }}
                         >
-                            Clear Stored Value
+                            {t("Clear Stored Value")}
                         </Button>
                     </div>
                 ) : null;

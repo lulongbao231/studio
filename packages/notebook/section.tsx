@@ -15,6 +15,7 @@ import { observer } from "mobx-react";
 import { stringCompare } from "eez-studio-shared/string";
 import { beginTransaction, commitTransaction } from "eez-studio-shared/store";
 import { sendSimpleMessage } from "eez-studio-shared/util-renderer";
+import { t } from "eez-studio-shared/i18n";
 
 import { Splitter } from "eez-studio-ui/splitter";
 import {
@@ -152,14 +153,14 @@ const MasterView = observer(
                     fields: [
                         {
                             name: "name",
-                            displayName: "Notebook name",
+                            displayName: t("Notebook name"),
                             type: "string",
                             validators: [
                                 validators.required,
                                 validators.unique(
                                     {},
                                     values(notebooks),
-                                    "Notebook with the same name already exists"
+                                    t("Notebook with the same name already exists")
                                 )
                             ]
                         }
@@ -170,7 +171,7 @@ const MasterView = observer(
                 }
             })
                 .then(result => {
-                    beginTransaction("Add notebook");
+                    beginTransaction(t("Add notebook"));
                     const notebookId = addNotebook(result.values);
                     commitTransaction();
 
@@ -196,10 +197,10 @@ const MasterView = observer(
                 properties: ["openFile"],
                 filters: [
                     {
-                        name: "EEZ Notebook files",
+                        name: t("EEZ Notebook files"),
                         extensions: ["eez-notebook"]
                     },
-                    { name: "All Files", extensions: ["*"] }
+                    { name: t("All Files"), extensions: ["*"] }
                 ]
             });
             const filePaths = result.filePaths;
@@ -209,8 +210,8 @@ const MasterView = observer(
         };
 
         removeNotebook = () => {
-            confirm("Are you sure?", undefined, () => {
-                beginTransaction("Remove notebook");
+            confirm(t("Are you sure?"), undefined, () => {
+                beginTransaction(t("Remove notebook"));
                 deleteNotebook(
                     toJS(notebooksHomeSectionStore.selectedNotebook!)
                 );
@@ -228,14 +229,14 @@ const MasterView = observer(
                     fields: [
                         {
                             name: "name",
-                            displayName: "Name",
+                            displayName: t("Name"),
                             type: "string",
                             validators: [
                                 validators.required,
                                 validators.unique(
                                     notebooksHomeSectionStore.selectedNotebook,
                                     values(notebooks),
-                                    "Notebook with the same name already exists"
+                                    t("Notebook with the same name already exists")
                                 )
                             ]
                         }
@@ -244,7 +245,7 @@ const MasterView = observer(
                 values: notebooksHomeSectionStore.selectedNotebook
             })
                 .then(result => {
-                    beginTransaction("Rename notebook");
+                    beginTransaction(t("Rename notebook"));
                     updateNotebook(
                         Object.assign(
                             {},
@@ -265,21 +266,21 @@ const MasterView = observer(
                             key="notebook/export"
                             icon="material:add"
                             iconSize={16}
-                            title="Add notebook"
+                            title={t("Add notebook")}
                         >
                             <DropdownItem
-                                text="Add an empty notebook"
+                                text={t("Add an empty notebook")}
                                 onClick={this.addNotebook}
                             />
                             <DropdownItem
-                                text="Import notebook from file"
+                                text={t("Import notebook from file")}
                                 onClick={this.importNotebook}
                             />
                         </DropdownIconAction>
                         <IconAction
                             icon="material:delete"
                             iconSize={16}
-                            title="Remove notebook"
+                            title={t("Remove notebook")}
                             enabled={
                                 !!notebooksHomeSectionStore.selectedNotebook
                             }
@@ -288,7 +289,7 @@ const MasterView = observer(
                         <IconAction
                             icon="material:edit"
                             iconSize={16}
-                            title="Change notebook name"
+                            title={t("Change notebook name")}
                             enabled={
                                 !!notebooksHomeSectionStore.selectedNotebook
                             }
@@ -297,7 +298,7 @@ const MasterView = observer(
                         <IconAction
                             icon="material:delete_sweep"
                             iconSize={16}
-                            title="Show deleted notebooks"
+                            title={t("Show deleted notebooks")}
                             enabled={deletedNotebooks.size > 0}
                             onClick={this.showDeletedNotebooks}
                         />

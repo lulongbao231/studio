@@ -9,12 +9,13 @@ import { Section } from "instrument/bb3/components/Section";
 //import { ScriptsSectionSelectView } from "instrument/bb3/components/scripts-section/ScriptsSectionSelectView";
 import { ScriptsSectionGlobalActions } from "instrument/bb3/components/scripts-section/ScriptsSectionGlobalActions";
 import { ScriptsSectionList } from "instrument/bb3/components/scripts-section/ScriptsSectionList";
+import { t } from "eez-studio-shared/i18n";
 
 export const ScriptsSection = observer(
     ({ bb3Instrument }: { bb3Instrument: BB3Instrument }) => {
         return (
             <Section
-                title="MicroPython Scripts"
+                title={t("MicroPython Scripts")}
                 titleControls={
                     bb3Instrument.refreshInProgress ? null : (
                         <>
@@ -35,8 +36,9 @@ export const ScriptsSection = observer(
                                     className="alert alert-danger"
                                     role="alert"
                                 >
-                                    Failed to get info about scripts on the
-                                    instruments!
+                                    {t(
+                                        "Failed to get info about scripts on the instruments!"
+                                    )}
                                 </div>
                             )}
                             <ScriptsSectionList

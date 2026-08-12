@@ -6,6 +6,10 @@ import { TABULATOR_ICON } from "project-editor/ui-components/icons";
 import type { TabulatorExecutionState } from "project-editor/flow/components/widgets/dashboard/tabulator";
 import { humanize } from "eez-studio-shared/string";
 
+import { t } from "eez-studio-shared/i18n";
+
+////////////////////////////////////////////////////////////////////////////////
+
 const componentHeaderColor = "#DEB887";
 
 registerActionComponents("GUI", [
@@ -89,7 +93,7 @@ registerActionComponents("GUI", [
         execute: (context: IDashboardComponentContext) => {
             const widget = context.evalProperty<number>("widget");
             if (widget == undefined) {
-                context.throwError(`Invalid Widget property`);
+                context.throwError(t("Invalid Widget property"));
                 return;
             }
 
@@ -97,7 +101,7 @@ registerActionComponents("GUI", [
                 context.WasmFlowRuntime.getWidgetHandleInfo(widget);
 
             if (!widgetInfo) {
-                context.throwError(`Invalid Widget handle`);
+                context.throwError(t("Invalid Widget handle"));
                 return;
             }
 
@@ -111,7 +115,7 @@ registerActionComponents("GUI", [
                 widgetContext.getComponentExecutionState<TabulatorExecutionState>();
 
             if (!executionState) {
-                context.throwError(`Widget not initialized`);
+                context.throwError(t("Widget not initialized"));
                 return;
             }
 
@@ -121,12 +125,12 @@ registerActionComponents("GUI", [
                 const lookup = context.evalProperty<string>("lookup");
                 if (lookup != undefined && typeof lookup != "string") {
                     context.throwError(
-                        `Invalid Lookup property value, should be string or empty`
+                        t("Invalid Lookup property value, should be string or empty")
                     );
                 }
 
                 if (!executionState.getSheetData) {
-                    context.throwError(`Widget doesn't support getSheetData`);
+                    context.throwError(t("Widget doesn't support getSheetData"));
                     return;
                 }
 
@@ -136,14 +140,14 @@ registerActionComponents("GUI", [
             } else if (tabulatorAction == "download") {
                 const fileName = context.evalProperty<string>("fileName");
                 if (fileName == undefined) {
-                    context.throwError(`Invalid File name property`);
+                    context.throwError(t("Invalid File name property"));
                     return;
                 }
 
                 const downloadType = context.getStringParam(4);
 
                 if (!executionState.download) {
-                    context.throwError(`Widget doesn't support download`);
+                    context.throwError(t("Widget doesn't support download"));
                     return;
                 }
 

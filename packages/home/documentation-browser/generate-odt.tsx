@@ -3,6 +3,7 @@ import path from "path";
 import { marked } from "marked";
 
 import { sourceRootDir } from "eez-studio-shared/util";
+import { t } from "eez-studio-shared/i18n";
 
 import * as notification from "eez-studio-ui/notification";
 
@@ -472,7 +473,7 @@ async function generateODTFile(
                         <table:table-row>
                             <table:table-cell table:style-name="Table1.A1" office:value-type="string">
                                 <text:p text:style-name="Table_20_header_20_bold">${
-                                    groupProperties.group.title || "Other"
+                                    groupProperties.group.title || t("Other")
                                 }</text:p>
                             </table:table-cell>
                         </table:table-row>
@@ -733,7 +734,7 @@ async function generateODTFile(
 }
 
 export async function generateODTFilesForAllComponents() {
-    const progressToastId = notification.info("Start...", {
+    const progressToastId = notification.info(t("Start..."), {
         autoClose: false
     });
 
@@ -792,13 +793,18 @@ export async function generateODTFilesForAllComponents() {
                 type: notification.INFO
             });
         } catch (err) {
-            notification.error(`Failed for ${componentInfo.name}: ${err}`);
+            notification.error(
+                t("Failed for {name}: {error}", {
+                    name: componentInfo.name,
+                    error: String(err)
+                })
+            );
             return;
         }
     }
 
     notification.update(progressToastId, {
-        render: "Done.",
+        render: t("Done."),
         type: notification.SUCCESS,
         autoClose: 3000
     });

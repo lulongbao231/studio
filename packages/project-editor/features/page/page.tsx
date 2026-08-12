@@ -3,6 +3,8 @@ import { observable, computed, makeObservable } from "mobx";
 import classNames from "classnames";
 import { observer } from "mobx-react";
 
+import { t } from "eez-studio-shared/i18n";
+
 import {
     IEezObject,
     EezObject,
@@ -231,7 +233,7 @@ export const GeometryProperties = observer(
                         updateObject={this.props.updateObject}
                     />
 
-                    <div title="Width">W</div>
+                    <div title={t("Width")}>W</div>
                     <Property
                         propertyInfo={
                             findPropertyByNameInClassInfo(
@@ -244,7 +246,7 @@ export const GeometryProperties = observer(
                         updateObject={this.props.updateObject}
                     />
 
-                    <div title="Height">H</div>
+                    <div title={t("Height")}>H</div>
                     <Property
                         propertyInfo={
                             findPropertyByNameInClassInfo(
@@ -385,7 +387,7 @@ export class Page extends Flow {
                             return null;
                         }
 
-                        return "Not an unique name";
+                        return t("Not an unique name");
                     };
                 },
                 propertyGridGroup: generalGroup
@@ -395,7 +397,9 @@ export class Page extends Flow {
                 type: PropertyType.String,
                 propertyGridGroup: generalGroup,
                 computed: true,
-                formText: `This identifier will be used in the generated source code in the "Objects" struct. It is different from the "Name" above because in the source code we are following "lowercase with underscore" naming convention.`,
+                formText: t(
+                        "This identifier will be used in the generated source code in the \"Objects\" struct. It is different from the \"Name\" above because in the source code we are following \"lowercase with underscore\" naming convention."
+                    ),
                 disabled: (object: Page) => object.codeIdentifier == undefined
             },
             {
@@ -405,7 +409,7 @@ export class Page extends Flow {
             },
             {
                 name: "dataContextOverrides",
-                displayName: "Data context",
+                displayName: t("Data context"),
                 type: PropertyType.JSON,
                 propertyGridGroup: generalGroup,
                 disabled: (object: Page) => isLVGLProject(object) || isEezGuiLiteProject(object)
@@ -498,7 +502,7 @@ export class Page extends Flow {
             },
             {
                 name: "deleteOnScreenUnload",
-                displayName: "Delete on unload",
+                displayName: t("Delete on unload"),
                 type: PropertyType.Boolean,
                 propertyGridGroup: generalGroup,
                 checkboxStyleSwitch: true,
@@ -655,8 +659,8 @@ export class Page extends Flow {
                 dialogDefinition: {
                     title:
                         parent == project.userPages
-                            ? "New Page"
-                            : "New User Widget",
+                            ? t("New Page")
+                            : t("New User Widget"),
                     fields: [
                         {
                             name: "name",
@@ -667,7 +671,9 @@ export class Page extends Flow {
                                 validators.unique(
                                     {},
                                     project.pages,
-                                    "Page or User Widget with this name already exists"
+                                    t(
+                                        "Page or User Widget with this name already exists"
+                                    )
                                 )
                             ]
                         }
@@ -677,7 +683,7 @@ export class Page extends Flow {
                     name:
                         parent == project.userPages &&
                             project.userPages.length == 0
-                            ? "Main"
+                            ? t("Main")
                             : ""
                 },
                 modal: true,
@@ -758,7 +764,14 @@ export class Page extends Flow {
                     messages.push(
                         new Message(
                             MessageType.WARNING,
-                            `Width (${page.width}) is different from display width (${projectStore.project.settings.general.displayWidth})`,
+                            t(
+                            "Width ({width}) is different from display width ({displayWidth})",
+                            {
+                                width: page.width,
+                                displayWidth:
+                                    projectStore.project.settings.general.displayWidth
+                            }
+                        ),
                             getChildOfObject(page, "width")
                         )
                     );
@@ -771,7 +784,10 @@ export class Page extends Flow {
                     messages.push(
                         new Message(
                             MessageType.ERROR,
-                            `Width must be between 1 and ${MAX_WIDTH}`,
+                            t(
+                            "Width must be between 1 and {maxWidth}",
+                            { maxWidth: MAX_WIDTH }
+                        ),
                             getChildOfObject(page, "width")
                         )
                     );
@@ -788,7 +804,14 @@ export class Page extends Flow {
                     messages.push(
                         new Message(
                             MessageType.WARNING,
-                            `Height (${page.height}) is different from display height (${projectStore.project.settings.general.displayHeight})`,
+                            t(
+                            "Height ({height}) is different from display height ({displayHeight})",
+                            {
+                                height: page.height,
+                                displayHeight:
+                                    projectStore.project.settings.general.displayHeight
+                            }
+                        ),
                             getChildOfObject(page, "height")
                         )
                     );
@@ -798,7 +821,10 @@ export class Page extends Flow {
                     messages.push(
                         new Message(
                             MessageType.ERROR,
-                            `Height must be between 1 and ${MAX_HEIGHT}`,
+                            t(
+                            "Height must be between 1 and {maxHeight}",
+                            { maxHeight: MAX_HEIGHT }
+                        ),
                             getChildOfObject(page, "height")
                         )
                     );
@@ -1352,10 +1378,10 @@ registerClass("Page", Page);
 const feature: ProjectEditorFeature = {
     name: "eezstudio-project-feature-page",
     version: "0.1.0",
-    description: "Pages support for your project",
+    description: t("Pages support for your project"),
     author: "EEZ",
     authorLogo: "../eez-studio-ui/_images/eez_logo.png",
-    displayName: "Pages",
+    displayName: t("Pages"),
     mandatory: true,
     key: "userPages",
     type: PropertyType.Array,

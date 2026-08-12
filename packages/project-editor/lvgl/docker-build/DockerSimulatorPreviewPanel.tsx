@@ -1,4 +1,5 @@
 import React from "react";
+import { t } from "eez-studio-shared/i18n";
 import { observer } from "mobx-react";
 
 import { Icon } from "eez-studio-ui/icon";
@@ -63,7 +64,7 @@ export const DockerSimulatorPreviewPanel = observer(
                             <div className="actions">
                                 <IconAction
                                     icon="material:refresh"
-                                    title="Refresh preview"
+                                    title={t("Refresh preview")}
                                     onClick={this.handleRefresh}
                                 />
                             </div>
@@ -76,8 +77,7 @@ export const DockerSimulatorPreviewPanel = observer(
                         >
                             <Icon icon="material:warning" size={18} />
                             <span className="ms-2">
-                                Preview may be out of date. Rebuild to see
-                                latest changes.
+                                {t("Preview may be out of date. Rebuild to see latest changes.")}
                             </span>
                         </div>
                     )}
@@ -88,14 +88,14 @@ export const DockerSimulatorPreviewPanel = observer(
                                     icon="material:play_circle_outline"
                                     size={64}
                                 />
-                                <p>Click "Run in Full Simulator" to start</p>
+                                <p>{t(`Click "Run in Full Simulator" to start`)}</p>
                             </div>
                         )}
 
                         {projectState.state === "building" && (
                             <div className="EezStudio_DockerSimulatorPreviewPanel_Building">
                                 <Loader />
-                                <p>Building...</p>
+                                <p>{t("Building...")}</p>
                                 <p className="phase">{projectState.buildPhase}</p>
                             </div>
                         )}
@@ -103,7 +103,7 @@ export const DockerSimulatorPreviewPanel = observer(
                         {projectState.state === "error" && (
                             <div className="EezStudio_DockerSimulatorPreviewPanel_Error">
                                 <Icon icon="material:error_outline" size={64} />
-                                <p>Build Failed</p>
+                                <p>{t("Build Failed")}</p>
                                 <p className="error-message">
                                     {projectState.errorMessage}
                                 </p>
@@ -116,7 +116,7 @@ export const DockerSimulatorPreviewPanel = observer(
                                     ref={this.iframeRef}
                                     src={projectState.previewUrl}
                                     className="EezStudio_DockerSimulatorPreviewPanel_Iframe"
-                                    title="LVGL Full Simulator"
+                                    title={t("LVGL Full Simulator")}
                                     sandbox="allow-scripts allow-same-origin"
                                 />
                             )}

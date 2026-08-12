@@ -1,5 +1,7 @@
 import type { BuildResult } from "project-editor/store/features";
 
+import { t } from "eez-studio-shared/i18n";
+
 import {
     EezObject,
     getProperty,
@@ -259,7 +261,7 @@ export class Assets {
                 this.projectStore.outputSectionsStore.write(
                     Section.OUTPUT,
                     MessageType.WARNING,
-                    `Missing page with ID = ${i + 1}`,
+                    t("Missing page with ID = {id}", { id: i + 1 }),
                     this.rootProject.pages
                 );
             }
@@ -328,7 +330,7 @@ export class Assets {
                 this.projectStore.outputSectionsStore.write(
                     Section.OUTPUT,
                     MessageType.WARNING,
-                    `Missing global variable with ID = ${i + 1}`,
+                    t("Missing global variable with ID = {id}", { id: i + 1 }),
                     this.rootProject.variables.globalVariables
                 );
                 for (let j = 0; j < nativeVariables.length; j++) {
@@ -382,7 +384,7 @@ export class Assets {
                 this.projectStore.outputSectionsStore.write(
                     Section.OUTPUT,
                     MessageType.WARNING,
-                    `Missing action with ID = ${i + 1}`,
+                    t("Missing action with ID = {id}", { id: i + 1 }),
                     this.rootProject.actions
                 );
                 for (let j = 0; j < nativeActions.length; j++) {
@@ -453,7 +455,7 @@ export class Assets {
                 this.projectStore.outputSectionsStore.write(
                     Section.OUTPUT,
                     MessageType.WARNING,
-                    `Missing font with ID = ${i + 1}`,
+                    t("Missing font with ID = {id}", { id: i + 1 }),
                     this.rootProject.fonts
                 );
                 for (let j = 0; j < this.fonts.length; j++) {
@@ -484,7 +486,7 @@ export class Assets {
                 this.projectStore.outputSectionsStore.write(
                     Section.OUTPUT,
                     MessageType.WARNING,
-                    `Missing bitmap with ID = ${i + 1}`,
+                    t("Missing bitmap with ID = {id}", { id: i + 1 }),
                     this.rootProject.bitmaps
                 );
                 for (let j = 0; j < this.bitmaps.length; j++) {
@@ -650,7 +652,7 @@ export class Assets {
                         this.projectStore.outputSectionsStore.write(
                             Section.OUTPUT,
                             MessageType.WARNING,
-                            `master project style without ID can not be used`,
+                            t("master project style without ID can not be used"),
                             style
                         );
                     } else {
@@ -690,7 +692,7 @@ export class Assets {
                         this.projectStore.outputSectionsStore.write(
                             Section.OUTPUT,
                             MessageType.WARNING,
-                            `master project style without ID can not be used`,
+                            t("master project style without ID can not be used"),
                             style
                         );
                     }
@@ -768,7 +770,7 @@ export class Assets {
                     this.projectStore.outputSectionsStore.write(
                         Section.OUTPUT,
                         MessageType.WARNING,
-                        `master project font without ID can not be used`,
+                        t("master project font without ID can not be used"),
                         font
                     );
                 }
@@ -809,7 +811,7 @@ export class Assets {
                     this.projectStore.outputSectionsStore.write(
                         Section.OUTPUT,
                         MessageType.WARNING,
-                        `master project bitmap without ID can not be used`,
+                        t("master project bitmap without ID can not be used"),
                         bitmap
                     );
                 }
@@ -938,7 +940,9 @@ export class Assets {
                             this.projectStore.outputSectionsStore.write(
                                 Section.OUTPUT,
                                 MessageType.INFO,
-                                "Unused style: " + style.name,
+                                t("Unused style: {name}", {
+                                    name: style.name
+                                }),
                                 style
                             );
                         }
@@ -971,7 +975,9 @@ export class Assets {
                             this.projectStore.outputSectionsStore.write(
                                 Section.OUTPUT,
                                 MessageType.INFO,
-                                "Unused style: " + style.name,
+                                t("Unused style: {name}", {
+                                    name: style.name
+                                }),
                                 style
                             );
                         }
@@ -985,7 +991,9 @@ export class Assets {
                         this.projectStore.outputSectionsStore.write(
                             Section.OUTPUT,
                             MessageType.INFO,
-                            "Unused font: " + font.name,
+                            t("Unused font: {name}", {
+                                name: font.name
+                            }),
                             font
                         );
                     }
@@ -998,7 +1006,9 @@ export class Assets {
                         this.projectStore.outputSectionsStore.write(
                             Section.OUTPUT,
                             MessageType.INFO,
-                            "Unused bitmap: " + bitmap.name,
+                            t("Unused bitmap: {name}", {
+                                name: bitmap.name
+                            }),
                             bitmap
                         );
                     }
@@ -1582,13 +1592,13 @@ export async function buildGuiAssetsData(
     assets.projectStore.outputSectionsStore.write(
         Section.OUTPUT,
         MessageType.INFO,
-        "Uncompressed size: " + uncompressedSize
+        t("Uncompressed size: {size}", { size: uncompressedSize })
     );
 
     assets.projectStore.outputSectionsStore.write(
         Section.OUTPUT,
         MessageType.INFO,
-        "Compressed size: " + compressedSize
+        t("Compressed size: {size}", { size: compressedSize })
     );
 
     return { uncompressedData, compressedData };

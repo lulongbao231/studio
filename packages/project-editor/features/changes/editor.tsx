@@ -1,4 +1,5 @@
 import React from "react";
+import { t } from "eez-studio-shared/i18n";
 import {
     makeObservable,
     runInAction,
@@ -603,7 +604,7 @@ export const ChangesEditor = observer(
 
             const changesEditor =
                 this.projectChanges?.changes.length == 0 ? (
-                    <div>No changes</div>
+                    <div>{t("No changes")}</div>
                 ) : (
                     <div className="EezStudio_ChangesEditor">
                         <ObjectChangesComponent

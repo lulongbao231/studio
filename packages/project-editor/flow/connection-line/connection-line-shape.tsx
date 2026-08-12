@@ -2,6 +2,8 @@ import React from "react";
 import { action, makeAutoObservable } from "mobx";
 import { observer } from "mobx-react";
 
+import { t } from "eez-studio-shared/i18n";
+
 import {
     midPoint,
     Point,
@@ -612,7 +614,7 @@ export const ConnectionLineParams = observer(
                                     className="form-check-label"
                                     htmlFor="ConnectionLineParams_UseNodeRed"
                                 >
-                                    Use NodeRED algorithm
+                                    {t("Use NodeRED algorithm")}
                                 </label>
                             </div>
                         </div>

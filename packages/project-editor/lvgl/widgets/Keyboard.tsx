@@ -1,5 +1,6 @@
 import React from "react";
 import { observable, makeObservable } from "mobx";
+import { t } from "eez-studio-shared/i18n";
 
 import {
     IMessage,
@@ -164,7 +165,7 @@ export class LVGLKeyboardWidget extends LVGLWidget {
                     messages.push(
                         new Message(
                             MessageType.ERROR,
-                            `Multiple widgets with the same name`,
+                            t("Multiple widgets with the same name"),
                             getChildOfObject(widget, "textarea")
                         )
                     );
@@ -174,7 +175,7 @@ export class LVGLKeyboardWidget extends LVGLWidget {
                     messages.push(
                         new Message(
                             MessageType.ERROR,
-                            `Widget "${widget.textarea}" is not a Textarea`,
+                            t('Widget "{widget.textarea}" is not a Textarea', { widget: widget.textarea }),
                             getChildOfObject(widget, "textarea")
                         )
                     );

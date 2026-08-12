@@ -8,6 +8,9 @@ import {
 import type { Assets, DataBuffer } from "project-editor/build/assets";
 import type { Flow } from "project-editor/flow/flow";
 import { Component, isFlowProperty } from "project-editor/flow/component";
+
+import { t } from "eez-studio-shared/i18n";
+
 import {
     getClassesDerivedFrom,
     getProperty,
@@ -154,7 +157,7 @@ function buildComponent(
         assets.projectStore.outputSectionsStore.write(
             Section.OUTPUT,
             MessageType.ERROR,
-            "Component is not supported for the build target",
+            t("Component is not supported for the build target"),
             component
         );
         dataBuffer.writeUint16(0);
@@ -430,7 +433,7 @@ function buildFlow(assets: Assets, dataBuffer: DataBuffer, flow: Flow) {
             assets.projectStore.outputSectionsStore.write(
                 Section.OUTPUT,
                 MessageType.ERROR,
-                "Widget data item not found",
+                t("Widget data item not found"),
                 flowState.flowWidgetFromDataIndex.get(i)
             );
             dataBuffer.writeInt16(-1);
@@ -450,7 +453,7 @@ function buildFlow(assets: Assets, dataBuffer: DataBuffer, flow: Flow) {
             assets.projectStore.outputSectionsStore.write(
                 Section.OUTPUT,
                 MessageType.ERROR,
-                "Widget action output not found",
+                t("Widget action output not found"),
                 flowState.flowWidgetFromActionIndex.get(i)
             );
             dataBuffer.writeInt16(-1);

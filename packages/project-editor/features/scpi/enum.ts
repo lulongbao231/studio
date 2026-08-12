@@ -1,4 +1,5 @@
 import { observable, makeObservable } from "mobx";
+import { t } from "eez-studio-shared/i18n";
 
 import { stringCompare } from "eez-studio-shared/string";
 
@@ -66,7 +67,9 @@ export class ScpiEnumMember extends EezObject {
                     messages.push(
                         new Message(
                             MessageType.ERROR,
-                            `Member name '${object.name}' is not unique`,
+                            t("Member name '{name}' is not unique", {
+                                name: object.name
+                            }),
                             getChildOfObject(object, "name")
                         )
                     );
@@ -114,7 +117,7 @@ export class ScpiEnum extends EezObject {
         newItem: async (parent: IEezObject) => {
             const result = await showGenericDialog({
                 dialogDefinition: {
-                    title: "New Enumeration",
+                    title: t("New Enumeration"),
                     fields: [
                         {
                             name: "name",

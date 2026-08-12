@@ -4,6 +4,7 @@ import { observer } from "mobx-react";
 import { action, observable, makeObservable, runInAction } from "mobx";
 
 import { closest } from "eez-studio-shared/dom";
+import { t } from "eez-studio-shared/i18n";
 import {
     isDark,
     isLight,
@@ -714,8 +715,8 @@ const ColorPicker = observer(
                         {!selectedName && (
                             <option value="" disabled>
                                 {isThemeMode
-                                    ? "Select theme color..."
-                                    : "Select color name..."}
+                                    ? t("Select theme color...")
+                                    : t("Select color name...")}
                             </option>
                         )}
                         {colorNames.map(name => {
@@ -758,7 +759,7 @@ const ColorPicker = observer(
                         })}
                     </select>
                     <div style={labelStyle}>
-                        {isThemeMode ? "THEME COLOR" : "COLOR BY NAME"}
+                        {isThemeMode ? t("THEME COLOR") : t("COLOR BY NAME")}
                     </div>
                 </div>
             );
@@ -851,7 +852,7 @@ const ColorPicker = observer(
                                         padding: 0,
                                         fontSize: 14
                                     }}
-                                    title="Pick color from screen"
+                                    title={t("Pick color from screen")}
                                 >
                                     <svg
                                         width="14"
@@ -952,7 +953,7 @@ const ColorPicker = observer(
                                     flexShrink: 0,
                                     marginTop: 0
                                 }}
-                                title="Switch input mode"
+                                title={t("Switch input mode")}
                             >
                                 <svg
                                     width="14"
@@ -1017,9 +1018,9 @@ const ColorPicker = observer(
                                                 : 400,
                                         padding: 0
                                     }}
-                                    title="Lighten color"
+                                    title={t("Lighten color")}
                                 >
-                                    Lighten
+                                    {t("Lighten")}
                                 </button>
                                 <button
                                     onClick={() =>
@@ -1050,9 +1051,9 @@ const ColorPicker = observer(
                                                 : 400,
                                         padding: 0
                                     }}
-                                    title="Darken color"
+                                    title={t("Darken color")}
                                 >
-                                    Darken
+                                    {t("Darken")}
                                 </button>
                             </div>
 
@@ -1129,8 +1130,8 @@ const ColorPicker = observer(
                                         }}
                                         title={
                                             this.adjustFormat === "percent"
-                                                ? "Switch to 0-255 value"
-                                                : "Switch to percentage"
+                                                ? t("Switch to 0-255 value")
+                                                : t("Switch to percentage")
                                         }
                                     >
                                         {this.adjustFormat === "percent"

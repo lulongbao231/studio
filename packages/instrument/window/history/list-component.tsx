@@ -6,6 +6,8 @@ import classNames from "classnames";
 
 import { Icon } from "eez-studio-ui/icon";
 
+import { t } from "eez-studio-shared/i18n";
+
 import type {
     History,
     IAppStore,
@@ -44,7 +46,9 @@ export class ErrorBoundary extends React.Component<
         if (this.state.hasError) {
             return (
                 <div className="EezStudio_HistoryItemRenderError">
-                    Error while rendering history item {this.props.id}!
+                    {t("Error while rendering history item {id}!", {
+                        id: this.props.id
+                    })}
                 </div>
             );
         }
@@ -210,7 +214,7 @@ export const HistoryItems = observer(
                             if (this.props.isDeletedItemsHistory) {
                                 menu.append(
                                     new MenuItem({
-                                        label: "Restore",
+                                        label: t("Restore"),
                                         click: () => {
                                             this.props.appStore.deletedItemsHistory.restoreSelectedHistoryItems();
                                         }
@@ -218,7 +222,7 @@ export const HistoryItems = observer(
                                 );
                                 menu.append(
                                     new MenuItem({
-                                        label: "Purge",
+                                        label: t("Purge"),
                                         click: () => {
                                             this.props.appStore.deletedItemsHistory.deleteSelectedHistoryItems();
                                         }
@@ -241,7 +245,7 @@ export const HistoryItems = observer(
                                 ) {
                                     menu.append(
                                         new MenuItem({
-                                            label: "Show in History",
+                                            label: t("Show in History"),
                                             click: this.props.showInHistory
                                         })
                                     );
@@ -249,7 +253,7 @@ export const HistoryItems = observer(
 
                                 menu.append(
                                     new MenuItem({
-                                        label: "Delete",
+                                        label: t("Delete"),
                                         click: () => {
                                             this.props.deleteSelectedHistoryItems();
                                         }
@@ -315,7 +319,7 @@ class LoadMoreButton extends React.Component<{
                 onClick={loadMore}
                 style={{ marginTop: 15, marginBottom: 15 }}
             >
-                <Icon icon={icon} /> More
+                <Icon icon={icon} /> {t("More")}
             </button>
         );
     }

@@ -1,3 +1,4 @@
+import { t } from "eez-studio-shared/i18n";
 import React from "react";
 import { observable, makeObservable } from "mobx";
 
@@ -36,7 +37,7 @@ export class LVGLCheckboxWidget extends LVGLWidget {
             ),
             {
                 name: "useStaticText",
-                displayName: "Use static text",
+                displayName: t("Use static text"),
                 type: PropertyType.Boolean,
                 propertyGridGroup: specificGroup,
                 checkboxStyleSwitch: true,

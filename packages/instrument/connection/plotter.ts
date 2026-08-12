@@ -5,6 +5,7 @@ import {
     logDelete,
     logUpdate
 } from "instrument/window/history/activity-log";
+import { t } from "eez-studio-shared/i18n";
 import { LongOperation } from "instrument/connection/connection-base";
 
 import { db } from "eez-studio-shared/db";
@@ -79,7 +80,7 @@ export class Plotter implements LongOperation {
 
         const startTime = new Date(Number(result[0].date));
 
-        beginTransaction("Create chart");
+        beginTransaction(t("Create chart"));
 
         const instrument = instruments.get(instrumentId);
         if (!instrument) {

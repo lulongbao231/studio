@@ -1,4 +1,5 @@
 import React from "react";
+import { t } from "eez-studio-shared/i18n";
 import { values } from "mobx";
 
 import {
@@ -35,7 +36,7 @@ export async function importNotebook(
         return false;
     }
 
-    const progressToastId = notification.info("Importing...", {
+    const progressToastId = notification.info(t("Importing..."), {
         autoClose: false
     });
 
@@ -64,22 +65,26 @@ export async function importNotebook(
         });
 
         confirm(
-            `Notebook with the name "${notebookName}" already exists.`,
-            "Do you want to enter a different name?",
+            t('Notebook with the name "{name}" already exists.', {
+                name: notebookName
+            }),
+            t("Do you want to enter a different name?"),
             () => {
                 showGenericDialog({
                     dialogDefinition: {
                         fields: [
                             {
                                 name: "name",
-                                displayName: "Notebook name",
+                                displayName: t("Notebook name"),
                                 type: "string",
                                 validators: [
                                     validators.required,
                                     validators.unique(
                                         {},
                                         values(notebooks),
-                                        "Notebook with the same name already exists"
+                                        t(
+                                            "Notebook with the same name already exists"
+                                        )
                                     )
                                 ]
                             }
@@ -153,13 +158,13 @@ export async function importNotebook(
             notification.update(progressToastId, {
                 render: (
                     <div>
-                        <p>Notebook imported!</p>
+                        <p>{t("Notebook imported!")}</p>
                         {!(options && options.showNotebook) && (
                             <button
                                 className="btn btn-sm"
                                 onClick={() => showNotebook(notebookId)}
                             >
-                                Show Notebook
+                                {t("Show Notebook")}
                             </button>
                         )}
                     </div>
@@ -176,7 +181,7 @@ export async function importNotebook(
             db.exec(`ROLLBACK TRANSACTION`);
 
             notification.update(progressToastId, {
-                render: `Import failed (${err})`,
+                render: t("Import failed ({err})", { err: `${err}` }),
                 type: notification.ERROR,
                 autoClose: 5000
             });

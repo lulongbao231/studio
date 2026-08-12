@@ -7,6 +7,7 @@ import {
     makeExpressionProperty
 } from "project-editor/flow/component";
 import { UDP_IN_ICON, UDP_OUT_ICON } from "project-editor/ui-components/icons";
+import { t } from "eez-studio-shared/i18n";
 
 import type {
     IDashboardComponentContext,
@@ -93,17 +94,17 @@ onWasmFlowRuntimeTerminate((wasmFlowRuntime: IWasmFlowRuntime) => {
 
 export class UDPInActionComponent extends ActionComponent {
     static classInfo = makeDerivedClassInfo(ActionComponent.classInfo, {
-        label: () => "UDP In",
-        componentPaletteLabel: "UDP In",
+        label: () => t("UDP In"),
+        componentPaletteLabel: t("UDP In"),
 
         properties: [
             {
                 name: "multicast",
-                displayName: "Listen for",
+                displayName: t("Listen for"),
                 type: PropertyType.Enum,
                 enumItems: [
-                    { id: "udp", label: "UDP messages" },
-                    { id: "multicast", label: "Multicast messages" }
+                    { id: "udp", label: t("UDP messages") },
+                    { id: "multicast", label: t("Multicast messages") }
                 ],
                 enumDisallowUndefined: true,
                 propertyGridGroup: specificGroup
@@ -121,7 +122,7 @@ export class UDPInActionComponent extends ActionComponent {
             makeExpressionProperty(
                 {
                     name: "iface",
-                    displayName: "Local interface",
+                    displayName: t("Local interface"),
                     type: PropertyType.MultilineText,
                     propertyGridGroup: specificGroup,
                     isOptional: true,
@@ -133,7 +134,7 @@ export class UDPInActionComponent extends ActionComponent {
             makeExpressionProperty(
                 {
                     name: "port",
-                    displayName: "On port",
+                    displayName: t("On port"),
                     type: PropertyType.MultilineText,
                     propertyGridGroup: specificGroup
                 },
@@ -141,11 +142,11 @@ export class UDPInActionComponent extends ActionComponent {
             ),
             {
                 name: "ipv",
-                displayName: "Using",
+                displayName: t("Using"),
                 type: PropertyType.Enum,
                 enumItems: [
-                    { id: "udp4", label: "IPv4" },
-                    { id: "udp6", label: "IPv6" }
+                    { id: "udp4", label: t("IPv4") },
+                    { id: "udp6", label: t("IPv6") }
                 ],
                 enumDisallowUndefined: true,
                 propertyGridGroup: specificGroup
@@ -174,20 +175,20 @@ export class UDPInActionComponent extends ActionComponent {
             if (multicast == MODE_MULTICAST) {
                 group = context.evalProperty<string>("group");
                 if (group == undefined || typeof group != "string") {
-                    context.throwError(`invalid Group property`);
+                    context.throwError(t("invalid Group property"));
                     return;
                 }
 
                 iface = context.evalProperty<string>("iface");
                 if (iface != undefined && typeof iface != "string") {
-                    context.throwError(`invalid Local interface property`);
+                    context.throwError(t("invalid Local interface property"));
                     return;
                 }
             }
 
             const port = context.evalProperty<number>("port");
             if (port == undefined || typeof port != "number") {
-                context.throwError(`invalid Port property`);
+                context.throwError(t("invalid Port property"));
                 return;
             }
 
@@ -352,18 +353,18 @@ registerClass("UDPInActionComponent", UDPInActionComponent);
 
 export class UDPOutActionComponent extends ActionComponent {
     static classInfo = makeDerivedClassInfo(ActionComponent.classInfo, {
-        label: () => "UDP Out",
-        componentPaletteLabel: "UDP Out",
+        label: () => t("UDP Out"),
+        componentPaletteLabel: t("UDP Out"),
 
         properties: [
             {
                 name: "multicast",
-                displayName: "Send a",
+                displayName: t("Send a"),
                 type: PropertyType.Enum,
                 enumItems: [
-                    { id: "udp", label: "UDP message" },
-                    { id: "broadcast", label: "Broadcast message" },
-                    { id: "multicast", label: "Multicast message" }
+                    { id: "udp", label: t("UDP message") },
+                    { id: "broadcast", label: t("Broadcast message") },
+                    { id: "multicast", label: t("Multicast message") }
                 ],
                 enumDisallowUndefined: true,
                 propertyGridGroup: specificGroup
@@ -371,7 +372,7 @@ export class UDPOutActionComponent extends ActionComponent {
             makeExpressionProperty(
                 {
                     name: "port",
-                    displayName: "To port",
+                    displayName: t("To port"),
                     type: PropertyType.MultilineText,
                     propertyGridGroup: specificGroup
                 },
@@ -398,7 +399,7 @@ export class UDPOutActionComponent extends ActionComponent {
             makeExpressionProperty(
                 {
                     name: "iface",
-                    displayName: "Local interface",
+                    displayName: t("Local interface"),
                     type: PropertyType.MultilineText,
                     propertyGridGroup: specificGroup,
                     isOptional: true,
@@ -411,19 +412,19 @@ export class UDPOutActionComponent extends ActionComponent {
                 name: "ipv",
                 type: PropertyType.Enum,
                 enumItems: [
-                    { id: "udp4", label: "IPv4" },
-                    { id: "udp6", label: "IPv6" }
+                    { id: "udp4", label: t("IPv4") },
+                    { id: "udp6", label: t("IPv6") }
                 ],
                 enumDisallowUndefined: true,
                 propertyGridGroup: specificGroup
             },
             {
                 name: "outportType",
-                displayName: "Bind to",
+                displayName: t("Bind to"),
                 type: PropertyType.Enum,
                 enumItems: [
-                    { id: "random", label: "Random local port" },
-                    { id: "fixed", label: "Fixed local port" }
+                    { id: "random", label: t("Random local port") },
+                    { id: "fixed", label: t("Fixed local port") }
                 ],
                 enumDisallowUndefined: true,
                 propertyGridGroup: specificGroup
@@ -477,24 +478,24 @@ export class UDPOutActionComponent extends ActionComponent {
             if (multicast != MODE_MULTICAST) {
                 address = context.evalProperty<string>("address");
                 if (address == undefined || typeof address != "string") {
-                    context.throwError(`invalid Address property`);
+                    context.throwError(t("invalid Address property"));
                 }
             } else {
                 group = context.evalProperty<string>("group");
                 if (group == undefined || typeof group != "string") {
-                    context.throwError(`invalid Group property`);
+                    context.throwError(t("invalid Group property"));
                 }
 
                 iface = context.evalProperty<string>("iface");
                 if (iface != undefined && typeof iface != "string") {
-                    context.throwError(`invalid Local interface property`);
+                    context.throwError(t("invalid Local interface property"));
                     return;
                 }
             }
 
             const port = context.evalProperty<number>("port");
             if (port == undefined || typeof port != "number") {
-                context.throwError(`invalid Port property`);
+                context.throwError(t("invalid Port property"));
                 return;
             }
 
@@ -507,14 +508,14 @@ export class UDPOutActionComponent extends ActionComponent {
             if (outportType == OUTPORT_TYPE_FIXED) {
                 outport = context.evalProperty<number>("outport");
                 if (outport == undefined || typeof outport != "number") {
-                    context.throwError(`invalid Outport property`);
+                    context.throwError(t("invalid Outport property"));
                     return;
                 }
             }
 
             const payload = context.evalProperty<string>("payload");
             if (payload == undefined || typeof payload != "string") {
-                context.throwError(`invalid Payload property`);
+                context.throwError(t("invalid Payload property"));
                 return;
             }
 

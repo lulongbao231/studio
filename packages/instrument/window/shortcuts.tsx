@@ -1,4 +1,5 @@
 import React from "react";
+import { t } from "eez-studio-shared/i18n";
 import {
     observable,
     computed,
@@ -233,7 +234,7 @@ export class ShortcutsStore {
     }
 
     addShortcut(shortcut: Partial<IShortcut>) {
-        beginTransaction("Add shortcut");
+        beginTransaction(t("Add shortcut"));
         if (shortcut.groupName) {
             if (
                 !shortcut.groupName.startsWith(
@@ -260,7 +261,7 @@ export class ShortcutsStore {
     }
 
     updateShortcut(shortcut: Partial<IShortcut>) {
-        beginTransaction("Edit shortcut");
+        beginTransaction(t("Edit shortcut"));
         if (shortcut.groupName) {
             if (
                 !shortcut.groupName.startsWith(
@@ -286,7 +287,7 @@ export class ShortcutsStore {
     }
 
     deleteShortcut(shortcut: Partial<IShortcut>) {
-        beginTransaction("Delete shortcut");
+        beginTransaction(t("Delete shortcut"));
         deleteShortcut(shortcut);
         commitTransaction();
     }
@@ -386,10 +387,10 @@ export class GroupsStore {
 
     enableGroup(group: IGroup, enable: boolean): void {
         if (enable) {
-            beginTransaction("Add shortcut group to instrument");
+            beginTransaction(t("Add shortcut group to instrument"));
             this.appStore.instrument.addShortcutGroupToInstrument(group.name);
         } else {
-            beginTransaction("Remove shortcut group from instrument");
+            beginTransaction(t("Remove shortcut group from instrument"));
             this.appStore.instrument.removeShortcutGroupFromInstrument(
                 group.name
             );

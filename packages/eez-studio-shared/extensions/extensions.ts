@@ -15,6 +15,7 @@ import {
 } from "eez-studio-shared/util-electron";
 import { guid } from "eez-studio-shared/guid";
 import { firstWord } from "eez-studio-shared/string";
+import { t } from "eez-studio-shared/i18n";
 
 import { registerSource, sendMessage, watch } from "eez-studio-shared/notify";
 
@@ -300,7 +301,7 @@ async function finishImportExtensionFromTempFolder({
         const reloadedExtension = await loadExtension(extensionFolderPath);
         if (!reloadedExtension) {
             await removeFolder(extensionFolderPath);
-            throw "Import failed";
+            throw t("Import failed");
         }
 
         loadExtensionTasks.delete(extensionFolderPath);

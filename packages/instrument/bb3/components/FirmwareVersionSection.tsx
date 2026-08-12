@@ -13,6 +13,7 @@ import { openLink } from "instrument/bb3/helpers";
 import { BB3Instrument } from "instrument/bb3/objects/BB3Instrument";
 import { Section } from "instrument/bb3/components/Section";
 import { DropdownIconAction, DropdownItem } from "eez-studio-ui/action";
+import { t } from "eez-studio-shared/i18n";
 
 const OtherReleases = observer(
     ({ bb3Instrument }: { bb3Instrument: BB3Instrument }) => {
@@ -51,7 +52,7 @@ const OtherReleases = observer(
                         aria-expanded="false"
                         aria-controls="allMasterReleases"
                     >
-                        Other versions{" "}
+                        {t("Other versions")}{" "}
                         <i className="material-icons chevron-right">
                             chevron_right
                         </i>
@@ -61,7 +62,7 @@ const OtherReleases = observer(
                     <table className="table table-bordered">
                         <thead>
                             <tr>
-                                <th scope="col">Version</th>
+                                <th scope="col">{t("Version")}</th>
                                 <th scope="col"></th>
                             </tr>
                         </thead>
@@ -94,8 +95,8 @@ const OtherReleases = observer(
                                                 bb3Instrument.mcu
                                                     .firmwareVersion!
                                             ) > 0
-                                                ? "Upgrade"
-                                                : "Downgrade"}
+                                                ? t("Upgrade")
+                                                : t("Downgrade")}
                                         </button>
                                     </td>
                                 </tr>
@@ -122,7 +123,7 @@ export const ReleaseInfo = observer(
                     className="alert alert-danger border border mb-0"
                     role="alert"
                 >
-                    Failed to get info about the latest firmware version!
+                    {t("Failed to get info about the latest firmware version!")}
                 </div>
             );
         }
@@ -136,7 +137,7 @@ export const ReleaseInfo = observer(
         if (!latestFirmwareVersion) {
             return (
                 <div className="alert alert-danger border mb-0" role="alert">
-                    Could not get info about the latest firmware version!
+                    {t("Could not get info about the latest firmware version!")}
                 </div>
             );
         }
@@ -146,11 +147,11 @@ export const ReleaseInfo = observer(
                 <>
                     <div className="d-flex align-items-center fs-5">
                         <span className="badge rounded-pill bg-warning text-dark fs-5 me-3">
-                            New release!
+                            {t("New release!")}
                         </span>
                         <span>
-                            A new firmware version{" "}
-                            <b>{latestFirmwareVersion}</b> is available (
+                            {t("A new firmware version is available")}{" "}
+                            <b>{latestFirmwareVersion}</b> (
                             <a
                                 href="#"
                                 onClick={() =>
@@ -161,22 +162,22 @@ export const ReleaseInfo = observer(
                                     )
                                 }
                             >
-                                release notes
+                                {t("release notes")}
                             </a>
                             ).
                             {compareVersions(firmwareVersion, "1.7.1") < 0 && (
                                 <span>
                                     {" "}
-                                    Follow{" "}
+                                    {t("Follow")}{" "}
                                     <a
                                         href="#"
                                         onClick={() =>
                                             openLink(FIRMWARE_UPGRADE_PAGE)
                                         }
                                     >
-                                        this instructions
+                                        {t("this instructions")}
                                     </a>{" "}
-                                    how to install it.
+                                    {t("how to install it.")}
                                 </span>
                             )}
                         </span>
@@ -191,7 +192,7 @@ export const ReleaseInfo = observer(
                                     )
                                 }
                             >
-                                Upgrade
+                                {t("Upgrade")}
                             </button>
                         )}
                     </div>
@@ -203,7 +204,7 @@ export const ReleaseInfo = observer(
         return (
             <>
                 <div className="text-success fs-5">
-                    This is the latest firmware version!
+                    {t("This is the latest firmware version!")}
                 </div>
                 <OtherReleases bb3Instrument={bb3Instrument} />
             </>
@@ -234,10 +235,12 @@ export const FirmwareVersionSection = observer(
                             key="bb3-instrument/upgrade-firmware-with-local-file"
                             icon="material:more_vert"
                             iconSize={16}
-                            title="Load firmware from the file on the local disk"
+                            title={t(
+                                "Load firmware from the file on the local disk"
+                            )}
                         >
                             <DropdownItem
-                                text="Load firmware ..."
+                                text={t("Load firmware ...")}
                                 onClick={
                                     bb3Instrument.upgradeMasterFirmwareWithLocalFile
                                 }

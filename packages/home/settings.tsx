@@ -35,6 +35,7 @@ import {
     getTimeFormat,
     setTimeFormat
 } from "eez-studio-shared/i10n";
+import { setCurrentLocale, t } from "eez-studio-shared/i18n";
 import { formatBytes } from "eez-studio-shared/formatBytes";
 
 import { showDialog, Dialog } from "eez-studio-ui/dialog";
@@ -65,8 +66,8 @@ import { homeLayoutModels } from "./home-layout-models";
 
 ////////////////////////////////////////////////////////////////////////////////
 
-export const COMPACT_DATABASE_MESSAGE =
-    "It is recommended to compact the database every 30 days.";
+export const COMPACT_DATABASE_MESSAGE = () =>
+    t("It is recommended to compact the database every 30 days.");
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -126,7 +127,6 @@ const setShowComponentsPaletteInProjectEditor = function (value: boolean) {
 ////////////////////////////////////////////////////////////////////////////////
 
 class SettingsController {
-    activetLocale = getLocale();
     activeDateFormat = getDateFormat();
     activeTimeFormat = getTimeFormat();
 
@@ -224,7 +224,6 @@ class SettingsController {
         return (
             instrumentDatabases.activeDatabase?.filePath !==
                 instrumentDatabases.activeDatabasePath ||
-            this.locale !== this.activetLocale ||
             this.dateFormat !== this.activeDateFormat ||
             this.timeFormat !== this.activeTimeFormat
         );
@@ -232,6 +231,8 @@ class SettingsController {
 
     onLocaleChange(value: string) {
         this.locale = value;
+        // 先同步界面 locale，使界面文案即时更新（不重启）
+        setCurrentLocale(value);
         setLocale(value);
     }
 
@@ -326,8 +327,8 @@ class SettingsController {
 
         const result = await dialog.showSaveDialog(getCurrentWindow(), {
             filters: [
-                { name: "DB files", extensions: ["db"] },
-                { name: "All Files", extensions: ["*"] }
+                { name: t("DB files"), extensions: ["db"] },
+                { name: t("All Files"), extensions: ["*"] }
             ],
             defaultPath: defaultPath ?? undefined
         });
@@ -354,7 +355,7 @@ class SettingsController {
                 });
 
                 confirm(
-                    "Do you want to make this database active?",
+                    t("Do you want to make this database active?"),
                     undefined,
                     () => onFinish(true),
                     () => onFinish(false)
@@ -371,8 +372,8 @@ class SettingsController {
         const result = await dialog.showOpenDialog(getCurrentWindow(), {
             properties: ["openFile"],
             filters: [
-                { name: "DB files", extensions: ["db"] },
-                { name: "All Files", extensions: ["*"] }
+                { name: t("DB files"), extensions: ["db"] },
+                { name: t("All Files"), extensions: ["*"] }
             ],
             defaultPath: defaultPath ?? undefined
         });
@@ -396,7 +397,7 @@ class SettingsController {
             });
 
             confirm(
-                "Do you want to make this database active?",
+                t("Do you want to make this database active?"),
                 undefined,
                 () => onFinish(true),
                 () => onFinish(false)
@@ -411,8 +412,8 @@ class SettingsController {
                 instrumentDatabases.activeDatabasePath
         ) {
             confirm(
-                "Do you want to restart the application?",
-                "Restart is required to finish activation of new database.",
+                t("Do you want to restart the application?"),
+                t("Restart is required to finish activation of new database."),
                 this.restart
             );
         }
@@ -524,19 +525,19 @@ const CompactDatabaseDialog = observer(
             return (
                 <Dialog
                     open={true}
-                    title="Compacting Database"
+                    title={t("Compacting Database")}
                     size="small"
-                    cancelButtonText="Close"
+                    cancelButtonText={t("Close")}
                     cancelDisabled={this.sizeAfter === undefined}
                 >
                     <table className="EezStudio_CompactDatabaseDialogTable">
                         <tbody>
                             <tr>
-                                <td>Size before</td>
+                                <td>{t("Size before")}</td>
                                 <td>{formatBytes(this.sizeBefore)}</td>
                             </tr>
                             <tr>
-                                <td>Size after</td>
+                                <td>{t("Size after")}</td>
                                 <td>
                                     {this.sizeAfter !== undefined ? (
                                         formatBytes(this.sizeAfter)
@@ -547,12 +548,12 @@ const CompactDatabaseDialog = observer(
                             </tr>
                             {this.sizeReduced !== undefined && (
                                 <tr>
-                                    <td>Size reduced by </td>
+                                    <td>{t("Size reduced by")} </td>
                                     <td>
                                         {formatBytes(
                                             this.sizeBefore - this.sizeAfter!
                                         )}{" "}
-                                        or {this.sizeReduced}%
+                                        {t("or")} {this.sizeReduced}%
                                     </td>
                                 </tr>
                             )}
@@ -613,7 +614,7 @@ const SelectedDatabaseDetails = observer(
                                 className="btn btn-primary btn-sm"
                                 onClick={settingsController.setAsActiveDatabase}
                             >
-                                Set as Active
+                                {t("Set as Active")}
                             </button>
                         </div>
                     )}
@@ -623,7 +624,7 @@ const SelectedDatabaseDetails = observer(
                             htmlFor="EezStudio_ProjectEditorScrapbook_ItemDetails_Description"
                             className="form-label"
                         >
-                            Description:
+                            {t("Description:")}
                         </label>
                         <textarea
                             className="form-control"
@@ -639,7 +640,7 @@ const SelectedDatabaseDetails = observer(
                     </div>
 
                     <div>
-                        <label className="form-label">Path:</label>
+                        <label className="form-label">{t("Path:")}</label>
                         <div>{selectedDatabase.filePath}</div>
 
                         <button
@@ -650,7 +651,7 @@ const SelectedDatabaseDetails = observer(
                             }
                             style={{ marginTop: "5px" }}
                         >
-                            Show in Folder
+                            {t("Show in Folder")}
                         </button>
 
                         <button
@@ -661,7 +662,7 @@ const SelectedDatabaseDetails = observer(
                             }
                             style={{ marginTop: "5px", marginLeft: "5px" }}
                         >
-                            Copy Path to Clipboard
+                            {t("Copy Path to Clipboard")}
                         </button>
                     </div>
 
@@ -672,18 +673,24 @@ const SelectedDatabaseDetails = observer(
                         })}
                     >
                         <div>
-                            Database size is{" "}
-                            {formatBytes(selectedDatabase.databaseSize)}.
+                            {t("Database size is {size}", {
+                                size: formatBytes(
+                                    selectedDatabase.databaseSize
+                                )
+                            })}
+                            .
                         </div>
                         <div>
-                            Database compacted{" "}
-                            {getMoment()(
-                                selectedDatabase.timeOfLastDatabaseCompactOperation
-                            ).fromNow()}
+                            {t("Database compacted {time}", {
+                                time: getMoment()(
+                                    selectedDatabase
+                                        .timeOfLastDatabaseCompactOperation
+                                ).fromNow()
+                            })}
                             .
                         </div>
                         {selectedDatabase.isCompactDatabaseAdvisable && (
-                            <div>{COMPACT_DATABASE_MESSAGE}</div>
+                            <div>{COMPACT_DATABASE_MESSAGE()}</div>
                         )}
                         <div className="btn-group me-2">
                             <button
@@ -691,7 +698,7 @@ const SelectedDatabaseDetails = observer(
                                 className="btn btn-secondary btn-sm"
                                 onClick={settingsController.compactDatabase}
                             >
-                                Compact Database
+                                {t("Compact Database")}
                             </button>
                         </div>
                     </div>
@@ -728,17 +735,17 @@ const DatatabaseList = observer(
                     <ToolbarHeader>
                         <IconAction
                             icon="material:add"
-                            title="Create a new database"
+                            title={t("Create a new database")}
                             onClick={settingsController.createNewDatabase}
                         />
                         <IconAction
                             icon={HOME_TAB_OPEN_ICON}
-                            title="Open an existing database"
+                            title={t("Open an existing database")}
                             onClick={settingsController.openDatabase}
                         />
                         <IconAction
                             icon="material:delete"
-                            title="Delete a database"
+                            title={t("Delete a database")}
                             onClick={settingsController.deleteDatabase}
                             enabled={
                                 settingsController.selectedDatabase &&
@@ -855,20 +862,20 @@ const PythonSettings = observer(
         render() {
             return (
                 <tr>
-                    <td>Python</td>
+                    <td>{t("Python")}</td>
                     <td>
                         <PropertyList>
                             <StaticProperty
-                                name="Default path"
+                                name={t("Default path")}
                                 value={
                                     this.pythonPathError
-                                        ? "Python not found"
+                                        ? t("Python not found")
                                         : this.pythonPath
                                 }
                                 className="StaticPropertyValueWrap"
                             />
                             <BooleanProperty
-                                name={`Set custom path`}
+                                name={t("Set custom path")}
                                 value={settingsController.pythonUseCustomPath}
                                 onChange={action(
                                     value =>
@@ -879,7 +886,7 @@ const PythonSettings = observer(
                             />
                             {settingsController.pythonUseCustomPath && (
                                 <AbsoluteFileInputProperty
-                                    name="Custom Python path"
+                                    name={t("Custom Python path")}
                                     value={settingsController.pythonCustomPath}
                                     onChange={action(value => {
                                         settingsController.pythonCustomPath =
@@ -944,11 +951,11 @@ const TemplateSettings = observer(
         render() {
             return (
                 <tr>
-                    <td>Project Templates</td>
+                    <td>{t("Project Templates")}</td>
                     <td>
                         <PropertyList>
                             <BooleanProperty
-                                name={`Use local templates folder`}
+                                name={t("Use local templates folder")}
                                 value={settingsController.useLocalTemplates}
                                 onChange={action(
                                     value =>
@@ -960,7 +967,7 @@ const TemplateSettings = observer(
                             {settingsController.useLocalTemplates && (
                                 <>
                                     <AbsoluteDirectoryInputProperty
-                                        name="Local templates path"
+                                        name={t("Local templates path")}
                                         value={
                                             settingsController.localTemplatesPath
                                         }
@@ -970,7 +977,7 @@ const TemplateSettings = observer(
                                         })}
                                     />
                                     <tr>
-                                        <td>Repository</td>
+                                        <td>{t("Repository")}</td>
                                         <td>
                                             <a
                                                 href="#"
@@ -1017,12 +1024,12 @@ export const Settings = observer(
             return (
                 <div className="EezStudio_HomeSettingsBody">
                     <PropertyList>
-                        <SettingsSectionHeader title="Databases" />
+                        <SettingsSectionHeader title={t("Databases")} />
                         <Databases />
 
-                        <SettingsSectionHeader title="Localization" />
+                        <SettingsSectionHeader title={t("Localization")} />
                         <SelectProperty
-                            name="Locale"
+                            name={t("Locale")}
                             value={settingsController.locale}
                             onChange={settingsController.onLocaleChange}
                         >
@@ -1041,7 +1048,7 @@ export const Settings = observer(
                                 ))}
                         </SelectProperty>
                         <SelectProperty
-                            name="Date format"
+                            name={t("Date format")}
                             value={settingsController.dateFormat}
                             onChange={settingsController.onDateFormatChanged}
                         >
@@ -1057,7 +1064,7 @@ export const Settings = observer(
                             ))}
                         </SelectProperty>
                         <SelectProperty
-                            name="Time format"
+                            name={t("Time format")}
                             value={settingsController.timeFormat}
                             onChange={settingsController.onTimeFormatChanged}
                         >
@@ -1073,15 +1080,15 @@ export const Settings = observer(
                             ))}
                         </SelectProperty>
 
-                        <SettingsSectionHeader title="External Tools" />
+                        <SettingsSectionHeader title={t("External Tools")} />
                         <PythonSettings />
 
-                        <SettingsSectionHeader title="Project Editor" />
+                        <SettingsSectionHeader title={t("Project Editor")} />
                         <TemplateSettings />
 
-                        <SettingsSectionHeader title="Appearance" />
+                        <SettingsSectionHeader title={t("Appearance")} />
                         <BooleanProperty
-                            name={`Dark theme`}
+                            name={t("Dark theme")}
                             value={settingsController.isDarkTheme}
                             onChange={settingsController.switchTheme}
                             checkboxStyleSwitch={true}
@@ -1094,7 +1101,7 @@ export const Settings = observer(
                                     className="btn btn-primary EezStudio_PulseTransition"
                                     onClick={settingsController.restart}
                                 >
-                                    Restart
+                                    {t("Restart")}
                                 </button>
                             </div>
                         </Header>

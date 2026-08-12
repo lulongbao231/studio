@@ -26,6 +26,7 @@ import {
     getFilePathFromHash
 } from "./state";
 import { getMoment } from "eez-studio-shared/util";
+import { t } from "eez-studio-shared/i18n";
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -57,8 +58,8 @@ export const ChangesTab = observer(
             const result = await dialog.showOpenDialog(getCurrentWindow(), {
                 properties: ["openFile"],
                 filters: [
-                    { name: "EEZ Project", extensions: ["eez-project"] },
-                    { name: "All Files", extensions: ["*"] }
+                    { name: t("EEZ Project"), extensions: ["eez-project"] },
+                    { name: t("All Files"), extensions: ["*"] }
                 ]
             });
 
@@ -136,7 +137,7 @@ export const ChangesTab = observer(
             ) {
                 menu.append(
                     new MenuItem({
-                        label: "Deselect",
+                        label: t("Deselect"),
                         click: action(() => {
                             this.context.project.changes._state.revisionForCompareHash =
                                 undefined;
@@ -146,7 +147,7 @@ export const ChangesTab = observer(
             } else {
                 menu.append(
                     new MenuItem({
-                        label: "Select for Compare",
+                        label: t("Select for Compare"),
                         click: action(() => {
                             this.context.project.changes._state.revisionForCompareHash =
                                 node.data.hash;
@@ -164,12 +165,12 @@ export const ChangesTab = observer(
                         <Toolbar>
                             <IconAction
                                 icon="material:refresh"
-                                title="Refresh"
+                                title={t("Refresh")}
                                 onClick={this.refresh}
                             />
                             <IconAction
                                 icon="material:compare"
-                                title="Compare with other project"
+                                title={t("Compare with other project")}
                                 onClick={this.open}
                             />
                         </Toolbar>

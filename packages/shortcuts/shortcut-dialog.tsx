@@ -1,4 +1,5 @@
 import React from "react";
+import { t } from "eez-studio-shared/i18n";
 import { observable, computed, action, makeObservable } from "mobx";
 import { observer } from "mobx-react";
 
@@ -91,7 +92,7 @@ export const ShortcutDialog = observer(
                                 )
                         )
                     ) {
-                        return "Shortcut with the same name already exists.";
+                        return t("Shortcut with the same name already exists.");
                     }
                     return null;
                 }
@@ -103,7 +104,7 @@ export const ShortcutDialog = observer(
                         !this.props.groupsStore.isGroupEnabled &&
                         !this.shortcut.groupName
                     ) {
-                        return VALIDATION_MESSAGE_REQUIRED;
+                        return VALIDATION_MESSAGE_REQUIRED();
                     }
                     return null;
                 }
@@ -114,7 +115,7 @@ export const ShortcutDialog = observer(
                         this.props.hideCodeEditor !== true &&
                         this.shortcut.action!.data.trim() === ""
                     ) {
-                        return VALIDATION_MESSAGE_REQUIRED;
+                        return VALIDATION_MESSAGE_REQUIRED();
                     }
                     return null;
                 }
@@ -126,11 +127,13 @@ export const ShortcutDialog = observer(
                             this.shortcut.keybinding.endsWith("+") &&
                             !this.shortcut.keybinding.endsWith("++")
                         ) {
-                            return "Keybinding is not completed.";
+                            return t("Keybinding is not completed.");
                         }
 
                         if (isReserverdKeybinding(this.shortcut.keybinding)) {
-                            return "This keybinding is reserved for application.";
+                            return t(
+                                "This keybinding is reserved for application."
+                            );
                         }
                     }
 
@@ -144,7 +147,7 @@ export const ShortcutDialog = observer(
                         (!this.shortcut.toolbarButtonPosition ||
                             this.shortcut.toolbarButtonPosition < 1)
                     ) {
-                        return "Please enter value greater than or equal to 1.";
+                        return t("Please enter value greater than or equal to 1.");
                     }
                     return null;
                 }
@@ -225,11 +228,11 @@ export const ShortcutDialog = observer(
                     this.props.groupsStore &&
                     this.props.groupsStore.isGroupEnabled
                 ) {
-                    return FROM_EXTENSION_GROUP_NAME;
+                    return t(FROM_EXTENSION_GROUP_NAME);
                 }
                 if (this.extension) {
                     return (
-                        "Extension: " +
+                        t("Extension: ") +
                         (this.extension.displayName || this.extension.name)
                     );
                 }
@@ -313,7 +316,7 @@ export const ShortcutDialog = observer(
                     onClick: this.resetToDefault,
                     disabled: false,
                     style: { marginRight: "auto" },
-                    text: "Reset to default values"
+                    text: t("Reset to default values")
                 };
             }
 
@@ -327,7 +330,7 @@ export const ShortcutDialog = observer(
                 >
                     <PropertyList>
                         <TextInputProperty
-                            name="Name"
+                            name={t("Name")}
                             value={this.shortcut.name!}
                             onChange={action((value: string) => {
                                 this.shortcut.name = value;
@@ -344,7 +347,7 @@ export const ShortcutDialog = observer(
                         {this.props.groupsStore &&
                             !this.isExtensionShortcut && (
                                 <SelectProperty
-                                    name="Group"
+                                    name={t("Group")}
                                     value={this.shortcut.groupName!}
                                     onChange={action((value: string) => {
                                         this.shortcut.groupName = value;
@@ -368,14 +371,14 @@ export const ShortcutDialog = observer(
 
                         {this.props.groupsStore && this.isExtensionShortcut && (
                             <StaticProperty
-                                name="Group"
+                                name={t("Group")}
                                 value={this.groupName}
                             />
                         )}
 
                         {this.shortcut.action!.type !== "micropython" && (
                             <KeybindingProperty
-                                name="Keybinding"
+                                name={t("Keybinding")}
                                 value={this.shortcut.keybinding!}
                                 onChange={action((value: string) => {
                                     this.shortcut.keybinding = value;
@@ -387,7 +390,7 @@ export const ShortcutDialog = observer(
 
                         {!this.isExtensionShortcut && (
                             <SelectProperty
-                                name="Action type"
+                                name={t("Action type")}
                                 value={this.shortcut.action!.type}
                                 onChange={action(
                                     (value: IActionType) =>
@@ -395,32 +398,38 @@ export const ShortcutDialog = observer(
                                 )}
                             >
                                 {this.props.shortcutsStore.isScpiInstrument ? (
-                                    <option value="scpi-commands">SCPI</option>
+                                    <option value="scpi-commands">
+                                        {t("SCPI")}
+                                    </option>
                                 ) : (
-                                    <option value="commands">Commands</option>
+                                    <option value="commands">
+                                        {t("Commands")}
+                                    </option>
                                 )}
-                                <option value="javascript">JavaScript</option>
+                                <option value="javascript">
+                                    {t("JavaScript")}
+                                </option>
                                 {this.props.shortcutsStore.isScpiInstrument && (
                                     <option value="micropython">
-                                        MicroPython
+                                        {t("MicroPython")}
                                     </option>
                                 )}
                             </SelectProperty>
                         )}
                         {this.isExtensionShortcut && (
                             <StaticProperty
-                                name="Action type"
+                                name={t("Action type")}
                                 value={
                                     this.shortcut.action!.type ===
                                     "scpi-commands"
-                                        ? "SCPI"
+                                        ? t("SCPI")
                                         : this.shortcut.action!.type ===
                                           "commands"
-                                        ? "Commands"
+                                        ? t("Commands")
                                         : this.shortcut.action!.type ===
                                           "javascript"
-                                        ? "JavaScript"
-                                        : "MicroPython"
+                                        ? t("JavaScript")
+                                        : t("MicroPython")
                                 }
                             />
                         )}
@@ -428,9 +437,9 @@ export const ShortcutDialog = observer(
                         {this.props.hideCodeEditor !== true && (
                             <CodeEditorProperty
                                 name={
-                                    "Action code" +
+                                    t("Action code") +
                                     (this.isExtensionShortcut
-                                        ? " (read only)"
+                                        ? t(" (read only)")
                                         : "")
                                 }
                                 value={this.shortcut.action!.data}
@@ -448,7 +457,7 @@ export const ShortcutDialog = observer(
 
                         {this.shortcut.action!.type !== "micropython" && (
                             <BooleanProperty
-                                name="Requires confirmation"
+                                name={t("Requires confirmation")}
                                 value={this.shortcut.requiresConfirmation!}
                                 onChange={action(
                                     (value: boolean) =>
@@ -460,7 +469,7 @@ export const ShortcutDialog = observer(
 
                         {this.shortcut.action!.type !== "micropython" && (
                             <BooleanProperty
-                                name="Show in Shortcuts bar"
+                                name={t("Show in Shortcuts bar")}
                                 value={this.shortcut.showInToolbar!}
                                 onChange={action(
                                     (value: boolean) =>
@@ -472,7 +481,7 @@ export const ShortcutDialog = observer(
                         {this.shortcut.action!.type !== "micropython" &&
                             this.shortcut.showInToolbar && (
                                 <NumberInputProperty
-                                    name="Button position"
+                                    name={t("Button position")}
                                     value={this.shortcut.toolbarButtonPosition!}
                                     onChange={action((value: number) => {
                                         this.shortcut.toolbarButtonPosition =
@@ -490,7 +499,7 @@ export const ShortcutDialog = observer(
                         {this.shortcut.action!.type !== "micropython" &&
                             this.shortcut.showInToolbar && (
                                 <SelectProperty
-                                    name="Button color"
+                                    name={t("Button color")}
                                     value={this.shortcut.toolbarButtonColor!}
                                     onChange={action(
                                         (value: string) =>

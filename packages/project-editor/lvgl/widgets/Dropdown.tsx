@@ -1,3 +1,4 @@
+import { t } from "eez-studio-shared/i18n";
 import React from "react";
 import { observable, makeObservable } from "mobx";
 
@@ -61,7 +62,7 @@ export class LVGLDropdownWidget extends LVGLWidget {
             ),
             {
                 name: "useStaticText",
-                displayName: "Use static text",
+                displayName: t("Use static text"),
                 type: PropertyType.Boolean,
                 propertyGridGroup: specificGroup,
                 checkboxStyleSwitch: true,
@@ -82,19 +83,19 @@ export class LVGLDropdownWidget extends LVGLWidget {
                 enumItems: [
                     {
                         id: "top",
-                        label: "TOP"
+                        label: t("TOP")
                     },
                     {
                         id: "left",
-                        label: "LEFT"
+                        label: t("LEFT")
                     },
                     {
                         id: "bottom",
-                        label: "BOTTOM"
+                        label: t("BOTTOM")
                     },
                     {
                         id: "right",
-                        label: "RIGHT"
+                        label: t("RIGHT")
                     }
                 ],
                 enumDisallowUndefined: true,
@@ -191,7 +192,7 @@ export class LVGLDropdownWidget extends LVGLWidget {
                     "const char *",
                     "new_val",
                     this.options,
-                    "Failed to evaluate Options in Dropdown widget"
+                    t("Failed to evaluate Options in Dropdown widget")
                 );
 
                 const cur_val = code.callObjectFunctionWithAssignment(
@@ -262,7 +263,7 @@ export class LVGLDropdownWidget extends LVGLWidget {
                     "int32_t",
                     "new_val",
                     this.selected as string,
-                    "Failed to evaluate Selected in Dropdown widget"
+                    t("Failed to evaluate Selected in Dropdown widget")
                 );
 
                 const cur_val = code.callObjectFunctionWithAssignment(
@@ -309,7 +310,7 @@ export class LVGLDropdownWidget extends LVGLWidget {
                             "selected",
                             this.selected as string,
                             value,
-                            "Failed to assign Selected in Dropdown widget"
+                            t("Failed to assign Selected in Dropdown widget")
                         );
                     });
                 }

@@ -7,6 +7,8 @@ import { IconAction, ButtonAction } from "eez-studio-ui/action";
 import { layoutModels, SideDock2 } from "eez-studio-ui/side-dock";
 import { SearchInput } from "eez-studio-ui/search-input";
 
+import { t } from "eez-studio-shared/i18n";
+
 import { IAppStore } from "instrument/window/history/history";
 import {
     HistoryListComponent,
@@ -32,7 +34,7 @@ export const DeletedHistoryItemsTools = observer(
                     <IconAction
                         key="restore"
                         icon="material:restore"
-                        title="Restore selected history items"
+                        title={t("Restore selected history items")}
                         style={{ marginLeft: 20 }}
                         onClick={
                             this.props.appStore.deletedItemsHistory
@@ -43,7 +45,7 @@ export const DeletedHistoryItemsTools = observer(
                         key="purge"
                         color="#dc3545"
                         icon="material:delete_forever"
-                        title="Purge selected history items"
+                        title={t("Purge selected history items")}
                         onClick={
                             this.props.appStore.deletedItemsHistory
                                 .deleteSelectedHistoryItems
@@ -54,9 +56,9 @@ export const DeletedHistoryItemsTools = observer(
                 actions.push(
                     <ButtonAction
                         key="emptyTrash"
-                        text="Empty Trash"
+                        text={t("Empty Trash")}
                         icon="material:delete_forever"
-                        title="Purge all deleted history items"
+                        title={t("Purge all deleted history items")}
                         className="btn-sm btn-danger"
                         onClick={
                             this.props.appStore.deletedItemsHistory.emptyTrash
@@ -70,14 +72,15 @@ export const DeletedHistoryItemsTools = observer(
                     key="deletedItems"
                     style={{ paddingLeft: 10, paddingRight: 20 }}
                 >
-                    {`${
-                        this.props.appStore.deletedItemsHistory.deletedCount
-                    } deleted ${
-                        this.props.appStore.deletedItemsHistory.deletedCount !==
-                        1
-                            ? "items"
-                            : "item"
-                    }`}
+                    {t("{count} deleted {items}", {
+                        count: this.props.appStore.deletedItemsHistory
+                            .deletedCount,
+                        items:
+                            this.props.appStore.deletedItemsHistory
+                                .deletedCount !== 1
+                                ? t("items")
+                                : t("item")
+                    })}
                 </span>
             );
 
@@ -85,8 +88,8 @@ export const DeletedHistoryItemsTools = observer(
                 <ButtonAction
                     key="back"
                     icon="material:arrow_back"
-                    text="Back"
-                    title={"Go back to the terminal"}
+                    text={t("Back")}
+                    title={t("Go back to the terminal")}
                     onClick={
                         this.props.appStore.navigationStore.navigateToHistory
                     }

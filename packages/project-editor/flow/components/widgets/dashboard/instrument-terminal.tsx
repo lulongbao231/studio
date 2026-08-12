@@ -1,5 +1,6 @@
 import React from "react";
 import { observable, makeObservable, action } from "mobx";
+import { t } from "eez-studio-shared/i18n";
 
 import { makeLazyComponent } from "eez-studio-ui/lazy-component";
 
@@ -113,18 +114,18 @@ const InstrumentTerminalElement = makeLazyComponent(
                     content = showLoader.get() ? (
                         <Loader />
                     ) : (
-                        "Instrument not found"
+                        t("Instrument not found")
                     );
                 }
             } else {
-                content = showLoader.get() ? <Loader /> : "No instrument";
+                content = showLoader.get() ? <Loader /> : t("No instrument");
                 style.alignItems = "center";
                 style.justifyContent = "center";
             }
         } else {
             content = (
                 <>
-                    <p>Terminal for:</p>
+                    <p>{t("Terminal for:")}</p>
                     <pre>{props.widget.instrument}</pre>
                 </>
             );

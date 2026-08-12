@@ -5,6 +5,8 @@ import {
     IActivityLogEntry
 } from "instrument/window/history/activity-log";
 
+import { t } from "eez-studio-shared/i18n";
+
 import type { FileState } from "instrument/connection/file-state";
 import { FileTransfer } from "instrument/connection/file-transfer";
 import type { Connection } from "instrument/connection/connection-main";
@@ -128,14 +130,14 @@ export class FileDownload extends FileTransfer {
                 let n = parseInt(this.data[1]);
                 if (isNaN(n)) {
                     this.state = "error";
-                    this.error = "Expected the number of decimal digits";
+                    this.error = t("Expected the number of decimal digits");
                 } else {
                     if (this.data.length >= 2 + n) {
                         let followLength = parseInt(this.data.substr(2, n));
                         if (isNaN(followLength)) {
                             this.state = "error";
                             this.error =
-                                "Expected the number of data bytes to follow";
+                                t("Expected the number of data bytes to follow");
                         } else {
                             this.expectedDataLength = followLength;
                             this.data = this.data.substr(2 + n);

@@ -5,6 +5,7 @@ import QRC from "../qrcodegen";
 
 import { remap } from "eez-studio-shared/util";
 import { roundNumber } from "eez-studio-shared/roundNumber";
+import { t } from "eez-studio-shared/i18n";
 
 import {
     IEezObject,
@@ -180,27 +181,27 @@ export class DisplayDataWidget extends Widget {
                 enumItems: [
                     {
                         id: DisplayOption.All,
-                        label: "All"
+                        label: t("All")
                     },
                     {
                         id: DisplayOption.Integer,
-                        label: "Integer"
+                        label: t("Integer")
                     },
                     {
                         id: DisplayOption.FractionAndUnit,
-                        label: "Fraction and unit"
+                        label: t("Fraction and unit")
                     },
                     {
                         id: DisplayOption.Fraction,
-                        label: "Fraction"
+                        label: t("Fraction")
                     },
                     {
                         id: DisplayOption.Unit,
-                        label: "Unit"
+                        label: t("Unit")
                     },
                     {
                         id: DisplayOption.IntegerAndFraction,
-                        label: "Integer and fraction"
+                        label: t("Integer and fraction")
                     }
                 ],
                 propertyGridGroup: specificGroup
@@ -437,13 +438,13 @@ export class TextWidget extends Widget {
                 displayName: (widget: TextWidget) => {
                     const project = ProjectEditor.getProject(widget);
                     if (project.projectTypeTraits.hasFlowSupport) {
-                        return "Text";
+                        return t("Text");
                     }
-                    return "Data";
+                    return t("Data");
                 }
             }),
             makeTextPropertyInfo("text", {
-                displayName: "Static text",
+                displayName: t("Static text"),
                 disabled: isProjectWithFlowSupport
             }),
             {
@@ -859,24 +860,24 @@ export class MultilineTextWidget extends Widget {
                 displayName: (widget: MultilineTextWidget) => {
                     const project = ProjectEditor.getProject(widget);
                     if (project.projectTypeTraits.hasFlowSupport) {
-                        return "Text";
+                        return t("Text");
                     }
-                    return "Data";
+                    return t("Data");
                 }
             }),
             makeTextPropertyInfo("text", {
-                displayName: "Static text",
+                displayName: t("Static text"),
                 disabled: isProjectWithFlowSupport
             }),
             {
                 name: "firstLineIndent",
-                displayName: "First line",
+                displayName: t("First line"),
                 type: PropertyType.Number,
                 propertyGridGroup: indentationGroup
             },
             {
                 name: "hangingIndent",
-                displayName: "Hanging",
+                displayName: t("Hanging"),
                 type: PropertyType.Number,
                 propertyGridGroup: indentationGroup
             },
@@ -1169,7 +1170,7 @@ const BitmapWidgetPropertyGridUI = observer(
                     size="small"
                     onClick={this.resizeToFitBitmap}
                 >
-                    Resize to Fit Bitmap
+                    {t("Resize to Fit Bitmap")}
                 </Button>
             );
         }
@@ -1254,7 +1255,7 @@ export class BitmapWidget extends Widget {
                 messages.push(
                     new Message(
                         MessageType.ERROR,
-                        "Either Bitmap or Data must be set",
+                        t("Either Bitmap or Data must be set"),
                         object
                     )
                 );
@@ -1263,7 +1264,7 @@ export class BitmapWidget extends Widget {
                     messages.push(
                         new Message(
                             MessageType.ERROR,
-                            "Both Bitmap and Data set, only Data is used",
+                            t("Both Bitmap and Data set, only Data is used"),
                             object
                         )
                     );
@@ -1449,9 +1450,9 @@ export class ButtonWidget extends Widget {
                 displayName: (widget: ButtonWidget) => {
                     const project = ProjectEditor.getProject(widget);
                     if (project.projectTypeTraits.hasFlowSupport) {
-                        return "Label";
+                        return t("Label");
                     }
-                    return "Data";
+                    return t("Data");
                 }
             }),
             makeTextPropertyInfo("text", {
@@ -1768,9 +1769,9 @@ export class ButtonGroupWidget extends Widget {
                         project.projectTypeTraits.hasFlowSupport &&
                         project.settings.general.projectVersion == "v3"
                     ) {
-                        return "Button labels";
+                        return t("Button labels");
                     }
-                    return "Data";
+                    return t("Data");
                 }
             }),
             makeDataPropertyInfo("selectedButton", {
@@ -2037,8 +2038,8 @@ export class BarGraphWidget extends Widget {
                 propertyGridGroup: specificGroup
             },
             makeDataPropertyInfo("data"),
-            makeDataPropertyInfo("line1Data", { displayName: "Threshold1" }),
-            makeDataPropertyInfo("line2Data", { displayName: "Threshold2" }),
+            makeDataPropertyInfo("line1Data", { displayName: t("Threshold1") }),
+            makeDataPropertyInfo("line2Data", { displayName: t("Threshold2") }),
             makeDataPropertyInfo("min", {
                 disabled: hasNotFlowSupport
             }),
@@ -3451,7 +3452,7 @@ class LineChartLine extends EezObject {
             },
             {
                 name: "width",
-                displayName: "Line width",
+                displayName: t("Line width"),
                 type: PropertyType.Number,
                 propertyGridGroup: specificGroup
             },
@@ -3483,7 +3484,7 @@ class LineChartLine extends EezObject {
                 messages.push(
                     new Message(
                         MessageType.ERROR,
-                        `Invalid expression: ${err}`,
+                        t("Invalid expression: {error}", { error: err }),
                         getChildOfObject(lineChartTrace, "label")
                     )
                 );
@@ -3500,7 +3501,7 @@ class LineChartLine extends EezObject {
                 messages.push(
                     new Message(
                         MessageType.ERROR,
-                        `Invalid expression: ${err}`,
+                        t("Invalid expression: {error}", { error: err }),
                         getChildOfObject(lineChartTrace, "value")
                     )
                 );
@@ -3542,7 +3543,7 @@ export class LineChartEmbeddedWidget extends Widget {
             makeExpressionProperty(
                 {
                     name: "xValue",
-                    displayName: "X value",
+                    displayName: t("X value"),
                     type: PropertyType.MultilineText,
                     propertyGridGroup: specificGroup
                 },
@@ -3561,12 +3562,12 @@ export class LineChartEmbeddedWidget extends Widget {
             makeDataPropertyInfo("showLegend", {}, "boolean"),
             makeDataPropertyInfo(
                 "showXAxis",
-                { displayName: "Show X axis" },
+                { displayName: t("Show X axis") },
                 "boolean"
             ),
             makeDataPropertyInfo(
                 "showYAxis",
-                { displayName: "Show Y axis" },
+                { displayName: t("Show Y axis") },
                 "boolean"
             ),
             makeDataPropertyInfo("showYAxis", {}, "boolean"),
@@ -3578,11 +3579,11 @@ export class LineChartEmbeddedWidget extends Widget {
                 enumItems: [
                     {
                         id: "floating",
-                        label: "Floating"
+                        label: t("Floating")
                     },
                     {
                         id: "fixed",
-                        label: "Fixed"
+                        label: t("Fixed")
                     }
                 ],
                 propertyGridGroup: specificGroup
@@ -5688,7 +5689,7 @@ export class DropDownListWidget extends Widget {
 
         componentPaletteGroupName: "!1Input",
 
-        componentPaletteLabel: "Dropdown",
+        componentPaletteLabel: t("Dropdown"),
 
         flowComponentId: WIDGET_TYPE_DROP_DOWN_LIST,
 
@@ -5855,7 +5856,7 @@ export class QRCodeWidget extends Widget {
 
         properties: [
             makeDataPropertyInfo("data", {
-                displayName: "Text"
+                displayName: t("Text")
             }),
             {
                 name: "errorCorrection",

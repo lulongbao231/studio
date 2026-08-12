@@ -19,6 +19,7 @@ import { confirm } from "eez-studio-ui/dialog-electron";
 
 import { getUserDataPath } from "eez-studio-shared/util-electron";
 import { guid } from "eez-studio-shared/guid";
+import { t } from "eez-studio-shared/i18n";
 
 import { showDialog } from "eez-studio-ui/dialog";
 import {
@@ -316,7 +317,7 @@ class ScrapbookStore {
                 this.project.items.splice(index, 1);
                 this.selectedItem = selectedItem;
             },
-            description: "Add new item"
+            description: t("Add new item")
         });
     }
 
@@ -347,7 +348,7 @@ class ScrapbookStore {
                     this.selectedItem = item;
                 }
             },
-            description: "Add new item"
+            description: t("Add new item")
         });
     }
 
@@ -373,7 +374,7 @@ class ScrapbookStore {
 
                 item.name = oldName;
             },
-            description: "Change name"
+            description: t("Change name")
         });
     }
 
@@ -399,7 +400,7 @@ class ScrapbookStore {
 
                 item.description = oldDescription;
             },
-            description: "Change description"
+            description: t("Change description")
         });
     }
 
@@ -425,7 +426,7 @@ class ScrapbookStore {
 
                 item.eezProject = oldnewEezProject;
             },
-            description: "Change eez-project"
+            description: t("Change eez-project")
         });
     }
 }
@@ -500,7 +501,7 @@ class ScrapbookManagerModel {
                     const result = showDialog(<ScrapbookManagerDialog />, {
                         jsPanel: {
                             id: "scrapbook-manager-dialog",
-                            title: "Scrapbook",
+                            title: t("Scrapbook"),
                             width: 1280,
                             height: 800,
                             modeless: true,
@@ -555,11 +556,11 @@ class ScrapbookManagerModel {
     async createNewScrapbookFile() {
         const result = await showGenericDialog({
             dialogDefinition: {
-                title: "New Scrapbook File",
+                title: t("New Scrapbook File"),
                 fields: [
                     {
                         name: "name",
-                        displayName: "Scrabook file name",
+                        displayName: t("Scrabook file name"),
                         type: "string",
                         validators: [
                             validators.required,
@@ -574,7 +575,9 @@ class ScrapbookManagerModel {
                                             path.parse(filePath).name == value
                                     )
                                 ) {
-                                    return "Scrapbook file with the same name already exists";
+                                    return t(
+                                        "Scrapbook file with the same name already exists"
+                                    );
                                 }
                                 return null;
                             }
@@ -599,10 +602,10 @@ class ScrapbookManagerModel {
             properties: ["openFile"],
             filters: [
                 {
-                    name: "EEZ Scrapbook files",
+                    name: t("EEZ Scrapbook files"),
                     extensions: ["eez-scrapbook"]
                 },
-                { name: "All Files", extensions: ["*"] }
+                { name: t("All Files"), extensions: ["*"] }
             ]
         });
         const filePaths = result.filePaths;
@@ -630,7 +633,7 @@ class ScrapbookManagerModel {
     }
 
     deleteScrapbookFile(filePath: string) {
-        confirm("Are you sure?", undefined, () => {
+        confirm(t("Are you sure?"), undefined, () => {
             this.files = this.files.filter(
                 existingFilePath => existingFilePath != filePath
             );
@@ -652,7 +655,7 @@ class ScrapbookManagerModel {
                 let name: string;
                 let i = 1;
                 while (true) {
-                    name = `Item ${i}`;
+                    name = t("Item {i}", { i });
                     if (
                         !this.store.project.items.find(
                             item => item.name == name
@@ -773,10 +776,12 @@ const Items = observer(
             return (
                 <div className="EezStudio_ProjectEditorScrapbook_Items">
                     <div className="EezStudio_ProjectEditorScrapbook_Items_Toolbar">
-                        <div>Items</div>
+                        <div>{t("Items")}</div>
                         <div>
                             <IconAction
-                                title="Create a New Scrapbook Item from the Clipboard"
+                                title={t(
+                                    "Create a New Scrapbook Item from the Clipboard"
+                                )}
                                 icon="material:content_paste"
                                 iconSize={22}
                                 onClick={() => {
@@ -799,7 +804,7 @@ const Items = observer(
                                         );
                                     }
                                 }}
-                                title="Delete this item"
+                                title={t("Delete this item")}
                                 enabled={model.store.selectedItem != undefined}
                             />
                         </div>
@@ -908,8 +913,8 @@ const ItemDetails = observer(
                                 }
                             >
                                 {this.isSmallToolbar
-                                    ? "Insert"
-                                    : "Insert into Active Project"}
+                                    ? t("Insert")
+                                    : t("Insert into Active Project")}
                             </button>
                             <button
                                 className="btn btn-lg btn-secondary ms-2"
@@ -923,13 +928,15 @@ const ItemDetails = observer(
                                 disabled={model.store.selectedItem == undefined}
                             >
                                 {this.isSmallToolbar
-                                    ? "Open"
-                                    : "Open in Project Editor"}
+                                    ? t("Open")
+                                    : t("Open in Project Editor")}
                             </button>
                         </div>
                         <div>
                             <IconAction
-                                title="Paste Clipboard Content into Select Scrapbook Item"
+                                title={t(
+                                    "Paste Clipboard Content into Select Scrapbook Item"
+                                )}
                                 icon="material:content_paste"
                                 iconSize={22}
                                 onClick={() => {
@@ -957,7 +964,7 @@ const ItemDetails = observer(
                                     htmlFor="EezStudio_ProjectEditorScrapbook_ItemDetails_Name"
                                     className="form-label"
                                 >
-                                    Name:
+                                    {t("Name:")}
                                 </label>
                                 <input
                                     type="text"
@@ -990,7 +997,7 @@ const ItemDetails = observer(
                                     htmlFor="EezStudio_ProjectEditorScrapbook_ItemDetails_Description"
                                     className="form-label"
                                 >
-                                    Description:
+                                    {t("Description:")}
                                 </label>
                                 <textarea
                                     className="form-control"
@@ -1020,7 +1027,7 @@ const ItemDetails = observer(
 
                             <div className="mb-3">
                                 <label className="form-label">
-                                    Resources in this scrapbook item:
+                                    {t("Resources in this scrapbook item:")}
                                 </label>
                                 <div className="EezStudio_ProjectEditorScrapbook_ItemDetails_Resources">
                                     <table>
@@ -1134,14 +1141,14 @@ export const ScrapbookManagerDialog = observer(
                                         ))}
                                 </select>
                                 <IconAction
-                                    title="Create a New Scrapbook File"
+                                    title={t("Create a New Scrapbook File")}
                                     icon="material:add"
                                     onClick={() =>
                                         model.createNewScrapbookFile()
                                     }
                                 />
                                 <IconAction
-                                    title="Open Scrapbook File"
+                                    title={t("Open Scrapbook File")}
                                     icon={HOME_TAB_OPEN_ICON}
                                     onClick={() => model.selectScrapbookFile()}
                                 />
@@ -1152,7 +1159,7 @@ export const ScrapbookManagerDialog = observer(
                                             model.selectedFile
                                         )
                                     }
-                                    title="Delete Scrapbook File"
+                                    title={t("Delete Scrapbook File")}
                                     enabled={
                                         model.selectedFile !=
                                         DEFAULT_SCRAPBOOK_FILE_PATH
@@ -1166,12 +1173,12 @@ export const ScrapbookManagerDialog = observer(
                                             model.selectedFile
                                         )
                                     }
-                                    title="Show Scrapbook File in File Explorer"
+                                    title={t("Show Scrapbook File in File Explorer")}
                                 />
                             </div>
                             <div className="btn-group" role="group">
                                 <IconAction
-                                    title="Undo"
+                                    title={t("Undo")}
                                     icon="material:undo"
                                     onClick={() =>
                                         model.store.undoManager.undo()
@@ -1179,7 +1186,7 @@ export const ScrapbookManagerDialog = observer(
                                     enabled={model.store.undoManager.canUndo}
                                 />
                                 <IconAction
-                                    title="Redo"
+                                    title={t("Redo")}
                                     icon="material:redo"
                                     onClick={() =>
                                         model.store.undoManager.redo()
@@ -1191,7 +1198,7 @@ export const ScrapbookManagerDialog = observer(
                         <div>
                             <div className="btn-group" role="group">
                                 <IconAction
-                                    title="Undock into Separate Window"
+                                    title={t("Undock into Separate Window")}
                                     icon={
                                         <svg viewBox="0 0 24 24">
                                             <path d="M16 7H4c-1.103 0-2 .897-2 2v10c0 1.103.897 2 2 2h12c1.103 0 2-.897 2-2V9c0-1.103-.897-2-2-2M4 19v-8h12V9l.002 10z" />
@@ -1204,7 +1211,7 @@ export const ScrapbookManagerDialog = observer(
                                     selected={model.dockOption == "float"}
                                 />
                                 <IconAction
-                                    title="Dock to the Side"
+                                    title={t("Dock to the Side")}
                                     icon={
                                         <svg viewBox="0 0 24 24">
                                             <path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2m-5 14H4V6h11Z" />
@@ -1217,7 +1224,7 @@ export const ScrapbookManagerDialog = observer(
                                 />
                             </div>
                             <IconAction
-                                title="Close"
+                                title={t("Close")}
                                 icon="material:close"
                                 onClick={action(
                                     () => (model.isVisible = false)
@@ -1258,9 +1265,10 @@ export function getScrapbookItemTabTitle(itemUrl: string) {
         throw itemUrl;
     }
 
-    return `${getScrapbookItemName(itemUrl)} - ${
-        path.parse(result.filePath).name
-    } - Scrapbook Item`;
+    return t("{name} - {file} - Scrapbook Item", {
+        name: getScrapbookItemName(itemUrl),
+        file: path.parse(result.filePath).name
+    });
 }
 
 export function getScrapbookItemEezProject(itemUrl: string) {

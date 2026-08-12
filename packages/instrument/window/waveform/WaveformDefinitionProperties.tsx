@@ -10,6 +10,7 @@ import { makeValidator, validators } from "eez-studio-shared/validation";
 import { TextInputProperty, SelectProperty } from "eez-studio-ui/properties";
 
 import { WaveformFormat } from "eez-studio-ui/chart/WaveformFormat";
+import { t } from "eez-studio-shared/i18n";
 import type { IWaveformDefinition } from "./generic";
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -56,7 +57,7 @@ export class WaveformDefinitionProperties {
                     this.props.samplingRate
                 );
                 if (typeof samplingRate !== "number") {
-                    return "Invalid value.";
+                    return t("Invalid value.");
                 }
                 this.propsValidated.samplingRate = samplingRate;
                 return null;
@@ -74,7 +75,7 @@ export class WaveformDefinitionProperties {
             () => {
                 let offset = parseFloat(this.props.offset);
                 if (typeof offset !== "number") {
-                    return "Invalid value.";
+                    return t("Invalid value.");
                 }
                 this.propsValidated.offset = offset;
                 return null;
@@ -86,14 +87,14 @@ export class WaveformDefinitionProperties {
             () => {
                 let scale = parseFloat(this.props.scale);
                 if (typeof scale !== "number") {
-                    return "Invalid value.";
+                    return t("Invalid value.");
                 }
                 this.propsValidated.scale = scale;
                 return null;
             },
             () => {
                 if (this.propsValidated.scale <= 0) {
-                    return "Must be greater than 0";
+                    return t("Must be greater than 0");
                 }
                 return null;
             }
@@ -132,7 +133,7 @@ export class WaveformDefinitionProperties {
         return [
             <TextInputProperty
                 key="samplingRate"
-                name="Sampling rate"
+                name={t("Sampling rate")}
                 value={this.props.samplingRate}
                 onChange={action(
                     (value: string) => (this.props.samplingRate = value)
@@ -141,26 +142,26 @@ export class WaveformDefinitionProperties {
             />,
             <SelectProperty
                 key="format"
-                name="Format"
+                name={t("Format")}
                 value={this.props.format.toString()}
                 onChange={action(
                     (value: string) => (this.props.format = parseInt(value))
                 )}
             >
                 <option value={WaveformFormat.UNKNOWN.toString()}>
-                    Unknown
+                    {t("Unknown")}
                 </option>
                 <option value={WaveformFormat.FLOATS_32BIT.toString()}>
-                    32-bit float
+                    {t("32-bit float")}
                 </option>
                 <option value={WaveformFormat.FLOATS_64BIT.toString()}>
-                    64-bit float
+                    {t("64-bit float")}
                 </option>
                 <option value={WaveformFormat.RIGOL_BYTE.toString()}>
-                    Byte (Rigol)
+                    {t("Byte (Rigol)")}
                 </option>
                 <option value={WaveformFormat.RIGOL_WORD.toString()}>
-                    Word (Rigol)
+                    {t("Word (Rigol)")}
                 </option>
                 <option value={WaveformFormat.CSV_STRING.toString()}>
                     CSV
@@ -168,7 +169,7 @@ export class WaveformDefinitionProperties {
             </SelectProperty>,
             <SelectProperty
                 key="unit"
-                name="Unit"
+                name={t("Unit")}
                 value={this.props.unit.name}
                 onChange={action(
                     (value: keyof typeof UNITS) =>
@@ -183,7 +184,7 @@ export class WaveformDefinitionProperties {
             </SelectProperty>,
             <TextInputProperty
                 key="offset"
-                name="Offset"
+                name={t("Offset")}
                 value={this.props.offset}
                 onChange={action(
                     (value: string) => (this.props.offset = value)
@@ -192,7 +193,7 @@ export class WaveformDefinitionProperties {
             />,
             <TextInputProperty
                 key="scale"
-                name="Scale"
+                name={t("Scale")}
                 value={this.props.scale}
                 onChange={action((value: string) => (this.props.scale = value))}
                 errors={this.validator.errors.scale}

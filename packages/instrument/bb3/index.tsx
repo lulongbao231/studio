@@ -10,6 +10,7 @@ import {
 } from "instrument/bb3/global-objects";
 import { BB3Instrument } from "instrument/bb3/objects/BB3Instrument";
 import { StartPage } from "instrument/bb3/components/StartPage";
+import { t } from "eez-studio-shared/i18n";
 
 export function getBB3Instrument(
     appStore: InstrumentAppStore,
@@ -49,10 +50,10 @@ export function toolbarButtonsRender(appStore: InstrumentAppStore) {
         <React.Fragment>
             {appStore.instrument.connection.isConnected && (
                 <ButtonAction
-                    text="Refresh"
+                    text={t("Refresh")}
                     icon="material:refresh"
                     className="btn-secondary"
-                    title="Refresh"
+                    title={t("Refresh")}
                     onClick={() => {
                         const bb3Instrument = getBB3Instrument(appStore, true);
                         if (bb3Instrument) {

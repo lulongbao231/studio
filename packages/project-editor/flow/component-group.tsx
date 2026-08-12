@@ -12,6 +12,7 @@ import type { Flow } from "project-editor/flow/flow";
 import type { Component, ActionComponent } from "project-editor/flow/component";
 import { BoundingRectBuilder, Rect } from "eez-studio-shared/geometry";
 import { getProjectStore } from "project-editor/store";
+import { t } from "eez-studio-shared/i18n";
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -37,7 +38,7 @@ export class ComponentGroup extends EezObject {
             components: []
         },
         label: (group: ComponentGroup) => {
-            return group.description || "Group";
+            return group.description || t("Group");
         },
         icon: (
             <svg

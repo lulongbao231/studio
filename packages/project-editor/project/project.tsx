@@ -11,6 +11,8 @@ import { pascalCase } from "eez-studio-shared/string";
 
 import { showGenericDialog } from "eez-studio-ui/generic-dialog";
 
+import { t } from "eez-studio-shared/i18n";
+
 import {
     ClassInfo,
     PropertyInfo,
@@ -125,7 +127,7 @@ export class BuildConfiguration extends EezObject {
         newItem: async (parent: IEezObject) => {
             const result = await showGenericDialog({
                 dialogDefinition: {
-                    title: "New Configuration",
+                    title: t("New Configuration"),
                     fields: [
                         {
                             name: "name",
@@ -213,7 +215,7 @@ export class BuildFile extends EezObject {
         newItem: async (parent: IEezObject) => {
             const result = await showGenericDialog({
                 dialogDefinition: {
-                    title: "New File",
+                    title: t("New File"),
                     fields: [
                         {
                             name: "fileName",
@@ -287,7 +289,7 @@ export class Build extends EezObject {
     useDockerDesktop: boolean;
 
     static classInfo: ClassInfo = {
-        label: () => "Build",
+        label: () => t("Build"),
         properties: [
             {
                 name: "configurations",
@@ -311,7 +313,7 @@ export class Build extends EezObject {
             },
             {
                 name: "separateFolderForImagesAndFonts",
-                displayName: "Store image and font files in a separate folder",
+                displayName: t("Store image and font files in a separate folder"),
                 checkboxStyleSwitch: true,
                 type: PropertyType.Boolean,
                 disabled: isNotLVGLProject
@@ -322,11 +324,11 @@ export class Build extends EezObject {
                 enumItems: [
                     {
                         id: "source",
-                        label: "Source code"
+                        label: t("Source code")
                     },
                     {
                         id: "binary",
-                        label: "Binary"
+                        label: t("Binary")
                     }
                 ],
                 enumDisallowUndefined: true,
@@ -338,11 +340,11 @@ export class Build extends EezObject {
                 enumItems: [
                     {
                         id: "source",
-                        label: "Source code"
+                        label: t("Source code")
                     },
                     {
                         id: "binary",
-                        label: "Binary"
+                        label: t("Binary")
                     }
                 ],
                 enumDisallowUndefined: true,
@@ -358,7 +360,7 @@ export class Build extends EezObject {
             },
             {
                 name: "lvglInclude",
-                displayName: "LVGL include",
+                displayName: t("LVGL include"),
                 type: PropertyType.String,
                 disabled: isNotLVGLProject
             },
@@ -370,15 +372,16 @@ export class Build extends EezObject {
             },
             {
                 name: "useDockerDesktop",
-                displayName: "Use Docker Desktop for full simulator",
+                displayName: t("Use Docker Desktop for full simulator"),
                 checkboxStyleSwitch: true,
                 type: PropertyType.Boolean,
                 disabled: isNotLVGLProject
             },
             {
                 name: "generateSourceCodeForEezFramework",
-                displayName:
-                    "Generate source code for EEZ Flow engine (eez-framework)",
+                displayName: t(
+                    "Generate source code for EEZ Flow engine (eez-framework)"
+                ),
                 type: PropertyType.Boolean,
                 checkboxStyleSwitch: true,
                 disabled: object =>
@@ -503,8 +506,8 @@ export class ImportDirective extends EezObject {
                 name: "projectFilePath",
                 type: PropertyType.RelativeFile,
                 fileFilters: [
-                    { name: "EEZ Project", extensions: ["eez-project"] },
-                    { name: "All Files", extensions: ["*"] }
+                    { name: t("EEZ Project"), extensions: ["eez-project"] },
+                    { name: t("All Files"), extensions: ["*"] }
                 ],
                 isOptional: false
             },
@@ -515,7 +518,7 @@ export class ImportDirective extends EezObject {
             },
             {
                 name: "customUI",
-                displayName: "Actions",
+                displayName: t("Actions"),
                 type: PropertyType.Any,
                 computed: true,
                 propertyGridRowComponent: ImportDirectiveCustomUI,
@@ -544,7 +547,7 @@ export class ImportDirective extends EezObject {
                     messages.push(
                         new Message(
                             MessageType.ERROR,
-                            "File doesn't exists",
+                            t("File doesn't exists"),
                             getChildOfObject(object, "projectFilePath")
                         )
                     );
@@ -615,7 +618,7 @@ export const ExtensionDirectiveCustomUI = observer((props: PropertyProps) => {
             onClick={() => {}}
             style={{ marginTop: 10 }}
         >
-            Install
+            {t("Install")}
         </Button>
     );
 });
@@ -666,7 +669,9 @@ export class ExtensionDirective extends EezObject {
                     messages.push(
                         new Message(
                             MessageType.ERROR,
-                            `Extension ${object.extensionName} is not installed`,
+                            t("Extension {name} is not installed", {
+                                name: object.extensionName
+                            }),
                             getChildOfObject(object, "extensionName")
                         )
                     );
@@ -713,7 +718,7 @@ export class ResourceFile extends EezObject {
             {
                 name: "filePath",
                 type: PropertyType.RelativeFile,
-                fileFilters: [{ name: "All Files", extensions: ["*"] }],
+                fileFilters: [{ name: t("All Files"), extensions: ["*"] }],
                 isOptional: false
             }
         ],
@@ -734,7 +739,7 @@ export class ResourceFile extends EezObject {
                     messages.push(
                         new Message(
                             MessageType.ERROR,
-                            "File doesn't exists",
+                            t("File doesn't exists"),
                             getChildOfObject(object, "filePath")
                         )
                     );
@@ -817,7 +822,7 @@ export class General extends EezObject {
     defaultStyleForUserWidgetInEditor: string;
 
     static classInfo: ClassInfo = {
-        label: () => "General",
+        label: () => t("General"),
         properties: [
             {
                 name: "projectType",
@@ -863,16 +868,16 @@ export class General extends EezObject {
                 name: "projectVersion",
                 displayName: (object: General) => {
                     if (object.projectType == ProjectType.RESOURCE) {
-                        return "Target BB3 firmware";
+                        return t("Target BB3 firmware");
                     }
-                    return "Project version";
+                    return t("Project version");
                 },
                 type: PropertyType.Enum,
                 enumItems: (object: General) => {
                     if (object.projectType == ProjectType.RESOURCE) {
                         return [
-                            { id: "v2", label: "1.7.X or older" },
-                            { id: "v3", label: "1.8 or newer" }
+                            { id: "v2", label: t("1.7.X or older") },
+                            { id: "v3", label: t("1.8 or newer") }
                         ];
                     } else {
                         return [{ id: "v1" }, { id: "v2" }, { id: "v3" }];
@@ -888,7 +893,7 @@ export class General extends EezObject {
                 type: PropertyType.Enum,
                 enumItems: [
                     { id: "SCPI", label: "SCPI" },
-                    { id: "PROPRIETARY", label: "Proprietary" }
+                    { id: "PROPRIETARY", label: t("Proprietary") }
                 ],
                 enumDisallowUndefined: true,
                 readOnlyInPropertyGrid: true,
@@ -898,7 +903,7 @@ export class General extends EezObject {
             },
             {
                 name: "lvglVersion",
-                displayName: "LVGL version",
+                displayName: t("LVGL version"),
                 type: PropertyType.Enum,
                 enumItems: [
                     { id: "8.4.0", label: "8.4.0" },
@@ -915,8 +920,8 @@ export class General extends EezObject {
                 name: "commandsDocFolder",
                 displayName: (object: General) =>
                     getProject(object).scpi
-                        ? "SCPI documentation folder"
-                        : "Commands documentation folder",
+                        ? t("SCPI documentation folder")
+                        : t("Commands documentation folder"),
                 type: PropertyType.RelativeFolder,
                 disabled: (object: IEezObject) => {
                     const project = getProject(object);
@@ -927,8 +932,8 @@ export class General extends EezObject {
                 name: "masterProject",
                 type: PropertyType.RelativeFile,
                 fileFilters: [
-                    { name: "EEZ Project", extensions: ["eez-project"] },
-                    { name: "All Files", extensions: ["*"] }
+                    { name: t("EEZ Project"), extensions: ["eez-project"] },
+                    { name: t("All Files"), extensions: ["*"] }
                 ],
                 disabled: (general: General) => {
                     return !(
@@ -945,8 +950,9 @@ export class General extends EezObject {
                 defaultValue: [],
                 partOfNavigation: false,
                 enumerable: false,
-                formText:
-                    "After adding an extension, you need to reload the project to see the changes. To reload the project select 'Reload Project' from the 'File' menu.",
+                formText: t(
+                    "After adding an extension, you need to reload the project to see the changes. To reload the project select 'Reload Project' from the 'File' menu."
+                ),
                 disabled: (general: General) =>
                     ProjectEditor.getProject(general).projectTypeTraits.isIEXT
             },
@@ -1004,11 +1010,11 @@ export class General extends EezObject {
             },
             {
                 name: "colorBpp",
-                displayName: "Color BPP",
+                displayName: t("Color BPP"),
                 type: PropertyType.Enum,
                 enumItems: [
-                    { id: "16", label: "16 bit" },
-                    { id: "32", label: "32 bit" }
+                    { id: "16", label: t("16 bit") },
+                    { id: "32", label: t("32 bit") }
                 ],
                 disabled: (general: General) => {
                     const project = getProject(general);
@@ -1043,9 +1049,9 @@ export class General extends EezObject {
                 name: "hiddenWidgetLines",
                 type: PropertyType.Enum,
                 enumItems: [
-                    { id: "visible", label: "Fully visible" },
-                    { id: "dimmed", label: "Dimmed" },
-                    { id: "hidden", label: "Hidden" }
+                    { id: "visible", label: t("Fully visible") },
+                    { id: "dimmed", label: t("Dimmed") },
+                    { id: "hidden", label: t("Hidden") }
                 ],
                 enumDisallowUndefined: true,
                 disabled: (general: General) => {
@@ -1057,7 +1063,7 @@ export class General extends EezObject {
             },
             {
                 name: "dimmedLinesOpacity",
-                displayName: "Dimmed lines opacity (%)",
+                displayName: t("Dimmed lines opacity (%)"),
                 type: PropertyType.Number,
                 disabled: (general: General) => {
                     return (
@@ -1069,13 +1075,13 @@ export class General extends EezObject {
             },
             {
                 name: "embedBitmaps",
-                displayName: "Embed bitmaps inside eez-project file",
+                displayName: t("Embed bitmaps inside eez-project file"),
                 type: PropertyType.Boolean,
                 checkboxStyleSwitch: true
             },
             {
                 name: "embedFonts",
-                displayName: "Embed fonts inside eez-project file",
+                displayName: t("Embed fonts inside eez-project file"),
                 type: PropertyType.Boolean,
                 checkboxStyleSwitch: true,
                 disabled: (general: General) => {
@@ -1084,7 +1090,7 @@ export class General extends EezObject {
             },
             {
                 name: "cacheFonts",
-                displayName: "Cache font definitions",
+                displayName: t("Cache font definitions"),
                 type: PropertyType.Boolean,
                 checkboxStyleSwitch: true,
                 disabled: (general: General) => {
@@ -1126,16 +1132,16 @@ export class General extends EezObject {
                 name: "targetPlatform",
                 displayName: (general: General) =>
                     general.projectType == ProjectType.IEXT
-                        ? "Target instrument"
-                        : "Target platform",
+                        ? t("Target instrument")
+                        : t("Target platform"),
                 type: PropertyType.MultilineText
             },
             {
                 name: "targetPlatformLink",
                 displayName: (general: General) =>
                     general.projectType == ProjectType.IEXT
-                        ? "Target instrument link"
-                        : "Target platform link",
+                        ? t("Target instrument link")
+                        : t("Target platform link"),
                 type: PropertyType.String
             },
             {
@@ -1148,7 +1154,7 @@ export class General extends EezObject {
             },
             {
                 name: "minStudioVersion",
-                displayName: "Min. studio version",
+                displayName: t("Min. studio version"),
                 type: PropertyType.String
             },
             {
@@ -1173,7 +1179,7 @@ export class General extends EezObject {
                     messages.push(
                         new Message(
                             MessageType.ERROR,
-                            "File doesn't exists",
+                            t("File doesn't exists"),
                             getChildOfObject(general, "masterProject")
                         )
                     );
@@ -1190,7 +1196,7 @@ export class General extends EezObject {
                     messages.push(
                         new Message(
                             MessageType.ERROR,
-                            `Display width must be between 1 and 1280 `,
+                            t("Display width must be between 1 and 1280 "),
                             getChildOfObject(general, "displayWidth")
                         )
                     );
@@ -1200,7 +1206,7 @@ export class General extends EezObject {
                     messages.push(
                         new Message(
                             MessageType.ERROR,
-                            `Display height must be between 1 and 1280 `,
+                            t("Display height must be between 1 and 1280 "),
                             getChildOfObject(general, "displayHeight")
                         )
                     );
@@ -1368,7 +1374,7 @@ export class Settings extends EezObject {
     build: Build;
 
     static classInfo: ClassInfo = {
-        label: () => "Settings",
+        label: () => t("Settings"),
         properties: [
             {
                 name: "general",
@@ -1447,7 +1453,7 @@ function getProjectClassInfo() {
         ];
 
         projectClassInfo = {
-            label: () => "Project",
+            label: () => t("Project"),
             properties: projectProperties,
             beforeLoadHook: (project: Project, projectJs: any) => {
                 if (

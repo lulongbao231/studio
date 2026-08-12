@@ -1,6 +1,7 @@
 import { observable, computed, makeObservable } from "mobx";
 
 import { humanize } from "eez-studio-shared/string";
+import { t } from "eez-studio-shared/i18n";
 import { validators } from "eez-studio-shared/validation";
 
 import { showGenericDialog } from "eez-studio-ui/generic-dialog";
@@ -162,7 +163,7 @@ export class ScpiParameter extends EezObject {
                     const projectStore = getProjectStore(object);
                     const result = await showGenericDialog({
                         dialogDefinition: {
-                            title: "Select one or more type",
+                            title: t("Select one or more type"),
                             size: "medium",
                             fields: [
                                 {
@@ -174,12 +175,12 @@ export class ScpiParameter extends EezObject {
                                 },
                                 {
                                     name: "numericType",
-                                    displayName: "",
+                                    displayName: t(""),
                                     type: "enum",
                                     enumItems: [
-                                        { id: "nr1", label: "Integer (NR1)" },
-                                        { id: "nr2", label: "Decimal (NR2)" },
-                                        { id: "nr3", label: "Real (NR3)" }
+                                        { id: "nr1", label: t("Integer (NR1)") },
+                                        { id: "nr2", label: t("Decimal (NR2)") },
+                                        { id: "nr3", label: t("Real (NR3)") }
                                     ],
                                     visible: (values: any) => {
                                         return !values.any && values.numeric;
@@ -306,7 +307,7 @@ export class ScpiParameter extends EezObject {
             },
             {
                 name: "isOptional",
-                displayName: "Is optional?",
+                displayName: t("Is optional?"),
                 type: PropertyType.Boolean,
                 checkboxStyleSwitch: true
             },
@@ -363,7 +364,9 @@ export class ScpiParameter extends EezObject {
                 messages.push(
                     new Message(
                         MessageType.ERROR,
-                        `Parameter name '${this.name}' is not unique`,
+                        t("Parameter name '{name}' is not unique", {
+                            name: this.name
+                        }),
                         getChildOfObject(this, "name")
                     )
                 );
@@ -379,7 +382,7 @@ export class ScpiParameter extends EezObject {
                     messages.push(
                         new Message(
                             MessageType.ERROR,
-                            `Parameter must be optional`,
+                            t("Parameter must be optional"),
                             getChildOfObject(this, "isOptional")
                         )
                     );
@@ -470,7 +473,7 @@ export class ScpiResponse extends EezObject {
                     const projectStore = getProjectStore(object);
                     const result = await showGenericDialog({
                         dialogDefinition: {
-                            title: "Select one or more type",
+                            title: t("Select one or more type"),
                             size: "medium",
                             fields: [
                                 {
@@ -482,12 +485,12 @@ export class ScpiResponse extends EezObject {
                                 },
                                 {
                                     name: "numericType",
-                                    displayName: "",
+                                    displayName: t(""),
                                     type: "enum",
                                     enumItems: [
-                                        { id: "nr1", label: "Integer (NR1)" },
-                                        { id: "nr2", label: "Decimal (NR2)" },
-                                        { id: "nr3", label: "Real (NR3)" }
+                                        { id: "nr1", label: t("Integer (NR1)") },
+                                        { id: "nr2", label: t("Decimal (NR2)") },
+                                        { id: "nr3", label: t("Real (NR3)") }
                                     ],
                                     visible: (values: any) => {
                                         return !values.any && values.numeric;
@@ -751,7 +754,7 @@ export class ScpiCommand extends EezObject {
             },
             {
                 name: "sendsBackDataBlock",
-                displayName: "This command sends back data block",
+                displayName: t("This command sends back data block"),
                 type: PropertyType.Boolean,
                 disabled: (command: ScpiCommand) => {
                     return command.isQuery;
@@ -762,7 +765,7 @@ export class ScpiCommand extends EezObject {
         newItem: async (parent: IEezObject) => {
             const result = await showGenericDialog({
                 dialogDefinition: {
-                    title: "New Command",
+                    title: t("New Command"),
                     fields: [
                         {
                             name: "name",
@@ -841,7 +844,7 @@ export class ScpiSubsystem extends EezObject {
         newItem: async (parent: IEezObject) => {
             const result = await showGenericDialog({
                 dialogDefinition: {
-                    title: "New Subsystem",
+                    title: t("New Subsystem"),
                     fields: [
                         {
                             name: "name",
@@ -896,7 +899,7 @@ export class Scpi extends EezObject {
     enums: ScpiEnum[];
 
     static classInfo: ClassInfo = {
-        label: () => "SCPI",
+        label: () => t("SCPI"),
         properties: [
             {
                 name: "subsystems",
@@ -931,10 +934,10 @@ registerClass("Scpi", Scpi);
 const feature: ProjectEditorFeature = {
     name: "eezstudio-project-feature-scpi",
     version: "0.1.0",
-    description: "This feature adds SCPI support for your project",
+    description: t("This feature adds SCPI support for your project"),
     author: "EEZ",
     authorLogo: "../eez-studio-ui/_images/eez_logo.png",
-    displayName: "SCPI",
+    displayName: t("SCPI"),
     mandatory: false,
     key: "scpi",
     type: PropertyType.Object,

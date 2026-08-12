@@ -12,6 +12,7 @@ import {
 } from "eez-studio-shared/util";
 
 import type { History } from "instrument/window/history/history";
+import { t } from "eez-studio-shared/i18n";
 
 export const Day = observer(
     class Day extends React.Component<{ history: History; day: Date }> {
@@ -25,7 +26,7 @@ export const Day = observer(
 
             let activityInfo;
             if (activityCount > 0) {
-                activityInfo = `${activityCount} log items`;
+                activityInfo = t("{count} log items", { count: activityCount });
                 if (activityCount < 25) {
                     activityLevel = 1;
                 } else if (activityCount < 75) {
@@ -36,7 +37,7 @@ export const Day = observer(
                     activityLevel = 4;
                 }
             } else {
-                activityInfo = "No activity";
+                activityInfo = t("No activity");
                 activityLevel = 0;
             }
 

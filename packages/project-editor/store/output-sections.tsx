@@ -3,6 +3,7 @@ import { makeObservable, observable, computed, action } from "mobx";
 
 import { guid } from "eez-studio-shared/guid";
 import { Icon } from "eez-studio-ui/icon";
+import { t } from "eez-studio-shared/i18n";
 
 import {
     IEezObject,
@@ -78,7 +79,9 @@ export function propertyNotSetMessage(
 ) {
     return new Message(
         type,
-        `"${humanizePropertyName(object, propertyName)}": not set.`,
+        t('"{property}": not set.', {
+            property: humanizePropertyName(object, propertyName)
+        }),
         getChildOfObject(object, propertyName)
     );
 }
@@ -90,7 +93,9 @@ export function propertyNotUniqueMessage(
 ) {
     return new Message(
         type,
-        `"${humanizePropertyName(object, propertyName)}": is not unique.`,
+        t('"{property}": is not unique.', {
+            property: humanizePropertyName(object, propertyName)
+        }),
         getChildOfObject(object, propertyName)
     );
 }
@@ -102,7 +107,9 @@ export function propertySetButNotUsedMessage(
 ) {
     return new Message(
         type,
-        `"${humanizePropertyName(object, propertyName)}": set but not used.`,
+        t('"{property}": set but not used.', {
+            property: humanizePropertyName(object, propertyName)
+        }),
         getChildOfObject(object, propertyName)
     );
 }
@@ -114,10 +121,10 @@ export function propertyNotFoundMessage(
 ) {
     return new Message(
         type,
-        `"${humanizePropertyName(object, propertyName)}": "${getProperty(
-            object,
-            propertyName
-        )}" not found.`,
+        t('"{property}": "{value}" not found.', {
+            property: humanizePropertyName(object, propertyName),
+            value: `${getProperty(object, propertyName)}`
+        }),
         getChildOfObject(object, propertyName)
     );
 }
@@ -129,7 +136,9 @@ export function propertyInvalidValueMessage(
 ) {
     return new Message(
         type,
-        `"${humanizePropertyName(object, propertyName)}": invalid value.`,
+        t('"{property}": invalid value.', {
+            property: humanizePropertyName(object, propertyName)
+        }),
         getChildOfObject(object, propertyName)
     );
 }
@@ -398,7 +407,7 @@ export class OutputSection {
         if (this.id == Section.CHECKS) {
             return (
                 <React.Fragment>
-                    <span className="title">{this.name}</span>
+                    <span className="title">{t(this.name)}</span>
 
                     {this.numErrors > 0 && (
                         <React.Fragment>
@@ -431,17 +440,17 @@ export class OutputSection {
             (this.projectStore.uiStateStore.searchPattern ||
                 this.messages.searchResults.length > 0)
         ) {
-            return `${this.name} (${this.messages.searchResults.length})`;
+            return `${t(this.name)} (${this.messages.searchResults.length})`;
         }
 
         if (
             this.id == Section.REFERENCES &&
             this.messages.searchResults.length > 0
         ) {
-            return `${this.name} (${this.messages.searchResults.length})`;
+            return `${t(this.name)} (${this.messages.searchResults.length})`;
         }
 
-        return this.name;
+        return t(this.name);
     }
 
     get numErrors() {

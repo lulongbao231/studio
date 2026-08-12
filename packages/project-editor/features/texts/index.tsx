@@ -15,6 +15,7 @@ import {
 } from "project-editor/core/object";
 import { showGenericDialog } from "eez-studio-ui/generic-dialog";
 import { validators } from "eez-studio-shared/validation";
+import { t } from "eez-studio-shared/i18n";
 import { ProjectEditor } from "project-editor/project-editor-interface";
 import { observer } from "mobx-react";
 import { ProjectContext } from "project-editor/project/context";
@@ -44,7 +45,7 @@ export class Language extends EezObject {
         properties: [
             {
                 name: "languageID",
-                displayName: "Language ID",
+                displayName: t("Language ID"),
                 type: PropertyType.String,
                 unique: true
             }
@@ -64,7 +65,7 @@ export class Language extends EezObject {
         newItem: async (parent: IEezObject) => {
             const result = await showGenericDialog({
                 dialogDefinition: {
-                    title: "New Language",
+                    title: t("New Language"),
                     fields: [
                         {
                             name: "name",
@@ -187,7 +188,9 @@ class Translation extends EezObject {
                 messages.push(
                     new Message(
                         MessageType.WARNING,
-                        `"${textResource.resourceID}" not translated`,
+                        t('"{resourceID}" not translated', {
+                            resourceID: textResource.resourceID
+                        }),
                         getChildOfObject(translation, "languageID")
                     )
                 );
@@ -309,11 +312,11 @@ export class TextResource extends EezObject {
         newItem: async (parent: IEezObject) => {
             const result = await showGenericDialog({
                 dialogDefinition: {
-                    title: "New Text Resource",
+                    title: t("New Text Resource"),
                     fields: [
                         {
                             name: "name",
-                            displayName: "Resource ID",
+                            displayName: t("Resource ID"),
                             type: "string",
                             validators: [
                                 validators.required,
@@ -434,10 +437,10 @@ export class Texts extends EezObject {
 const feature: ProjectEditorFeature = {
     name: "eezstudio-project-feature-texts",
     version: "0.1.0",
-    description: "Localized texts support for your project",
+    description: t("Localized texts support for your project"),
     author: "EEZ",
     authorLogo: "../eez-studio-ui/_images/eez_logo.png",
-    displayName: "Texts",
+    displayName: t("Texts"),
     mandatory: false,
     key: "texts",
     type: PropertyType.Object,

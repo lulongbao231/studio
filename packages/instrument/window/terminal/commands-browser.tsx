@@ -27,6 +27,7 @@ import {
     IQuerySyntax,
     makeItShort
 } from "instrument/commands-tree";
+import { t } from "eez-studio-shared/i18n";
 
 import type { InstrumentAppStore } from "instrument/window/app-store";
 import type { TerminalState } from "instrument/window/terminal/terminalState";
@@ -197,13 +198,14 @@ export const CommandSyntax = observer(
             }
 
             if (types.length === 1) {
-                return [`Expected ${types[0]} value`];
+                return [t("Expected {type} value", { type: types[0] })];
             }
 
             return [
-                `Expected ${types.slice(0, types.length - 1).join(", ")} or ${
-                    types[types.length - 1]
-                } value`
+                t("Expected {types} or {lastType} value", {
+                    types: types.slice(0, types.length - 1).join(", "),
+                    lastType: types[types.length - 1]
+                })
             ];
         }
 
@@ -234,7 +236,7 @@ export const CommandSyntax = observer(
                     if (!parameters[i].isOptional) {
                         this.addError(
                             parameters[i].name,
-                            VALIDATION_MESSAGE_REQUIRED
+                            VALIDATION_MESSAGE_REQUIRED()
                         );
                     } else {
                         for (let j = i + 1; j < parameters.length; ++j) {
@@ -247,7 +249,7 @@ export const CommandSyntax = observer(
                             if (value2) {
                                 this.addError(
                                     parameters[i].name,
-                                    VALIDATION_MESSAGE_REQUIRED
+                                    VALIDATION_MESSAGE_REQUIRED()
                                 );
                                 break;
                             }
@@ -362,7 +364,7 @@ export const CommandSyntax = observer(
                             className="btn btn-secondary btn-sm"
                             onClick={this.copy}
                         >
-                            Copy
+                            {t("Copy")}
                         </button>
                         {this.props.appStore.navigationStore
                             .mainNavigationSelectedItem ===
@@ -373,7 +375,7 @@ export const CommandSyntax = observer(
                                     className="btn btn-secondary btn-sm ml-2"
                                     onClick={this.copyToScript}
                                 >
-                                    Copy to script
+                                    {t("Copy to script")}
                                 </button>
                             )}
                     </div>
@@ -473,7 +475,9 @@ export const CommandsBrowser = observer(
                         <Header>
                             <Icon
                                 icon="material:link"
-                                title="Link the command input with the documentation browser"
+                                title={t(
+                                    "Link the command input with the documentation browser"
+                                )}
                                 onClick={action(() => {
                                     this.props.terminalState.linkCommandInputWithDocumentationBrowser =
                                         !this.props.terminalState

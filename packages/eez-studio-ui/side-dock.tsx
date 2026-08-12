@@ -12,6 +12,8 @@ import {
 } from "eez-studio-ui/header-with-body";
 import { FlexLayoutContainer } from "eez-studio-ui/FlexLayout";
 
+import { t } from "eez-studio-shared/i18n";
+
 ////////////////////////////////////////////////////////////////////////////////
 
 export class SideDockComponent2 extends React.Component<{
@@ -57,7 +59,7 @@ export class SideDockComponent2 extends React.Component<{
             <div
                 className={dockSwitcherClassName}
                 onClick={this.toggleIsOpen}
-                title={this.isOpen ? "Hide Side bar" : "Show Side bar"}
+                title={this.isOpen ? t("Hide Side bar") : t("Show Side bar")}
             />
         );
 
@@ -140,7 +142,7 @@ export class LayoutModels {
     static HISTORY_VIEW_SEARCH_RESULTS = {
         type: "tab",
         enableClose: false,
-        name: "Search results",
+        name: t("Search results"),
         id: "SearchResults",
         component: "SearchResults"
     };
@@ -148,7 +150,7 @@ export class LayoutModels {
     static HISTORY_VIEW_FILTERS = {
         type: "tab",
         enableClose: false,
-        name: "Filters",
+        name: t("Filters"),
         id: "Filters",
         component: "Filters"
     };
@@ -156,7 +158,7 @@ export class LayoutModels {
     static HISTORY_VIEW_CALENDAR = {
         type: "tab",
         enableClose: false,
-        name: "Calendar",
+        name: t("Calendar"),
         id: "Calendar",
         component: "Calendar"
     };
@@ -165,7 +167,7 @@ export class LayoutModels {
     static HISTORY_VIEW_SESSIONS = {
         type: "tab",
         enableClose: false,
-        name: "Sessions",
+        name: t("Sessions"),
         id: LayoutModels.HISTORY_VIEW_SESSIONS_TAB_ID,
         component: "Sessions"
     };
@@ -173,7 +175,7 @@ export class LayoutModels {
     static HISTORY_VIEW_SCRAPBOOK = {
         type: "tab",
         enableClose: false,
-        name: "Scrapbook",
+        name: t("Scrapbook"),
         id: "Scrapbook",
         component: "Scrapbook"
     };
@@ -181,7 +183,7 @@ export class LayoutModels {
     static CHARTS_VIEW_RULERS = {
         type: "tab",
         enableClose: false,
-        name: "Rulers",
+        name: t("Rulers"),
         id: "Rulers",
         component: "Rulers"
     };
@@ -189,7 +191,7 @@ export class LayoutModels {
     static CHARTS_VIEW_MEASUREMENTS = {
         type: "tab",
         enableClose: false,
-        name: "Measurements",
+        name: t("Measurements"),
         id: "Measurements",
         component: "Measurements"
     };
@@ -197,7 +199,7 @@ export class LayoutModels {
     static CHARTS_VIEW_OPTIONS = {
         type: "tab",
         enableClose: false,
-        name: "View Options",
+        name: t("View Options"),
         id: "ViewOptions",
         component: "ViewOptions"
     };
@@ -205,7 +207,7 @@ export class LayoutModels {
     static CHARTS_VIEW_BOOKMARKS = {
         type: "tab",
         enableClose: false,
-        name: "Bookmarks",
+        name: t("Bookmarks"),
         id: "Bookmarks",
         component: "Bookmarks"
     };
@@ -213,7 +215,7 @@ export class LayoutModels {
     static CHARTS_VIEW_HELP = {
         type: "tab",
         enableClose: false,
-        name: "Help",
+        name: t("Help"),
         id: "Help",
         component: "Help"
     };
@@ -541,7 +543,7 @@ export class LayoutModels {
                                     {
                                         type: "tab",
                                         enableClose: false,
-                                        name: "Items",
+                                        name: t("Items"),
                                         component: "items"
                                     }
                                 ]
@@ -557,7 +559,7 @@ export class LayoutModels {
                                     {
                                         type: "tab",
                                         enableClose: false,
-                                        name: "Selected Item Info",
+                                        name: t("Selected Item Info"),
                                         component: "item-details"
                                     }
                                 ]
@@ -588,8 +590,7 @@ export class LayoutModels {
                                     {
                                         type: "tab",
                                         enableClose: false,
-                                        name: "Tabs",
-                                        component: "main-content"
+                                        name: t("Tabs"),
                                     }
                                 ]
                             },
@@ -605,7 +606,7 @@ export class LayoutModels {
                                         type: "tab",
                                         icon: "svg:project-editor-scrapbook",
                                         enableClose: false,
-                                        name: "Scrapbook",
+                                        name: t("Scrapbook"),
                                         component: "scrapbook"
                                     }
                                 ]

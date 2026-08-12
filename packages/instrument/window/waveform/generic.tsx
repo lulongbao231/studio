@@ -66,6 +66,7 @@ import { WaveformAxisModel } from "instrument/window/waveform/WaveformAxisModel"
 import { WaveformDefinitionProperties } from "instrument/window/waveform/WaveformDefinitionProperties";
 import type { IAppStore } from "instrument/window/history/history";
 import { capitalize } from "eez-studio-shared/string";
+import { t } from "eez-studio-shared/i18n";
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -752,7 +753,7 @@ const WaveformConfigurationDialog = observer(
                     })
                 );
 
-                beginTransaction("Edit waveform configuration");
+                beginTransaction(t("Edit waveform configuration"));
                 logUpdate(
                     this.props.waveform.store,
                     {
@@ -802,7 +803,7 @@ export async function convertToCsv(waveform: Waveform) {
 
     let csv = "";
 
-    let progressToastId = notification.info("Exporting to CSV ...", {
+    let progressToastId = notification.info(t("Exporting to CSV ..."), {
         autoClose: false,
         closeButton: false,
         closeOnClick: false,

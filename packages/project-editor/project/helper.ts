@@ -18,6 +18,7 @@ import {
     propertyNotUniqueMessage
 } from "project-editor/store";
 import type { AssetType } from "project-editor/project/assets";
+import { t } from "eez-studio-shared/i18n";
 import { ProjectEditor } from "project-editor/project-editor-interface";
 import type { Flow } from "project-editor/flow/flow";
 import type { Page } from "project-editor/features/page/page";
@@ -60,9 +61,11 @@ export function checkObjectReference(
             messages.push(
                 new Message(
                     MessageType.ERROR,
-                    `Ambiguous, found in multiple projects: ${objects
-                        .map(object => getProject(object).projectName)
-                        .join(", ")}`,
+                    t("Ambiguous, found in multiple projects: {projects}", {
+                        projects: objects
+                            .map(object => getProject(object).projectName)
+                            .join(", ")
+                    }),
                     getChildOfObject(object, propertyName)
                 )
             );
@@ -109,7 +112,10 @@ export function checkAssetId(
             messages.push(
                 new Message(
                     MessageType.ERROR,
-                    `"Id": invalid value, should be between ${min} and ${max}.`,
+                    t('"Id": invalid value, should be between {min} and {max}.', {
+                        min,
+                        max
+                    }),
                     getChildOfObject(asset, "id")
                 )
             );

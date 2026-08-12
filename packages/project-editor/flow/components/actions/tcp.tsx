@@ -3,6 +3,7 @@ import { makeObservable, observable, runInAction } from "mobx";
 import * as net from "net";
 
 import * as notification from "eez-studio-ui/notification";
+import { t } from "eez-studio-shared/i18n";
 
 import {
     ActionComponent,
@@ -65,7 +66,7 @@ registerActionComponents("Network", [
 
             {
                 name: "ipAddress",
-                displayName: "IP Address",
+                displayName: t("IP Address"),
                 type: "expression",
                 valueType: "object:string"
             },
@@ -86,13 +87,13 @@ registerActionComponents("Network", [
         execute: async (context: IDashboardComponentContext) => {
             const ipAddress = context.evalProperty<string>("ipAddress");
             if (!ipAddress || typeof ipAddress != "string") {
-                context.throwError(`invalid IP Address property`);
+                context.throwError(t("invalid IP Address property"));
                 return;
             }
 
             const port = context.evalProperty<number>("port");
             if (port == undefined || typeof port != "number") {
-                context.throwError(`invalid Port property`);
+                context.throwError(t("invalid Port property"));
                 return;
             }
 
@@ -155,15 +156,15 @@ registerActionComponents("Network", [
             },
             {
                 name: "ipAddress",
-                displayName: "IP Address",
+                displayName: t("IP Address"),
                 type: "expression",
                 valueType: "object:string",
-                formText: "This property is optional",
+                formText: t("This property is optional"),
                 optional: () => true
             },
             {
                 name: "maxConnections",
-                displayName: "Max. Connections",
+                displayName: t("Max. Connections"),
                 type: "expression",
                 valueType: "object:number"
             }
@@ -181,13 +182,13 @@ registerActionComponents("Network", [
 
                 const port = context.evalProperty<number>("port");
                 if (port == undefined || typeof port != "number") {
-                    context.throwError(`invalid Port property`);
+                    context.throwError(t("invalid Port property"));
                     return;
                 }
 
                 const ipAddress = context.evalProperty<string>("ipAddress");
                 if (ipAddress != undefined && typeof ipAddress != "string") {
-                    context.throwError(`invalid IP Address property`);
+                    context.throwError(t("invalid IP Address property"));
                     return;
                 }
 
@@ -196,7 +197,7 @@ registerActionComponents("Network", [
                     maxConnections == undefined ||
                     typeof maxConnections != "number"
                 ) {
-                    context.throwError(`invalid Max. connections property`);
+                    context.throwError(t("invalid Max. connections property"));
                     return;
                 }
 
@@ -213,7 +214,7 @@ registerActionComponents("Network", [
                 context.propagateValueThroughSeqout();
             } else {
                 if (!executionState) {
-                    context.throwError("Never started");
+                    context.throwError(t("Never started"));
                     return;
                 }
 
@@ -226,12 +227,12 @@ registerActionComponents("Network", [
 ////////////////////////////////////////////////////////////////////////////////
 
 const TCP_SOCKET_EVENTS = [
-    { id: "ready", label: "Ready", paramExpressionType: "null" },
-    { id: "data", label: "Data", paramExpressionType: "string" },
-    { id: "close", label: "Close", paramExpressionType: "null" },
-    { id: "end", label: "End", paramExpressionType: "null" },
-    { id: "error", label: "Error", paramExpressionType: "string" },
-    { id: "timeout", label: "Timeout", paramExpressionType: "null" }
+    { id: "ready", label: t("Ready"), paramExpressionType: "null" },
+    { id: "data", label: t("Data"), paramExpressionType: "string" },
+    { id: "close", label: t("Close"), paramExpressionType: "null" },
+    { id: "end", label: t("End"), paramExpressionType: "null" },
+    { id: "error", label: t("Error"), paramExpressionType: "string" },
+    { id: "timeout", label: t("Timeout"), paramExpressionType: "null" }
 ];
 
 class EventHandler extends EezObject {
@@ -253,7 +254,7 @@ class EventHandler extends EezObject {
         properties: [
             {
                 name: "eventName",
-                displayName: "Event",
+                displayName: t("Event"),
                 type: PropertyType.Enum,
                 enumItems: (eventHandler: EventHandler) => {
                     const component =
@@ -279,8 +280,8 @@ class EventHandler extends EezObject {
                 name: "handlerType",
                 type: PropertyType.Enum,
                 enumItems: [
-                    { id: "flow", label: "Flow" },
-                    { id: "action", label: "Action" }
+                    { id: "flow", label: t("Flow") },
+                    { id: "action", label: t("Action") }
                 ],
                 enumDisallowUndefined: true,
                 disabled: eventHandler =>
@@ -372,17 +373,17 @@ class EventHandler extends EezObject {
             );
 
             if (eventEnumItems.length == 0) {
-                notification.info("All event handlers are already defined");
+                notification.info(t("All event handlers are already defined"));
                 return;
             }
 
             const result = await showGenericDialog({
                 dialogDefinition: {
-                    title: "New Event Handler",
+                    title: t("New Event Handler"),
                     fields: [
                         {
                             name: "eventName",
-                            displayName: "Event",
+                            displayName: t("Event"),
                             type: "enum",
                             enumItems: eventEnumItems
                         },
@@ -390,8 +391,8 @@ class EventHandler extends EezObject {
                             name: "handlerType",
                             type: "enum",
                             enumItems: [
-                                { id: "flow", label: "Flow" },
-                                { id: "action", label: "Action" }
+                                { id: "flow", label: t("Flow") },
+                                { id: "action", label: t("Action") }
                             ],
                             visible: () =>
                                 project.projectTypeTraits.hasFlowSupport
@@ -486,7 +487,7 @@ export class TCPEventActionComponent extends ActionComponent {
         execute: (context: IDashboardComponentContext) => {
             const tcpSocketObject = context.evalProperty("socket");
             if (!tcpSocketObject) {
-                context.throwError(`invalid Socket property`);
+                context.throwError(t("invalid Socket property"));
                 return;
             }
 
@@ -521,12 +522,12 @@ export class TCPEventActionComponent extends ActionComponent {
                         }
                     }
                 } else {
-                    context.throwError("tcp socket is not connected");
+                    context.throwError(t("tcp socket is not connected"));
                 }
 
                 context.propagateValueThroughSeqout();
             } else {
-                context.throwError("tcp socket not found");
+                context.throwError(t("tcp socket not found"));
             }
         }
     });
@@ -634,13 +635,13 @@ registerActionComponents("Network", [
         execute: (context: IDashboardComponentContext) => {
             const tcpSocketObject = context.evalProperty("socket");
             if (!tcpSocketObject) {
-                context.throwError(`invalid Socket property`);
+                context.throwError(t("invalid Socket property"));
                 return;
             }
 
             const data = context.evalProperty("data");
             if (data == undefined || typeof data != "string") {
-                context.throwError(`invalid Data property`);
+                context.throwError(t("invalid Data property"));
                 return;
             }
 
@@ -650,7 +651,7 @@ registerActionComponents("Network", [
                 tcpSocket.write(data);
                 context.propagateValueThroughSeqout();
             } else {
-                context.throwError("TCP socket not found");
+                context.throwError(t("TCP socket not found"));
             }
         }
     },
@@ -678,7 +679,7 @@ registerActionComponents("Network", [
         execute: (context: IDashboardComponentContext) => {
             const tcpSocket = context.evalProperty("socket");
             if (!tcpSocket) {
-                context.throwError(`invalid Socket property`);
+                context.throwError(t("invalid Socket property"));
                 return;
             }
 
@@ -691,7 +692,7 @@ registerActionComponents("Network", [
                     tcpSocket.disconnect();
                     context.propagateValueThroughSeqout();
                 } else {
-                    context.throwError("TCP socket not found");
+                    context.throwError(t("TCP socket not found"));
                 }
 
                 context.endAsyncExecution();
@@ -867,7 +868,10 @@ export class TCPSocket {
 
     get status() {
         return {
-            label: `IP address: ${this.constructorParams.ipAddress}, Port: ${this.constructorParams.port}`,
+            label: t("IP address: {ip}, Port: {port}", {
+                ip: this.constructorParams.ipAddress,
+                port: this.constructorParams.port
+            }),
             image: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 68.792 34.396"><g transform="translate(-21.422 -163.072)" fill="none"><circle stroke="black" cx="43.765" cy="180.27" r="7.955"/><circle stroke="black" cx="67.686" cy="180.27" r="7.955"/></g><path stroke="black" transform="translate(-21.422 -163.072)" d="M31.674 171.406v17.728M55.726 171.406v17.728M79.96 171.406v17.728"/></svg>`,
             color: this.error ? "red" : this.isConnected ? "green" : "gray",
             error: this.error

@@ -9,6 +9,7 @@ import {
 } from "home/extensions-manager/extensions-manager";
 import { extensions } from "eez-studio-shared/extensions/extensions";
 import { runInAction } from "mobx";
+import { t } from "eez-studio-shared/i18n";
 
 const SelectProjectExtensionDialog = observer(
     class SelectProjectExtensionDialog extends React.Component<{
@@ -40,7 +41,7 @@ const SelectProjectExtensionDialog = observer(
             return (
                 <Dialog
                     modal={false}
-                    okButtonText="Select"
+                    okButtonText={t("Select")}
                     okEnabled={this.onOkEnabled}
                     onOk={this.onOk}
                     onCancel={this.props.onCancel}
@@ -95,7 +96,7 @@ export async function showSelectProjectExtensionDialog(
             {
                 jsPanel: {
                     id: "select-project-extension-dialog",
-                    title: "Select Project Editor Extension",
+                    title: t("Select Project Editor Extension"),
                     width: 1024,
                     height: 600,
                     onclosed: onDispose

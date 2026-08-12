@@ -3,6 +3,7 @@ import {
     IActivityLogController,
     IExtensionHost
 } from "eez-studio-shared/extensions/extension";
+import { t } from "eez-studio-shared/i18n";
 
 // late binding
 import type * as SectionModule from "notebook/section";
@@ -19,7 +20,7 @@ const notebookExtension: IExtensionDefinition = {
     homeSections: [
         {
             id: "notebooks",
-            title: "Notebooks",
+            title: t("Notebooks"),
             icon: "material:library_books",
             category: "instrument" as const,
             renderContent: () => {

@@ -7,6 +7,7 @@ import { settingsController } from "home/settings";
 import { BoundingRectBuilder } from "eez-studio-shared/geometry";
 import type { ActionComponent } from "project-editor/flow/component";
 import { getProjectStore } from "project-editor/store";
+import { t } from "eez-studio-shared/i18n";
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -120,9 +121,9 @@ export const ComponentGroupRenderer = observer(
             >
                 <div
                     style={labelTextStyle}
-                    title={group.description || "Group"}
+                    title={group.description || t("Group")}
                 >
-                    {group.description || "Group"}
+                    {group.description || t("Group")}
                 </div>
             </div>
         );

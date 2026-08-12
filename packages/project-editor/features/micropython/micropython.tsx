@@ -1,5 +1,6 @@
 import path from "path";
 import React from "react";
+import { t } from "eez-studio-shared/i18n";
 import { observable, makeObservable } from "mobx";
 
 import {
@@ -76,13 +77,13 @@ export class MicroPython extends EezObject {
 
         const parts = await partsPromise;
         if (!parts) {
-            notification.error("Build error...", {
+            notification.error(t("Build error..."), {
                 autoClose: false
             });
             return;
         }
 
-        const toastId = notification.info("Uploading ...", {
+        const toastId = notification.info(t("Uploading ..."), {
             autoClose: false
         });
 
@@ -99,7 +100,7 @@ export class MicroPython extends EezObject {
         if (!instrument.isConnected) {
             notification.update(toastId, {
                 type: notification.ERROR,
-                render: `Instrument not connected`,
+                render: t("Instrument not connected"),
                 autoClose: 1000
             });
             return;
@@ -184,7 +185,7 @@ export class MicroPython extends EezObject {
 
             notification.update(toastId, {
                 type: notification.SUCCESS,
-                render: `Script started`,
+                render: t("Script started"),
                 autoClose: 1000
             });
 
@@ -210,10 +211,10 @@ registerClass("MicroPython", MicroPython);
 const feature: ProjectEditorFeature = {
     name: "eezstudio-project-feature-micropython",
     version: "0.1.0",
-    description: "MicroPython",
+    description: t("MicroPython"),
     author: "EEZ",
     authorLogo: "../eez-studio-ui/_images/eez_logo.png",
-    displayName: "MicroPython",
+    displayName: t("MicroPython"),
     mandatory: false,
     key: "micropython",
     type: PropertyType.Object,

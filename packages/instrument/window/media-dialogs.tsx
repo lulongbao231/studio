@@ -13,6 +13,7 @@ import {
 import { Toolbar } from "eez-studio-ui/toolbar";
 import { formatDurationWithParam } from "eez-studio-shared/util";
 import { settingsController } from "home/settings";
+import { t } from "eez-studio-shared/i18n";
 import classNames from "classnames";
 
 interface IMedia {
@@ -265,7 +266,9 @@ const MediaDialog = observer(
 
             let onError = (err: any) => {
                 runInAction(() => {
-                    this.error = "The following error occured: " + err;
+                    this.error = t("The following error occurred: {error}", {
+                        error: err
+                    });
                 });
             };
 
@@ -414,11 +417,13 @@ const MediaDialog = observer(
             });
             return (
                 <Dialog
-                    title={this.props.video ? "Record Video" : "Record Audio"}
+                    title={
+                        this.props.video ? t("Record Video") : t("Record Audio")
+                    }
                     modal={true}
                     onOk={this.handleSubmit}
                     okEnabled={() => this.blob != undefined}
-                    okButtonText="Add"
+                    okButtonText={t("Add")}
                 >
                     <div>
                         <select
@@ -464,38 +469,38 @@ const MediaDialog = observer(
                             <Toolbar style={{ justifyContent: "center" }}>
                                 {!this.recording && (
                                     <ButtonAction
-                                        text="Start"
+                                        text={t("Start")}
                                         icon="material:radio_button_checked"
                                         iconStyle={{ color: "red" }}
-                                        title="Start recording"
+                                        title={t("Start recording")}
                                         className={btnClassName}
                                         onClick={this.startRecording}
                                     />
                                 )}
                                 {this.recording && (
                                     <ButtonAction
-                                        text="Stop"
+                                        text={t("Stop")}
                                         icon="material:stop"
-                                        title="Stop recording"
+                                        title={t("Stop recording")}
                                         className={btnClassName}
                                         onClick={this.stopRecording}
                                     />
                                 )}
                                 {this.recording && !this.paused && (
                                     <ButtonAction
-                                        text="Pause"
+                                        text={t("Pause")}
                                         icon="material:pause"
-                                        title="Pause recording"
+                                        title={t("Pause recording")}
                                         className={btnClassName}
                                         onClick={this.pauseRecording}
                                     />
                                 )}
                                 {this.recording && this.paused && (
                                     <ButtonAction
-                                        text="Resume"
+                                        text={t("Resume")}
                                         icon="material:play_circle_filled"
                                         iconStyle={{ color: "red" }}
-                                        title="Resume recording"
+                                        title={t("Resume recording")}
                                         className={btnClassName}
                                         onClick={this.resumeRecording}
                                     />

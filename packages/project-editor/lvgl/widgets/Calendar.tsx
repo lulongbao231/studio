@@ -1,3 +1,4 @@
+import { t } from "eez-studio-shared/i18n";
 import React from "react";
 import { observable, makeObservable } from "mobx";
 
@@ -41,19 +42,19 @@ export class LVGLCalendarWidget extends LVGLWidget {
         properties: [
             {
                 name: "todayYear",
-                displayName: "Year",
+                displayName: t("Year"),
                 type: PropertyType.Number,
                 propertyGridGroup: specificGroup
             },
             {
                 name: "todayMonth",
-                displayName: "Month",
+                displayName: t("Month"),
                 type: PropertyType.Number,
                 propertyGridGroup: specificGroup
             },
             {
                 name: "todayDay",
-                displayName: "Day",
+                displayName: t("Day"),
                 type: PropertyType.Number,
                 propertyGridGroup: specificGroup
             },
@@ -127,7 +128,7 @@ export class LVGLCalendarWidget extends LVGLWidget {
                 messages.push(
                     new Message(
                         MessageType.ERROR,
-                        `Invalid year`,
+                        t("Invalid year"),
                         getChildOfObject(widget, "todayYear")
                     )
                 );
@@ -140,7 +141,7 @@ export class LVGLCalendarWidget extends LVGLWidget {
                     messages.push(
                         new Message(
                             MessageType.ERROR,
-                            `Invalid month`,
+                            t("Invalid month"),
                             getChildOfObject(widget, "todayMonth")
                         )
                     );
@@ -155,7 +156,7 @@ export class LVGLCalendarWidget extends LVGLWidget {
                         messages.push(
                             new Message(
                                 MessageType.ERROR,
-                                `Invalid day`,
+                                t("Invalid day"),
                                 getChildOfObject(widget, "todayDay")
                             )
                         );

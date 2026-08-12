@@ -25,6 +25,7 @@ import {
 import { ProjectEditor } from "project-editor/project-editor-interface";
 import { templateLiteralToExpression } from "project-editor/flow/expression/helper";
 import type { Project } from "project-editor/project/project";
+import { t } from "eez-studio-shared/i18n";
 
 export function checkExpression(component: Component, expression: string) {
     if (typeof expression == "string") {
@@ -224,7 +225,7 @@ function checkExpressionNode(component: Component, rootNode: ExpressionNode) {
                 node.callee.object.type != "Identifier" ||
                 node.callee.property.type != "Identifier"
             ) {
-                throw "Invalid call expression";
+                throw t("Invalid call expression");
             }
 
             let functionName = `${node.callee.object.name}.${node.callee.property.name}`;
@@ -265,7 +266,7 @@ function checkExpressionNode(component: Component, rootNode: ExpressionNode) {
 
                     for (const property of node.properties) {
                         if (property.key.type != "Identifier") {
-                            return "field name is not a literal";
+                            return t("field name is not a literal");
                         }
 
                         const field = structure.fieldsMap.get(

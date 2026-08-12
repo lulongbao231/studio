@@ -5,6 +5,7 @@ import { observer } from "mobx-react";
 import { BB3Instrument } from "instrument/bb3/objects/BB3Instrument";
 import { Section } from "instrument/bb3/components/Section";
 import { ErrorBoundary } from "instrument/window/history/list-component";
+import { t } from "eez-studio-shared/i18n";
 
 export const LatestHistoryItemSection = observer(
     class LatestHistoryItemSection extends React.Component<{
@@ -38,7 +39,7 @@ export const LatestHistoryItemSection = observer(
 
             return (
                 <Section
-                    title="Latest history event"
+                    title={t("Latest history event")}
                     body={
                         <div className="EezStudio_LatestHistoryItemSection">
                             {this.listItemElement}

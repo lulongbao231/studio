@@ -1,4 +1,5 @@
 import React from "react";
+import { t } from "eez-studio-shared/i18n";
 import { observer } from "mobx-react";
 
 import {
@@ -31,7 +32,6 @@ import {
     LITERAL_STRING_ICON,
     TRANSLATED_LITERAL_ICON
 } from "project-editor/ui-components/icons";
-import { capitalize } from "eez-studio-shared/string";
 
 export type LVGLPropertyType = "literal" | "translated-literal" | "expression";
 
@@ -111,7 +111,7 @@ const LVGLProperty = observer(
                                   propertyInfo,
                                   {
                                       assignableExpression: false,
-                                      title: "Expression Builder"
+                                      title: t("Expression Builder")
                                   },
                                   params
                               )
@@ -220,16 +220,18 @@ export function makeLvglExpressionProperty(
                         }
 
                         return propertyType && propertyType == PropertyType.ThemedColor || props.colorEditorForLiteral
-                            ? "Literal - Color"
+                            ? t("Literal - Color")
                             : propertyType && propertyType == PropertyType.Enum
-                            ? "Literal - Enumeration"
+                            ? t("Literal - Enumeration")
                             : expressionType == "boolean"
-                              ? "Literal - Boolean"
-                              : expressionType == "integer" ||
-                                  expressionType == "float" ||
-                                  expressionType == "double"
-                                ? `Literal - ${capitalize(expressionType)}`
-                                : "Literal - String";
+                              ? t("Literal - Boolean")
+                              : expressionType == "integer"
+                                ? t("Literal - Integer")
+                                : expressionType == "float"
+                                  ? t("Literal - Float")
+                                  : expressionType == "double"
+                                    ? t("Literal - Double")
+                                    : t("Literal - String");
                     }
 
 
@@ -257,10 +259,10 @@ export function makeLvglExpressionProperty(
                             .hasFlowSupport
                     ) {
                         if (id == "expression") {
-                            label = "Variable";
+                            label = t("Variable");
                             icon = EXPRESSION_ICON;
                         } else if (id == "translated-literal") {
-                            label = "Translated Literal";
+                            label = t("Translated Literal");
                             icon = TRANSLATED_LITERAL_ICON;
                         } else {
                             label = getLiteralLabel();
@@ -269,14 +271,14 @@ export function makeLvglExpressionProperty(
                     } else {
                         if (id == "expression") {
                             if (flowProperty == "assignable") {
-                                label = "Assignable";
+                                label = t("Assignable");
                                 icon = ASSIGNABLE_ICON;
                             } else {
-                                label = "Expression";
+                                label = t("Expression");
                                 icon = EXPRESSION_ICON;
                             }
                         } else if (id == "translated-literal") {
-                            label = "Translated Literal";
+                            label = t("Translated Literal");
                             icon = TRANSLATED_LITERAL_ICON;
                         } else {
                             label = getLiteralLabel();

@@ -1,5 +1,6 @@
 import React from "react";
 import { Readable, Writable } from "stream";
+import { t } from "eez-studio-shared/i18n";
 
 import { registerActionComponents } from "project-editor/flow/component";
 
@@ -114,7 +115,7 @@ registerActionComponents("Dashboard Specific", [
                 executionState =
                     context.getComponentExecutionState<RegexpExecutionState>();
                 if (!executionState) {
-                    context.throwError("Never started");
+                    context.throwError(t("Never started"));
                     return;
                 }
             }
@@ -122,7 +123,7 @@ registerActionComponents("Dashboard Specific", [
             if (!executionState) {
                 const patternValue: any = context.evalProperty("pattern");
                 if (typeof patternValue != "string") {
-                    context.throwError("pattern is not a string");
+                    context.throwError(t("pattern is not a string"));
                     return;
                 }
 
@@ -141,7 +142,7 @@ registerActionComponents("Dashboard Specific", [
                     );
                 } catch (err) {
                     context.throwError(
-                        "Invalid regular expression" + err.toString()
+                        t("Invalid regular expression") + err.toString()
                     );
                     return;
                 }
@@ -165,7 +166,7 @@ registerActionComponents("Dashboard Specific", [
                     );
                 } else {
                     context.throwError(
-                        "text is not a string or readable stream"
+                        t("text is not a string or readable stream")
                     );
                 }
             } else if (context.getInputValue("next") !== undefined) {

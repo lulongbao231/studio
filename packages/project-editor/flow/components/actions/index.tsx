@@ -130,6 +130,7 @@ import {
     PRINT_TO_PDF_ICON
 } from "project-editor/ui-components/icons";
 import { humanize } from "eez-studio-shared/string";
+import { t } from "eez-studio-shared/i18n";
 import { LeftArrow, RightArrow } from "project-editor/ui-components/icons";
 import type { IDashboardComponentContext } from "eez-studio-types";
 import {
@@ -217,7 +218,7 @@ export class InputActionComponent extends ActionComponent {
             },
             {
                 name: "inputType",
-                displayName: "Type",
+                displayName: t("Type"),
                 type: PropertyType.String,
                 propertyGridColumnComponent: VariableTypeUI,
                 propertyGridGroup: specificGroup
@@ -310,7 +311,7 @@ export class OutputActionComponent extends ActionComponent {
             },
             {
                 name: "outputType",
-                displayName: "Type",
+                displayName: t("Type"),
                 type: PropertyType.String,
                 propertyGridColumnComponent: VariableTypeUI,
                 propertyGridGroup: specificGroup
@@ -394,8 +395,8 @@ export class EvalExprActionComponent extends ActionComponent {
         enabledInComponentPalette: (projectType: ProjectType, projectStore?: ProjectStore) =>
             projectType !== ProjectType.EEZ_GUI_LITE &&
             (!projectStore || !projectStore.projectTypeTraits.isEezFlowLite),
-        label: () => "Evaluate",
-        componentPaletteLabel: "Evaluate",
+        label: () => t("Evaluate"),
+        componentPaletteLabel: t("Evaluate"),
         properties: [
             makeExpressionProperty(
                 {
@@ -468,13 +469,13 @@ export class EvalExprActionComponent extends ActionComponent {
 export class WatchVariableActionComponent extends ActionComponent {
     static classInfo = makeDerivedClassInfo(ActionComponent.classInfo, {
         flowComponentId: COMPONENT_TYPE_WATCH_VARIABLE_ACTION,
-        label: () => "Watch",
-        componentPaletteLabel: "Watch",
+        label: () => t("Watch"),
+        componentPaletteLabel: t("Watch"),
         properties: [
             makeExpressionProperty(
                 {
                     name: "variable",
-                    displayName: "Expression",
+                    displayName: t("Expression"),
                     type: PropertyType.MultilineText,
                     propertyGridGroup: specificGroup
                 },
@@ -563,9 +564,9 @@ export class WatchVariableActionComponent extends ActionComponent {
 
 export class EvalJSExprActionComponent extends ActionComponent {
     static classInfo = makeDerivedClassInfo(ActionComponent.classInfo, {
-        label: () => "Eval JS",
-        componentPaletteLabel: "Eval JS",
-        componentPaletteGroupName: "Dashboard Specific",
+        label: () => t("Eval JS"),
+        componentPaletteLabel: t("Eval JS"),
+        componentPaletteGroupName: t("Dashboard Specific"),
         properties: [
             {
                 name: "expression",
@@ -771,7 +772,7 @@ class SetVariableEntry extends EezObject {
                 messages.push(
                     new Message(
                         MessageType.ERROR,
-                        `Invalid assignable expression: ${err}`,
+                        t("Invalid assignable expression: {err}", { err }),
                         getChildOfObject(setVariableItem, "variable")
                     )
                 );
@@ -786,7 +787,7 @@ class SetVariableEntry extends EezObject {
                 messages.push(
                     new Message(
                         MessageType.ERROR,
-                        `Invalid expression: ${err}`,
+                        t("Invalid expression: {err}", { err }),
                         getChildOfObject(setVariableItem, "value")
                     )
                 );
@@ -821,7 +822,7 @@ export class SetVariableActionComponent extends ActionComponent {
         properties: [
             {
                 name: "entries",
-                displayName: "Set variable entries",
+                displayName: t("Set variable entries"),
                 type: PropertyType.Array,
                 typeClass: SetVariableEntry,
                 propertyGridGroup: specificGroup,
@@ -940,21 +941,21 @@ class SwitchTest extends EezObject {
             makeExpressionProperty(
                 {
                     name: "condition",
-                    displayName: "When",
+                    displayName: t("When"),
                     type: PropertyType.MultilineText
                 },
                 "boolean"
             ),
             {
                 name: "outputName",
-                displayName: "Then output",
+                displayName: t("Then output"),
                 type: PropertyType.String,
                 unique: componentOutputUnique
             },
             makeExpressionProperty(
                 {
                     name: "outputValue",
-                    displayName: "With value",
+                    displayName: t("With value"),
                     type: PropertyType.MultilineText
                 },
                 "any"
@@ -978,7 +979,7 @@ class SwitchTest extends EezObject {
                 messages.push(
                     new Message(
                         MessageType.ERROR,
-                        `Invalid condition expression: ${err}`,
+                        t("Invalid condition expression: {err}", { err }),
                         getChildOfObject(switchTest, "condition")
                     )
                 );
@@ -994,7 +995,7 @@ class SwitchTest extends EezObject {
                     messages.push(
                         new Message(
                             MessageType.ERROR,
-                            `Invalid output value expression: ${err}`,
+                            t("Invalid output value expression: {err}", { err }),
                             getChildOfObject(switchTest, "outputValue")
                         )
                     );
@@ -1051,7 +1052,7 @@ export class SwitchActionComponent extends ActionComponent {
         properties: [
             {
                 name: "tests",
-                displayName: "Cases",
+                displayName: t("Cases"),
                 type: PropertyType.Array,
                 typeClass: SwitchTest,
                 propertyGridGroup: specificGroup,
@@ -1424,14 +1425,14 @@ export class IsTrueActionComponent extends ActionComponent {
             },
             {
                 name: "True",
-                displayName: "Yes",
+                displayName: t("Yes"),
                 type: "boolean",
                 isSequenceOutput: true,
                 isOptionalOutput: outputIsOptionalIfAtLeastOneOutputExists
             },
             {
                 name: "False",
-                displayName: "No",
+                displayName: t("No"),
                 type: "boolean",
                 isSequenceOutput: true,
                 isOptionalOutput: outputIsOptionalIfAtLeastOneOutputExists
@@ -1825,7 +1826,7 @@ export class SortArrayActionComponent extends ActionComponent {
 
 export class ReadSettingActionComponent extends ActionComponent {
     static classInfo = makeDerivedClassInfo(ActionComponent.classInfo, {
-        componentPaletteGroupName: "Dashboard Specific",
+        componentPaletteGroupName: t("Dashboard Specific"),
         properties: [
             makeExpressionProperty(
                 {
@@ -1850,7 +1851,7 @@ export class ReadSettingActionComponent extends ActionComponent {
                 typeof key != "string" ||
                 key.trim() == ""
             ) {
-                context.throwError(`Invalid key property`);
+                context.throwError(t("Invalid key property"));
                 return;
             }
 
@@ -1925,7 +1926,7 @@ export class ReadSettingActionComponent extends ActionComponent {
 
 export class WriteSettingsActionComponent extends ActionComponent {
     static classInfo = makeDerivedClassInfo(ActionComponent.classInfo, {
-        componentPaletteGroupName: "Dashboard Specific",
+        componentPaletteGroupName: t("Dashboard Specific"),
         componentPaletteLabel: "WriteSetting",
         properties: [
             makeExpressionProperty(
@@ -1959,7 +1960,7 @@ export class WriteSettingsActionComponent extends ActionComponent {
                 typeof key != "string" ||
                 key.trim() == ""
             ) {
-                context.throwError(`Invalid key property`);
+                context.throwError(t("Invalid key property"));
                 return;
             }
 
@@ -2101,7 +2102,7 @@ export class PlayAudioActionComponent extends ActionComponent {
         execute: (context: IDashboardComponentContext) => {
             const audioFile = context.evalProperty<string>("audioFile");
             if (audioFile == undefined) {
-                context.throwError(`Invalid Audio file property`);
+                context.throwError(t("Invalid Audio file property"));
                 return;
             }
 
@@ -2262,7 +2263,7 @@ export class CallActionActionComponent extends ActionComponent {
                     messages.push(
                         new Message(
                             MessageType.ERROR,
-                            `Action "${component.action}" not found`,
+                            t('Action "{action}" not found', { action: component.action }),
                             getChildOfObject(component, "action")
                         )
                     );
@@ -2498,19 +2499,19 @@ export class DynamicCallActionActionComponent extends ActionComponent {
             </svg>
         ),
         componentHeaderColor: "#C7E9C0",
-        componentPaletteGroupName: "Dashboard Specific",
+        componentPaletteGroupName: t("Dashboard Specific"),
         execute: (context: IDashboardComponentContext) => {
             const actionName = context.evalProperty<string>("action");
 
             if (actionName == undefined || typeof actionName != "string") {
-                context.throwError(`Invalid action name property`);
+                context.throwError(t("Invalid action name property"));
                 return;
             }
 
             const flowIndex =
                 context.WasmFlowRuntime.assetsMap.actionFlowIndexes[actionName];
             if (flowIndex == undefined) {
-                context.throwError(`Invalid action name: ${actionName}`);
+                context.throwError(t("Invalid action name: {actionName}", { actionName }));
                 return;
             }
 
@@ -2892,7 +2893,7 @@ export class LoopActionComponent extends ActionComponent {
                 messages.push(
                     new Message(
                         MessageType.ERROR,
-                        `Output "${object.variableOutput.name}" type must be integer, float or double`,
+                        t('Output "{name}" type must be integer, float or double', { name: object.variableOutput.name }),
                         getChildOfObject(object.variableOutput, "name")
                     )
                 );
@@ -3006,7 +3007,7 @@ export class OnEventActionComponent extends ActionComponent {
 
     static classInfo = makeDerivedClassInfo(ActionComponent.classInfo, {
         flowComponentId: COMPONENT_TYPE_ON_EVENT_ACTION,
-        componentPaletteGroupName: "GUI",
+        componentPaletteGroupName: t("GUI"),
         enabledInComponentPalette: (projectType: ProjectType) =>
             projectType !== ProjectType.LVGL && 
             projectType !== ProjectType.EEZ_GUI_LITE,
@@ -3021,14 +3022,14 @@ export class OnEventActionComponent extends ActionComponent {
                             .isDashboard
                     ) {
                         return [
-                            { id: "page_open", label: "Page open" },
-                            { id: "page_close", label: "Page close" },
-                            { id: "keydown", label: "Keydown" }
+                            { id: "page_open", label: t("Page open") },
+                            { id: "page_close", label: t("Page close") },
+                            { id: "keydown", label: t("Keydown") }
                         ];
                     }
                     return [
-                        { id: "page_open", label: "Page open" },
-                        { id: "page_close", label: "Page close" }
+                        { id: "page_open", label: t("Page open") },
+                        { id: "page_close", label: t("Page close") }
                     ];
                 },
                 propertyGridGroup: specificGroup
@@ -3099,7 +3100,7 @@ export class OnEventActionComponent extends ActionComponent {
 export class ShowPageActionComponent extends ActionComponent {
     static classInfo = makeDerivedClassInfo(ActionComponent.classInfo, {
         flowComponentId: COMPONENT_TYPE_SHOW_PAGE_ACTION,
-        componentPaletteGroupName: "GUI",
+        componentPaletteGroupName: t("GUI"),
         enabledInComponentPalette: (projectType: ProjectType) =>
             projectType !== ProjectType.LVGL,
         properties: [
@@ -3189,7 +3190,7 @@ const MESSAGE_BOX_TYPE_QUESTION = 3;
 export class ShowMessageBoxActionComponent extends ActionComponent {
     static classInfo = makeDerivedClassInfo(ActionComponent.classInfo, {
         flowComponentId: COMPONENT_TYPE_SHOW_MESSAGE_BOX_ACTION,
-        componentPaletteGroupName: "GUI",
+        componentPaletteGroupName: t("GUI"),
         enabledInComponentPalette: (projectType: ProjectType) =>
             projectType !== ProjectType.LVGL &&
             projectType !== ProjectType.DASHBOARD && 
@@ -3199,9 +3200,9 @@ export class ShowMessageBoxActionComponent extends ActionComponent {
                 name: "messageType",
                 type: PropertyType.Enum,
                 enumItems: [
-                    { id: MESSAGE_BOX_TYPE_INFO, label: "Info" },
-                    { id: MESSAGE_BOX_TYPE_ERROR, label: "Error" },
-                    { id: MESSAGE_BOX_TYPE_QUESTION, label: "Question" }
+                    { id: MESSAGE_BOX_TYPE_INFO, label: t("Info") },
+                    { id: MESSAGE_BOX_TYPE_ERROR, label: t("Error") },
+                    { id: MESSAGE_BOX_TYPE_QUESTION, label: t("Question") }
                 ],
                 propertyGridGroup: specificGroup
             },
@@ -3309,7 +3310,7 @@ export class ShowMessageBoxActionComponent extends ActionComponent {
 export class ShowKeyboardActionComponent extends ActionComponent {
     static classInfo = makeDerivedClassInfo(ActionComponent.classInfo, {
         flowComponentId: COMPONENT_TYPE_SHOW_KEYBOARD_ACTION,
-        componentPaletteGroupName: "GUI",
+        componentPaletteGroupName: t("GUI"),
         enabledInComponentPalette: (projectType: ProjectType) =>
             projectType !== ProjectType.LVGL &&
             projectType !== ProjectType.DASHBOARD && 
@@ -3439,7 +3440,7 @@ export class ShowKeyboardActionComponent extends ActionComponent {
 export class ShowKeypadActionComponent extends ActionComponent {
     static classInfo = makeDerivedClassInfo(ActionComponent.classInfo, {
         flowComponentId: COMPONENT_TYPE_SHOW_KEYPAD_ACTION,
-        componentPaletteGroupName: "GUI",
+        componentPaletteGroupName: t("GUI"),
         enabledInComponentPalette: (projectType: ProjectType) =>
             projectType !== ProjectType.LVGL &&
             projectType !== ProjectType.DASHBOARD && 
@@ -3569,7 +3570,7 @@ export class ShowKeypadActionComponent extends ActionComponent {
 export class SelectLanguageActionComponent extends ActionComponent {
     static classInfo = makeDerivedClassInfo(ActionComponent.classInfo, {
         flowComponentId: COMPONENT_TYPE_SELECT_LANGUAGE_ACTION,
-        componentPaletteGroupName: "GUI",
+        componentPaletteGroupName: t("GUI"),
         enabledInComponentPalette: (projectType: ProjectType) =>
             projectType !== ProjectType.LVGL && 
             projectType !== ProjectType.EEZ_GUI_LITE,
@@ -3627,7 +3628,7 @@ export class SelectLanguageActionComponent extends ActionComponent {
 export class SetPageDirectionActionComponent extends ActionComponent {
     static classInfo = makeDerivedClassInfo(ActionComponent.classInfo, {
         flowComponentId: COMPONENT_TYPE_SET_PAGE_DIRECTION_ACTION,
-        componentPaletteGroupName: "GUI",
+        componentPaletteGroupName: t("GUI"),
         enabledInComponentPalette: (projectType: ProjectType) =>
             projectType !== ProjectType.LVGL && 
             projectType !== ProjectType.EEZ_GUI_LITE,
@@ -3705,7 +3706,7 @@ export class SetPageDirectionActionComponent extends ActionComponent {
 export class OverrideStyleActionComponent extends ActionComponent {
     static classInfo = makeDerivedClassInfo(ActionComponent.classInfo, {
         flowComponentId: COMPONENT_TYPE_OVERRIDE_STYLE_ACTION,
-        componentPaletteGroupName: "GUI",
+        componentPaletteGroupName: t("GUI"),
         enabledInComponentPalette: (projectType: ProjectType) =>
             projectType !== ProjectType.LVGL &&
             projectType !== ProjectType.DASHBOARD && 
@@ -3798,7 +3799,7 @@ export class OverrideStyleActionComponent extends ActionComponent {
 export class AnimateActionComponent extends ActionComponent {
     static classInfo = makeDerivedClassInfo(ActionComponent.classInfo, {
         flowComponentId: COMPONENT_TYPE_ANIMATE_ACTION,
-        componentPaletteGroupName: "GUI",
+        componentPaletteGroupName: t("GUI"),
         enabledInComponentPalette: (projectType: ProjectType, projectStore?: ProjectStore) =>
             projectType !== ProjectType.EEZ_GUI_LITE,
         properties: [
@@ -3908,7 +3909,7 @@ export class AnimateActionComponent extends ActionComponent {
                     {this.from != "Flow.pageTimelinePosition()"
                         ? `From: ${this.from} s, `
                         : ""}
-                    To: {this.to} s
+                    {t("To: {to} s", { to: this.to })}
                     {this.speed != "1" ? `, Speed: ${this.speed}` : ""}
                 </pre>
             </div>
@@ -3921,7 +3922,7 @@ export class AnimateActionComponent extends ActionComponent {
 export class SetColorThemeActionComponent extends ActionComponent {
     static classInfo = makeDerivedClassInfo(ActionComponent.classInfo, {
         flowComponentId: COMPONENT_TYPE_SET_COLOR_THEME_ACTION,
-        componentPaletteGroupName: "GUI",
+        componentPaletteGroupName: t("GUI"),
         properties: [
             makeExpressionProperty(
                 {
@@ -3987,7 +3988,7 @@ export class SetColorThemeActionComponent extends ActionComponent {
 
 export class ClipboardWriteActionComponent extends ActionComponent {
     static classInfo = makeDerivedClassInfo(ActionComponent.classInfo, {
-        componentPaletteGroupName: "GUI",
+        componentPaletteGroupName: t("GUI"),
         properties: [
             makeExpressionProperty(
                 {
@@ -4013,7 +4014,7 @@ export class ClipboardWriteActionComponent extends ActionComponent {
                     data instanceof Uint8Array
                 )
             ) {
-                context.throwError(`Invalid data property`);
+                context.throwError(t("Invalid data property"));
                 return;
             }
 
@@ -4560,7 +4561,7 @@ export class LabelOutActionComponent extends ActionComponent {
             </svg>
         ),
         componentHeaderColor: "#c9e4de",
-        componentPaletteLabel: "Label OUT",
+        componentPaletteLabel: t("Label OUT"),
 
         properties: [
             {
@@ -4595,7 +4596,7 @@ export class LabelOutActionComponent extends ActionComponent {
                 messages.push(
                     new Message(
                         MessageType.ERROR,
-                        `Label IN component with label "${component.label}" is not found`,
+                        t('Label IN component with label "{label}" is not found', { label: component.label }),
                         getChildOfObject(component, "label")
                     )
                 );
@@ -4695,11 +4696,11 @@ export class LabelOutActionComponent extends ActionComponent {
                     </svg>
                     <ComponentInputSpan
                         componentInput={this.inputs[0]}
-                        title="Sequence input"
+                        title={t("Sequence input")}
                     />
                     <div className="title empty-content" style={titleStyle}>
                         <span className="title-text">
-                            {this.label ? this.label : "<No Label>"}
+                            {this.label ? this.label : t("<No Label>")}
                         </span>
                     </div>
                 </div>
@@ -4720,7 +4721,7 @@ export class LabelInActionComponent extends ActionComponent {
             </svg>
         ),
         componentHeaderColor: "#c9e4de",
-        componentPaletteLabel: "Label IN",
+        componentPaletteLabel: t("Label IN"),
 
         properties: [
             {
@@ -4767,7 +4768,7 @@ export class LabelInActionComponent extends ActionComponent {
                         messages.push(
                             new Message(
                                 MessageType.ERROR,
-                                `Label name "${component.label}" is not unique, each Label IN component must have unique label.`,
+                                t('Label name "{label}" is not unique, each Label IN component must have unique label.', { label: component.label }),
                                 getChildOfObject(thisComponent, "label")
                             )
                         );
@@ -4827,7 +4828,7 @@ export class LabelInActionComponent extends ActionComponent {
                 <div className="title-enclosure">
                     <div className="title empty-content" style={titleStyle}>
                         <span className="title-text">
-                            {this.label ? this.label : "<No Label>"}
+                            {this.label ? this.label : t("<No Label>")}
                         </span>
                     </div>
                     <svg
@@ -4845,7 +4846,7 @@ export class LabelInActionComponent extends ActionComponent {
                     </svg>
                     <ComponentOutputSpan
                         componentOutput={this.outputs[0]}
-                        title="Sequence output"
+                        title={t("Sequence output")}
                     />
                 </div>
             </>
@@ -4866,7 +4867,7 @@ const DEFAULT_OPTIONS = `{
 
 export class PrintToPDFActionComponent extends ActionComponent {
     static classInfo = makeDerivedClassInfo(ActionComponent.classInfo, {
-        componentPaletteGroupName: "GUI",
+        componentPaletteGroupName: t("GUI"),
         properties: [
             makeExpressionProperty(
                 {
@@ -4894,7 +4895,7 @@ export class PrintToPDFActionComponent extends ActionComponent {
         execute: (context: IDashboardComponentContext) => {
             const widget = context.evalProperty<number>("widget");
             if (widget == undefined) {
-                context.throwError(`Invalid Widget property`);
+                context.throwError(t("Invalid Widget property"));
                 return;
             }
 
@@ -4902,7 +4903,7 @@ export class PrintToPDFActionComponent extends ActionComponent {
                 context.WasmFlowRuntime.getWidgetHandleInfo(widget);
 
             if (!widgetInfo) {
-                context.throwError(`Invalid Widget handle`);
+                context.throwError(t("Invalid Widget handle"));
                 return;
             }
 
@@ -4916,18 +4917,18 @@ export class PrintToPDFActionComponent extends ActionComponent {
                 widgetContext.getComponentExecutionState<any>();
 
             if (!executionState) {
-                context.throwError(`Widget not initialized`);
+                context.throwError(t("Widget not initialized"));
                 return;
             }
 
             if (!executionState.printWidget) {
-                context.throwError(`Widget doesn't support printing`);
+                context.throwError(t("Widget doesn't support printing"));
                 return;
             }
 
             const options = context.evalProperty<any>("options");
             if (options != undefined && typeof options != "object") {
-                context.throwError(`Invalid Options property`);
+                context.throwError(t("Invalid Options property"));
                 return;
             }
 
@@ -4976,7 +4977,7 @@ export class PrintToPDFActionComponent extends ActionComponent {
 
 export class FocusWidgetActionComponent extends ActionComponent {
     static classInfo = makeDerivedClassInfo(ActionComponent.classInfo, {
-        componentPaletteGroupName: "GUI",
+        componentPaletteGroupName: t("GUI"),
         properties: [
             makeExpressionProperty(
                 {
@@ -4993,7 +4994,7 @@ export class FocusWidgetActionComponent extends ActionComponent {
         execute: (context: IDashboardComponentContext) => {
             const widget = context.evalProperty<number>("widget");
             if (widget == undefined) {
-                context.throwError(`Invalid Widget property`);
+                context.throwError(t("Invalid Widget property"));
                 return;
             }
 
@@ -5001,7 +5002,7 @@ export class FocusWidgetActionComponent extends ActionComponent {
                 context.WasmFlowRuntime.getWidgetHandleInfo(widget);
 
             if (!widgetInfo) {
-                context.throwError(`Invalid Widget handle`);
+                context.throwError(t("Invalid Widget handle"));
                 return;
             }
 
@@ -5015,12 +5016,12 @@ export class FocusWidgetActionComponent extends ActionComponent {
                 widgetContext.getComponentExecutionState<any>();
 
             if (!executionState) {
-                context.throwError(`Widget not initialized`);
+                context.throwError(t("Widget not initialized"));
                 return;
             }
 
             if (!executionState.focus) {
-                context.throwError(`Widget doesn't support focus`);
+                context.throwError(t("Widget doesn't support focus"));
                 return;
             }
 

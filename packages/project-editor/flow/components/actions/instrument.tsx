@@ -3,6 +3,7 @@ import { observable, makeObservable, runInAction, autorun } from "mobx";
 import { Stream } from "stream";
 
 import { Dialog, showDialog } from "eez-studio-ui/dialog";
+import { t } from "eez-studio-shared/i18n";
 
 import {
     parseScpi,
@@ -134,7 +135,7 @@ export class SCPIActionComponent extends ActionComponent {
             makeExpressionProperty(
                 {
                     name: "timeout",
-                    displayName: "Timeout (ms)",
+                    displayName: t("Timeout (ms)"),
                     type: PropertyType.MultilineText,
                     propertyGridGroup: specificGroup
                 },
@@ -143,8 +144,8 @@ export class SCPIActionComponent extends ActionComponent {
             makeExpressionProperty(
                 {
                     name: "delay",
-                    displayName: "Delay (ms)",
-                    formText: "Minimum delay between commands.",
+                    displayName: t("Delay (ms)"),
+                    formText: t("Minimum delay between commands."),
                     type: PropertyType.MultilineText,
                     propertyGridGroup: specificGroup
                 },
@@ -221,7 +222,7 @@ export class SCPIActionComponent extends ActionComponent {
                             messages.push(
                                 new Message(
                                     MessageType.ERROR,
-                                    `Invalid expression: ${err}`,
+                                    t("Invalid expression: {err}", { err }),
                                     getChildOfObject(component, "scpi")
                                 )
                             );
@@ -240,7 +241,7 @@ export class SCPIActionComponent extends ActionComponent {
                             messages.push(
                                 new Message(
                                     MessageType.ERROR,
-                                    `Invalid assignable expression: ${err}`,
+                                    t("Invalid assignable expression: {err}", { err }),
                                     getChildOfObject(component, "scpi")
                                 )
                             );
@@ -251,7 +252,7 @@ export class SCPIActionComponent extends ActionComponent {
                 messages.push(
                     new Message(
                         MessageType.ERROR,
-                        `Invalid SCPI: ${err}`,
+                        t("Invalid SCPI: {err}", { err }),
                         getChildOfObject(component, "scpi")
                     )
                 );
@@ -441,7 +442,7 @@ export class GetInstrumentActionComponent extends ActionComponent {
             makeExpressionProperty(
                 {
                     name: "instrumentId",
-                    displayName: "Instrument ID",
+                    displayName: t("Instrument ID"),
                     type: PropertyType.MultilineText,
                     propertyGridGroup: specificGroup
                 },
@@ -463,7 +464,7 @@ export class GetInstrumentActionComponent extends ActionComponent {
             const instrumentId = context.evalProperty<string>("instrumentId");
 
             if (instrumentId == undefined || typeof instrumentId != "string") {
-                context.throwError(`Invalid Instrument ID property`);
+                context.throwError(t("Invalid Instrument ID property"));
                 return;
             }
 
@@ -473,7 +474,7 @@ export class GetInstrumentActionComponent extends ActionComponent {
             const instrument = instruments.get(instrumentId);
 
             if (!instrument) {
-                context.throwError("Instrument not found");
+                context.throwError(t("Instrument not found"));
                 return;
             }
 
@@ -567,7 +568,7 @@ export class ConnectInstrumentActionComponent extends ActionComponent {
                 );
 
             if (instrument == undefined || typeof instrument.id != "string") {
-                context.throwError(`Invalid instrument property`);
+                context.throwError(t("Invalid instrument property"));
                 return;
             }
 
@@ -577,7 +578,7 @@ export class ConnectInstrumentActionComponent extends ActionComponent {
             const instrumentObject = instruments.get(instrument.id);
 
             if (!instrumentObject) {
-                context.throwError(`Instrument not found`);
+                context.throwError(t("Instrument not found"));
                 return;
             }
 
@@ -685,7 +686,7 @@ export class DisconnectInstrumentActionComponent extends ActionComponent {
                 );
 
             if (instrument == undefined || typeof instrument.id != "string") {
-                context.throwError(`Invalid instrument property`);
+                context.throwError(t("Invalid instrument property"));
                 return;
             }
 
@@ -695,7 +696,7 @@ export class DisconnectInstrumentActionComponent extends ActionComponent {
             const instrumentObject = instruments.get(instrument.id);
 
             if (!instrumentObject) {
-                context.throwError(`Instrument not found`);
+                context.throwError(t("Instrument not found"));
                 return;
             }
 
@@ -795,7 +796,7 @@ export class InstrumentRead extends ActionComponent {
                 );
 
             if (instrument == undefined || typeof instrument.id != "string") {
-                context.throwError(`Invalid instrument property`);
+                context.throwError(t("Invalid instrument property"));
                 return;
             }
 
@@ -805,7 +806,7 @@ export class InstrumentRead extends ActionComponent {
             const instrumentObject = instruments.get(instrument.id);
 
             if (!instrumentObject) {
-                context.throwError(`Instrument not found`);
+                context.throwError(t("Instrument not found"));
                 return;
             }
 
@@ -945,7 +946,7 @@ export class InstrumentWrite extends ActionComponent {
                 );
 
             if (instrument == undefined || typeof instrument.id != "string") {
-                context.throwError(`Invalid instrument property`);
+                context.throwError(t("Invalid instrument property"));
                 return;
             }
 
@@ -955,13 +956,13 @@ export class InstrumentWrite extends ActionComponent {
             const instrumentObject = instruments.get(instrument.id);
 
             if (!instrumentObject) {
-                context.throwError(`Instrument not found`);
+                context.throwError(t("Instrument not found"));
                 return;
             }
 
             const data = context.evalProperty<string>("data");
             if (typeof data != "string") {
-                context.throwError(`Data is not a string`);
+                context.throwError(t("Data is not a string"));
                 return;
             }
 
@@ -1097,7 +1098,7 @@ export class GetInstrumentPropertiesActionComponent extends ActionComponent {
                     messages.push(
                         new Message(
                             MessageType.ERROR,
-                            `Output "properties" must be of struct type`,
+                            t('Output "properties" must be of struct type'),
                             component
                         )
                     );
@@ -1106,7 +1107,7 @@ export class GetInstrumentPropertiesActionComponent extends ActionComponent {
                 messages.push(
                     new Message(
                         MessageType.ERROR,
-                        `Output "properties" not found`,
+                        t('Output "properties" not found'),
                         component
                     )
                 );
@@ -1123,7 +1124,7 @@ export class GetInstrumentPropertiesActionComponent extends ActionComponent {
                 );
 
             if (instrument == undefined || typeof instrument.id != "string") {
-                context.throwError(`Invalid instrument property`);
+                context.throwError(t("Invalid instrument property"));
                 return;
             }
 
@@ -1132,7 +1133,9 @@ export class GetInstrumentPropertiesActionComponent extends ActionComponent {
 
             const instrumentObject = instruments.get(instrument.id);
             if (!instrumentObject) {
-                context.throwError(`Instrument ${instrument.id} not found`);
+                context.throwError(
+                    t("Instrument {id} not found", { id: instrument.id })
+                );
                 return;
             }
 
@@ -1209,7 +1212,7 @@ export class AddToInstrumentHistoryActionComponent extends ActionComponent {
                     },
                     {
                         id: "widget",
-                        label: "Widget"
+                        label: t("Widget")
                     }
                 ],
                 propertyGridGroup: specificGroup
@@ -1478,7 +1481,7 @@ export class AddToInstrumentHistoryActionComponent extends ActionComponent {
                 );
 
             if (instrument == undefined || typeof instrument.id != "string") {
-                context.throwError(`Invalid instrument property`);
+                context.throwError(t("Invalid instrument property"));
                 return;
             }
 
@@ -1495,39 +1498,39 @@ export class AddToInstrumentHistoryActionComponent extends ActionComponent {
                 const chartDescription =
                     context.evalProperty<string>("chartDescription");
                 if (chartDescription == undefined) {
-                    context.throwError(`Invalid Chart description property`);
+                    context.throwError(t("Invalid Chart description property"));
                     return;
                 }
 
                 chartData = context.evalProperty<Uint8Array>("chartData");
                 if (chartData == undefined) {
-                    context.throwError(`Invalid Chart data property`);
+                    context.throwError(t("Invalid Chart data property"));
                     return;
                 }
 
                 const chartSamplingRate =
                     context.evalProperty<number>("chartSamplingRate");
                 if (chartSamplingRate == undefined) {
-                    context.throwError(`Invalid Chart sampling rate property`);
+                    context.throwError(t("Invalid Chart sampling rate property"));
                     return;
                 }
 
                 const chartOffset = context.evalProperty<number>("chartOffset");
                 if (chartOffset == undefined) {
-                    context.throwError(`Invalid Chart offet property`);
+                    context.throwError(t("Invalid Chart offet property"));
                     return;
                 }
 
                 const chartScale = context.evalProperty<number>("chartScale");
                 if (chartScale == undefined) {
-                    context.throwError(`Invalid Chart scale property`);
+                    context.throwError(t("Invalid Chart scale property"));
                     return;
                 }
 
                 const chartFormatStr =
                     context.evalProperty<string>("chartFormat");
                 if (chartFormatStr == undefined) {
-                    context.throwError(`Invalid Chart format property`);
+                    context.throwError(t("Invalid Chart format property"));
                     return;
                 }
 
@@ -1549,26 +1552,26 @@ export class AddToInstrumentHistoryActionComponent extends ActionComponent {
 
                 const chartUnit = context.evalProperty<string>("chartUnit");
                 if (chartUnit == undefined) {
-                    context.throwError(`Invalid Chart unit property`);
+                    context.throwError(t("Invalid Chart unit property"));
                     return;
                 }
 
                 const chartColor = context.evalProperty<string>("chartColor");
                 if (chartColor == undefined) {
-                    context.throwError(`Invalid Chart color property`);
+                    context.throwError(t("Invalid Chart color property"));
                     return;
                 }
 
                 const chartColorInverse =
                     context.evalProperty<string>("chartColorInverse");
                 if (chartColorInverse == undefined) {
-                    context.throwError(`Invalid Chart color inverse property`);
+                    context.throwError(t("Invalid Chart color inverse property"));
                     return;
                 }
 
                 const chartLabel = context.evalProperty<string>("chartLabel");
                 if (chartLabel == undefined) {
-                    context.throwError(`Invalid Chart label property`);
+                    context.throwError(t("Invalid Chart label property"));
                     return;
                 }
 
@@ -1578,7 +1581,7 @@ export class AddToInstrumentHistoryActionComponent extends ActionComponent {
                     );
                 if (chartMajorSubdivisionHorizontal == undefined) {
                     context.throwError(
-                        `Invalid Chart major subdivision horizontal property`
+                        t("Invalid Chart major subdivision horizontal property")
                     );
                     return;
                 }
@@ -1589,7 +1592,7 @@ export class AddToInstrumentHistoryActionComponent extends ActionComponent {
                     );
                 if (chartMajorSubdivisionVertical == undefined) {
                     context.throwError(
-                        `Invalid Chart major subdivision vertical property`
+                        t("Invalid Chart major subdivision vertical property")
                     );
                     return;
                 }
@@ -1600,7 +1603,7 @@ export class AddToInstrumentHistoryActionComponent extends ActionComponent {
                     );
                 if (chartMinorSubdivisionHorizontal == undefined) {
                     context.throwError(
-                        `Invalid Chart minor subdivision horizontal property`
+                        t("Invalid Chart minor subdivision horizontal property")
                     );
                     return;
                 }
@@ -1611,7 +1614,7 @@ export class AddToInstrumentHistoryActionComponent extends ActionComponent {
                     );
                 if (chartMinorSubdivisionVertical == undefined) {
                     context.throwError(
-                        `Invalid Chart minor subdivision vertical property`
+                        t("Invalid Chart minor subdivision vertical property")
                     );
                     return;
                 }
@@ -1621,7 +1624,7 @@ export class AddToInstrumentHistoryActionComponent extends ActionComponent {
                 );
                 if (chartHorizontalScale == undefined) {
                     context.throwError(
-                        `Invalid Chart horizontal scale property`
+                        t("Invalid Chart horizontal scale property")
                     );
                     return;
                 }
@@ -1629,7 +1632,7 @@ export class AddToInstrumentHistoryActionComponent extends ActionComponent {
                 const chartVerticalScale =
                     context.evalProperty<number>("chartVerticalScale");
                 if (chartVerticalScale == undefined) {
-                    context.throwError(`Invalid Chart vertical scale property`);
+                    context.throwError(t("Invalid Chart vertical scale property"));
                     return;
                 }
 
@@ -1672,7 +1675,7 @@ export class AddToInstrumentHistoryActionComponent extends ActionComponent {
             ) {
                 const widget = context.evalProperty<number>("widget");
                 if (widget == undefined) {
-                    context.throwError(`Invalid widget property`);
+                    context.throwError(t("Invalid widget property"));
                     return;
                 }
 
@@ -1680,7 +1683,7 @@ export class AddToInstrumentHistoryActionComponent extends ActionComponent {
                     context.WasmFlowRuntime.getWidgetHandleInfo(widget);
 
                 if (!widgetInfo) {
-                    context.throwError(`Invalid widget handle`);
+                    context.throwError(t("Invalid widget handle"));
                     return;
                 }
 
@@ -1695,7 +1698,7 @@ export class AddToInstrumentHistoryActionComponent extends ActionComponent {
                 >();
 
                 if (!executionState || !executionState.getInstrumentItemData) {
-                    context.throwError(`Invalid Plotly widget execution state`);
+                    context.throwError(t("Invalid Plotly widget execution state"));
                     return;
                 }
 
@@ -1706,7 +1709,7 @@ export class AddToInstrumentHistoryActionComponent extends ActionComponent {
                 message = instrumentItemData.message;
                 chartData = undefined;
             } else {
-                context.throwError("Invalid item type");
+                context.throwError(t("Invalid item type"));
                 return;
             }
 
@@ -1913,7 +1916,7 @@ const Connection = observer(
                             className="btn btn-danger"
                             onClick={() => connection!.disconnect()}
                         >
-                            Abort
+                            {t("Abort")}
                         </button>
                     );
                 }
@@ -2044,13 +2047,13 @@ export const SelectInstrumentDialog = observer(
                     onOk={this.onOk}
                     okButtonText={
                         this.connectToInstrument && instrument
-                            ? "Conect"
-                            : "Select"
+                            ? t("Connect")
+                            : t("Select")
                     }
                     cancelButtonText={
                         this.connectToInstrument && instrument
-                            ? "Back"
-                            : "Cancel"
+                            ? t("Back")
+                            : t("Cancel")
                     }
                     onCancel={() => {
                         if (this.connectToInstrument) {
@@ -2104,7 +2107,7 @@ export async function showSelectInstrumentDialog(
             {
                 jsPanel: {
                     id: "select-instrument-5",
-                    title: name ? `Select: ${name}` : "Select Instrument",
+                    title: name ? t("Select: {name}", { name }) : t("Select Instrument"),
                     width: 920,
                     height: 680
                 }
@@ -2187,7 +2190,7 @@ registerObjectVariableType("Instrument", {
         return {
             constructorParams,
             status: {
-                label: "Unknown instrument",
+                label: t("Unknown instrument"),
                 error: `Instrument with ID [${constructorParams}] is not found`
             }
         };

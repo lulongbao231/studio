@@ -3,6 +3,7 @@ import path from "path";
 import fs from "fs";
 
 import { guid } from "eez-studio-shared/guid";
+import { t } from "eez-studio-shared/i18n";
 
 import {
     action,
@@ -756,10 +757,10 @@ export abstract class RuntimeBase implements IRuntime {
             defaultPath,
             filters: [
                 {
-                    name: "EEZ Debug Info",
+                    name: t("EEZ Debug Info"),
                     extensions: ["eez-debug-info"]
                 },
-                { name: "All Files", extensions: ["*"] }
+                { name: t("All Files"), extensions: ["*"] }
             ]
         });
         let filePath = result.filePath;

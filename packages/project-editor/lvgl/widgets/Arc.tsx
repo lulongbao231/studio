@@ -1,3 +1,4 @@
+import { t } from "eez-studio-shared/i18n";
 import React from "react";
 import { observable, makeObservable } from "mobx";
 import { observer } from "mobx-react";
@@ -25,7 +26,7 @@ const ShowNoteAboutUseAngle = observer(
         render() {
             return (
                 <div style={{ fontSize: 11 }}>
-                    Make the arc non-adjustable: set the opacity (in Miscellaneous style section) of the knob to 0 and make the arc non-clickable (uncheck "Clickable" flag).
+                    {t("Make the arc non-adjustable: set the opacity (in Miscellaneous style section) of the knob to 0 and make the arc non-clickable (uncheck \"Clickable\" flag).")}
                 </div>
             );
         }
@@ -182,7 +183,7 @@ export class LVGLArcWidget extends LVGLWidget {
             },
             {
                 name: "useAngle",
-                displayName: "Use start/end angle",
+                displayName: t("Use start/end angle"),
                 type: PropertyType.Boolean,
                 checkboxStyleSwitch: true,
                 propertyGridGroup: specificGroup
@@ -337,7 +338,7 @@ export class LVGLArcWidget extends LVGLWidget {
                     messages.push(
                         new Message(
                             MessageType.ERROR,
-                            `Range min must be an integer`,
+                            t("Range min must be an integer"),
                             getChildOfObject(widget, "rangeMin")
                         )
                     );
@@ -353,7 +354,7 @@ export class LVGLArcWidget extends LVGLWidget {
                     messages.push(
                         new Message(
                             MessageType.ERROR,
-                            `Range max must be an integer`,
+                            t("Range max must be an integer"),
                             getChildOfObject(widget, "rangeMax")
                         )
                     );
@@ -369,7 +370,7 @@ export class LVGLArcWidget extends LVGLWidget {
                     messages.push(
                         new Message(
                             MessageType.ERROR,
-                            `Value must be an integer`,
+                            t("Value must be an integer"),
                             getChildOfObject(widget, "value")
                         )
                     );
@@ -385,7 +386,7 @@ export class LVGLArcWidget extends LVGLWidget {
                     messages.push(
                         new Message(
                             MessageType.ERROR,
-                            `Bg start angle must be an integer`,
+                            t("Bg start angle must be an integer"),
                             getChildOfObject(widget, "bgStartAngle")
                         )
                     );
@@ -401,7 +402,7 @@ export class LVGLArcWidget extends LVGLWidget {
                     messages.push(
                         new Message(
                             MessageType.ERROR,
-                            `Bg end angle must be an integer`,
+                            t("Bg end angle must be an integer"),
                             getChildOfObject(widget, "bgEndAngle")
                         )
                     );
@@ -417,7 +418,7 @@ export class LVGLArcWidget extends LVGLWidget {
                     messages.push(
                         new Message(
                             MessageType.ERROR,
-                            `Rotation must be an integer`,
+                            t("Rotation must be an integer"),
                             getChildOfObject(widget, "rotation")
                         )
                     );
@@ -433,7 +434,7 @@ export class LVGLArcWidget extends LVGLWidget {
                     messages.push(
                         new Message(
                             MessageType.ERROR,
-                            `Start angle must be an integer`,
+                            t("Start angle must be an integer"),
                             getChildOfObject(widget, "startAngle")
                         )
                     );
@@ -449,7 +450,7 @@ export class LVGLArcWidget extends LVGLWidget {
                     messages.push(
                         new Message(
                             MessageType.ERROR,
-                            `End angle must be an integer`,
+                            t("End angle must be an integer"),
                             getChildOfObject(widget, "endAngle")
                         )
                     );
@@ -526,7 +527,7 @@ export class LVGLArcWidget extends LVGLWidget {
                         "int32_t",
                         "new_val",
                         this.rangeMin as string,
-                        "Failed to evaluate Range min in Arc widget"
+                        t("Failed to evaluate Range min in Arc widget")
                     );
 
                     const cur_val = code.callObjectFunctionWithAssignment(
@@ -561,7 +562,7 @@ export class LVGLArcWidget extends LVGLWidget {
                         "int32_t",
                         "new_val",
                         this.rangeMax as string,
-                        "Failed to evaluate Range max in Arc widget"
+                        t("Failed to evaluate Range max in Arc widget")
                     );
 
                     const cur_val = code.callObjectFunctionWithAssignment(
@@ -608,7 +609,7 @@ export class LVGLArcWidget extends LVGLWidget {
                         "int32_t",
                         "new_val",
                         this.value as string,
-                        "Failed to evaluate Value in Arc widget"
+                        t("Failed to evaluate Value in Arc widget")
                     );
 
                     const cur_val = code.callObjectFunctionWithAssignment(
@@ -648,7 +649,7 @@ export class LVGLArcWidget extends LVGLWidget {
                                 "value",
                                 this.value as string,
                                 value,
-                                "Failed to assign Value in Arc widget"
+                                t("Failed to assign Value in Arc widget")
                             );
                         });
                     }
@@ -685,7 +686,7 @@ export class LVGLArcWidget extends LVGLWidget {
                         "int32_t",
                         "new_val",
                         this.startAngle as string,
-                        "Failed to evaluate Start angle in Arc widget"
+                        t("Failed to evaluate Start angle in Arc widget")
                     );
 
                     const cur_val = code.callObjectFunctionWithAssignment(
@@ -727,7 +728,7 @@ export class LVGLArcWidget extends LVGLWidget {
                         "int32_t",
                         "new_val",
                         this.endAngle as string,
-                        "Failed to evaluate End angle in Arc widget"
+                        t("Failed to evaluate End angle in Arc widget")
                     );
 
                     const cur_val = code.callObjectFunctionWithAssignment(
@@ -775,7 +776,7 @@ export class LVGLArcWidget extends LVGLWidget {
                     "int32_t",
                     "new_val",
                     this.bgStartAngle as string,
-                    "Failed to evaluate Bg start angle in Arc widget"
+                    t("Failed to evaluate Bg start angle in Arc widget")
                 );
 
                 const cur_val = code.callObjectFunctionWithAssignment(
@@ -822,7 +823,7 @@ export class LVGLArcWidget extends LVGLWidget {
                     "int32_t",
                     "new_val",
                     this.bgEndAngle as string,
-                    "Failed to evaluate Bg end angle in Arc widget"
+                    t("Failed to evaluate Bg end angle in Arc widget")
                 );
 
                 const cur_val = code.callObjectFunctionWithAssignment(
@@ -861,7 +862,7 @@ export class LVGLArcWidget extends LVGLWidget {
                     "int32_t",
                     "new_val",
                     this.rotation as string,
-                    "Failed to evaluate Rotation in Arc widget"
+                    t("Failed to evaluate Rotation in Arc widget")
                 );
 
                 let cur_val;

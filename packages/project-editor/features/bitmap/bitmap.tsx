@@ -13,6 +13,8 @@ import {
 import { observer } from "mobx-react";
 import { dialog, getCurrentWindow } from "@electron/remote";
 
+import { t } from "eez-studio-shared/i18n";
+
 import * as notification from "eez-studio-ui/notification";
 import { Button } from "eez-studio-ui/button";
 
@@ -74,7 +76,7 @@ const ExportBitmapFilePropertyGridUI = observer(
             const ext = bitmap.image.substring(i + 1, j);
 
             const result = await dialog.showSaveDialog(getCurrentWindow(), {
-                filters: [{ name: "All Files", extensions: ["*"] }],
+                filters: [{ name: t("All Files"), extensions: ["*"] }],
                 defaultPath: bitmap.name + "." + ext
             });
             let filePath = result.filePath;
@@ -86,7 +88,7 @@ const ExportBitmapFilePropertyGridUI = observer(
                 );
                 try {
                     await fs.promises.writeFile(filePath, bin);
-                    notification.info(`Bitmap file exported.`);
+                    notification.info(t("Bitmap file exported."));
                 } catch (error) {
                     notification.error(error.toString());
                 }
@@ -100,7 +102,7 @@ const ExportBitmapFilePropertyGridUI = observer(
             return (
                 <div style={{ marginTop: 10 }}>
                     <Button color="primary" size="small" onClick={this.export}>
-                        Export Bitmap File
+                        {t("Export Bitmap File")}
                     </Button>
                 </div>
             );
@@ -181,7 +183,7 @@ export class Bitmap extends EezObject {
             {
                 name: "bpp",
                 displayName: (bitmap: Bitmap) =>
-                    isLVGLProject(bitmap) ? "Color format" : "Bits per pixel",
+                    isLVGLProject(bitmap) ? t("Color format") : t("Bits per pixel"),
                 type: PropertyType.Enum,
                 enumItems: (bitmap: Bitmap) =>
                     isLVGLProject(bitmap)
@@ -192,7 +194,7 @@ export class Bitmap extends EezObject {
             },
             {
                 name: "lvglBinaryOutputFormat",
-                displayName: (bitmap: Bitmap) => "Binary output format",
+                displayName: (bitmap: Bitmap) => t("Binary output format"),
                 type: PropertyType.Enum,
                 enumItems: [
                     { id: 0, label: "RGB332" },
@@ -217,7 +219,7 @@ export class Bitmap extends EezObject {
             },
             {
                 name: "lvglDither",
-                displayName: (bitmap: Bitmap) => "Dither image",
+                displayName: (bitmap: Bitmap) => t("Dither image"),
                 type: PropertyType.Boolean,
                 checkboxStyleSwitch: true,
                 disabled: (bitmap: Bitmap) => {
@@ -245,7 +247,7 @@ export class Bitmap extends EezObject {
             },
             {
                 name: "alwaysBuild",
-                displayName: "Always add to the generated code",
+                displayName: t("Always add to the generated code"),
                 type: PropertyType.Boolean,
                 disabled: object =>
                     isLVGLProject(object) || isDashboardProject(object)
@@ -265,7 +267,7 @@ export class Bitmap extends EezObject {
             }
         ],
         propertiesPanelLabel: (bitmap: Bitmap) => {
-            return `Bitmap: ${bitmap.name}`;
+            return t("Bitmap: {name}", { name: bitmap.name });
         },
         check: (bitmap: Bitmap, messages: IMessage[]) => {
             const projectStore = getProjectStore(bitmap);
@@ -277,7 +279,7 @@ export class Bitmap extends EezObject {
                         messages.push(
                             new Message(
                                 MessageType.ERROR,
-                                `Bitmap image file '${absoluteFilePath}' not found`,
+                                t("Bitmap image file '{file}' not found", { file: absoluteFilePath }),
                                 getChildOfObject(bitmap, "image")
                             )
                         );
@@ -299,7 +301,7 @@ export class Bitmap extends EezObject {
 
             const result = await showGenericDialog(projectStore, {
                 dialogDefinition: {
-                    title: "New Bitmap",
+                    title: t("New Bitmap"),
                     fields: [
                         {
                             name: "name",
@@ -318,16 +320,16 @@ export class Bitmap extends EezObject {
                         },
                         {
                             name: "imageFilePaths",
-                            displayName: "Image",
+                            displayName: t("Image"),
                             type: MultipleAbsoluteFileInput,
                             validators: [validators.required],
                             options: {
                                 filters: [
                                     {
-                                        name: "Image files",
+                                        name: t("Image files"),
                                         extensions: ["png", "jpg", "jpeg"]
                                     },
-                                    { name: "All Files", extensions: ["*"] }
+                                    { name: t("All Files"), extensions: ["*"] }
                                 ]
                             }
                         },
@@ -335,7 +337,7 @@ export class Bitmap extends EezObject {
                             ? [
                                   {
                                       name: "bpp",
-                                      displayName: "Color format",
+                                      displayName: t("Color format"),
                                       type: "enum",
                                       enumItems:
                                           getLvglBitmapColorFormats(parent)
@@ -346,7 +348,7 @@ export class Bitmap extends EezObject {
                             : [
                                   {
                                       name: "bpp",
-                                      displayName: "Bits per pixel",
+                                      displayName: t("Bits per pixel"),
                                       type: "enum",
                                       enumItems: [16, 32]
                                   } as IFieldProperties
@@ -857,10 +859,10 @@ export async function preloadAllBitmaps(projectStore: ProjectStore) {
 const feature: ProjectEditorFeature = {
     name: "eezstudio-project-feature-bitmap",
     version: "0.1.0",
-    description: "Bitmaps support for your project",
+    description: t("Bitmaps support for your project"),
     author: "EEZ",
     authorLogo: "../eez-studio-ui/_images/eez_logo.png",
-    displayName: "Bitmaps",
+    displayName: t("Bitmaps"),
     mandatory: false,
     key: "bitmaps",
     type: PropertyType.Array,
@@ -872,7 +874,7 @@ const feature: ProjectEditorFeature = {
             messages.push(
                 new Message(
                     MessageType.ERROR,
-                    "Max. 65535 bitmaps are supported",
+                    t("Max. 65535 bitmaps are supported"),
                     object
                 )
             );
@@ -886,7 +888,7 @@ const feature: ProjectEditorFeature = {
             messages.push(
                 new Message(
                     MessageType.ERROR,
-                    "'Default' style is missing.",
+                    t("'Default' style is missing."),
                     object
                 )
             );

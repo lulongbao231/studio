@@ -8,6 +8,7 @@ import {
 import { ChangesState } from "./state";
 
 import { CHANGES_ICON } from "project-editor/ui-components/icons";
+import { t } from "eez-studio-shared/i18n";
 
 import type { ProjectEditorFeature } from "project-editor/store/features";
 
@@ -29,10 +30,10 @@ registerClass("Changes", Changes);
 const feature: ProjectEditorFeature = {
     name: "eezstudio-project-feature-changes",
     version: "0.1.0",
-    description: "Compare project with previous versions",
+    description: t("Compare project with previous versions"),
     author: "EEZ",
     authorLogo: "../eez-studio-ui/_images/eez_logo.png",
-    displayName: "Changes",
+    displayName: t("Changes"),
     mandatory: false,
     key: "changes",
     type: PropertyType.Object,

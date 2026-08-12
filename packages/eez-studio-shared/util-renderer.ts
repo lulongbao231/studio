@@ -1,5 +1,6 @@
 import { dialog, BrowserWindow, getCurrentWindow } from "@electron/remote";
 import { ipcRenderer } from "electron";
+import { t } from "eez-studio-shared/i18n";
 
 function mnemonicLabel(label: string): string {
     const os = require("os");
@@ -29,14 +30,14 @@ export async function confirmSave({
     }
 
     const saveButton = {
-        label: mnemonicLabel("&&Save"),
+        label: mnemonicLabel(t("&&Save")),
         result: ConfirmResult.SAVE
     };
     const dontSaveButton = {
-        label: mnemonicLabel("Do&&n't Save"),
+        label: mnemonicLabel(t("Do&&n't Save")),
         result: ConfirmResult.DONT_SAVE
     };
-    const cancelButton = { label: "Cancel", result: ConfirmResult.CANCEL };
+    const cancelButton = { label: t("Cancel"), result: ConfirmResult.CANCEL };
 
     const os = require("os");
 
@@ -52,9 +53,9 @@ export async function confirmSave({
     let opts: Electron.MessageBoxOptions = {
         type: "warning",
         title: "EEZ Studio",
-        message: "Do you want to save changes?",
+        message: t("Do you want to save changes?"),
         detail:
-            description + "Your changes will be lost if you don't save them.",
+            description + t("Your changes will be lost if you don't save them."),
         noLink: true,
         buttons: buttons.map(b => b.label),
         cancelId: buttons.indexOf(cancelButton)

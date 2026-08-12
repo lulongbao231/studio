@@ -3,6 +3,7 @@ import { observable, computed, reaction, action, makeObservable } from "mobx";
 import { observer } from "mobx-react";
 
 import { Rect } from "eez-studio-shared/geometry";
+import { t } from "eez-studio-shared/i18n";
 
 import { getProperty, PropertyProps } from "project-editor/core/object";
 
@@ -705,7 +706,7 @@ export const ResizingProperty = observer(
                         fontSize="80%"
                         style={{ textAnchor: "middle" }}
                     >
-                        Pin to edge
+                        {t("Pin to edge")}
                     </text>
                     {pinToLeft}
                     {pinToRight}
@@ -891,7 +892,7 @@ export const ResizingProperty = observer(
                         fontSize="80%"
                         style={{ textAnchor: "middle" }}
                     >
-                        Fix size
+                        {t("Fix size")}
                     </text>
                     {fixWidth}
                     {fixHeight}
@@ -925,7 +926,7 @@ export const ResizingProperty = observer(
                         fontSize="80%"
                         style={{ textAnchor: "middle" }}
                     >
-                        Preview
+                        {t("Preview")}
                     </text>
                     <rect
                         x={X3 + this.containerRect.left}

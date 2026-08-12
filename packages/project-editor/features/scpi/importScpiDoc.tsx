@@ -20,6 +20,8 @@ import {
     stringCompare
 } from "eez-studio-shared/string";
 
+import { t } from "eez-studio-shared/i18n";
+
 import { Loader } from "eez-studio-ui/loader";
 
 import type { IParameter, IParameterType, IEnum } from "instrument/scpi";
@@ -1326,7 +1328,7 @@ export const ImportScpiDocDialog = observer(
                         className="btn btn-primary"
                         onClick={this.onCancel}
                     >
-                        Close
+                        {t("Close")}
                     </button>
                 ];
             } else if (this.changes) {
@@ -1384,9 +1386,9 @@ export const ImportScpiDocDialog = observer(
                                             }
                                             type="checkbox"
                                         />{" "}
-                                        Command
+                                        {t("Command")}
                                     </th>
-                                    <th className="col-4">To</th>
+                                    <th className="col-4">{t("To")}</th>
                                 </tr>
                             );
                         } else if (section === "deleted") {
@@ -1400,9 +1402,9 @@ export const ImportScpiDocDialog = observer(
                                             }
                                             type="checkbox"
                                         />{" "}
-                                        Command
+                                        {t("Command")}
                                     </th>
-                                    <th className="col-4">From</th>
+                                    <th className="col-4">{t("From")}</th>
                                 </tr>
                             );
                         } else if (section === "moved") {
@@ -1416,10 +1418,10 @@ export const ImportScpiDocDialog = observer(
                                             }
                                             type="checkbox"
                                         />{" "}
-                                        Command
+                                        {t("Command")}
                                     </th>
-                                    <th className="col-3">From</th>
-                                    <th className="col-3">To</th>
+                                    <th className="col-3">{t("From")}</th>
+                                    <th className="col-3">{t("To")}</th>
                                 </tr>
                             );
                         } else if (section === "updated") {
@@ -1433,9 +1435,9 @@ export const ImportScpiDocDialog = observer(
                                             }
                                             type="checkbox"
                                         />{" "}
-                                        Command
+                                        {t("Command")}
                                     </th>
-                                    <th className="col-4">In</th>
+                                    <th className="col-4">{t("In")}</th>
                                 </tr>
                             );
                         } else if (section === "newEnums") {
@@ -1449,9 +1451,9 @@ export const ImportScpiDocDialog = observer(
                                             }
                                             type="checkbox"
                                         />{" "}
-                                        Enum
+                                        {t("Enum")}
                                     </th>
-                                    <th className="col-8">Members</th>
+                                    <th className="col-8">{t("Members")}</th>
                                 </tr>
                             );
                         }
@@ -1590,7 +1592,7 @@ export const ImportScpiDocDialog = observer(
                             className="btn btn-default"
                             onClick={this.onCancel}
                         >
-                            Cancel
+                            {t("Cancel")}
                         </button>,
                         <button
                             key="cancel"
@@ -1599,12 +1601,12 @@ export const ImportScpiDocDialog = observer(
                             onClick={this.onOk}
                             disabled={!this.hasSelectedChanges}
                         >
-                            OK
+                            {t("OK")}
                         </button>
                     ];
                 } else {
                     content = (
-                        <h4 style={{ textAlign: "center" }}>No changes!</h4>
+                        <h4 style={{ textAlign: "center" }}>{t("No changes!")}</h4>
                     );
 
                     buttons = [
@@ -1614,7 +1616,7 @@ export const ImportScpiDocDialog = observer(
                             className="btn btn-primary"
                             onClick={this.onCancel}
                         >
-                            Close
+                            {t("Close")}
                         </button>
                     ];
                 }
@@ -1638,13 +1640,13 @@ export const ImportScpiDocDialog = observer(
                         <div className="modal-content">
                             <div className="modal-header">
                                 <h5 className="modal-title" id="myModalLabel">
-                                    Detected SCPI Command Changes
+                                    {t("Detected SCPI Command Changes")}
                                 </h5>
                                 <button
                                     type="button"
                                     className="btn-close float-right"
                                     onClick={this.onCancel}
-                                    aria-label="Close"
+                                    aria-label={t("Close")}
                                 ></button>
                             </div>
                             <div className="modal-body">{content}</div>

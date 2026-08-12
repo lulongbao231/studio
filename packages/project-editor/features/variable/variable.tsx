@@ -12,6 +12,8 @@ import {
 import { validators } from "eez-studio-shared/validation";
 import { validators as validatorsRenderer } from "eez-studio-shared/validation-renderer";
 
+import { t } from "eez-studio-shared/i18n";
+
 import { showGenericDialog } from "eez-studio-ui/generic-dialog";
 
 import {
@@ -127,9 +129,9 @@ export function uniqueForVariableAndUserProperty(
         }
 
         if (userPropertyOrLocalVariable instanceof Variable) {
-            return "Local variable with this name already exists";
+            return t("Local variable with this name already exists");
         } else {
-            return "User property with this name already exists";
+            return t("User property with this name already exists");
         }
     };
 }
@@ -284,16 +286,15 @@ export const NativeVariableImplementationInfoPropertyUI = observer(
                     <div className="EezStudio_PropertyGrid_TipBox_Description">
                         <div className="EezStudio_PropertyGrid_TipBox_Header">
                             <Icon icon="material:lightbulb_outline" />
-                            <span>TIP</span>
+                            <span>{t("TIP")}</span>
                         </div>
                         <div className="EezStudio_PropertyGrid_TipBox_DescriptionText">
                             {this.hasFlowSupport
-                                ? "For native variable "
-                                : "For variable "}
-                            you must provide implementation of get and set
-                            functions. Below is a basic implementation code for
-                            such functions. You can copy and paste it into some
-                            source file in your project.
+                                ? t("For native variable ")
+                                : t("For variable ")}
+                            {t(
+                                "you must provide implementation of get and set functions. Below is a basic implementation code for such functions. You can copy and paste it into some source file in your project."
+                            )}
                         </div>
                         <div className="EezStudio_PropertyGrid_TipBox_Toolbar">
                             <select
@@ -310,7 +311,7 @@ export const NativeVariableImplementationInfoPropertyUI = observer(
                             <IconAction
                                 icon="material:content_copy"
                                 iconSize={20}
-                                title="Copy to Clipboard"
+                                title={t("Copy to Clipboard")}
                                 onClick={() => {
                                     clipboard.writeText(code);
                                 }}
@@ -401,10 +402,10 @@ export class Variable extends EezObject {
                     const project = ProjectEditor.getProject(variable);
                     if (project.projectTypeTraits.isEezFlowLite) {
                         if (variable.type == "string") {
-                            return "String length";
+                            return t("String length");
                         }
                         if (isArrayType(variable.type)) {
-                            return "Array size";
+                            return t("Array size");
                         }
                     }
                     return "size";
@@ -523,7 +524,7 @@ export class Variable extends EezObject {
                     ) &&
                         variable.native && (
                             <span className="EezStudio_ListLabel_Badge">
-                                NATIVE
+                                {t("NATIVE")}
                             </span>
                         )}
                     {!isPropertyDisabled(
@@ -532,7 +533,7 @@ export class Variable extends EezObject {
                     ) &&
                         variable.persistent && (
                             <span className="EezStudio_ListLabel_Badge">
-                                PERSISTENT
+                                {t("PERSISTENT")}
                             </span>
                         )}
                     <span>{variable.name}</span>
@@ -546,9 +547,9 @@ export class Variable extends EezObject {
             );
         },
         propertiesPanelLabel: (variable: Variable) => {
-            return `${
-                ProjectEditor.getFlow(variable) ? "Local" : "Global"
-            } variable: ${variable.name}`;
+            return ProjectEditor.getFlow(variable)
+                ? t("Local variable: {name}", { name: variable.name })
+                : t("Global variable: {name}", { name: variable.name });
         },
         beforeLoadHook: (object: Variable, objectJS: any) => {
             migrateType(objectJS);
@@ -572,8 +573,8 @@ export class Variable extends EezObject {
             const result = await showGenericDialog({
                 dialogDefinition: {
                     title: ProjectEditor.getFlow(parent)
-                        ? "New Local Variable"
-                        : "New Global Variable",
+                        ? t("New Local Variable")
+                        : t("New Global Variable"),
                     fields: [
                         {
                             name: "name",
@@ -594,7 +595,7 @@ export class Variable extends EezObject {
                         },
                         {
                             name: "stringLength",
-                            displayName: "String length",
+                            displayName: t("String length"),
                             type: "number",
                             validators: [validators.required],
                             visible: (values: any) =>
@@ -604,7 +605,7 @@ export class Variable extends EezObject {
                         },
                         {
                             name: "arraySize",
-                            displayName: "Array size",
+                            displayName: t("Array size"),
                             type: "number",
                             validators: [validators.required],
                             visible: (values: any) =>
@@ -687,7 +688,7 @@ export class Variable extends EezObject {
                         messages.push(
                             new Message(
                                 MessageType.ERROR,
-                                `String length must be an integer greater than zero`,
+                                t("String length must be an integer greater than zero"),
                                 getChildOfObject(variable, "size")
                             )
                         );
@@ -700,7 +701,9 @@ export class Variable extends EezObject {
                         messages.push(
                             new Message(
                                 MessageType.ERROR,
-                                `Type '${variable.type}' not supported`,
+                                t("Type '{type}' not supported", {
+                                    type: variable.type
+                                }),
                                 getChildOfObject(variable, "type")
                             )
                         );
@@ -713,7 +716,7 @@ export class Variable extends EezObject {
                         messages.push(
                             new Message(
                                 MessageType.ERROR,
-                                `Array size must be an integer greater than zero`,
+                                t("Array size must be an integer greater than zero"),
                                 getChildOfObject(variable, "size")
                             )
                         );
@@ -732,7 +735,7 @@ export class Variable extends EezObject {
 
             if (!isValidType(projectStore.project, variable.type)) {
                 messages.push(
-                    new Message(MessageType.ERROR, `Invalid type`, variable)
+                    new Message(MessageType.ERROR, t("Invalid type"), variable)
                 );
             }
 
@@ -1251,7 +1254,7 @@ export class StructureField extends EezObject implements IStructureField {
                 messages.push(
                     new Message(
                         MessageType.ERROR,
-                        `Invalid type`,
+                        t("Invalid type"),
                         structureField
                     )
                 );
@@ -1264,7 +1267,7 @@ export class StructureField extends EezObject implements IStructureField {
         newItem: async (parent: IEezObject) => {
             const result = await showGenericDialog({
                 dialogDefinition: {
-                    title: "New Structure Field",
+                    title: t("New Structure Field"),
                     fields: [
                         {
                             name: "name",
@@ -1343,12 +1346,12 @@ export class Structure extends EezObject implements IStructure {
             }
         ],
         propertiesPanelLabel: (structure: Structure) => {
-            return `Structure: ${structure.name}`;
+            return t("Structure: {name}", { name: structure.name });
         },
         newItem: async (parent: IEezObject) => {
             const result = await showGenericDialog({
                 dialogDefinition: {
-                    title: "New Structure",
+                    title: t("New Structure"),
                     fields: [
                         {
                             name: "name",
@@ -1439,13 +1442,13 @@ export class EnumMember extends EezObject implements IEnumMember {
             },
             {
                 name: "specificValue",
-                displayName: "Value",
+                displayName: t("Value"),
                 type: PropertyType.Number,
                 disabled: (enumMember: EnumMember) => enumMember.automaticValue
             },
             {
                 name: "value",
-                displayName: "Value",
+                displayName: t("Value"),
                 type: PropertyType.Number,
                 computed: true,
                 readOnlyInPropertyGrid: true,
@@ -1492,7 +1495,7 @@ export class EnumMember extends EezObject implements IEnumMember {
         newItem: async (parent: IEezObject) => {
             const result = await showGenericDialog({
                 dialogDefinition: {
-                    title: "New Enum Member",
+                    title: t("New Enum Member"),
                     fields: [
                         {
                             name: "name",
@@ -1604,12 +1607,12 @@ export class Enum extends EezObject implements IEnum {
             </svg>
         ),
         propertiesPanelLabel: (enumObject: Enum) => {
-            return `Enum: ${enumObject.name}`;
+            return t("Enum: {name}", { name: enumObject.name });
         },
         newItem: async (parent: IEezObject) => {
             const result = await showGenericDialog({
                 dialogDefinition: {
-                    title: "New Enum",
+                    title: t("New Enum"),
                     fields: [
                         {
                             name: "name",
@@ -1677,7 +1680,7 @@ export class ProjectVariables extends EezObject {
     enums: Enum[];
 
     static classInfo: ClassInfo = {
-        label: () => "Variables",
+        label: () => t("Variables"),
         properties: [
             {
                 name: "globalVariables",
@@ -1759,10 +1762,10 @@ registerClass("ProjectVariables", ProjectVariables);
 const feature: ProjectEditorFeature = {
     name: "eezstudio-project-feature-variables",
     version: "0.1.0",
-    description: "Variables, Structures and Enums",
+    description: t("Variables, Structures and Enums"),
     author: "EEZ",
     authorLogo: "../eez-studio-ui/_images/eez_logo.png",
-    displayName: "Variables",
+    displayName: t("Variables"),
     mandatory: true,
     key: "variables",
     type: PropertyType.Object,
@@ -1780,7 +1783,9 @@ const feature: ProjectEditorFeature = {
             messages.push(
                 new Message(
                     MessageType.ERROR,
-                    "Max. 32000 global variables are supported",
+                    t(
+                        "Max. 32000 global variables are supported"
+                    ),
                     object
                 )
             );

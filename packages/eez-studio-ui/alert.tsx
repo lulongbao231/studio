@@ -1,6 +1,7 @@
 import React from "react";
 import { observer } from "mobx-react";
 import classNames from "classnames";
+import { t } from "eez-studio-shared/i18n";
 
 export const Alert = observer(
     class Alert extends React.Component<
@@ -20,7 +21,7 @@ export const Alert = observer(
                         <button
                             type="button"
                             className="btn-close"
-                            aria-label="Close"
+                            aria-label={t("Close")}
                             onClick={this.props.onDismiss}
                         ></button>
                     )}

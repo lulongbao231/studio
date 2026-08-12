@@ -7,6 +7,7 @@ import type {
     IChartsController
 } from "eez-studio-ui/chart/chart";
 import { ListAxisModel } from "instrument/window/lists/store-renderer";
+import { t } from "eez-studio-shared/i18n";
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -78,7 +79,7 @@ export const CommonTools = observer(
                                 <td>
                                     <button
                                         className="btn btn-secondary"
-                                        title="Zoom to fit range"
+                                        title={t("Zoom to fit range")}
                                         onClick={
                                             this.props.chartsController.zoomAll
                                         }
@@ -86,19 +87,19 @@ export const CommonTools = observer(
                                             marginRight: 10
                                         }}
                                     >
-                                        Zoom 100%
+                                        {t("Zoom 100%")}
                                     </button>
                                     <button
                                         className="btn btn-secondary"
-                                        title="Zoom to fit range"
+                                        title={t("Zoom to fit range")}
                                         onClick={this.zoomToFitRange}
                                     >
-                                        Zoom to Fit Range
+                                        {t("Zoom to Fit Range")}
                                     </button>
                                 </td>
                             )}
                             <td>
-                                <label>Display</label>
+                                <label>{t("Display")}</label>
                             </td>
                             <td>
                                 <label className="form-check-label">
@@ -107,10 +108,10 @@ export const CommonTools = observer(
                                         value={displayOption.get()}
                                         onChange={this.onDisplayOptionChange}
                                     >
-                                        <option value="split">Split</option>
-                                        <option value="voltage">Voltage</option>
-                                        <option value="current">Current</option>
-                                        <option value="both">Both</option>
+                                        <option value="split">{t("Split")}</option>
+                                        <option value="voltage">{t("Voltage")}</option>
+                                        <option value="current">{t("Current")}</option>
+                                        <option value="both">{t("Both")}</option>
                                     </select>
                                 </label>
                             </td>

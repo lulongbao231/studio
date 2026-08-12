@@ -7,6 +7,7 @@ import { observer } from "mobx-react";
 import * as FlexLayout from "flexlayout-react";
 
 import { readBinaryFile } from "eez-studio-shared/util-electron";
+import { t } from "eez-studio-shared/i18n";
 
 import { IconAction, ButtonAction } from "eez-studio-ui/action";
 import { Toolbar } from "eez-studio-ui/toolbar";
@@ -80,7 +81,7 @@ export const HistoryTools = observer(
                     },
                     {
                         undoable: true,
-                        transaction: "Add note"
+                        transaction: t("Add note")
                     }
                 );
             });
@@ -120,14 +121,14 @@ export const HistoryTools = observer(
         attachFile = async () => {
             const result = await dialog.showOpenDialog(getCurrentWindow(), {
                 properties: ["openFile", "multiSelections"],
-                filters: [{ name: "All Files", extensions: ["*"] }]
+                filters: [{ name: t("All Files"), extensions: ["*"] }]
             });
 
             const filePaths = result.filePaths;
             if (filePaths) {
                 filePaths.forEach(async filePath => {
                     const progressToastId = notification.info(
-                        "Loading file ...",
+                        t("Loading file ..."),
                         {
                             autoClose: false,
                             closeButton: false,
@@ -147,7 +148,7 @@ export const HistoryTools = observer(
 
                     if (filePath.toLowerCase().endsWith(".csv")) {
                         notification.update(progressToastId, {
-                            render: "Importing CSV ..."
+                            render: t("Importing CSV ...")
                         });
 
                         await new Promise(resolve => setTimeout(resolve, 300));
@@ -209,7 +210,7 @@ export const HistoryTools = observer(
                                     unitName: "volt",
                                     color: "blue",
                                     colorInverse: "blue",
-                                    label: "Voltage",
+                                    label: t("Voltage"),
                                     offset: 0,
                                     scale: 1
                                 },
@@ -250,7 +251,7 @@ export const HistoryTools = observer(
                     }
 
                     notification.update(progressToastId, {
-                        render: "Importing to database ..."
+                        render: t("Importing to database ...")
                     });
                     await new Promise(resolve => setTimeout(resolve, 300));
 
@@ -268,7 +269,7 @@ export const HistoryTools = observer(
                     );
 
                     notification.update(progressToastId, {
-                        render: "Import done.",
+                        render: t("Import done."),
                         type: notification.SUCCESS,
                         closeButton: true,
                         closeOnClick: true,
@@ -283,9 +284,9 @@ export const HistoryTools = observer(
             if (this.props.appStore.instrument.commandsProtocol == "SCPI") {
                 this.props.appStore.selectHistoryItems({
                     historyItemType: "chart",
-                    message: "Select two or more waveform data items",
-                    okButtonText: "Add Chart",
-                    okButtonTitle: "Add chart",
+                    message: t("Select two or more waveform data items"),
+                    okButtonText: t("Add Chart"),
+                    okButtonTitle: t("Add chart"),
                     loading: true,
                     onOk: () => {
                         const multiWaveformDefinition = {
@@ -307,7 +308,7 @@ export const HistoryTools = observer(
                             },
                             {
                                 undoable: true,
-                                transaction: "Add chart"
+                                transaction: t("Add chart")
                             }
                         );
                     }
@@ -355,7 +356,7 @@ export const HistoryTools = observer(
                             unitName: "volt",
                             color: "blue",
                             colorInverse: "blue",
-                            label: "Voltage",
+                            label: t("Voltage"),
                             offset: 0,
                             scale: 1
                         },
@@ -365,7 +366,7 @@ export const HistoryTools = observer(
                 },
                 {
                     undoable: true,
-                    transaction: "Generate chart"
+                    transaction: t("Generate chart")
                 }
             );
         };
@@ -380,25 +381,25 @@ export const HistoryTools = observer(
                     <IconAction
                         key="addNote"
                         icon="material:comment"
-                        title="Add Note"
+                        title={t("Add Note")}
                         onClick={this.addNote}
                     />,
                     <IconAction
                         key="addAudio"
                         icon={RECORD_AUDIO_ICON}
-                        title="Record Audio"
+                        title={t("Record Audio")}
                         onClick={this.addAudio}
                     />,
                     <IconAction
                         key="addVideo"
                         icon={RECORD_VIDEO_ICON}
-                        title="Record Video from Camera"
+                        title={t("Record Video from Camera")}
                         onClick={this.addVideo}
                     />,
                     <IconAction
                         key="addFile"
                         icon="material:attach_file"
-                        title="Attach File"
+                        title={t("Attach File")}
                         onClick={this.attachFile}
                     />
                 );
@@ -408,7 +409,7 @@ export const HistoryTools = observer(
                         <IconAction
                             key="addChart"
                             icon="material:insert_chart"
-                            title="Add Chart"
+                            title={t("Add Chart")}
                             onClick={this.addChart}
                         />
                     );
@@ -417,7 +418,7 @@ export const HistoryTools = observer(
                         <IconAction
                             key="addChart"
                             icon={PLOTTER_ICON}
-                            title="Show/Hide Plotter"
+                            title={t("Show/Hide Plotter")}
                             onClick={this.togglePlotter}
                             selected={
                                 this.props.appStore.instrument.connection
@@ -431,7 +432,7 @@ export const HistoryTools = observer(
                             <IconAction
                                 key="convertToChart"
                                 icon={CONVERT_TO_CHART}
-                                title="Create chart from selected items"
+                                title={t("Create chart from selected items")}
                                 onClick={appStore.history.convertToChart}
                             />
                         );
@@ -479,7 +480,7 @@ export const HistoryTools = observer(
                         <IconAction
                             key="Save"
                             icon="material:save"
-                            title="Store selected history items permanently"
+                            title={t("Store selected history items permanently")}
                             onClick={
                                 appStore.history
                                     .storeSelectedHistoryItemsPermanently
@@ -493,7 +494,7 @@ export const HistoryTools = observer(
                         <IconAction
                             key="delete"
                             icon="material:delete"
-                            title="Delete selected history items"
+                            title={t("Delete selected history items")}
                             onClick={
                                 appStore.history.deleteSelectedHistoryItems
                             }
@@ -505,9 +506,11 @@ export const HistoryTools = observer(
                     tools.push(
                         <ButtonAction
                             key="deletedItems"
-                            text={`Deleted Items (${appStore.deletedItemsHistory.deletedCount})`}
+                            text={t("Deleted Items ({count})", {
+                                count: appStore.deletedItemsHistory.deletedCount
+                            })}
                             icon="material:delete"
-                            title="Show deleted items"
+                            title={t("Show deleted items")}
                             onClick={
                                 appStore.navigationStore
                                     .navigateToDeletedHistoryItems
@@ -632,7 +635,9 @@ export class HistoryViewComponent extends React.Component<{
                     <div className="EezStudio_HistoryHeader EezStudio_SlideInDownTransition">
                         <div>
                             {appStore.selectedHistoryItems.size > 0 ? (
-                                `${appStore.selectedHistoryItems.size} selected`
+                                t("{count} selected", {
+                                    count: appStore.selectedHistoryItems.size
+                                })
                             ) : (
                                 <span style={{ display: "flex" }}>
                                     {appStore.selectHistoryItemsSpecification
@@ -673,8 +678,8 @@ export class HistoryViewComponent extends React.Component<{
                                 />
                             )}
                             <ButtonAction
-                                text="Cancel"
-                                title="Cancel"
+                                text={t("Cancel")}
+                                title={t("Cancel")}
                                 className="btn-secondary"
                                 onClick={this.onSelectHistoryItemsCancel}
                             />
@@ -707,7 +712,7 @@ export class HistoryViewComponent extends React.Component<{
                                     this.props.appStore.history.calendar.update();
                                 }}
                             >
-                                Jump To Present
+                                {t("Jump To Present")}
                             </button>
                         )}
                 </div>
@@ -812,5 +817,7 @@ export function showSessionsList(navigationStore: INavigationStore) {
 }
 
 ipcRenderer.on("create-plotter-no-data", () => {
-    notification.info("No data found that can be converted into a graph.");
+    notification.info(
+        t("No data found that can be converted into a graph.")
+    );
 });

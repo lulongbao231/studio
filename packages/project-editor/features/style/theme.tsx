@@ -5,6 +5,7 @@ import { observer } from "mobx-react";
 import * as FlexLayout from "flexlayout-react";
 
 import { validators } from "eez-studio-shared/validation";
+import { t } from "eez-studio-shared/i18n";
 
 import { FlexLayoutContainer } from "eez-studio-ui/FlexLayout";
 
@@ -358,7 +359,7 @@ export class Color extends EezObject {
             },
             {
                 name: "name",
-                displayName: "Color name",
+                displayName: t("Color name"),
                 type: PropertyType.String,
                 unique: true
             }
@@ -410,7 +411,7 @@ export class Color extends EezObject {
         newItem: async (parent: IEezObject) => {
             const result = await showGenericDialog({
                 dialogDefinition: {
-                    title: "New Color",
+                    title: t("New Color"),
                     fields: [
                         {
                             name: "name",
@@ -486,7 +487,7 @@ export class Color extends EezObject {
             if (editable) {
                 additionalMenuItems.push(
                     new MenuItem({
-                        label: "Copy to other themes",
+                        label: t("Copy to other themes"),
                         click: () => {
                             const projectStore = getProjectStore(thisObject);
 
@@ -562,7 +563,7 @@ export class Theme extends EezObject implements ITheme {
         properties: [
             {
                 name: "name",
-                displayName: "Theme name",
+                displayName: t("Theme name"),
                 type: PropertyType.String,
                 unique: true
             },
@@ -576,7 +577,7 @@ export class Theme extends EezObject implements ITheme {
         newItem: async (parent: IEezObject) => {
             const result = await showGenericDialog({
                 dialogDefinition: {
-                    title: "New Theme",
+                    title: t("New Theme"),
                     fields: [
                         {
                             name: "name",

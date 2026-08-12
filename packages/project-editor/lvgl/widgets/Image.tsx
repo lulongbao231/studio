@@ -1,3 +1,4 @@
+import { t } from "eez-studio-shared/i18n";
 import React from "react";
 import { observable, makeObservable } from "mobx";
 
@@ -73,27 +74,27 @@ export class LVGLImageWidget extends LVGLWidget {
             },
             {
                 name: "setPivot",
-                displayName: "Change pivot point (default is center)",
+                displayName: t("Change pivot point (default is center)"),
                 type: PropertyType.Boolean,
                 propertyGridGroup: specificGroup
             },
             {
                 name: "pivotX",
-                displayName: "Pivot X",
+                displayName: t("Pivot X"),
                 type: PropertyType.Number,
                 propertyGridGroup: specificGroup,
                 disabled: (widget: LVGLImageWidget) => !widget.setPivot
             },
             {
                 name: "pivotY",
-                displayName: "Pivot Y",
+                displayName: t("Pivot Y"),
                 type: PropertyType.Number,
                 propertyGridGroup: specificGroup,
                 disabled: (widget: LVGLImageWidget) => !widget.setPivot
             },
             {
                 name: "zoom",
-                displayName: "Scale",
+                displayName: t("Scale"),
                 type: PropertyType.Number,
                 propertyGridGroup: specificGroup,
                 hideInPropertyGrid: (widget: LVGLImageWidget) =>
@@ -101,7 +102,7 @@ export class LVGLImageWidget extends LVGLWidget {
             },
             {
                 name: "angle",
-                displayName: "Rotation",
+                displayName: t("Rotation"),
                 type: PropertyType.Number,
                 propertyGridGroup: specificGroup,
                 hideInPropertyGrid: (widget: LVGLImageWidget) =>
@@ -233,7 +234,7 @@ export class LVGLImageWidget extends LVGLWidget {
                         messages.push(
                             new Message(
                                 MessageType.ERROR,
-                                `Value must be an integer`,
+                                t("Value must be an integer"),
                                 getChildOfObject(widget, "value")
                             )
                         );
@@ -362,7 +363,7 @@ export class LVGLImageWidget extends LVGLWidget {
                         "int32_t",
                         "new_val",
                         this.value as string,
-                        "Failed to evaluate Value in Image widget"
+                        t("Failed to evaluate Value in Image widget")
                     );
 
                     if (code.lvglBuild) {

@@ -2,6 +2,8 @@ import React from "react";
 import { action } from "mobx";
 import { observer } from "mobx-react";
 
+import { t } from "eez-studio-shared/i18n";
+
 import { BB3Instrument } from "instrument/bb3/objects/BB3Instrument";
 
 export const ScriptsSectionSelectView = observer(
@@ -23,52 +25,58 @@ export const ScriptsSectionSelectView = observer(
                     )}
                 >
                     <option value="allScriptsCollection">
-                        All ({bb3Instrument.allScriptsCollection.length})
+                        {t("All ({count})", {
+                            count: bb3Instrument.allScriptsCollection.length
+                        })}
                     </option>
                     {bb3Instrument.catalogScriptsCollection.length > 0 && (
                         <option value="catalogScriptsCollection">
-                            From catalog (
-                            {bb3Instrument.catalogScriptsCollection.length})
+                            {t("From catalog ({count})", {
+                                count:
+                                    bb3Instrument.catalogScriptsCollection
+                                        .length
+                            })}
                         </option>
                     )}
                     {bb3Instrument.instrumentScriptsCollection.length > 0 && (
                         <option value="instrumentScriptsCollection">
-                            On instrument (
-                            {bb3Instrument.instrumentScriptsCollection.length})
+                            {t("On instrument ({count})", {
+                                count:
+                                    bb3Instrument.instrumentScriptsCollection
+                                        .length
+                            })}
                         </option>
                     )}
                     {bb3Instrument.notInstalledCatalogScriptsCollection.length >
                         0 && (
                         <option value="notInstalledCatalogScriptsCollection">
-                            Not installed from catalog (
-                            {
-                                bb3Instrument
-                                    .notInstalledCatalogScriptsCollection.length
-                            }
-                            )
+                            {t("Not installed from catalog ({count})", {
+                                count:
+                                    bb3Instrument
+                                        .notInstalledCatalogScriptsCollection
+                                        .length
+                            })}
                         </option>
                     )}
                     {bb3Instrument.installedCatalogScriptsCollection.length >
                         0 && (
                         <option value="installedCatalogScriptsCollection">
-                            Installed from catalog (
-                            {
-                                bb3Instrument.installedCatalogScriptsCollection
-                                    .length
-                            }
-                            )
+                            {t("Installed from catalog ({count})", {
+                                count:
+                                    bb3Instrument
+                                        .installedCatalogScriptsCollection.length
+                            })}
                         </option>
                     )}
                     {bb3Instrument.instrumentScriptsNotInCatalogCollection
                         .length > 0 && (
                         <option value="instrumentScriptsNotInCatalogCollection">
-                            On instrument but not from catalog (
-                            {
-                                bb3Instrument
-                                    .instrumentScriptsNotInCatalogCollection
-                                    .length
-                            }
-                            )
+                            {t("On instrument but not from catalog ({count})", {
+                                count:
+                                    bb3Instrument
+                                        .instrumentScriptsNotInCatalogCollection
+                                        .length
+                            })}
                         </option>
                     )}
                 </select>

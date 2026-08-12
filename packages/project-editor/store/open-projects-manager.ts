@@ -11,6 +11,7 @@ import fs from "fs";
 import path from "path";
 
 import * as notification from "eez-studio-ui/notification";
+import { t } from "eez-studio-shared/i18n";
 
 import type { ProjectStore } from "project-editor/store";
 import { ImportDirective, Project } from "project-editor/project/project";
@@ -353,7 +354,9 @@ export class OpenProjectsManager {
                 );
             } catch (err) {
                 notification.error(
-                    `Failed to load project ${absoluteFilePath}`
+                    t("Failed to load project {path}", {
+                        path: absoluteFilePath
+                    })
                 );
             }
         }
@@ -384,7 +387,9 @@ export class OpenProjectsManager {
                 }
             } catch (err) {
                 notification.error(
-                    `Failed to load project ${absoluteFilePath}`
+                    t("Failed to load project {path}", {
+                        path: absoluteFilePath
+                    })
                 );
             }
         }

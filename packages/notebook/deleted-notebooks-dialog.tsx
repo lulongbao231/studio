@@ -1,4 +1,5 @@
 import React from "react";
+import { t } from "eez-studio-shared/i18n";
 import { findDOMNode } from "react-dom";
 import { computed, values, makeObservable } from "mobx";
 import { observer } from "mobx-react";
@@ -46,8 +47,8 @@ const DeletedNotebooksDialog = observer(
                             <div className="EezStudio_NoWrap">
                                 <ButtonAction
                                     className="btn-sm btn-outline-success"
-                                    text="Restore"
-                                    title="Restore"
+                                    text={t("Restore")}
+                                    title={t("Restore")}
                                     onClick={() => {
                                         notebooksStore.undeleteObject(notebook);
                                     }}
@@ -58,12 +59,16 @@ const DeletedNotebooksDialog = observer(
                                 />
                                 <ButtonAction
                                     className="btn-sm btn-outline-danger"
-                                    text="Delete Permanently"
-                                    title="Delete notebook permanently including all the items"
+                                    text={t("Delete Permanently")}
+                                    title={t(
+                                        "Delete notebook permanently including all the items"
+                                    )}
                                     onClick={() => {
                                         confirm(
-                                            "Are you sure?",
-                                            "It will also delete all the items in the notebbok.",
+                                            t("Are you sure?"),
+                                            t(
+                                                "It will also delete all the items in the notebbok."
+                                            ),
                                             () => {
                                                 itemsStore.deleteObject(
                                                     { oid: notebook.id },
@@ -97,8 +102,8 @@ const DeletedNotebooksDialog = observer(
 
         deleteAllPermanently() {
             confirm(
-                "Are you sure?",
-                "It will also delete all the items.",
+                t("Are you sure?"),
+                t("It will also delete all the items."),
                 () => {
                     let deletedNotebooks = this.deletedNotebooks.slice();
                     for (let i = 0; i < deletedNotebooks.length; i++) {
@@ -134,7 +139,7 @@ const DeletedNotebooksDialog = observer(
                             onClick: () => this.deleteAllPermanently(),
                             disabled: false,
                             style: { marginRight: "auto" },
-                            text: "Delete All Permanently"
+                            text: t("Delete All Permanently")
                         }
                     ]}
                 >

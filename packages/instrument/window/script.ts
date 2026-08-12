@@ -7,6 +7,7 @@ import { info, confirm, error } from "eez-studio-ui/dialog-electron";
 import { showGenericDialog } from "eez-studio-ui/generic-dialog";
 
 import { validators } from "eez-studio-shared/validation";
+import { t } from "eez-studio-shared/i18n";
 
 import type { IShortcut } from "shortcuts/interfaces";
 
@@ -497,18 +498,20 @@ export function executeShortcut(
     shortcut: IShortcut
 ) {
     if (isShorcutRunning()) {
-        error("Shortcut is running!", undefined);
+        error(t("Shortcut is running!"), undefined);
         return;
     }
 
     if (!appStore.instrument.isConnected) {
-        info("Not connected to the instrument.", undefined);
+        info(t("Not connected to the instrument."), undefined);
         return;
     }
 
     if (shortcut.requiresConfirmation) {
         confirm(
-            `Do you want to execute "${shortcut.name}" shortcut?`,
+            t('Do you want to execute "{name}" shortcut?', {
+                name: shortcut.name
+            }),
             undefined,
             () => doExecuteShortcut(appStore, shortcut)
         );

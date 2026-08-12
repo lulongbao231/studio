@@ -10,6 +10,7 @@ import {
     Body,
     Header
 } from "eez-studio-ui/header-with-body";
+import { t } from "eez-studio-shared/i18n";
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -67,7 +68,7 @@ const ZoomedPreview = observer(
                             <IconAction
                                 icon="material:close"
                                 iconSize={24}
-                                title="Leave full screen mode"
+                                title={t("Leave full screen mode")}
                                 onClick={this.props.toggleZoom}
                             />
                         </Toolbar>

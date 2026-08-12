@@ -6,6 +6,7 @@ import { FixedSizeList as List } from "react-window";
 import AutoSizer from "react-virtualized-auto-sizer";
 
 import { IconAction } from "eez-studio-ui/action";
+import { t } from "eez-studio-shared/i18n";
 
 import { IEezObject } from "project-editor/core/object";
 import { Panel } from "project-editor/ui-components/Panel";
@@ -35,7 +36,9 @@ export const LogsPanel = observer(
                         title=""
                         buttons={[
                             <div key="filter">
-                                <span style={{ marginRight: 5 }}>Filter:</span>
+                                <span style={{ marginRight: 5 }}>
+                                    {t("Filter:")}
+                                </span>
                                 <select
                                     className="form-select"
                                     value={
@@ -44,20 +47,22 @@ export const LogsPanel = observer(
                                     }
                                     onChange={this.onChangeFilter}
                                 >
-                                    <option value="all">All</option>
-                                    <option value="fatal">Fatal</option>
-                                    <option value="error">Error</option>
-                                    <option value="warning">Warning</option>
-                                    <option value="info">Info</option>
-                                    <option value="debug">Debug</option>
-                                    <option value="scpi">SCPI</option>
+                                    <option value="all">{t("All")}</option>
+                                    <option value="fatal">{t("Fatal")}</option>
+                                    <option value="error">{t("Error")}</option>
+                                    <option value="warning">
+                                        {t("Warning")}
+                                    </option>
+                                    <option value="info">{t("Info")}</option>
+                                    <option value="debug">{t("Debug")}</option>
+                                    <option value="scpi">{t("SCPI")}</option>
                                 </select>
                             </div>,
                             <IconAction
                                 key="clear"
                                 icon="material:delete"
                                 iconSize={20}
-                                title="Clear logs"
+                                title={t("Clear logs")}
                                 onClick={this.props.runtime.logs.clear}
                             ></IconAction>
                         ]}

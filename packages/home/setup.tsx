@@ -15,6 +15,9 @@ import {
     getManufacturer,
     isInstrumentExtension
 } from "eez-studio-shared/extensions/extensions";
+
+import { t } from "eez-studio-shared/i18n";
+
 import { List, IListNode, ListItem } from "eez-studio-ui/list";
 import * as notification from "eez-studio-ui/notification";
 import { Loader } from "eez-studio-ui/loader";
@@ -231,7 +234,7 @@ export const Setup = observer(() => {
             <div className="d-flex flex-column justify-content-center align-items-center h-100">
                 {setupState.extensionInstalling.inProgress && (
                     <div>
-                        <h3>Installing Extension</h3>
+                        <h3>{t("Installing Extension")}</h3>
                         <Loader />
                     </div>
                 )}
@@ -252,9 +255,8 @@ export const Setup = observer(() => {
                             setupState.extensionInstalling = undefined;
                         })}
                     >
-                        Back
-                    </button>
-                    <button
+                        {t("Back")}
+                    </button>                    <button
                         className="btn btn-primary"
                         disabled={
                             !setupState.selectedManufacturer ||
@@ -265,7 +267,7 @@ export const Setup = observer(() => {
                             onTryAgain();
                         }}
                     >
-                        Try Again
+                        {t("Try Again")}
                     </button>
                 </div>
             </div>

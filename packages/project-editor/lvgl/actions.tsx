@@ -31,6 +31,7 @@ import { COMPONENT_TYPE_LVGL_ACTION_API } from "project-editor/flow/components/c
 import type { IFlowContext } from "project-editor/flow/flow-interfaces";
 import { specificGroup } from "project-editor/ui-components/PropertyGrid/groups";
 import { humanize } from "eez-studio-shared/string";
+import { t } from "eez-studio-shared/i18n";
 import {
     createObject,
     getAncestorOfType,
@@ -234,7 +235,9 @@ export function registerAction(actionDefinition: IActionDefinition) {
                 makeAssignableExpressionProperty(
                     {
                         name: actionProperty.name,
-                        displayName: `Store ${actionProperty.name} into`,
+                        displayName: t("Store {name} into", {
+                            name: actionProperty.name
+                        }),
                         type: PropertyType.MultilineText
                     },
                     expressionType
@@ -579,7 +582,7 @@ export function registerAction(actionDefinition: IActionDefinition) {
                                     messages.push(
                                         new Message(
                                             MessageType.ERROR,
-                                            `Unknown style property "${value}"`,
+                                            t('Unknown style property "{value}"', { value }),
                                             getChildOfObject(object, propertyInfo.name)
                                         )
                                     );
@@ -591,7 +594,16 @@ export function registerAction(actionDefinition: IActionDefinition) {
                                     messages.push(
                                         new Message(
                                             MessageType.ERROR,
-                                            `Style property "${propertiesGroup.groupName} / ${propertyName}" doesn't exists in LVGL version ${project.settings.general.lvglVersion}`,
+                                            t(
+                                                'Style property "{group} / {name}" doesn\'t exists in LVGL version {version}',
+                                                {
+                                                    group: propertiesGroup.groupName,
+                                                    name: propertyName,
+                                                    version:
+                                                        project.settings.general
+                                                            .lvglVersion
+                                                }
+                                            ),
                                             getChildOfObject(object, propertyInfo.name)
                                         )
                                     );
@@ -619,7 +631,7 @@ export function registerAction(actionDefinition: IActionDefinition) {
                                         messages.push(
                                             new Message(
                                                 MessageType.ERROR,
-                                                `Multiple widgets with the same name`,
+                                                t("Multiple widgets with the same name"),
                                                 getChildOfObject(object, propertyInfo.name)
                                             )
                                         );
@@ -638,7 +650,7 @@ export function registerAction(actionDefinition: IActionDefinition) {
                                                 messages.push(
                                                     new Message(
                                                         MessageType.ERROR,
-                                                        `Invalid widget type`,
+                                                        t("Invalid widget type"),
                                                         getChildOfObject(widget, propertyInfo.name)
                                                     )
                                                 );
@@ -929,7 +941,7 @@ const NewLVGLActionDialog = observer(
                     open={this.open}
                     modal={true}
                     backdrop="static"
-                    title={"Add a New LVGL Action"}
+                    title={t("Add a New LVGL Action")}
                     okEnabled={this.onOkEnabled}
                     onOk={this.onOk}
                     onCancel={this.props.onCancel}
@@ -1015,9 +1027,11 @@ export class LVGLActionType extends EezObject {
                 displayName: (object: LVGLActionType) => {
                     const actions = getParent(object) as LVGLActionType[];
                     if (actions.length < 2) {
-                        return "Action";
+                        return t("Action");
                     }
-                    return `Action #${actions.indexOf(object) + 1}`;
+                    return t("Action #{number}", {
+                        number: actions.indexOf(object) + 1
+                    });
                 },
                 type: PropertyType.Enum,
                 enumItems: [...actionClasses.keys()].map(id => ({
@@ -1721,7 +1735,7 @@ registerClass("LVGLActionComponent", LVGLActionComponent);
 
 export function generateLVGLActionsMarkdown() {
     let result =
-        "List of actions to be executed. The following actions are available:\n\n";
+        t("List of actions to be executed. The following actions are available:\n\n");
 
     for (const actionDefinition of actionDefinitions) {
         result += `- **${getActionDisplayName(actionDefinition)}**: ${
@@ -1799,9 +1813,11 @@ export class LVGLActionType extends EezObject {
                 displayName: (object: LVGLActionType) => {
                     const actions = getParent(object) as LVGLActionType[];
                     if (actions.length < 2) {
-                        return "Action";
+                        return t("Action");
                     }
-                    return `Action #${actions.indexOf(object) + 1}`;
+                    return t("Action #{number}", {
+                        number: actions.indexOf(object) + 1
+                    });
                 },
                 type: PropertyType.Enum,
                 enumItems: Object.keys(LVGL_ACTIONS).map(id => ({
@@ -1817,11 +1833,11 @@ export class LVGLActionType extends EezObject {
 
             const result = await showGenericDialog({
                 dialogDefinition: {
-                    title: "New LVGL Action",
+                    title: t("New LVGL Action"),
                     fields: [
                         {
                             name: "action",
-                            displayName: "Action type",
+                            displayName: t("Action type"),
                             type: "enum",
                             enumItems: Object.keys(LVGL_ACTIONS).map(id => ({
                                 id,
@@ -1992,7 +2008,7 @@ export class LVGLChangeScreenActionType extends LVGLActionType {
         properties: [
             {
                 name: "showPreviousScreen",
-                displayName: "Previous screen",
+                displayName: t("Previous screen"),
                 type: PropertyType.Boolean,
                 checkboxStyleSwitch: true
             },
@@ -2013,12 +2029,12 @@ export class LVGLChangeScreenActionType extends LVGLActionType {
             },
             {
                 name: "speed",
-                displayName: "Speed (ms)",
+                displayName: t("Speed (ms)"),
                 type: PropertyType.Number
             },
             {
                 name: "delay",
-                displayName: "Delay (ms)",
+                displayName: t("Delay (ms)"),
                 type: PropertyType.Number
             }
         ],
@@ -2030,15 +2046,20 @@ export class LVGLChangeScreenActionType extends LVGLActionType {
         },
         listLabel: (action: LVGLChangeScreenActionType, collapsed: boolean) => {
             if (!collapsed) {
-                return "Change screen";
+                return t("Change screen");
             }
             let singleItem =
                 (getParent(action) as LVGLActionType[]).length == 1;
-            return `${singleItem ? "" : "Change screen: "}${
-                action.showPreviousScreen
-                    ? "Previous Screen"
-                    : `Screen=${action.screen}`
-            }, Speed=${action.speed} ms, Delay=${action.delay} ms`;
+            return t("{changeScreen}: {screen}, Speed={speed} ms, Delay={delay} ms", {
+                changeScreen: singleItem
+                    ? ""
+                    : t("Change screen"),
+                screen: action.showPreviousScreen
+                    ? t("Previous Screen")
+                    : `${t("Screen")}=${action.screen}`,
+                speed: action.speed,
+                delay: action.delay
+            });
         },
         check: (object: LVGLChangeScreenActionType, messages: IMessage[]) => {
             if (!object.showPreviousScreen) {
@@ -2163,12 +2184,12 @@ export class LVGLPlayAnimationActionType extends LVGLActionType {
             },
             {
                 name: "delay",
-                displayName: "Delay (ms)",
+                displayName: t("Delay (ms)"),
                 type: PropertyType.Number
             },
             {
                 name: "time",
-                displayName: "Time (ms)",
+                displayName: t("Time (ms)"),
                 type: PropertyType.Number
             },
             {
@@ -2203,17 +2224,19 @@ export class LVGLPlayAnimationActionType extends LVGLActionType {
             collapsed: boolean
         ) => {
             if (!collapsed) {
-                return "Play animation";
+                return t("Play animation");
             }
             let singleItem =
                 (getParent(action) as LVGLActionType[]).length == 1;
-            return `${singleItem ? "" : "Play animation: "}Target=${
+            return `${singleItem ? "" : t("Play animation: ")}${t("Target")}=${
                 action.target
-            }, Property=${action.property}, Start=${action.start}, End=${
+            }, ${t("Property")}=${action.property}, ${t("Start")}=${
+                action.start
+            }, ${t("End")}=${
                 action.end
-            }, Delay=${action.delay} ms, Time=${action.time} ms, Relative=${
-                action.relative ? "On" : "Off"
-            }, Instant=${action.instant ? "On" : "Off"} ${action.path}`;
+            }, ${t("Delay")}=${action.delay} ms, ${t("Time")}=${action.time} ms, ${t("Relative")}=${
+                action.relative ? t("On") : t("Off")
+            }, ${t("Instant")}=${action.instant ? t("On") : t("Off")} ${action.path}`;
         },
         check: (object: LVGLPlayAnimationActionType, messages: IMessage[]) => {
             if (!object.target) {
@@ -2488,7 +2511,7 @@ export class LVGLSetPropertyActionType extends LVGLActionType {
             },
             {
                 name: "target",
-                displayName: "Target",
+                displayName: t("Target"),
                 type: PropertyType.Enum,
                 enumItems: (actionType: LVGLSetPropertyActionType) => {
                     const lvglIdentifiers = ProjectEditor.getProjectStore(
@@ -2547,9 +2570,9 @@ export class LVGLSetPropertyActionType extends LVGLActionType {
                     },
                     displayName: (actionType: LVGLSetPropertyActionType) => {
                         if (actionType.propertyInfo.type == "image") {
-                            return "Image";
+                            return t("Image");
                         }
-                        return "Value";
+                        return t("Value");
                     },
                     disabled: (actionType: LVGLSetPropertyActionType) =>
                         actionType.propertyInfo.type == "textarea"
@@ -2593,25 +2616,25 @@ export class LVGLSetPropertyActionType extends LVGLActionType {
         },
         listLabel: (action: LVGLSetPropertyActionType, collapsed: boolean) => {
             if (!collapsed) {
-                return "Set property";
+                return t("Set property");
             }
             let singleItem =
                 (getParent(action) as LVGLActionType[]).length == 1;
             return (
                 <>
-                    {`${singleItem ? "" : "Set property: "}${action.target}.${
+                    {`${singleItem ? "" : t("Set property: ")}${action.target}.${
                         action.propertyInfo.code != PropertyCode.NONE
                             ? humanize(action.property)
-                            : "<not set>"
+                            : t("<not set>")
                     }`}
                     <LeftArrow />
                     {action.propertyInfo.type != "textarea"
                         ? action.valueExpr
                         : action.textarea
                         ? action.textarea
-                        : "<null>"}
+                        : t("<null>")}
                     {action.propertyInfo.animated
-                        ? `, Animated=${action.animated ? "On" : "Off"}`
+                        ? `, ${t("Animated")}=${action.animated ? t("On") : t("Off")}`
                         : ""}
                 </>
             );
@@ -2659,7 +2682,7 @@ export class LVGLSetPropertyActionType extends LVGLActionType {
                         messages.push(
                             new Message(
                                 MessageType.ERROR,
-                                `Invalid target type`,
+                                t("Invalid target type"),
                                 getChildOfObject(object, "target")
                             )
                         );
@@ -2713,7 +2736,7 @@ export class LVGLSetPropertyActionType extends LVGLActionType {
                             messages.push(
                                 new Message(
                                     MessageType.ERROR,
-                                    `Not a textarea widget`,
+                                    t("Not a textarea widget"),
                                     getChildOfObject(object, "textarea")
                                 )
                             );
@@ -2823,7 +2846,7 @@ export class LVGLAddStyleActionType extends LVGLActionType {
         properties: [
             {
                 name: "target",
-                displayName: "Target",
+                displayName: t("Target"),
                 type: PropertyType.Enum,
                 enumItems: (actionType: LVGLAddStyleActionType) => {
                     const lvglIdentifiers = ProjectEditor.getProjectStore(
@@ -2847,20 +2870,20 @@ export class LVGLAddStyleActionType extends LVGLActionType {
         defaultValue: {},
         listLabel: (action: LVGLAddStyleActionType, collapsed: boolean) => {
             if (!collapsed) {
-                return "Add style";
+                return t("Add style");
             }
             let singleItem =
                 (getParent(action) as LVGLActionType[]).length == 1;
             if (singleItem) {
                 return (
                     <>
-                        {action.style} to {action.target}
+                        {action.style} {t("to")} {action.target}
                     </>
                 );
             } else {
                 return (
                     <>
-                        Add style {action.style} to {action.target}
+                        {t("Add style")} {action.style} {t("to")} {action.target}
                     </>
                 );
             }
@@ -2951,7 +2974,7 @@ export class LVGLRemoveStyleActionType extends LVGLActionType {
         properties: [
             {
                 name: "target",
-                displayName: "Target",
+                displayName: t("Target"),
                 type: PropertyType.Enum,
                 enumItems: (actionType: LVGLRemoveStyleActionType) => {
                     const lvglIdentifiers = ProjectEditor.getProjectStore(
@@ -2975,20 +2998,20 @@ export class LVGLRemoveStyleActionType extends LVGLActionType {
         defaultValue: {},
         listLabel: (action: LVGLRemoveStyleActionType, collapsed: boolean) => {
             if (!collapsed) {
-                return "Remove style";
+                return t("Remove style");
             }
             let singleItem =
                 (getParent(action) as LVGLActionType[]).length == 1;
             if (singleItem) {
                 return (
                     <>
-                        {action.style} from {action.target}
+                        {action.style} {t("from")} {action.target}
                     </>
                 );
             } else {
                 return (
                     <>
-                        Remove style {action.style} from {action.target}
+                        {t("Remove style")} {action.style} {t("from")} {action.target}
                     </>
                 );
             }
@@ -3077,7 +3100,7 @@ export class LVGLAddFlagActionType extends LVGLActionType {
         properties: [
             {
                 name: "target",
-                displayName: "Target",
+                displayName: t("Target"),
                 type: PropertyType.Enum,
                 enumItems: (actionType: LVGLAddFlagActionType) => {
                     const lvglIdentifiers = ProjectEditor.getProjectStore(
@@ -3108,20 +3131,20 @@ export class LVGLAddFlagActionType extends LVGLActionType {
         defaultValue: {},
         listLabel: (action: LVGLAddFlagActionType, collapsed: boolean) => {
             if (!collapsed) {
-                return "Add flag";
+                return t("Add flag");
             }
             let singleItem =
                 (getParent(action) as LVGLActionType[]).length == 1;
             if (singleItem) {
                 return (
                     <>
-                        {action.flag} in {action.target}
+                        {action.flag} {t("in")} {action.target}
                     </>
                 );
             } else {
                 return (
                     <>
-                        Add flag {action.flag} in {action.target}
+                        {t("Add flag")} {action.flag} {t("in")} {action.target}
                     </>
                 );
             }
@@ -3180,7 +3203,7 @@ export class LVGLClearFlagActionType extends LVGLActionType {
         properties: [
             {
                 name: "target",
-                displayName: "Target",
+                displayName: t("Target"),
                 type: PropertyType.Enum,
                 enumItems: (actionType: LVGLClearFlagActionType) => {
                     const lvglIdentifiers = ProjectEditor.getProjectStore(
@@ -3211,20 +3234,20 @@ export class LVGLClearFlagActionType extends LVGLActionType {
         defaultValue: {},
         listLabel: (action: LVGLClearFlagActionType, collapsed: boolean) => {
             if (!collapsed) {
-                return "Clear flag";
+                return t("Clear flag");
             }
             let singleItem =
                 (getParent(action) as LVGLActionType[]).length == 1;
             if (singleItem) {
                 return (
                     <>
-                        {action.flag} in {action.target}
+                        {action.flag} {t("in")} {action.target}
                     </>
                 );
             } else {
                 return (
                     <>
-                        Clear flag {action.flag} in {action.target}
+                        {t("Clear flag")} {action.flag} {t("in")} {action.target}
                     </>
                 );
             }
@@ -3283,7 +3306,7 @@ export class LVGLAddStateActionType extends LVGLActionType {
         properties: [
             {
                 name: "target",
-                displayName: "Target",
+                displayName: t("Target"),
                 type: PropertyType.Enum,
                 enumItems: (actionType: LVGLAddStateActionType) => {
                     const lvglIdentifiers = ProjectEditor.getProjectStore(
@@ -3312,20 +3335,20 @@ export class LVGLAddStateActionType extends LVGLActionType {
         defaultValue: {},
         listLabel: (action: LVGLAddStateActionType, collapsed: boolean) => {
             if (!collapsed) {
-                return "Add state";
+                return t("Add state");
             }
             let singleItem =
                 (getParent(action) as LVGLActionType[]).length == 1;
             if (singleItem) {
                 return (
                     <>
-                        {action.state} in {action.target}
+                        {action.state} {t("in")} {action.target}
                     </>
                 );
             } else {
                 return (
                     <>
-                        Add state {action.state} in {action.target}
+                        {t("Add state")} {action.state} {t("in")} {action.target}
                     </>
                 );
             }
@@ -3384,7 +3407,7 @@ export class LVGLClearStateActionType extends LVGLActionType {
         properties: [
             {
                 name: "target",
-                displayName: "Target",
+                displayName: t("Target"),
                 type: PropertyType.Enum,
                 enumItems: (actionType: LVGLClearStateActionType) => {
                     const lvglIdentifiers = ProjectEditor.getProjectStore(
@@ -3413,20 +3436,20 @@ export class LVGLClearStateActionType extends LVGLActionType {
         defaultValue: {},
         listLabel: (action: LVGLClearStateActionType, collapsed: boolean) => {
             if (!collapsed) {
-                return "Clear state";
+                return t("Clear state");
             }
             let singleItem =
                 (getParent(action) as LVGLActionType[]).length == 1;
             if (singleItem) {
                 return (
                     <>
-                        {action.state} in {action.target}
+                        {action.state} {t("in")} {action.target}
                     </>
                 );
             } else {
                 return (
                     <>
-                        Clear state {action.state} in {action.target}
+                        {t("Clear state")} {action.state} {t("in")} {action.target}
                     </>
                 );
             }
@@ -3506,8 +3529,8 @@ export class LVGLGroupActionType extends LVGLActionType {
                 name: "target",
                 displayName: (actionType: LVGLGroupActionType) =>
                     actionType.groupAction == "FOCUS_OBJ"
-                        ? "Target widget"
-                        : "Target group",
+                        ? t("Target widget")
+                        : t("Target group"),
                 type: PropertyType.Enum,
                 enumItems: (actionType: LVGLGroupActionType) => {
                     const projectStore =
@@ -3549,29 +3572,39 @@ export class LVGLGroupActionType extends LVGLActionType {
         },
         listLabel: (action: LVGLGroupActionType, collapsed: boolean) => {
             if (!collapsed) {
-                return "Group";
+                return t("Group");
             }
             if (action.groupAction == "SET_WRAP") {
-                return (
-                    <>
-                        Set wrap to {action.enable ? "ON" : "OFF"} for group "
-                        {action.target}"
-                    </>
+                return t(
+                    'Set wrap to {state} for group "{target}"',
+                    {
+                        state: action.enable ? "ON" : "OFF",
+                        target: action.target
+                    }
                 );
             } else if (action.groupAction == "FOCUS_OBJ") {
-                return <>Set focus to widget "{action.target}"</>;
+                return t('Set focus to widget "{target}"', {
+                    target: action.target
+                });
             } else if (action.groupAction == "FOCUS_NEXT") {
-                return <>Focus next for group "{action.target}"</>;
+                return t('Focus next for group "{target}"', {
+                    target: action.target
+                });
             } else if (action.groupAction == "FOCUS_PREVIOUS") {
-                return <>Focus previous for group "{action.target}"</>;
+                return t('Focus previous for group "{target}"', {
+                    target: action.target
+                });
             } else if (action.groupAction == "FOCUS_FREEZE") {
-                return <>Freeze focus for group "{action.target}"</>;
+                return t('Freeze focus for group "{target}"', {
+                    target: action.target
+                });
             } else {
-                return (
-                    <>
-                        Set editing to {action.enable ? "ON" : "OFF"} for group
-                        "{action.target}"
-                    </>
+                return t(
+                    'Set editing to {state} for group "{target}"',
+                    {
+                        state: action.enable ? "ON" : "OFF",
+                        target: action.target
+                    }
                 );
             }
         },

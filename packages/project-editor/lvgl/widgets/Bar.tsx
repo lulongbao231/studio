@@ -1,4 +1,5 @@
 import React from "react";
+import { t } from "eez-studio-shared/i18n";
 import { observable, makeObservable } from "mobx";
 
 import { IMessage, MessageType, PropertyType, makeDerivedClassInfo } from "project-editor/core/object";
@@ -164,7 +165,7 @@ export class LVGLBarWidget extends LVGLWidget {
                     messages.push(
                         new Message(
                             MessageType.ERROR,
-                            `Min must be an integer`,
+                            t("Min must be an integer"),
                             getChildOfObject(widget, "min")
                         )
                     );
@@ -180,7 +181,7 @@ export class LVGLBarWidget extends LVGLWidget {
                     messages.push(
                         new Message(
                             MessageType.ERROR,
-                            `Max must be an integer`,
+                            t("Max must be an integer"),
                             getChildOfObject(widget, "max")
                         )
                     );
@@ -241,7 +242,7 @@ export class LVGLBarWidget extends LVGLWidget {
                     "int32_t",
                     "new_val",
                     this.min as string,
-                    "Failed to evaluate Min in Bar widget"
+                    t("Failed to evaluate Min in Bar widget")
                 );
 
                 const cur_val = code.callObjectFunctionWithAssignment(
@@ -276,7 +277,7 @@ export class LVGLBarWidget extends LVGLWidget {
                     "int32_t",
                     "new_val",
                     this.max as string,
-                    "Failed to evaluate Max in Bar widget"
+                    t("Failed to evaluate Max in Bar widget")
                 );
 
                 const cur_val = code.callObjectFunctionWithAssignment(
@@ -339,7 +340,7 @@ export class LVGLBarWidget extends LVGLWidget {
                     "int32_t",
                     "new_val",
                     this.value as string,
-                    "Failed to evaluate Value in Bar widget"
+                    t("Failed to evaluate Value in Bar widget")
                 );
 
                 const cur_val = code.callObjectFunctionWithAssignment(
@@ -400,7 +401,7 @@ export class LVGLBarWidget extends LVGLWidget {
                         "int32_t",
                         "new_val",
                         this.value as string,
-                        "Failed to evaluate Value start in Bar widget"
+                        t("Failed to evaluate Value start in Bar widget")
                     );
 
                     const cur_val = code.callObjectFunctionWithAssignment(

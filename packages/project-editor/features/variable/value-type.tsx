@@ -1,5 +1,6 @@
 import { Stream } from "stream";
 import React from "react";
+import { t } from "eez-studio-shared/i18n";
 import ReactDOM from "react-dom";
 import {
     action,
@@ -818,7 +819,7 @@ export const VariableTypeSelect = observer(
 
                         {objectTypes.length > 0 && (
                             <div>
-                                <div>Objects</div>
+                                <div>{t("Objects")}</div>
                                 <div className="font-monospace">
                                     {objectTypes}
                                 </div>
@@ -827,14 +828,14 @@ export const VariableTypeSelect = observer(
 
                         {enums.length > 0 && (
                             <div>
-                                <div>Enums</div>
+                                <div>{t("Enums")}</div>
                                 <div className="font-monospace">{enums}</div>
                             </div>
                         )}
 
                         {structures.length > 0 && (
                             <div>
-                                <div>Structures</div>
+                                <div>{t("Structures")}</div>
                                 <div className="font-monospace">
                                     {structures}
                                 </div>
@@ -843,7 +844,7 @@ export const VariableTypeSelect = observer(
 
                         {arrayOfBasicTypes.length > 0 && (
                             <div>
-                                <div>Arrays</div>
+                                <div>{t("Arrays")}</div>
                                 <div className="font-monospace">
                                     {arrayOfBasicTypes}
                                 </div>
@@ -852,7 +853,7 @@ export const VariableTypeSelect = observer(
 
                         {arrayOfObjects.length > 0 && (
                             <div>
-                                <div>Array of Objects</div>
+                                <div>{t("Array of Objects")}</div>
                                 <div className="font-monospace">
                                     {arrayOfObjects}
                                 </div>
@@ -861,7 +862,7 @@ export const VariableTypeSelect = observer(
 
                         {arrayOfEnums.length > 0 && (
                             <div>
-                                <div>Array of Enumerations</div>
+                                <div>{t("Array of Enumerations")}</div>
                                 <div className="font-monospace">
                                     {arrayOfEnums}
                                 </div>
@@ -870,7 +871,7 @@ export const VariableTypeSelect = observer(
 
                         {arrayOfStructures.length > 0 && (
                             <div>
-                                <div>Array of Structures</div>
+                                <div>{t("Array of Structures")}</div>
                                 <div className="font-monospace">
                                     {arrayOfStructures}
                                 </div>

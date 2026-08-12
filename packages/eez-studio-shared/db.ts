@@ -14,6 +14,7 @@ import { createEmptyFile, isRenderer } from "eez-studio-shared/util-electron";
 
 import type * as MainSettingsModule from "main/settings";
 import { allStores } from "eez-studio-shared/store";
+import { t } from "eez-studio-shared/i18n";
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -288,7 +289,7 @@ class InstrumentDatabases {
     ) {
         const notification = await import("eez-studio-ui/notification");
 
-        let progressToastId = notification.info("Exporting ...", {
+        let progressToastId = notification.info(t("Exporting ..."), {
             autoClose: false,
             closeButton: false,
             closeOnClick: false,
@@ -620,7 +621,9 @@ class InstrumentDatabases {
                 offset += logs.length;
                 const progress = offset / Number(logsCountRow.count);
                 notification.update(progressToastId, {
-                    render: `Exporting ${Math.round(progress * 100)}%`,
+                    render: t("Exporting {percent}%", {
+                        percent: Math.round(progress * 100)
+                    }),
                     progress
                 });
 
@@ -640,14 +643,14 @@ class InstrumentDatabases {
 
             notification.update(progressToastId, {
                 autoClose: 1000,
-                render: "Exported successfully",
+                render: t("Exported successfully"),
                 progress: undefined,
                 closeOnClick: true,
                 type: notification.SUCCESS
             });
         } catch (err) {
             notification.update(progressToastId, {
-                render: "Export failed: " + err,
+                render: t("Export failed: {error}", { error: `${err}` }),
                 progress: 1,
                 closeOnClick: true,
                 type: notification.ERROR
@@ -660,7 +663,7 @@ class InstrumentDatabases {
     async importDatabase(filePath: string) {
         const notification = await import("eez-studio-ui/notification");
 
-        let progressToastId = notification.info("Importing ...", {
+        let progressToastId = notification.info(t("Importing ..."), {
             autoClose: false,
             closeButton: false,
             closeOnClick: false,
@@ -693,7 +696,9 @@ class InstrumentDatabases {
                     .get([sourceInstrument.uuid]);
                 if (destinationInstrument) {
                     notification.update(progressToastId, {
-                        render: "Import failed, instrument already exists!",
+                        render: t(
+                            "Import failed, instrument already exists!"
+                        ),
                         progress: 1,
                         closeOnClick: true,
                         type: notification.ERROR
@@ -943,7 +948,9 @@ class InstrumentDatabases {
                 offset += logs.length;
                 const progress = offset / Number(logsCountRow.count);
                 notification.update(progressToastId, {
-                    render: `Importing ${Math.round(progress * 100)}%`,
+                    render: t("Importing {percent}%", {
+                        percent: Math.round(progress * 100)
+                    }),
                     progress
                 });
 
@@ -992,7 +999,7 @@ class InstrumentDatabases {
 
             notification.update(progressToastId, {
                 autoClose: 1000,
-                render: "Imported successfully",
+                render: t("Imported successfully"),
                 progress: undefined,
                 closeOnClick: true,
                 type: notification.SUCCESS
@@ -1001,7 +1008,7 @@ class InstrumentDatabases {
             db.exec(`ROLLBACK TRANSACTION`);
 
             notification.update(progressToastId, {
-                render: "Import failed: " + err,
+                render: t("Import failed: {error}", { error: `${err}` }),
                 progress: 1,
                 closeOnClick: true,
                 type: notification.ERROR

@@ -26,6 +26,7 @@ import {
     ViewFilter,
     downloadAndInstallExtension
 } from "home/extensions-manager/extensions-manager";
+import { t } from "eez-studio-shared/i18n";
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -221,7 +222,7 @@ const Setup = observer(() => {
             <div className="d-flex flex-column justify-content-center align-items-center h-100">
                 {setupState.extensionInstalling.inProgress && (
                     <div>
-                        <h3>Installing Extension</h3>
+                        <h3>{t("Installing Extension")}</h3>
                         <Loader />
                     </div>
                 )}
@@ -244,7 +245,7 @@ const Setup = observer(() => {
                             });
                         })}
                     >
-                        Back
+                        {t("Back")}
                     </button>
                 </div>
             </div>
@@ -315,7 +316,7 @@ const AddInstrumentDialog = observer(
             return (
                 <BootstrapDialog
                     modal={true}
-                    title="Add Instrument"
+                    title={t("Add Instrument")}
                     open={this.open}
                     size={"large"}
                     onCancel={this.onCancel}
@@ -333,7 +334,7 @@ const AddInstrumentDialog = observer(
                                 setupState.extensionInstalling.infoType !==
                                     notification.ERROR,
                             style: {},
-                            text: "Cancel"
+                            text: t("Cancel")
                         },
                         {
                             id: "ok",
@@ -343,7 +344,7 @@ const AddInstrumentDialog = observer(
                             disabled:
                                 setupState.extensionInstalling != undefined,
                             style: {},
-                            text: "OK"
+                            text: t("OK")
                         }
                     ]}
                 >

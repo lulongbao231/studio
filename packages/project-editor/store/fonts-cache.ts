@@ -1,4 +1,5 @@
 import fs from "fs";
+import { t } from "eez-studio-shared/i18n";
 
 import * as notification from "eez-studio-ui/notification";
 
@@ -87,7 +88,7 @@ export class FontsCacheStore {
                     "utf8"
                 );
             } catch (err) {
-                notification.error("Failed to create fonts cache file: " + err);
+                notification.error(t("Failed to create fonts cache file:") + " " + err);
             }
         } else {
             try {
@@ -96,7 +97,9 @@ export class FontsCacheStore {
                         await fs.promises.unlink(filePath);
                     } catch (err) {
                         notification.error(
-                            "Failed to delete fonts cache file: " + err
+                            t("Failed to delete fonts cache file: {error}", {
+                                error: `${err}`
+                            })
                         );
                     }
                 }

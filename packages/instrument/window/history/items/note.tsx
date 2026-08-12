@@ -14,6 +14,7 @@ import { logUpdate } from "instrument/window/history/activity-log";
 import { showEditNoteDialog } from "instrument/window/note-dialog";
 
 import type { IAppStore } from "instrument/window/history/history";
+import { t } from "eez-studio-shared/i18n";
 import { HistoryItem } from "instrument/window/history/item";
 import { PreventDraggable } from "instrument/window/history/helper";
 import { HistoryItemInstrumentInfo } from "../HistoryItemInstrumentInfo";
@@ -30,7 +31,7 @@ export const NoteHistoryItemComponent = observer(
     > {
         handleEditNote = () => {
             showEditNoteDialog(this.props.historyItem.message, note => {
-                beginTransaction("Edit note");
+                beginTransaction(t("Edit note"));
                 logUpdate(
                     this.props.appStore.history.options.store,
                     {
@@ -78,7 +79,7 @@ export const NoteHistoryItemComponent = observer(
                     <Toolbar>
                         <IconAction
                             icon="material:edit"
-                            title="Edit note"
+                            title={t("Edit note")}
                             onClick={this.handleEditNote}
                         />
                     </Toolbar>

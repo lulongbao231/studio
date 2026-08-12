@@ -1,3 +1,4 @@
+import { t } from "eez-studio-shared/i18n";
 import React from "react";
 import { observable, makeObservable } from "mobx";
 
@@ -35,42 +36,42 @@ export class LVGLImgbuttonWidget extends LVGLWidget {
         properties: [
             {
                 name: "imageReleased",
-                displayName: "Released image",
+                displayName: t("Released image"),
                 type: PropertyType.ObjectReference,
                 referencedObjectCollectionPath: "bitmaps",
                 propertyGridGroup: specificGroup
             },
             {
                 name: "imagePressed",
-                displayName: "Pressed image",
+                displayName: t("Pressed image"),
                 type: PropertyType.ObjectReference,
                 referencedObjectCollectionPath: "bitmaps",
                 propertyGridGroup: specificGroup
             },
             {
                 name: "imageDisabled",
-                displayName: "Disabled image",
+                displayName: t("Disabled image"),
                 type: PropertyType.ObjectReference,
                 referencedObjectCollectionPath: "bitmaps",
                 propertyGridGroup: specificGroup
             },
             {
                 name: "imageCheckedReleased",
-                displayName: "Checked released image",
+                displayName: t("Checked released image"),
                 type: PropertyType.ObjectReference,
                 referencedObjectCollectionPath: "bitmaps",
                 propertyGridGroup: specificGroup
             },
             {
                 name: "imageCheckedPressed",
-                displayName: "Checked pressed image",
+                displayName: t("Checked pressed image"),
                 type: PropertyType.ObjectReference,
                 referencedObjectCollectionPath: "bitmaps",
                 propertyGridGroup: specificGroup
             },
             {
                 name: "imageCheckedDisabled",
-                displayName: "Checked disabled image",
+                displayName: t("Checked disabled image"),
                 type: PropertyType.ObjectReference,
                 referencedObjectCollectionPath: "bitmaps",
                 propertyGridGroup: specificGroup

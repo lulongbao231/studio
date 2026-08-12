@@ -9,6 +9,7 @@ import {
     IReactionDisposer
 } from "mobx";
 import classNames from "classnames";
+import { t } from "eez-studio-shared/i18n";
 
 import { objectEqual, formatDateTimeLong } from "eez-studio-shared/util";
 import { capitalize } from "eez-studio-shared/string";
@@ -958,7 +959,7 @@ export async function importDlog(
         },
         {
             undoable: true,
-            transaction: "Add DLOG chart"
+            transaction: t("Add DLOG chart")
         }
     );
 

@@ -1,4 +1,5 @@
 import { ipcRenderer } from "electron";
+import { t } from "eez-studio-shared/i18n";
 import {
     observable,
     computed,
@@ -1395,7 +1396,7 @@ export class History {
             return;
         }
 
-        beginTransaction("Store history items permanently");
+        beginTransaction(t("Store history items permanently"));
 
         items.forEach(historyItem => {
             logUpdate(
@@ -1421,7 +1422,7 @@ export class History {
             return;
         }
 
-        beginTransaction("Delete history items");
+        beginTransaction(t("Delete history items"));
 
         this.selection.items.forEach(historyItem =>
             logDelete(
@@ -1658,7 +1659,7 @@ export class DeletedItemsHistory extends History {
 
     restoreSelectedHistoryItems() {
         if (this.selection.items.length > 0) {
-            beginTransaction("Restore history items");
+            beginTransaction(t("Restore history items"));
 
             this.selection.items.forEach(historyItem =>
                 logUndelete(
@@ -1682,12 +1683,12 @@ export class DeletedItemsHistory extends History {
     deleteSelectedHistoryItems() {
         if (this.selection.items.length > 0) {
             confirm(
-                "Are you sure?",
-                "This will permanently delete selected history items.",
+                t("Are you sure?"),
+                t("This will permanently delete selected history items."),
                 () => {
                     if (this.selection.items.length > 0) {
                         console.log("deleteSelectedHistoryItems STARTED");
-                        beginTransaction("Purge history items");
+                        beginTransaction(t("Purge history items"));
 
                         this.selection.items.forEach(historyItem =>
                             logDelete(
@@ -1714,8 +1715,8 @@ export class DeletedItemsHistory extends History {
 
     emptyTrash() {
         confirm(
-            "Are you sure?",
-            "This will permanently delete all history items from trash.",
+            t("Are you sure?"),
+            t("This will permanently delete all history items from trash."),
             () => {
                 db.prepare(
                     `DELETE FROM ${this.table} AS T1 WHERE ${this.oidWhereClause} AND deleted`

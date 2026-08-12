@@ -1,4 +1,5 @@
 import React from "react";
+import { t } from "eez-studio-shared/i18n";
 import {
     observable,
     computed,
@@ -154,7 +155,7 @@ export const ShortcutsToolbarButtons = observer(
                                     );
                                 })}
                             />
-                            Show IEXT shortcuts
+                            {t("Show IEXT shortcuts")}
                         </label>
                     </div>
                 );
@@ -164,8 +165,8 @@ export const ShortcutsToolbarButtons = observer(
                 buttons.push(
                     <ButtonAction
                         key="addShortcut"
-                        text="Add Shortcut"
-                        title="Add shortcut"
+                        text={t("Add Shortcut")}
+                        title={t("Add shortcut")}
                         onClick={this.addShortcut}
                         className="btn-primary"
                     />
@@ -176,8 +177,8 @@ export const ShortcutsToolbarButtons = observer(
                 buttons.push(
                     <ButtonAction
                         key="groups"
-                        text="Show Groups"
-                        title="Show groups"
+                        text={t("Show Groups")}
+                        title={t("Show groups")}
                         onClick={this.showGroups}
                         className="btn-secondary"
                     />
@@ -305,7 +306,7 @@ class ShortcutRow implements IRow {
                 this.props.groupsStore &&
                 this.props.groupsStore.isGroupEnabled
             ) {
-                return FROM_EXTENSION_GROUP_NAME;
+                return t(FROM_EXTENSION_GROUP_NAME);
             }
             const extension = this.getExtension(shortcut);
             if (extension) {
@@ -408,7 +409,7 @@ class ShortcutRow implements IRow {
                 <Toolbar>
                     <IconAction
                         icon="material:edit"
-                        title="Edit shortcut"
+                        title={t("Edit shortcut")}
                         onClick={() => {
                             showShortcutDialog(
                                 this.props.shortcutsStore,
@@ -424,9 +425,9 @@ class ShortcutRow implements IRow {
                     />
                     <IconAction
                         icon="material:delete"
-                        title="Delete shortcut"
+                        title={t("Delete shortcut")}
                         onClick={() => {
-                            confirm("Are you sure?", undefined, () => {
+                            confirm(t("Are you sure?"), undefined, () => {
                                 this.props.shortcutsStore.deleteShortcut!(
                                     this.shortcut
                                 );
@@ -494,7 +495,7 @@ export const Shortcuts = observer(
             });
             result.push({
                 name: "name",
-                title: "Name",
+                title: t("Name"),
                 sortEnabled: true
             });
 
@@ -510,27 +511,27 @@ export const Shortcuts = observer(
 
             result.push({
                 name: "keybinding",
-                title: "Keybinding",
+                title: t("Keybinding"),
                 sortEnabled: true
             });
             result.push({
                 name: "action",
-                title: "Action",
+                title: t("Action"),
                 sortEnabled: true
             });
             result.push({
                 name: "confirmation",
-                title: "Confirmation",
+                title: t("Confirmation"),
                 sortEnabled: true
             });
             result.push({
                 name: "toolbar",
-                title: "Show in Shortcuts bar",
+                title: t("Show in Shortcuts bar"),
                 sortEnabled: true
             });
             result.push({
                 name: "toolbarPosition",
-                title: "Shortcuts bar position",
+                title: t("Shortcuts bar position"),
                 sortEnabled: true
             });
 

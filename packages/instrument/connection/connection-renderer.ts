@@ -4,6 +4,7 @@ import { getCurrentWindow } from "@electron/remote";
 
 import { watch } from "eez-studio-shared/notify";
 import { guid } from "eez-studio-shared/guid";
+import { t } from "eez-studio-shared/i18n";
 
 import type { IInstrumentObjectProps } from "instrument/instrument-object";
 import type { ConnectionParameters } from "instrument/connection/interface";
@@ -353,8 +354,9 @@ export class IpcConnection extends ConnectionBase {
         let connectionParameters = this.instrument.lastConnection;
         if (connectionParameters) {
             return (
-                "Connected to " +
-                getConnectionParametersInfo(connectionParameters)
+                t("Connected to {info}", {
+                    info: getConnectionParametersInfo(connectionParameters)
+                })
             );
         } else {
             return undefined;

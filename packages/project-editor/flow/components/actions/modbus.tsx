@@ -1,5 +1,6 @@
 import React from "react";
 import { makeObservable, observable } from "mobx";
+import { t } from "eez-studio-shared/i18n";
 import type { ModbusRTUClient, ModbusTCPClient } from "jsmodbus";
 import type * as JsmodbusModule from "jsmodbus";
 
@@ -180,7 +181,7 @@ export class ModbusActionComponent extends ActionComponent {
             makeExpressionProperty(
                 {
                     name: "timeout",
-                    displayName: "Timeout (ms)",
+                    displayName: t("Timeout (ms)"),
                     type: PropertyType.MultilineText,
                     propertyGridGroup: specificGroup
                 },
@@ -194,13 +195,13 @@ export class ModbusActionComponent extends ActionComponent {
         execute: (context: IDashboardComponentContext) => {
             const connection = context.evalProperty("connection");
             if (!connection) {
-                context.throwError(`modbus invalid Connection`);
+                context.throwError(t("modbus invalid Connection"));
                 return;
             }
 
             const serverAddress = context.evalProperty("serverAddress");
             if (!serverAddress) {
-                context.throwError(`invalid Server address`);
+                context.throwError(t("invalid Server address"));
                 return;
             }
 
@@ -208,7 +209,7 @@ export class ModbusActionComponent extends ActionComponent {
 
             const timeout = context.evalProperty("timeout");
             if (!timeout) {
-                context.throwError(`invalid Timeout`);
+                context.throwError(t("invalid Timeout"));
                 return;
             }
 
@@ -222,7 +223,7 @@ export class ModbusActionComponent extends ActionComponent {
 
                 if (!connectionObject) {
                     context.throwError(
-                        `modbus invalid Connection ${connection.id}`
+                        t("modbus invalid Connection {id}", { id: connection.id })
                     );
                     return undefined;
                 }
@@ -298,7 +299,7 @@ export class ModbusActionComponent extends ActionComponent {
 
             let modbusClient = getModbusClient();
             if (!modbusClient) {
-                context.throwError(`failed to create Modbus client`);
+                context.throwError(t("failed to create Modbus client"));
                 return;
             }
 
@@ -308,7 +309,7 @@ export class ModbusActionComponent extends ActionComponent {
                     "startingRegisterAddress"
                 );
                 if (typeof startingRegisterAddress != "number") {
-                    context.throwError(`invalid Starting register address`);
+                    context.throwError(t("invalid Starting register address"));
                     return;
                 }
 
@@ -316,7 +317,7 @@ export class ModbusActionComponent extends ActionComponent {
                     "quantityOfRegisters"
                 );
                 if (typeof quantityOfRegisters != "number") {
-                    context.throwError(`invalid Quantity of registers`);
+                    context.throwError(t("invalid Quantity of registers"));
                     return;
                 }
 
@@ -348,7 +349,7 @@ export class ModbusActionComponent extends ActionComponent {
                     "startingRegisterAddress"
                 );
                 if (typeof startingRegisterAddress != "number") {
-                    context.throwError(`invalid Starting register address`);
+                    context.throwError(t("invalid Starting register address"));
                     return;
                 }
 
@@ -356,7 +357,7 @@ export class ModbusActionComponent extends ActionComponent {
                     "quantityOfRegisters"
                 );
                 if (typeof quantityOfRegisters != "number") {
-                    context.throwError(`invalid Quantity of registers`);
+                    context.throwError(t("invalid Quantity of registers"));
                     return;
                 }
 
@@ -391,7 +392,7 @@ export class ModbusActionComponent extends ActionComponent {
                     "startingRegisterAddress"
                 );
                 if (typeof startingRegisterAddress != "number") {
-                    context.throwError(`invalid Starting register address`);
+                    context.throwError(t("invalid Starting register address"));
                     return;
                 }
 
@@ -399,7 +400,7 @@ export class ModbusActionComponent extends ActionComponent {
                     "quantityOfRegisters"
                 );
                 if (typeof quantityOfRegisters != "number") {
-                    context.throwError(`invalid Quantity of registers`);
+                    context.throwError(t("invalid Quantity of registers"));
                     return;
                 }
 
@@ -434,7 +435,7 @@ export class ModbusActionComponent extends ActionComponent {
                     "startingRegisterAddress"
                 );
                 if (typeof startingRegisterAddress != "number") {
-                    context.throwError(`invalid Starting register address`);
+                    context.throwError(t("invalid Starting register address"));
                     return;
                 }
 
@@ -442,7 +443,7 @@ export class ModbusActionComponent extends ActionComponent {
                     "quantityOfRegisters"
                 );
                 if (typeof quantityOfRegisters != "number") {
-                    context.throwError(`invalid Quantity of registers`);
+                    context.throwError(t("invalid Quantity of registers"));
                     return;
                 }
 
@@ -475,13 +476,13 @@ export class ModbusActionComponent extends ActionComponent {
                 // 05 (0x05) Write Single Coil
                 const registerAddress = context.evalProperty("registerAddress");
                 if (typeof registerAddress != "number") {
-                    context.throwError(`invalid Register address`);
+                    context.throwError(t("invalid Register address"));
                     return;
                 }
 
                 const coilValue = context.evalProperty("coilValue");
                 if (typeof coilValue != "boolean") {
-                    context.throwError(`invalid Coil value`);
+                    context.throwError(t("invalid Coil value"));
                     return;
                 }
 
@@ -502,13 +503,13 @@ export class ModbusActionComponent extends ActionComponent {
                 // 06 (0x06) Write Single Register
                 const registerAddress = context.evalProperty("registerAddress");
                 if (typeof registerAddress != "number") {
-                    context.throwError(`invalid Register address`);
+                    context.throwError(t("invalid Register address"));
                     return;
                 }
 
                 const registerValue = context.evalProperty("registerValue");
                 if (typeof registerValue != "number") {
-                    context.throwError(`invalid Register value`);
+                    context.throwError(t("invalid Register value"));
                     return;
                 }
 
@@ -533,13 +534,13 @@ export class ModbusActionComponent extends ActionComponent {
                     "startingRegisterAddress"
                 );
                 if (typeof startingRegisterAddress != "number") {
-                    context.throwError(`invalid Starting register address`);
+                    context.throwError(t("invalid Starting register address"));
                     return;
                 }
 
                 const coilValues = context.evalProperty("coilValues");
                 if (!isArray(coilValues)) {
-                    context.throwError(`invalid Coil values`);
+                    context.throwError(t("invalid Coil values"));
                     return;
                 }
 
@@ -564,13 +565,13 @@ export class ModbusActionComponent extends ActionComponent {
                     "startingRegisterAddress"
                 );
                 if (typeof startingRegisterAddress != "number") {
-                    context.throwError(`invalid Starting register address`);
+                    context.throwError(t("invalid Starting register address"));
                     return;
                 }
 
                 const registerValues = context.evalProperty("registerValues");
                 if (!isArray(registerValues)) {
-                    context.throwError(`invalid Register values`);
+                    context.throwError(t("invalid Register values"));
                     return;
                 }
 

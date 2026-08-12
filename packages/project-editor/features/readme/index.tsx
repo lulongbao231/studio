@@ -1,5 +1,6 @@
 import { makeObservable, observable } from "mobx";
 import React from "react";
+import { t } from "eez-studio-shared/i18n";
 
 import {
     ClassInfo,
@@ -51,10 +52,10 @@ registerClass("Readme", Readme);
 const feature: ProjectEditorFeature = {
     name: "eezstudio-project-feature-readme",
     version: "0.1.0",
-    description: "Readme file",
+    description: t("Readme file"),
     author: "EEZ",
     authorLogo: "../eez-studio-ui/_images/eez_logo.png",
-    displayName: "Readme",
+    displayName: t("Readme"),
     mandatory: false,
     key: "readme",
     type: PropertyType.Object,

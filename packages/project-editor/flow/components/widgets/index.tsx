@@ -7,6 +7,7 @@ import { range } from "lodash";
 import * as FlexLayout from "flexlayout-react";
 
 import { Button } from "eez-studio-ui/button";
+import { t } from "eez-studio-shared/i18n";
 
 import {
     IEezObject,
@@ -183,14 +184,14 @@ const ContainerWidgetEditLayout = observer(
                                 size="medium"
                                 onClick={onSave}
                             >
-                                Save
+                                {t("Save")}
                             </Button>
                             <Button
                                 color="secondary"
                                 size="medium"
                                 onClick={onDispose}
                             >
-                                Cancel
+                                {t("Cancel")}
                             </Button>
                         </div>
                     </div>
@@ -198,7 +199,7 @@ const ContainerWidgetEditLayout = observer(
                 {
                     jsPanel: {
                         id: "container-widget-edit-layout",
-                        title: "Edit Layout",
+                        title: t("Edit Layout"),
                         width: page.width,
                         height: page.height,
                         onclosed: onDispose
@@ -218,7 +219,7 @@ const ContainerWidgetEditLayout = observer(
                         size="small"
                         onClick={this.editLayout}
                     >
-                        Edit Layout
+                        {t("Edit Layout")}
                     </Button>
                 </div>
             );
@@ -372,7 +373,7 @@ export class ContainerWidget extends Widget {
                               },
                               {
                                   id: "docking-manager",
-                                  label: "Docking Manager"
+                                  label: t("Docking Manager")
                               }
                           ]
                         : [
@@ -928,7 +929,7 @@ export class ListWidget extends Widget {
                 messages.push(
                     new Message(
                         MessageType.ERROR,
-                        "List item widget is missing",
+                        t("List item widget is missing"),
                         object
                     )
                 );
@@ -1134,7 +1135,7 @@ export class GridWidget extends Widget {
                 messages.push(
                     new Message(
                         MessageType.ERROR,
-                        "Grid item widget is missing",
+                        t("Grid item widget is missing"),
                         object
                     )
                 );
@@ -1378,7 +1379,7 @@ export class SelectWidget extends Widget {
                             messages.push(
                                 new Message(
                                     MessageType.ERROR,
-                                    "Some select children are missing",
+                                    t("Some select children are missing"),
                                     object
                                 )
                             );
@@ -1386,7 +1387,7 @@ export class SelectWidget extends Widget {
                             messages.push(
                                 new Message(
                                     MessageType.ERROR,
-                                    "Too many select children defined",
+                                    t("Too many select children defined"),
                                     object
                                 )
                             );
@@ -1400,7 +1401,7 @@ export class SelectWidget extends Widget {
                     messages.push(
                         new Message(
                             MessageType.WARNING,
-                            "Child of Select widget has different width",
+                            t("Child of Select widget has different width"),
                             childObject
                         )
                     );
@@ -1410,7 +1411,7 @@ export class SelectWidget extends Widget {
                     messages.push(
                         new Message(
                             MessageType.WARNING,
-                            "Child of Select widget has different height",
+                            t("Child of Select widget has different height"),
                             childObject
                         )
                     );
@@ -1625,7 +1626,7 @@ const UserWidgetPropertyGridUI = observer(
                         size="small"
                         onClick={this.showUserWidgetPage}
                     >
-                        Show User Widget
+                        {t("Show User Widget")}
                     </Button>
                     <Button
                         color="secondary"
@@ -1633,7 +1634,7 @@ const UserWidgetPropertyGridUI = observer(
                         onClick={this.fitSize}
                         style={{ marginLeft: 10 }}
                     >
-                        Fit to User Widget Size
+                        {t("Fit to User Widget Size")}
                     </Button>
                 </div>
             );
@@ -1658,7 +1659,7 @@ export class UserWidgetWidget extends Widget {
             makeDataPropertyInfo("context"),
             {
                 name: "userWidgetPageName",
-                displayName: "User widget",
+                displayName: t("User widget"),
                 type: PropertyType.ObjectReference,
                 propertyGridGroup: specificGroup,
                 referencedObjectCollectionPath: "userWidgets"
@@ -1728,7 +1729,7 @@ export class UserWidgetWidget extends Widget {
                 messages.push(
                     new Message(
                         MessageType.ERROR,
-                        "Either user widget page or data must be set",
+                        t("Either user widget page or data must be set"),
                         object
                     )
                 );
@@ -1737,7 +1738,7 @@ export class UserWidgetWidget extends Widget {
                     messages.push(
                         new Message(
                             MessageType.ERROR,
-                            "Both user widget page and data set, only user widget page is used",
+                            t("Both user widget page and data set, only user widget page is used"),
                             object
                         )
                     );
@@ -1760,7 +1761,9 @@ export class UserWidgetWidget extends Widget {
                             messages.push(
                                 new Message(
                                     MessageType.ERROR,
-                                    `Page "${userWidgetPage.name}" is not an user widget page`,
+                                    t('Page "{name}" is not an user widget page', {
+                                        name: userWidgetPage.name
+                                    }),
                                     object
                                 )
                             );
@@ -1770,7 +1773,7 @@ export class UserWidgetWidget extends Widget {
                             messages.push(
                                 new Message(
                                     MessageType.ERROR,
-                                    `Cycle detected in user widget page`,
+                                    t("Cycle detected in user widget page"),
                                     getChildOfObject(
                                         object,
                                         "userWidgetPageName"
@@ -1809,7 +1812,7 @@ export class UserWidgetWidget extends Widget {
                 if (object instanceof UserWidgetWidget) {
                     menuItems.push(
                         new MenuItem({
-                            label: "Replace with Container",
+                            label: t("Replace with Container"),
                             click: () => {
                                 const widget = object.replaceWithContainer();
                                 if (widget) {

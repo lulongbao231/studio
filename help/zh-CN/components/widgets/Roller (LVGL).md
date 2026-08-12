@@ -1,0 +1,38 @@
+# DESCRIPTION
+
+此 Widget 允许我们通过基于触摸的滚动从列表中选择一个选项。
+
+[更多信息](https://docs.lvgl.io/8.3/widgets/core/roller.html)
+
+# PROPERTIES
+
+## Options
+
+选项列表。
+
+## Options type
+
+在 `Literal` 和 `Expression` 之间选择。如果选择 `Literal`，则 `Options` 每行输入一个选项。如果选择 `Expression`，则从 `Options` 表达式求值选项，该表达式必须是 `array:string` 类型。
+
+## Selected
+
+所选选项的从零开始的索引。
+
+## Selected type
+
+在 `Literal` 和 `Assignable` 之间选择。如果选择 `Assignable`，则 `Options` 可以是用于存储所选选项从零开始索引的变量。
+
+## Mode
+
+滚轮模式选项：
+
+-   `NORMAL` – 普通滚轮。
+-   `INFINITE` – 使滚轮循环。
+
+# INPUTS [EMPTY]
+
+# OUTPUTS [EMPTY]
+
+# EXAMPLES
+
+* _LVGL 部件演示_

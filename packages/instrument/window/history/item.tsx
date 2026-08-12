@@ -16,6 +16,7 @@ import {
     logUpdate
 } from "instrument/window/history/activity-log";
 import type { IAppStore } from "instrument/window/history/history";
+import { t } from "eez-studio-shared/i18n";
 import {
     showAddNoteDialog,
     showEditNoteDialog
@@ -218,7 +219,7 @@ export class HistoryItem implements IHistoryItem {
 
     onAddNote(appStore: IAppStore) {
         showAddNoteDialog(note => {
-            beginTransaction("Add note");
+            beginTransaction(t("Add note"));
             this.setNote(appStore, note);
             commitTransaction();
         });
@@ -227,7 +228,7 @@ export class HistoryItem implements IHistoryItem {
     onEditNote(appStore: IAppStore) {
         showEditNoteDialog(this.note!, note => {
             if (this.note !== note) {
-                beginTransaction("Edit note");
+                beginTransaction(t("Edit note"));
                 this.setNote(appStore, note);
                 commitTransaction();
             }
@@ -235,7 +236,7 @@ export class HistoryItem implements IHistoryItem {
     }
 
     onDeleteNote(appStore: IAppStore) {
-        beginTransaction("Delete note");
+        beginTransaction(t("Delete note"));
         this.setNote(appStore, undefined);
         commitTransaction();
     }
@@ -248,7 +249,7 @@ export class HistoryItem implements IHistoryItem {
         return (
             <IconAction
                 icon="material:comment"
-                title="Add note"
+                title={t("Add note")}
                 onClick={() => this.onAddNote(appStore)}
             />
         );
@@ -273,12 +274,12 @@ export class HistoryItem implements IHistoryItem {
                 <Toolbar>
                     <IconAction
                         icon="material:edit"
-                        title="Edit note"
+                        title={t("Edit note")}
                         onClick={() => this.onEditNote(appStore)}
                     />
                     <IconAction
                         icon="material:delete"
-                        title="Delete note"
+                        title={t("Delete note")}
                         onClick={() => this.onDeleteNote(appStore)}
                     />
                 </Toolbar>
@@ -320,7 +321,7 @@ export class HistoryItem implements IHistoryItem {
 
     onAddMediaNote(appStore: IAppStore) {
         showAddAudioDialog(mediaNote => {
-            beginTransaction("Add audio note");
+            beginTransaction(t("Add audio note"));
 
             const mimeType = JSON.parse(mediaNote.message).mimeType;
             const data = mediaNote.data.toString("base64");
@@ -335,7 +336,7 @@ export class HistoryItem implements IHistoryItem {
     }
 
     onDeleteMediaNote(appStore: IAppStore) {
-        beginTransaction("Delete audio note");
+        beginTransaction(t("Delete audio note"));
         this.setMediaNote(appStore, undefined);
         commitTransaction();
     }
@@ -348,7 +349,7 @@ export class HistoryItem implements IHistoryItem {
         return (
             <IconAction
                 icon={RECORD_AUDIO_ICON}
-                title="Add audio note"
+                title={t("Add audio note")}
                 onClick={() => this.onAddMediaNote(appStore)}
             />
         );
@@ -407,7 +408,7 @@ export class HistoryItem implements IHistoryItem {
 
                 <IconAction
                     icon="material:delete"
-                    title="Delete audio note"
+                    title={t("Delete audio note")}
                     onClick={() => this.onDeleteMediaNote(appStore)}
                 />
             </PreventDraggable>

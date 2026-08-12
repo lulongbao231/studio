@@ -9,6 +9,8 @@ import * as path from "path";
 import { spawn, spawnSync, ChildProcess } from "child_process";
 import * as crypto from "crypto";
 
+import { t } from "eez-studio-shared/i18n";
+
 // Global state for abort handling
 let abortRequested = false;
 let runningProcesses: ChildProcess[] = [];
@@ -190,7 +192,7 @@ export async function stopRunningContainers(
 ): Promise<void> {
     try {
         // Stop containers managed by docker compose
-        log("Stopping any running containers...");
+        log(t("Stopping any running containers..."));
         const result = spawnSync(
             resolveCommand("docker"),
             ["compose", "down", "--remove-orphans"],
@@ -201,7 +203,7 @@ export async function stopRunningContainers(
             }
         );
         if (result.status === 0) {
-            log("Containers stopped successfully");
+            log(t("Containers stopped successfully"));
         }
     } catch (error) {
         // Ignore errors during cleanup
@@ -292,7 +294,7 @@ export function buildProjectInfoFromProjectData(
         projectData.settings?.build?.destinationFolder || "src/ui";
 
     if (!lvglVersion) {
-        throw new Error("LVGL version not specified in project settings");
+        throw new Error(t("LVGL version not specified in project settings"));
     }
 
     // Map unsupported versions to supported ones
@@ -305,7 +307,7 @@ export function buildProjectInfoFromProjectData(
 
     if (versionMap[lvglVersion]) {
         log(
-            `LVGL version ${lvglVersion} mapped to ${versionMap[lvglVersion]}`,
+            t("LVGL version {from} mapped to {to}", { from: lvglVersion, to: versionMap[lvglVersion] }),
             "info"
         );
         lvglVersion = versionMap[lvglVersion];
@@ -316,7 +318,7 @@ export function buildProjectInfoFromProjectData(
 
     // Check if destination folder exists
     if (!fs.existsSync(uiDir)) {
-        throw new Error(`Build destination directory not found at: ${uiDir}`);
+        throw new Error(t("Build destination directory not found at: {dir}", { dir: uiDir }));
     }
 
     // Parse fonts
@@ -334,7 +336,7 @@ export function buildProjectInfoFromProjectData(
                 // Validate that font file exists
                 if (!fs.existsSync(localFontPath)) {
                     log(
-                        `Warning: Font file not found: ${localFontPath}`,
+                        t("Warning: Font file not found: {path}", { path: localFontPath }),
                         "warning"
                     );
                     continue;
@@ -347,14 +349,14 @@ export function buildProjectInfoFromProjectData(
                 });
 
                 log(
-                    `Found FreeType font: ${fontFileName} -> ${targetFontPath}`
+                    t("Found FreeType font: {name} -> {target}", { name: fontFileName, target: targetFontPath })
                 );
             }
         }
     }
 
     if (fonts.length > 0) {
-        log(`Total FreeType fonts to include: ${fonts.length}`, "success");
+        log(t("Total FreeType fonts to include: {count}", { count: fonts.length }), "success");
     }
 
     // Parse lvglGroups for encoder and keyboard group settings
@@ -364,26 +366,30 @@ export function buildProjectInfoFromProjectData(
         projectData.lvglGroups?.defaultGroupForKeyboardInSimulator;
 
     if (encoderGroup) {
-        log(`Encoder group: ${encoderGroup}`);
+        log(t("Encoder group: {name}", { name: encoderGroup }));
     }
     if (keyboardGroup) {
-        log(`Keyboard group: ${keyboardGroup}`);
+        log(t("Keyboard group: {name}", { name: keyboardGroup }));
     }
 
     log(
-        `Detected project: LVGL ${lvglVersion} (${
-            flowSupport ? "with" : "no"
-        } flow support)`,
+        flowSupport
+            ? t("Detected project: LVGL {version} (with flow support)", {
+                  version: lvglVersion
+              })
+            : t("Detected project: LVGL {version} (no flow support)", {
+                  version: lvglVersion
+              }),
         "success"
     );
-    log(`Display: ${displayWidth}x${displayHeight}`);
-    log(`UI directory: ${uiDir}`);
+    log(t("Display: {width}x{height}", { width: displayWidth, height: displayHeight }));
+    log(t("UI directory: {dir}", { dir: uiDir }));
 
     // Build file manifest for incremental builds
-    log("Building file manifest...");
+    log(t("Building file manifest..."));
     const fileManifest = buildFileManifest(uiDir);
     const fileCount = Object.keys(fileManifest).length;
-    log(`Tracked ${fileCount} source file(s)`);
+    log(t("Tracked {count} source file(s)", { count: fileCount }));
 
     return {
         lvglVersion,
@@ -407,10 +413,10 @@ export async function readProjectFile(
     projectPath: string,
     log: LogFunction
 ): Promise<ProjectInfo> {
-    log(`Reading project file: ${projectPath}`);
+    log(t("Reading project file: {path}", { path: projectPath }));
 
     if (!fs.existsSync(projectPath)) {
-        throw new Error(`Project file not found: ${projectPath}`);
+        throw new Error(t("Project file not found: {path}", { path: projectPath }));
     }
 
     const content = fs.readFileSync(projectPath, "utf8");
@@ -436,14 +442,14 @@ function runCommand(
         if (abortRequested) {
             resolve({
                 success: false,
-                error: "Operation aborted by user"
+                error: t("Operation aborted by user")
             });
             return;
         }
 
         const effectiveCommand = resolveCommand(command);
 
-        log(`Running: ${command} ${args.join(" ")}`);
+        log(t("Running: {command}", { command: `${command} ${args.join(" ")}` }));
 
         const mergedEnv = { ...process.env, ...env };
         const proc = spawn(effectiveCommand, args, {
@@ -496,7 +502,7 @@ function runCommand(
             if (abortRequested) {
                 resolve({
                     success: false,
-                    error: "Operation aborted by user"
+                    error: t("Operation aborted by user")
                 });
             } else {
                 resolve({
@@ -592,11 +598,11 @@ function shouldFilterDockerMessage(text: string): boolean {
  * Check if Docker is installed and running
  */
 export async function checkDocker(log: LogFunction): Promise<boolean> {
-    log("Checking Docker status...");
+    log(t("Checking Docker status..."));
 
     const dockerCommand = getDockerCommandPath();
     if (!dockerCommand) {
-        log("Docker is not installed. Please install Docker Desktop.", "error");
+        log(t("Docker is not installed. Please install Docker Desktop."), "error");
         return false;
     }
 
@@ -614,11 +620,11 @@ export async function checkDocker(log: LogFunction): Promise<boolean> {
     }
 
     if (psResult.status !== 0) {
-        log("Docker is not running. Please start Docker Desktop.", "error");
+        log(t("Docker is not running. Please start Docker Desktop."), "error");
         return false;
     }
 
-    log("Docker is ready.", "success");
+    log(t("Docker is ready."), "success");
     return true;
 }
 
@@ -639,9 +645,9 @@ async function createTempContainer(
 
     if (!result.success || !result.output) {
         if (result.error) {
-            log(`Container creation error: ${result.error}`, "error");
+            log(t("Container creation error: {error}", { error: result.error ?? "" }), "error");
         }
-        throw new Error("Failed to create temporary container");
+        throw new Error(t("Failed to create temporary container"));
     }
 
     const containerId = result.output.trim();
@@ -661,10 +667,10 @@ export async function setupProject(
     log: LogFunction
 ): Promise<{ skipEmcmakeCmake: boolean }> {
     const startTime = Date.now();
-    log("=== Step 1/3: Setup ===");
+    log(t("=== Step 1/3: Setup ==="));
 
     if (abortRequested) {
-        throw new Error("Operation aborted by user");
+        throw new Error(t("Operation aborted by user"));
     }
 
     const env = { PROJECT_VOLUME: config.dockerVolumeName };
@@ -678,10 +684,10 @@ export async function setupProject(
 
     if (canDoIncremental) {
         log(
-            "Project configuration unchanged, performing incremental update...",
+            t("Project configuration unchanged, performing incremental update..."),
             "info"
         );
-        log(`LVGL version: ${projectInfo.lvglVersion}`, "info");
+        log(t("LVGL version: {version}", { version: projectInfo.lvglVersion }), "info");
         const result = await incrementalSetup(
             projectInfo,
             lastProjectInfo!,
@@ -693,10 +699,10 @@ export async function setupProject(
         return result;
     }
 
-    log("Performing full setup...");
+    log(t("Performing full setup..."));
 
     // Step 1: Build Docker image
-    log("Building Docker image...");
+    log(t("Building Docker image..."));
     let result = await runCommand(
         "docker",
         ["compose", "build"],
@@ -707,14 +713,14 @@ export async function setupProject(
     );
     if (!result.success) {
         if (result.error) {
-            log(`Docker build error: ${result.error}`, "error");
+            log(t("Docker build error: {error}", { error: result.error ?? "" }), "error");
         }
-        throw new Error("Failed to build Docker image");
+        throw new Error(t("Failed to build Docker image"));
     }
-    log("Docker image built successfully.", "success");
+    log(t("Docker image built successfully."), "success");
 
     // Step 1.5: Clean src directory first to remove any leftover files
-    log("Cleaning src directory...");
+    log(t("Cleaning src directory..."));
     result = await runCommandSilent(
         "docker",
         ["compose", "run", "--rm", "emscripten-build", "rm", "-rf", "/project/src"],
@@ -724,7 +730,7 @@ export async function setupProject(
     // Ignore errors if src doesn't exist yet
 
     // Step 2: Check if volume exists and has content
-    log("Checking if project is already set up...");
+    log(t("Checking if project is already set up..."));
     result = await runCommandSilent(
         "docker",
         ["compose", "run", "--rm", "emscripten-build", "test", "-f", "/project/build.sh"],
@@ -738,8 +744,8 @@ export async function setupProject(
 
     if (!projectAlreadySetup) {
         // Step 3: Clone repository (only on first setup)
-        log("First-time setup: Cloning repository from GitHub...");
-        log("Note: This can take several minutes, especially while cloning the LVGL submodule.", "info");
+        log(t("First-time setup: Cloning repository from GitHub..."));
+        log(t("Note: This can take several minutes, especially while cloning the LVGL submodule."), "info");
 
         containerId = await createTempContainer(config, env, log);
 
@@ -765,15 +771,15 @@ export async function setupProject(
                 env,
                 log
             );
-            throw new Error("Git clone failed");
+            throw new Error(t("Git clone failed"));
         }
 
-        log("Repository cloned successfully.", "success");
+        log(t("Repository cloned successfully."), "success");
     } else {
-        log("Project already exists in Docker volume. Checking for updates...");
+        log(t("Project already exists in Docker volume. Checking for updates..."));
 
         // Pull latest changes from GitHub
-        log("Pulling latest changes from GitHub...");
+        log(t("Pulling latest changes from GitHub..."));
 
         result = await runCommand(
             "docker",
@@ -792,20 +798,20 @@ export async function setupProject(
         );
 
         if (!result.success) {
-            log("Git pull failed, continuing with existing code...", "warning");
+            log(t("Git pull failed, continuing with existing code..."), "warning");
         } else {
-            log("Latest changes pulled successfully.", "success");
+            log(t("Latest changes pulled successfully."), "success");
         }
     }
 
     // Step 4: Update build files
-    log("Updating build files...");
+    log(t("Updating build files..."));
     if (!containerId) {
         containerId = await createTempContainer(config, env, log);
     }
 
     // Remove and recreate src directory
-    log("Preparing src directory...");
+    log(t("Preparing src directory..."));
     await runCommand(
         "docker",
         [
@@ -829,7 +835,7 @@ export async function setupProject(
             env,
             log
         );
-        throw new Error("UI directory path is missing");
+        throw new Error(t("UI directory path is missing"));
     }
 
     if (!fs.existsSync(projectInfo.uiDir)) {
@@ -840,11 +846,11 @@ export async function setupProject(
             env,
             log
         );
-        throw new Error(`UI directory not found: ${projectInfo.uiDir}`);
+        throw new Error(t("UI directory not found: {dir}", { dir: projectInfo.uiDir }));
     }
 
     const resolvedUiDir = path.resolve(projectInfo.uiDir);
-    log(`Copying ${resolvedUiDir} to container...`);
+    log(t("Copying {dir} to container...", { dir: resolvedUiDir }));
 
     // Copy contents of destination folder directly into /project/src/
     // Quote the source path to handle paths with spaces
@@ -864,7 +870,7 @@ export async function setupProject(
             env,
             log
         );
-        throw new Error("Failed to copy build destination directory");
+        throw new Error(t("Failed to copy build destination directory"));
     }
 
     // Update timestamps to ensure CMake detects changes
@@ -884,7 +890,7 @@ export async function setupProject(
 
     // Copy fonts if any are specified
     if (projectInfo.fonts && projectInfo.fonts.length > 0) {
-        log(`Copying ${projectInfo.fonts.length} font(s) to container...`);
+        log(t("Copying {count} font(s) to container...", { count: projectInfo.fonts.length }));
 
         // Create fonts directory in container
         await runCommand(
@@ -897,7 +903,7 @@ export async function setupProject(
 
         // Copy each font file
         for (const font of projectInfo.fonts) {
-            log(`Copying font: ${font.fileName}`);
+            log(t("Copying font: {name}", { name: font.fileName }));
 
             // Determine target directory from targetPath
             const targetDir = path.posix.dirname(font.targetPath);
@@ -934,7 +940,7 @@ export async function setupProject(
                     env,
                     log
                 );
-                throw new Error(`Failed to copy font file: ${font.fileName}`);
+                throw new Error(t("Failed to copy font file: {name}", { name: font.fileName }));
             }
         }
 
@@ -958,7 +964,7 @@ export async function setupProject(
             log
         );
 
-        log("Fonts manifest created: /project/fonts.txt", "success");
+        log(t("Fonts manifest created: /project/fonts.txt"), "success");
     }
 
     // Stop container
@@ -971,7 +977,7 @@ export async function setupProject(
     );
 
     const duration = ((Date.now() - startTime) / 1000).toFixed(1);
-    log(`Setup completed successfully in ${duration}s!`, "success");
+    log(t("Setup completed successfully in {duration}s!", { duration }), "success");
 
     // Store project info for next build
     lastProjectInfo = projectInfo;
@@ -1019,23 +1025,23 @@ async function incrementalSetup(
         addedFiles.length + modifiedFiles.length + deletedFiles.length;
 
     if (totalChanges === 0) {
-        log("No file changes detected, skipping setup.", "success");
+        log(t("No file changes detected, skipping setup."), "success");
         return { skipEmcmakeCmake: true };
     }
 
     log(
-        `Detected changes: ${addedFiles.length} added, ${modifiedFiles.length} modified, ${deletedFiles.length} deleted`
+        t("Detected changes: {added} added, {modified} modified, {deleted} deleted", { added: addedFiles.length, modified: modifiedFiles.length, deleted: deletedFiles.length })
     );
 
     // Log detailed file changes for debugging
     if (addedFiles.length > 0) {
-        log(`Added files: ${addedFiles.join(", ")}`);
+        log(t("Added files: {files}", { files: addedFiles.join(", ") }));
     }
     if (modifiedFiles.length > 0) {
-        log(`Modified files: ${modifiedFiles.join(", ")}`);
+        log(t("Modified files: {files}", { files: modifiedFiles.join(", ") }));
     }
     if (deletedFiles.length > 0) {
-        log(`Deleted files: ${deletedFiles.join(", ")}`);
+        log(t("Deleted files: {files}", { files: deletedFiles.join(", ") }));
     }
 
     // Create temp container for file operations
@@ -1044,7 +1050,7 @@ async function incrementalSetup(
     try {
         // Handle deleted files - batch all deletes into single command
         if (deletedFiles.length > 0) {
-            log(`Removing ${deletedFiles.length} deleted file(s)...`);
+            log(t("Removing {count} deleted file(s)...", { count: deletedFiles.length }));
             const deleteCommands = deletedFiles
                 .map(file => `rm -f "/project/src/${file}"`)
                 .join(" && ");
@@ -1061,7 +1067,7 @@ async function incrementalSetup(
         // Handle added and modified files
         const changedFiles = [...addedFiles, ...modifiedFiles];
         if (changedFiles.length > 0) {
-            log(`Copying ${changedFiles.length} added/modified file(s)...`);
+            log(t("Copying {count} added/modified file(s)...", { count: changedFiles.length }));
 
             // Collect all unique parent directories
             const parentDirs = new Set<string>();
@@ -1100,12 +1106,12 @@ async function incrementalSetup(
                 );
 
                 if (!result.success) {
-                    throw new Error(`Failed to copy file: ${file}`);
+                    throw new Error(t("Failed to copy file: {file}", { file }));
                 }
             }
 
             // Update timestamps on all copied files in a single command
-            log(`Updating timestamps on ${changedFiles.length} file(s)...`);
+            log(t("Updating timestamps on {count} file(s)...", { count: changedFiles.length }));
             const touchCommands = changedFiles
                 .map(file => `touch "/project/src/${file}"`)
                 .join(" && ");
@@ -1129,14 +1135,14 @@ async function incrementalSetup(
         );
 
         const duration = ((Date.now() - startTime) / 1000).toFixed(1);
-        log(`Incremental setup completed in ${duration}s!`, "success");
+        log(t("Incremental setup completed in {duration}s!", { duration }), "success");
 
         // Skip emcmake/cmake if only files were modified (no adds/deletes)
         const skipEmcmakeCmake =
             addedFiles.length === 0 && deletedFiles.length === 0;
         if (skipEmcmakeCmake) {
             log(
-                "Only file modifications detected, build will skip CMake reconfiguration"
+                t("Only file modifications detected, build will skip CMake reconfiguration")
             );
         }
 
@@ -1164,16 +1170,16 @@ export async function buildProject(
     skipEmcmakeCmake: boolean = false
 ): Promise<void> {
     const startTime = Date.now();
-    log("=== Step 2/3: Build ===");
+    log(t("=== Step 2/3: Build ==="));
 
     if (abortRequested) {
-        throw new Error("Operation aborted by user");
+        throw new Error(t("Operation aborted by user"));
     }
 
     const env = { PROJECT_VOLUME: config.dockerVolumeName };
 
     log(
-        `Starting build (LVGL ${projectInfo.lvglVersion}, ${projectInfo.displayWidth}x${projectInfo.displayHeight})...`
+        t("Starting build (LVGL {version}, {width}x{height})...", { version: projectInfo.lvglVersion, width: projectInfo.displayWidth, height: projectInfo.displayHeight })
     );
 
     // Use the build.sh script with parameters
@@ -1183,7 +1189,7 @@ export async function buildProject(
     if (skipEmcmakeCmake) {
         buildCommand += " --skip-emcmake-cmake";
         log(
-            "Build will skip CMake reconfiguration (incremental build)",
+            t("Build will skip CMake reconfiguration (incremental build)"),
             "info"
         );
     }
@@ -1214,11 +1220,11 @@ export async function buildProject(
     );
 
     if (!result.success) {
-        throw new Error("Build failed");
+        throw new Error(t("Build failed"));
     }
 
     const duration = ((Date.now() - startTime) / 1000).toFixed(1);
-    log(`Build completed successfully in ${duration}s!`, "success");
+    log(t("Build completed successfully in {duration}s!", { duration }), "success");
 }
 
 /**
@@ -1230,27 +1236,27 @@ export async function extractBuild(
     log: LogFunction
 ): Promise<void> {
     const startTime = Date.now();
-    log("=== Step 3/3: Extract ===");
+    log(t("=== Step 3/3: Extract ==="));
 
     if (abortRequested) {
-        throw new Error("Operation aborted by user");
+        throw new Error(t("Operation aborted by user"));
     }
 
     const env = { PROJECT_VOLUME: config.dockerVolumeName };
 
-    log(`Output path: ${outputPath}`);
+    log(t("Output path: {path}", { path: outputPath }));
 
     // Clean output directory first
-    log("Cleaning output directory...");
+    log(t("Cleaning output directory..."));
     if (fs.existsSync(outputPath)) {
         fs.rmSync(outputPath, { recursive: true, force: true });
-        log("Output directory cleaned.");
+        log(t("Output directory cleaned."));
     }
 
     // Create fresh output directory
     fs.mkdirSync(outputPath, { recursive: true });
 
-    log("Extracting build files from Docker volume...");
+    log(t("Extracting build files from Docker volume..."));
 
     // Create temp container and copy files
     const containerId = await createTempContainer(config, env, log);
@@ -1272,7 +1278,7 @@ export async function extractBuild(
                 () => {} // Silent check
             );
             if (!checkResult.success) {
-                log(`${file} not found (optional file, skipping)`);
+                log(t("{file} not found (optional file, skipping)", { file }));
                 continue;
             }
         }
@@ -1295,15 +1301,15 @@ export async function extractBuild(
                 env,
                 log
             );
-            throw new Error(`Failed to extract ${file}`);
+            throw new Error(t("Failed to extract {file}", { file }));
         }
 
         // Log file info
         try {
             const stats = fs.statSync(destPath);
-            log(`Extracted ${file}: ${stats.size} bytes`);
+            log(t("Extracted {file}: {size} bytes", { file, size: stats.size }));
         } catch (err) {
-            log(`Could not stat ${file}: ${(err as Error).message}`, "warning");
+            log(t("Could not stat {file}: {err}", { file, err: (err as Error).message }), "warning");
         }
     }
 
@@ -1316,7 +1322,7 @@ export async function extractBuild(
     );
 
     const duration = ((Date.now() - startTime) / 1000).toFixed(1);
-    log(`Build files extracted successfully in ${duration}s!`, "success");
+    log(t("Build files extracted successfully in {duration}s!", { duration }), "success");
 }
 
 /**
@@ -1327,11 +1333,11 @@ export async function cleanBuild(
     log: LogFunction
 ): Promise<void> {
     const startTime = Date.now();
-    log("=== Clean Build Directory ===");
+    log(t("=== Clean Build Directory ==="));
 
     const env = { PROJECT_VOLUME: config.dockerVolumeName };
 
-    log("Removing build directory...");
+    log(t("Removing build directory..."));
 
     const result = await runCommand(
         "docker",
@@ -1342,14 +1348,14 @@ export async function cleanBuild(
     );
 
     if (!result.success) {
-        throw new Error("Clean build failed");
+        throw new Error(t("Clean build failed"));
     }
 
     // Reset incremental build state since build artifacts are gone
     lastProjectInfo = null;
 
     const duration = ((Date.now() - startTime) / 1000).toFixed(1);
-    log(`Build directory cleaned in ${duration}s!`, "success");
+    log(t("Build directory cleaned in {duration}s!", { duration }), "success");
 }
 
 /**
@@ -1360,11 +1366,11 @@ export async function cleanAll(
     log: LogFunction
 ): Promise<void> {
     const startTime = Date.now();
-    log("=== Clean All ===");
+    log(t("=== Clean All ==="));
 
     const env = { PROJECT_VOLUME: config.dockerVolumeName };
 
-    log("Removing all contents from /project directory...");
+    log(t("Removing all contents from /project directory..."));
 
     const result = await runCommand(
         "docker",
@@ -1383,7 +1389,7 @@ export async function cleanAll(
     );
 
     if (!result.success) {
-        throw new Error("Clean all failed");
+        throw new Error(t("Clean all failed"));
     }
 
     // Reset incremental build state since everything is gone
@@ -1391,7 +1397,7 @@ export async function cleanAll(
 
     const duration = ((Date.now() - startTime) / 1000).toFixed(1);
     log(
-        `Project directory cleaned in ${duration}s. Next build will start from scratch.`,
+        t("Project directory cleaned in {duration}s. Next build will start from scratch.", { duration }),
         "success"
     );
 }

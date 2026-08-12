@@ -12,6 +12,7 @@ import classNames from "classnames";
 import { range } from "lodash";
 
 import { closestByClass } from "eez-studio-shared/dom";
+import { t } from "eez-studio-shared/i18n";
 
 import { Checkbox } from "eez-studio-ui/properties";
 import { IconAction } from "eez-studio-ui/action";
@@ -686,7 +687,7 @@ export const RulersDockView = observer(
                                 checked={this.rulersModel.xAxisRulersEnabled}
                                 onChange={this.enableXAxisRulers}
                             >
-                                Enable X axis rulers
+                                {t("Enable X axis rulers")}
                             </Checkbox>
                         </div>
                         {this.rulersModel.xAxisRulersEnabled && (
@@ -742,7 +743,9 @@ export const RulersDockView = observer(
                                                     onClick={
                                                         this.zoomToFitXRulers
                                                     }
-                                                    title="Zoom chart to fit both x1 and x2"
+                                                    title={t(
+                                                        "Zoom chart to fit both x1 and x2"
+                                                    )}
                                                 />
                                             </td>
                                         </tr>
@@ -780,7 +783,7 @@ export const RulersDockView = observer(
                                         .chartControllers.length > 1
                                         ? `"${this.props.chartsController.chartControllers[chartIndex].yAxisController.axisModel.label}" `
                                         : ""}
-                                    Y axis rulers
+                                    {t("Y axis rulers")}
                                 </Checkbox>
                             </div>
                             {chartIndex <
@@ -879,7 +882,9 @@ export const RulersDockView = observer(
                                                                     chartIndex
                                                                 )
                                                             }
-                                                            title="Zoom chart to fit both y1 and y2"
+                                                            title={t(
+                                                                "Zoom chart to fit both y1 and y2"
+                                                            )}
                                                         />
                                                     </td>
                                                 </tr>

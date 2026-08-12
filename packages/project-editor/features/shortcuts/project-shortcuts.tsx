@@ -4,6 +4,8 @@ import { observer } from "mobx-react";
 
 import { guid } from "eez-studio-shared/guid";
 
+import { t } from "eez-studio-shared/i18n";
+
 import {
     VerticalHeaderWithBody,
     ToolbarHeader,
@@ -101,7 +103,7 @@ export const ShortcutsEditor = observer(
                 renderUsedInProperty(shortcut: Partial<IShortcut>) {
                     return (
                         <tr>
-                            <td>Used in</td>
+                            <td>{t("Used in")}</td>
                             <td>
                                 <ConfigurationReferencesPropertyValue
                                     value={shortcut.usedIn}
@@ -286,7 +288,7 @@ export class Shortcuts extends EezObject {
     shortcuts: Shortcut[];
 
     static classInfo: ClassInfo = {
-        label: () => "Shortcuts",
+        label: () => t("Shortcuts"),
         properties: [
             {
                 name: "shortcuts",
@@ -315,11 +317,12 @@ registerClass("Shortcuts", Shortcuts);
 const feature: ProjectEditorFeature = {
     name: "eezstudio-project-feature-shortcuts",
     version: "0.1.0",
-    description:
-        "This feature adds support for shortcut definitions into your project",
+    description: t(
+        "This feature adds support for shortcut definitions into your project"
+    ),
     author: "EEZ",
     authorLogo: "../eez-studio-ui/_images/eez_logo.png",
-    displayName: "Shortcuts",
+    displayName: t("Shortcuts"),
     mandatory: false,
     key: "shortcuts",
     type: PropertyType.Object,

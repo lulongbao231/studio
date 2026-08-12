@@ -8,6 +8,7 @@ import {
     showGenericDialog
 } from "eez-studio-ui/generic-dialog";
 import { validators } from "eez-studio-shared/validation";
+import { t } from "eez-studio-shared/i18n";
 
 import * as SerialPortsModule from "instrument/connection/interfaces/serial-ports";
 import type {
@@ -115,7 +116,7 @@ registerActionComponents("Serial Port", [
         execute: (context: IDashboardComponentContext) => {
             const port = context.evalProperty<string>("port");
             if (!port || typeof port != "string") {
-                context.throwError(`invalid Port property`);
+                context.throwError(t("invalid Port property"));
                 return;
             }
 
@@ -126,7 +127,7 @@ registerActionComponents("Serial Port", [
                 isNaN(baudRate) ||
                 baudRate <= 0
             ) {
-                context.throwError(`invalid Baud rate property`);
+                context.throwError(t("invalid Baud rate property"));
                 return;
             }
 
@@ -140,7 +141,7 @@ registerActionComponents("Serial Port", [
                     dataBits != 6 &&
                     dataBits != 5)
             ) {
-                context.throwError(`invalid Data bits property`);
+                context.throwError(t("invalid Data bits property"));
                 return;
             }
 
@@ -151,7 +152,7 @@ registerActionComponents("Serial Port", [
                 isNaN(stopBits) ||
                 (stopBits != 1 && stopBits != 2)
             ) {
-                context.throwError(`invalid Stop bits property`);
+                context.throwError(t("invalid Stop bits property"));
                 return;
             }
 
@@ -165,7 +166,7 @@ registerActionComponents("Serial Port", [
                     parity != "odd" &&
                     parity != "space")
             ) {
-                context.throwError(`invalid Partiy property`);
+                context.throwError(t("invalid Partiy property"));
                 return;
             }
 
@@ -211,7 +212,7 @@ registerActionComponents("Serial Port", [
             const serialConnection =
                 context.evalProperty<SerialConnection>("connection");
             if (!serialConnection || serialConnection.destroyed) {
-                context.throwError(`invalid connection`);
+                context.throwError(t("invalid connection"));
                 return;
             }
 
@@ -226,7 +227,7 @@ registerActionComponents("Serial Port", [
 
                         if (serialConnection.destroyed) {
                             serialConnection.disconnect();
-                            context.throwError(`invalid connection`);
+                            context.throwError(t("invalid connection"));
                         } else {
                             context.setPropertyField(
                                 "connection",
@@ -240,7 +241,7 @@ registerActionComponents("Serial Port", [
                     }
                 } else {
                     context.throwError(
-                        `serial connection ${serialConnectionId} not found`
+                        t("serial connection {id} not found", { id: serialConnectionId })
                     );
                 }
 
@@ -265,7 +266,7 @@ registerActionComponents("Serial Port", [
         execute: (context: IDashboardComponentContext) => {
             const serialConnection = context.evalProperty("connection");
             if (!serialConnection) {
-                context.throwError(`invalid connection`);
+                context.throwError(t("invalid connection"));
                 return;
             }
 
@@ -280,7 +281,7 @@ registerActionComponents("Serial Port", [
 
                     context.propagateValueThroughSeqout();
                 } else {
-                    context.throwError("serial connection not found");
+                    context.throwError(t("serial connection not found"));
                 }
 
                 context.endAsyncExecution();
@@ -310,7 +311,7 @@ registerActionComponents("Serial Port", [
         execute: (context: IDashboardComponentContext) => {
             const serialConnection = context.evalProperty("connection");
             if (!serialConnection) {
-                context.throwError(`invalid connection`);
+                context.throwError(t("invalid connection"));
                 return;
             }
 
@@ -335,11 +336,11 @@ registerActionComponents("Serial Port", [
                             }
                         };
                     } else {
-                        context.throwError("not connected");
+                        context.throwError(t("not connected"));
                         context.endAsyncExecution();
                     }
                 } else {
-                    context.throwError("serial connection not found");
+                    context.throwError(t("serial connection not found"));
                     context.endAsyncExecution();
                 }
             })(serialConnection.id);
@@ -367,7 +368,7 @@ registerActionComponents("Serial Port", [
         execute: (context: IDashboardComponentContext) => {
             const serialConnection = context.evalProperty("connection");
             if (!serialConnection) {
-                context.throwError(`invalid connection`);
+                context.throwError(t("invalid connection"));
                 return;
             }
 
@@ -390,7 +391,7 @@ registerActionComponents("Serial Port", [
                         context.propagateValueThroughSeqout();
                     }
                 } else {
-                    context.throwError("serial connection not found");
+                    context.throwError(t("serial connection not found"));
                 }
                 context.endAsyncExecution();
             })(serialConnection.id, data);
@@ -559,13 +560,15 @@ async function showConnectDialog(
                         inputGroupButton: (
                             <button
                                 className="btn btn-secondary"
-                                title="Refresh list of available serial ports"
+                                title={t(
+                                    "Refresh list of available serial ports"
+                                )}
                                 onClick={event => {
                                     event.preventDefault();
                                     onRefreshSerialPortPaths();
                                 }}
                             >
-                                Refresh
+                                {t("Refresh")}
                             </button>
                         ),
                         validators: [validators.required]
@@ -602,14 +605,14 @@ async function showConnectDialog(
                 stopBits: 1,
                 parity: "none"
             },
-            okButtonText: "Connect",
+            okButtonText: t("Connect"),
             onOk: async (result: GenericDialogResult) => {
                 return new Promise<boolean>(async resolve => {
                     const serialConnection = new SerialConnection(
                         0,
                         result.values
                     );
-                    result.onProgress("info", "Connecting...");
+                    result.onProgress("info", t("Connecting..."));
                     try {
                         await serialConnection.connect();
                         serialConnection.disconnect();
@@ -676,7 +679,13 @@ export class SerialConnection implements SerialConnectionCallbacks {
 
     get status() {
         return {
-            label: `Port: ${this.constructorParams.port}, Baud rate: ${this.constructorParams.baudRate}, Data bits: ${this.constructorParams.dataBits}, Stop bits: ${this.constructorParams.stopBits}, Parity: ${this.constructorParams.parity}`,
+            label: t("Port: {port}, Baud rate: {baudRate}, Data bits: {dataBits}, Stop bits: {stopBits}, Parity: {parity}", {
+                port: this.constructorParams.port,
+                baudRate: this.constructorParams.baudRate,
+                dataBits: this.constructorParams.dataBits,
+                stopBits: this.constructorParams.stopBits,
+                parity: this.constructorParams.parity
+            }),
             image: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 68.792 34.396"><g transform="translate(-21.422 -163.072)" fill="none"><circle stroke="black" cx="43.765" cy="180.27" r="7.955"/><circle stroke="black" cx="67.686" cy="180.27" r="7.955"/></g><path stroke="black" transform="translate(-21.422 -163.072)" d="M31.674 171.406v17.728M55.726 171.406v17.728M79.96 171.406v17.728"/></svg>`,
             color: this.error ? "red" : this.isConnected ? "green" : "gray",
             error: this.error

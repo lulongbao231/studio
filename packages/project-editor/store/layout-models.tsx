@@ -5,6 +5,7 @@ import { observable } from "mobx";
 import * as FlexLayout from "flexlayout-react";
 
 import { Icon } from "eez-studio-ui/icon";
+import { t } from "eez-studio-shared/i18n";
 import {
     AbstractLayoutModels,
     ILayoutModel
@@ -68,7 +69,7 @@ export class LayoutModels extends AbstractLayoutModels {
     static PAGES_TAB: FlexLayout.IJsonTabNode = {
         type: "tab",
         enableClose: false,
-        name: "Pages",
+        name: t("Pages"),
         component: "pages",
         icon: "svg:pages",
         id: LayoutModels.PAGES_TAB_ID
@@ -76,7 +77,7 @@ export class LayoutModels extends AbstractLayoutModels {
     static WIDGETS_TAB: FlexLayout.IJsonTabNode = {
         type: "tab",
         enableClose: false,
-        name: "User Widgets",
+        name: t("User Widgets"),
         component: "widgets",
         icon: "svg:user_widgets",
         id: LayoutModels.USER_WIDGETS_TAB_ID
@@ -84,7 +85,7 @@ export class LayoutModels extends AbstractLayoutModels {
     static ACTIONS_TAB: FlexLayout.IJsonTabNode = {
         type: "tab",
         enableClose: false,
-        name: "User Actions",
+        name: t("User Actions"),
         component: "actions",
         icon: "material:code",
         id: LayoutModels.ACTIONS_TAB_ID
@@ -93,7 +94,7 @@ export class LayoutModels extends AbstractLayoutModels {
     static STYLES_TAB: FlexLayout.IJsonTabNode = {
         type: "tab",
         enableClose: false,
-        name: "Styles",
+        name: t("Styles"),
         id: LayoutModels.STYLES_TAB_ID,
         component: "styles",
         icon: "material:format_color_fill"
@@ -102,7 +103,7 @@ export class LayoutModels extends AbstractLayoutModels {
     static FONTS_TAB: FlexLayout.IJsonTabNode = {
         type: "tab",
         enableClose: false,
-        name: "Fonts",
+        name: t("Fonts"),
         id: LayoutModels.FONTS_TAB_ID,
         component: "fonts",
         icon: "material:font_download"
@@ -111,7 +112,7 @@ export class LayoutModels extends AbstractLayoutModels {
     static BITMAPS_TAB: FlexLayout.IJsonTabNode = {
         type: "tab",
         enableClose: false,
-        name: "Bitmaps",
+        name: t("Bitmaps"),
         id: LayoutModels.BITMAPS_TAB_ID,
         component: "bitmaps",
         icon: "material:image"
@@ -120,7 +121,7 @@ export class LayoutModels extends AbstractLayoutModels {
     static THEMES_TAB: FlexLayout.IJsonTabNode = {
         type: "tab",
         enableClose: false,
-        name: "Themes",
+        name: t("Themes"),
         id: LayoutModels.THEMES_TAB_ID,
         component: "themesSideView",
         icon: "svg:palette"
@@ -129,7 +130,7 @@ export class LayoutModels extends AbstractLayoutModels {
     static TEXTS_TAB: FlexLayout.IJsonTabNode = {
         type: "tab",
         enableClose: false,
-        name: "Texts",
+        name: t("Texts"),
         id: LayoutModels.TEXTS_TAB_ID,
         component: "texts",
         icon: "svg:language"
@@ -138,7 +139,7 @@ export class LayoutModels extends AbstractLayoutModels {
     static SCPI_TAB: FlexLayout.IJsonTabNode = {
         type: "tab",
         enableClose: false,
-        name: "SCPI",
+        name: t("SCPI"),
         id: LayoutModels.SCPI_TAB_ID,
         component: "scpi",
         icon: "material:navigate_next"
@@ -147,7 +148,7 @@ export class LayoutModels extends AbstractLayoutModels {
     static INSTRUMENT_COMMANDS_TAB: FlexLayout.IJsonTabNode = {
         type: "tab",
         enableClose: false,
-        name: "Instrument Commands",
+        name: t("Instrument Commands"),
         id: LayoutModels.INSTRUMENT_COMMANDS_TAB_ID,
         component: "instrument-commands",
         icon: "material:navigate_next"
@@ -156,7 +157,7 @@ export class LayoutModels extends AbstractLayoutModels {
     static EXTENSION_DEFINITIONS_TAB: FlexLayout.IJsonTabNode = {
         type: "tab",
         enableClose: false,
-        name: "IEXT",
+        name: t("IEXT"),
         id: LayoutModels.EXTENSION_DEFINITIONS_TAB_ID,
         component: "extension-definitions",
         icon: "material:extension"
@@ -165,7 +166,7 @@ export class LayoutModels extends AbstractLayoutModels {
     static CHANGES_TAB: FlexLayout.IJsonTabNode = {
         type: "tab",
         enableClose: false,
-        name: "Changes",
+        name: t("Changes"),
         id: LayoutModels.CHANGES_TAB_ID,
         component: "changes",
         icon: "svg:changes"
@@ -174,7 +175,7 @@ export class LayoutModels extends AbstractLayoutModels {
     static BREAKPOINTS_TAB: FlexLayout.IJsonTabNode = {
         type: "tab",
         enableClose: false,
-        name: "Breakpoints",
+        name: t("Breakpoints"),
         id: LayoutModels.BREAKPOINTS_TAB_ID,
         icon: "svg:breakpoints_panel",
         component: "breakpointsPanel"
@@ -183,7 +184,7 @@ export class LayoutModels extends AbstractLayoutModels {
     static LVGL_GROUPS_TAB: FlexLayout.IJsonTabNode = {
         type: "tab",
         enableClose: false,
-        name: "Groups",
+        name: t("Groups"),
         id: LayoutModels.LVGL_GROUPS_TAB_ID,
         component: "lvgl-groups",
         icon: "material:view_compact"
@@ -192,7 +193,7 @@ export class LayoutModels extends AbstractLayoutModels {
     static COMPONENTS_PALETTE_TAB: FlexLayout.IJsonTabNode = {
         type: "tab",
         enableClose: false,
-        name: "Components Palette",
+        name: t("Components Palette"),
         id: LayoutModels.COMPONENTS_PALETTE_TAB_ID,
         component: "componentsPalette",
         icon: "svg:components"
@@ -282,28 +283,28 @@ export class LayoutModels extends AbstractLayoutModels {
                 {
                     type: "tab",
                     enableClose: false,
-                    name: "Checks",
+                    name: t("Checks"),
                     id: LayoutModels.CHECKS_TAB_ID,
                     component: "checksMessages"
                 },
                 {
                     type: "tab",
                     enableClose: false,
-                    name: "Output",
+                    name: t("Output"),
                     id: LayoutModels.OUTPUT_TAB_ID,
                     component: "outputMessages"
                 },
                 {
                     type: "tab",
                     enableClose: false,
-                    name: "Search",
+                    name: t("Search"),
                     id: LayoutModels.SEARCH_TAB_ID,
                     component: "search"
                 },
                 {
                     type: "tab",
                     enableClose: false,
-                    name: "References",
+                    name: t("References"),
                     id: LayoutModels.REFERENCES_TAB_ID,
                     component: "references"
                 }
@@ -349,28 +350,28 @@ export class LayoutModels extends AbstractLayoutModels {
                 {
                     type: "tab",
                     enableClose: false,
-                    name: "Checks",
+                    name: t("Checks"),
                     id: LayoutModels.CHECKS_TAB_ID,
                     component: "checksMessages"
                 },
                 {
                     type: "tab",
                     enableClose: false,
-                    name: "Output",
+                    name: t("Output"),
                     id: LayoutModels.OUTPUT_TAB_ID,
                     component: "outputMessages"
                 },
                 {
                     type: "tab",
                     enableClose: false,
-                    name: "Search",
+                    name: t("Search"),
                     id: LayoutModels.SEARCH_TAB_ID,
                     component: "search"
                 },
                 {
                     type: "tab",
                     enableClose: false,
-                    name: "References",
+                    name: t("References"),
                     id: LayoutModels.REFERENCES_TAB_ID,
                     component: "references"
                 }
@@ -420,7 +421,7 @@ export class LayoutModels extends AbstractLayoutModels {
                                             {
                                                 type: "tab",
                                                 enableClose: false,
-                                                name: "Widgets Structure",
+                                                name: t("Widgets Structure"),
                                                 component: "flow-structure",
                                                 icon: "svg:hierarchy"
                                             }
@@ -434,7 +435,7 @@ export class LayoutModels extends AbstractLayoutModels {
                                             {
                                                 type: "tab",
                                                 enableClose: false,
-                                                name: "Variables",
+                                                name: t("Variables"),
                                                 component: "variables",
                                                 icon: "svg:variable",
                                                 id: LayoutModels.VARIABLES_TAB_ID
@@ -462,7 +463,7 @@ export class LayoutModels extends AbstractLayoutModels {
                                             {
                                                 type: "tab",
                                                 enableClose: false,
-                                                name: "Properties",
+                                                name: t("Properties"),
                                                 id: LayoutModels.PROPERTIES_TAB_ID,
                                                 component: "propertiesPanel",
                                                 icon: "svg:properties"
@@ -542,7 +543,7 @@ export class LayoutModels extends AbstractLayoutModels {
                                             {
                                                 type: "tab",
                                                 enableClose: false,
-                                                name: "Properties",
+                                                name: t("Properties"),
                                                 id: LayoutModels.PROPERTIES_TAB_ID,
                                                 component: "propertiesPanel",
                                                 icon: "svg:properties"
@@ -586,7 +587,7 @@ export class LayoutModels extends AbstractLayoutModels {
                                             {
                                                 type: "tab",
                                                 enableClose: false,
-                                                name: "Active Flows",
+                                                name: t("Active Flows"),
                                                 icon: "svg:active_flows_panel",
                                                 component: "active-flows"
                                             }
@@ -599,7 +600,7 @@ export class LayoutModels extends AbstractLayoutModels {
                                             {
                                                 type: "tab",
                                                 enableClose: false,
-                                                name: "Watch",
+                                                name: t("Watch"),
                                                 icon: "svg:watch_panel",
                                                 component: "watch"
                                             }
@@ -627,7 +628,7 @@ export class LayoutModels extends AbstractLayoutModels {
                                             {
                                                 type: "tab",
                                                 enableClose: false,
-                                                name: "Queue",
+                                                name: t("Queue"),
                                                 icon: "svg:queue_panel",
                                                 component: "queue"
                                             },
@@ -641,7 +642,7 @@ export class LayoutModels extends AbstractLayoutModels {
                                             {
                                                 type: "tab",
                                                 enableClose: false,
-                                                name: "Logs",
+                                                name: t("Logs"),
                                                 id: LayoutModels.DEBUGGER_LOGS_TAB_ID,
                                                 icon: "svg:log",
                                                 component: "logs"
@@ -675,7 +676,7 @@ export class LayoutModels extends AbstractLayoutModels {
                                     {
                                         type: "tab",
                                         enableClose: false,
-                                        name: "Preview",
+                                        name: t("Preview"),
                                         id: LayoutModels.DOCKER_SIMULATOR_PREVIEW_TAB_ID,
                                         icon: "material:computer",
                                         component: "dockerSimulatorPreview"
@@ -697,7 +698,7 @@ export class LayoutModels extends AbstractLayoutModels {
                                             {
                                                 type: "tab",
                                                 enableClose: false,
-                                                name: "Build Logs",
+                                                name: t("Build Logs"),
                                                 id: LayoutModels.DOCKER_SIMULATOR_LOGS_TAB_ID,
                                                 icon: "svg:log",
                                                 component: "dockerSimulatorLogs"
@@ -715,7 +716,7 @@ export class LayoutModels extends AbstractLayoutModels {
                                             {
                                                 type: "tab",
                                                 enableClose: false,
-                                                name: "Preview Logs",
+                                                name: t("Preview Logs"),
                                                 id: LayoutModels.DOCKER_SIMULATOR_PREVIEW_LOGS_TAB_ID,
                                                 icon: "svg:log",
                                                 component:
@@ -754,7 +755,7 @@ export class LayoutModels extends AbstractLayoutModels {
                                             {
                                                 type: "tab",
                                                 enableClose: false,
-                                                name: "Bitmaps",
+                                                name: t("Bitmaps"),
                                                 component: "bitmaps"
                                             }
                                         ]
@@ -770,7 +771,7 @@ export class LayoutModels extends AbstractLayoutModels {
                                             {
                                                 type: "tab",
                                                 enableClose: false,
-                                                name: "Preview",
+                                                name: t("Preview"),
                                                 component: "preview"
                                             }
                                         ]
@@ -844,14 +845,14 @@ export class LayoutModels extends AbstractLayoutModels {
                                             {
                                                 type: "tab",
                                                 enableClose: false,
-                                                name: "Subsystems",
+                                                name: t("Subsystems"),
                                                 id: LayoutModels.SCPI_SUBSYSTEMS_TAB_ID,
                                                 component: "subsystems"
                                             },
                                             {
                                                 type: "tab",
                                                 enableClose: false,
-                                                name: "Enums",
+                                                name: t("Enums"),
                                                 id: LayoutModels.SCPI_ENUMS_TAB_ID,
                                                 component: "enums"
                                             }
@@ -863,7 +864,7 @@ export class LayoutModels extends AbstractLayoutModels {
                                             {
                                                 type: "tab",
                                                 enableClose: false,
-                                                name: "Commands",
+                                                name: t("Commands"),
                                                 id: LayoutModels.SCPI_COMMANDS_TAB_ID,
                                                 component: "commands"
                                             }
@@ -900,7 +901,7 @@ export class LayoutModels extends AbstractLayoutModels {
                                             {
                                                 type: "tab",
                                                 enableClose: false,
-                                                name: "Styles",
+                                                name: t("Styles"),
                                                 component: "styles"
                                             }
                                         ]
@@ -916,7 +917,7 @@ export class LayoutModels extends AbstractLayoutModels {
                                             {
                                                 type: "tab",
                                                 enableClose: false,
-                                                name: "Preview",
+                                                name: t("Preview"),
                                                 component: "preview"
                                             }
                                         ]
@@ -952,7 +953,7 @@ export class LayoutModels extends AbstractLayoutModels {
                                             {
                                                 type: "tab",
                                                 enableClose: false,
-                                                name: "Styles",
+                                                name: t("Styles"),
                                                 component: "styles"
                                             }
                                         ]
@@ -968,7 +969,7 @@ export class LayoutModels extends AbstractLayoutModels {
                                             {
                                                 type: "tab",
                                                 enableClose: false,
-                                                name: "Preview",
+                                                name: t("Preview"),
                                                 component: "preview"
                                             }
                                         ]
@@ -1047,7 +1048,7 @@ export class LayoutModels extends AbstractLayoutModels {
                                             {
                                                 type: "tab",
                                                 enableClose: false,
-                                                name: "Text resources",
+                                                name: t("Text resources"),
                                                 id: LayoutModels.TEXT_RESOURCES_TAB_ID,
                                                 component: "resources"
                                             }
@@ -1059,7 +1060,7 @@ export class LayoutModels extends AbstractLayoutModels {
                                             {
                                                 type: "tab",
                                                 enableClose: false,
-                                                name: "Languages",
+                                                name: t("Languages"),
                                                 id: LayoutModels.LANGUAGES_TAB_ID,
                                                 component: "languages"
                                             }
@@ -1071,7 +1072,7 @@ export class LayoutModels extends AbstractLayoutModels {
                                             {
                                                 type: "tab",
                                                 enableClose: false,
-                                                name: "Statistics",
+                                                name: t("Statistics"),
                                                 id: LayoutModels.TEXTS_STATISTICS_TAB_ID,
                                                 component: "statistics"
                                             }
@@ -1108,7 +1109,7 @@ export class LayoutModels extends AbstractLayoutModels {
                                             {
                                                 type: "tab",
                                                 enableClose: false,
-                                                name: "Groups",
+                                                name: t("Groups"),
                                                 component: "groups"
                                             }
                                         ]
@@ -1124,7 +1125,7 @@ export class LayoutModels extends AbstractLayoutModels {
                                             {
                                                 type: "tab",
                                                 enableClose: false,
-                                                name: "Group Widgets",
+                                                name: t("Group Widgets"),
                                                 component: "order"
                                             }
                                         ]

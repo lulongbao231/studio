@@ -1,5 +1,6 @@
 import React from "react";
 import { makeObservable } from "mobx";
+import { t } from "eez-studio-shared/i18n";
 
 import {
     IMessage,
@@ -86,7 +87,7 @@ export class LVGLContainerWidget extends LVGLWidget {
                             messages.push(
                                 new Message(
                                     MessageType.ERROR,
-                                    `Tab should be child of Content container`,
+                                    t("Tab should be child of Content container"),
                                     childWidget
                                 )
                             );

@@ -1,5 +1,6 @@
 import { ipcRenderer } from "electron";
 import React from "react";
+import { t } from "eez-studio-shared/i18n";
 import {
     observable,
     computed,
@@ -42,7 +43,7 @@ export const ImportDirectiveCustomUI = observer((props: PropertyProps) => {
                 size="small"
                 onClick={() => showUsage(props.objects[0] as ImportDirective)}
             >
-                Usage
+                {t("Usage")}
             </Button>
 
             <Button
@@ -50,7 +51,7 @@ export const ImportDirectiveCustomUI = observer((props: PropertyProps) => {
                 size="small"
                 onClick={() => openProject(props.objects[0] as ImportDirective)}
             >
-                Open
+                {t("Open")}
             </Button>
         </div>
     );
@@ -292,7 +293,7 @@ function showUsage(importDirective: ImportDirective) {
 
     showGenericDialog({
         dialogDefinition: {
-            title: "Imported Project Assets Usage",
+            title: t("Imported Project Assets Usage"),
             fields: [
                 {
                     name: "assetsUsage",
@@ -304,7 +305,7 @@ function showUsage(importDirective: ImportDirective) {
         values: {
             assetsUsage: buildAssetsUsage.assetsUsage
         },
-        okButtonText: "Search",
+        okButtonText: t("Search"),
         okEnabled: result => {
             const assetsUsage: IAssetsUsage = result.values.assetsUsage;
             return !!assetsUsage.selectedAsset;

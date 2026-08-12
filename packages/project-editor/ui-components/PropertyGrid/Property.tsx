@@ -8,6 +8,7 @@ import { shell } from "electron";
 import { guid } from "eez-studio-shared/guid";
 import { humanize } from "eez-studio-shared/string";
 import { filterNumber } from "eez-studio-shared/validation";
+import { t } from "eez-studio-shared/i18n";
 
 import { confirm } from "eez-studio-ui/dialog-electron";
 
@@ -900,8 +901,8 @@ export const Property = observer(
                                 value == false
                             ) {
                                 confirm(
-                                    "Are you sure?",
-                                    "If flow support is turned off then all your flow specific parts will be removed from the project and after saving the project it will irreversibly lost.",
+                                    t("Are you sure?"),
+                                    t("If flow support is turned off then all your flow specific parts will be removed from the project and after saving the project it will irreversibly lost."),
                                     () => {
                                         this.changeValue(value);
                                     }
@@ -938,7 +939,7 @@ export const Property = observer(
                             <button
                                 className="btn btn-secondary"
                                 type="button"
-                                title="Generate GUID"
+                                title={t("Generate GUID")}
                                 onClick={this.onGenerateGuid}
                             >
                                 +
@@ -1103,8 +1104,8 @@ export const Property = observer(
                                             }
                                         } else {
                                             info(
-                                                "Project not saved.",
-                                                "To be able to select folder you need to save the project first."
+                                                t("Project not saved."),
+                                                t("To be able to select folder you need to save the project first.")
                                             );
                                         }
                                     }}
@@ -1115,7 +1116,7 @@ export const Property = observer(
                                     <button
                                         className="btn btn-secondary"
                                         type="button"
-                                        title="Open in system explorer"
+                                        title={t("Open in system explorer")}
                                         onClick={async () => {
                                             if (
                                                 this.context.filePath &&
@@ -1131,8 +1132,8 @@ export const Property = observer(
                                                     );
                                                 } catch (err) {
                                                     info(
-                                                        "Error opening folder",
-                                                        `Could not open folder: ${err}`
+                                                        t("Error opening folder"),
+                                                        t("Could not open folder: {err}", { err: `${err}` })
                                                     );
                                                 }
                                             }
@@ -1204,8 +1205,8 @@ export const Property = observer(
                                             }
                                         } else {
                                             info(
-                                                "Project not saved.",
-                                                "To be able to select file you need to save the project first."
+                                                t("Project not saved."),
+                                                t("To be able to select file you need to save the project first.")
                                             );
                                         }
                                     }}

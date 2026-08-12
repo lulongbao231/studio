@@ -3,6 +3,7 @@ import { shell } from "electron";
 import { dialog, getCurrentWindow } from "@electron/remote";
 import type { FileFilter } from "electron";
 import React from "react";
+import { t } from "eez-studio-shared/i18n";
 
 import type { IDashboardComponentContext } from "eez-studio-types";
 
@@ -72,13 +73,13 @@ registerActionComponents("File", [
         execute: (context: IDashboardComponentContext) => {
             const filePathValue = context.evalProperty<string>("filePath");
             if (typeof filePathValue != "string") {
-                context.throwError("filePath is not a string");
+                context.throwError(t("filePath is not a string"));
                 return;
             }
 
             const encodingValue = context.evalProperty("encoding");
             if (typeof encodingValue != "string") {
-                context.throwError("encoding is not a string");
+                context.throwError(t("encoding is not a string"));
                 return;
             }
 
@@ -97,9 +98,10 @@ registerActionComponents("File", [
             ];
             if (encodings.indexOf(encodingValue) == -1) {
                 context.throwError(
-                    `Unsupported encoding value ${encodingValue}, supported: ${encodings.join(
-                        ", "
-                    )}`
+                    t("Unsupported encoding value {value}, supported: {supported}", {
+                        value: encodingValue,
+                        supported: encodings.join(", ")
+                    })
                 );
                 return;
             }
@@ -153,13 +155,13 @@ registerActionComponents("File", [
         execute: (context: IDashboardComponentContext) => {
             const filePathValue = context.evalProperty("filePath");
             if (typeof filePathValue != "string") {
-                context.throwError("filePath is not a string");
+                context.throwError(t("filePath is not a string"));
                 return;
             }
 
             let encodingValue = context.evalProperty("encoding");
             if (typeof encodingValue != "string") {
-                context.throwError("${encoding} is not a string");
+                context.throwError(t("encoding is not a string"));
                 return;
             }
 
@@ -184,9 +186,10 @@ registerActionComponents("File", [
             }
             if (encodings.indexOf(encodingValue) == -1) {
                 context.throwError(
-                    `Unsupported encoding value ${encodingValue}, supported: ${encodings.join(
-                        ", "
-                    )}`
+                    t("Unsupported encoding value {value}, supported: {supported}", {
+                        value: encodingValue,
+                        supported: encodings.join(", ")
+                    })
                 );
                 return;
             }
@@ -240,13 +243,13 @@ registerActionComponents("File", [
         execute: (context: IDashboardComponentContext) => {
             const filePathValue = context.evalProperty("filePath");
             if (typeof filePathValue != "string") {
-                context.throwError("filePath is not a string");
+                context.throwError(t("filePath is not a string"));
                 return;
             }
 
             const encodingValue = context.evalProperty("encoding");
             if (typeof encodingValue != "string") {
-                context.throwError("${encoding} is not a string");
+                context.throwError(t("encoding is not a string"));
                 return;
             }
 
@@ -265,9 +268,10 @@ registerActionComponents("File", [
             ];
             if (encodings.indexOf(encodingValue) == -1) {
                 context.throwError(
-                    `Unsupported encoding value ${encodingValue}, supported: ${encodings.join(
-                        ", "
-                    )}`
+                    t("Unsupported encoding value {value}, supported: {supported}", {
+                        value: encodingValue,
+                        supported: encodings.join(", ")
+                    })
                 );
                 return;
             }
@@ -326,13 +330,13 @@ registerActionComponents("File", [
                 if (filtersValue != undefined) {
                     if (!Array.isArray(filtersValue)) {
                         context.endAsyncExecution();
-                        context.throwError("filters is not an array");
+                        context.throwError(t("filters is not an array"));
                         return;
                     }
 
                     if (filtersValue.length == 0) {
                         context.endAsyncExecution();
-                        context.throwError("filters empty");
+                        context.throwError(t("filters empty"));
                         return;
                     }
 
@@ -342,7 +346,7 @@ registerActionComponents("File", [
                         if (typeof filtersValue[i] != "string") {
                             context.endAsyncExecution();
                             context.throwError(
-                                "filters is not an array of strings"
+                                t("filters is not an array of strings")
                             );
                             return;
                         }
@@ -351,7 +355,7 @@ registerActionComponents("File", [
                         if (parts.length < 2) {
                             context.endAsyncExecution();
                             context.throwError(
-                                `invalid filter at position ${i + 1}`
+                                t("invalid filter at position {n}", { n: i + 1 })
                             );
                             return;
                         }
@@ -364,7 +368,7 @@ registerActionComponents("File", [
 
                     console.log(filters);
                 } else {
-                    filters = [{ name: "All Files", extensions: ["*"] }];
+                    filters = [{ name: t("All Files"), extensions: ["*"] }];
                 }
 
                 const result = await dialog.showOpenDialog(getCurrentWindow(), {
@@ -415,7 +419,7 @@ registerActionComponents("File", [
         execute: (context: IDashboardComponentContext) => {
             const fileNameValue = context.evalProperty("fileName");
             if (fileNameValue && typeof fileNameValue != "string") {
-                context.throwError("fileName is not a string");
+                context.throwError(t("fileName is not a string"));
                 return;
             }
 
@@ -428,13 +432,13 @@ registerActionComponents("File", [
                 if (filtersValue != undefined) {
                     if (!Array.isArray(filtersValue)) {
                         context.endAsyncExecution();
-                        context.throwError("filters is not an array");
+                        context.throwError(t("filters is not an array"));
                         return;
                     }
 
                     if (filtersValue.length == 0) {
                         context.endAsyncExecution();
-                        context.throwError("filters empty");
+                        context.throwError(t("filters empty"));
                         return;
                     }
 
@@ -444,7 +448,7 @@ registerActionComponents("File", [
                         if (typeof filtersValue[i] != "string") {
                             context.endAsyncExecution();
                             context.throwError(
-                                "filters is not an array of strings"
+                                t("filters is not an array of strings")
                             );
                             return;
                         }
@@ -453,7 +457,7 @@ registerActionComponents("File", [
                         if (parts.length < 2) {
                             context.endAsyncExecution();
                             context.throwError(
-                                `invalid filter at position ${i + 1}`
+                                t("invalid filter at position {n}", { n: i + 1 })
                             );
                             return;
                         }
@@ -539,7 +543,7 @@ registerActionComponents("File", [
         execute: (context: IDashboardComponentContext) => {
             const filePathValue = context.evalProperty("filePath");
             if (typeof filePathValue != "string") {
-                context.throwError("filePathValue is not a string");
+                context.throwError(t("filePathValue is not a string"));
                 return;
             }
 

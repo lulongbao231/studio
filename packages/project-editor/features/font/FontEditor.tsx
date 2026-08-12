@@ -21,6 +21,7 @@ import {
     isObjectExists
 } from "project-editor/store";
 import { validators } from "eez-studio-shared/validation";
+import { t } from "eez-studio-shared/i18n";
 import * as notification from "eez-studio-ui/notification";
 
 import { ProjectContext } from "project-editor/project/context";
@@ -170,7 +171,7 @@ export const FontEditor = observer(
                 if (
                     !fileExistsSync(projectStore.getAbsoluteFilePath(filePath))
                 ) {
-                    return "File not found";
+                    return t("File not found");
                 }
 
                 return null;
@@ -181,24 +182,24 @@ export const FontEditor = observer(
             const addOptionEnumItems = [
                 {
                     id: "append",
-                    label: "Add single character at the end"
+                    label: t("Add single character at the end")
                 },
                 {
                     id: "range",
-                    label: "Add characters from range"
+                    label: t("Add characters from range")
                 }
             ];
 
             if (missingEncodings.length > 0) {
                 addOptionEnumItems.push({
                     id: "missing",
-                    label: "Add missing characters"
+                    label: t("Add missing characters")
                 });
             }
 
             return showGenericDialog(this.context, {
                 dialogDefinition: {
-                    title: "Add Characters",
+                    title: t("Add Characters"),
                     fields: [
                         {
                             name: "filePath",
@@ -207,16 +208,16 @@ export const FontEditor = observer(
                             options: {
                                 filters: [
                                     {
-                                        name: "Font files",
+                                        name: t("Font files"),
                                         extensions: ["ttf", "otf"]
                                     },
-                                    { name: "All Files", extensions: ["*"] }
+                                    { name: t("All Files"), extensions: ["*"] }
                                 ]
                             }
                         },
                         {
                             name: "size",
-                            displayName: "Font size (points)",
+                            displayName: t("Font size (points)"),
                             type: "number",
                             validators: [
                                 validators.required,
@@ -236,13 +237,13 @@ export const FontEditor = observer(
                         },
                         {
                             name: "fromGlyph",
-                            displayName: "From character",
+                            displayName: t("From character"),
                             type: "number",
                             visible: isAddOptionRange
                         },
                         {
                             name: "toGlyph",
-                            displayName: "To character",
+                            displayName: t("To character"),
                             type: "number",
                             visible: isAddOptionRange
                         },
@@ -253,7 +254,7 @@ export const FontEditor = observer(
                         },
                         {
                             name: "createBlankGlyphs",
-                            displayName: "Create blank characters",
+                            displayName: t("Create blank characters"),
                             type: "boolean"
                         }
                     ]
@@ -358,13 +359,18 @@ export const FontEditor = observer(
 
                             if (result.values.addOption === "missing") {
                                 notification.info(
-                                    `Added ${added} character(s), not found ${
-                                        missingEncodings.length - added
-                                    } character(s)`
+                                    t(
+                                        "Added {added} character(s), not found {missing} character(s)",
+                                        {
+                                            added,
+                                            missing:
+                                                missingEncodings.length - added
+                                        }
+                                    )
                                 );
                             } else if (result.values.addOption === "range") {
                                 notification.info(
-                                    `Added ${added} character(s)`
+                                    t("Added {added} character(s)", { added })
                                 );
                             }
                         })
@@ -380,10 +386,12 @@ export const FontEditor = observer(
 
                             if (errorMessage) {
                                 notification.error(
-                                    `Adding characters failed: ${errorMessage}`
+                                    t("Adding characters failed: {error}", {
+                                        error: errorMessage
+                                    })
                                 );
                             } else {
-                                notification.error(`Adding characters failed!`);
+                                notification.error(t("Adding characters failed!"));
                             }
 
                             return false;
@@ -417,10 +425,10 @@ export const FontEditor = observer(
                 properties: ["openFile"],
                 filters: [
                     {
-                        name: "Image files",
+                        name: t("Image files"),
                         extensions: ["png", "jpg", "jpeg"]
                     },
-                    { name: "All Files", extensions: ["*"] }
+                    { name: t("All Files"), extensions: ["*"] }
                 ]
             });
 
@@ -819,7 +827,7 @@ export function browseGlyph(glyph: Glyph) {
         return obj["bpp"] === 1;
     }
 
-    const title = "Select Characters";
+    const title = t("Select Characters");
 
     const projectStore = getProjectStore(glyph);
 
@@ -830,26 +838,26 @@ export function browseGlyph(glyph: Glyph) {
             fields: [
                 {
                     name: "filePath",
-                    displayName: "Font",
+                    displayName: t("Font"),
                     type: RelativeFileInput,
                     options: {
                         filters: [
                             {
-                                name: "Font files",
+                                name: t("Font files"),
                                 extensions: ["ttf", "otf"]
                             },
-                            { name: "All Files", extensions: ["*"] }
+                            { name: t("All Files"), extensions: ["*"] }
                         ]
                     },
                     validators: [validators.required]
                 },
                 {
                     name: "renderingEngine",
-                    displayName: "Rendering engine",
+                    displayName: t("Rendering engine"),
                     type: "enum",
                     enumItems: [
-                        { id: "freetype", label: "FreeType" },
-                        { id: "opentype", label: "OpenType" }
+                        { id: "freetype", label: t("FreeType") },
+                        { id: "opentype", label: t("OpenType") }
                     ],
                     validators: [validators.required]
                 },

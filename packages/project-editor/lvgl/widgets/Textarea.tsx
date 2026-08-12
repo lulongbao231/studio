@@ -1,4 +1,5 @@
 import React from "react";
+import { t } from "eez-studio-shared/i18n";
 import { observable, makeObservable } from "mobx";
 
 import { PropertyType, makeDerivedClassInfo } from "project-editor/core/object";
@@ -165,7 +166,7 @@ export class LVGLTextareaWidget extends LVGLWidget {
                         "const char *",
                         "new_val",
                         this.text,
-                        "Failed to evaluate Text in Textarea widget"
+                        t("Failed to evaluate Text in Textarea widget")
                     );
 
                     const cur_val = code.callObjectFunctionWithAssignment(
@@ -216,7 +217,7 @@ export class LVGLTextareaWidget extends LVGLWidget {
                                     "text",
                                     this.text as string,
                                     value,
-                                    "Failed to assign Text in Textarea widget"
+                                    t("Failed to assign Text in Textarea widget")
                                 );
                             }
                         );

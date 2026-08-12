@@ -1,5 +1,7 @@
 import { strToColor16 } from "eez-studio-shared/color";
 
+import { t } from "eez-studio-shared/i18n";
+
 import type { BuildResult } from "project-editor/store/features";
 
 import {
@@ -1504,13 +1506,13 @@ async function buildGuiAssetsData(assets: Assets) {
     assets.projectStore.outputSectionsStore.write(
         Section.OUTPUT,
         MessageType.INFO,
-        "Uncompressed size: " + inputBuffer.length
+        t("Uncompressed size: {size}", { size: inputBuffer.length })
     );
 
     assets.projectStore.outputSectionsStore.write(
         Section.OUTPUT,
         MessageType.INFO,
-        "Compressed size: " + compressedSize
+        t("Compressed size: {size}", { size: compressedSize })
     );
 
     return [inputBuffer, compressedData];
@@ -1858,7 +1860,7 @@ class Assets {
                     this.projectStore.outputSectionsStore.write(
                         Section.OUTPUT,
                         MessageType.INFO,
-                        "Unused style: " + style.name,
+                        t("Unused style: {name}", { name: style.name }),
                         style
                     );
                 }
@@ -1869,7 +1871,7 @@ class Assets {
                     this.projectStore.outputSectionsStore.write(
                         Section.OUTPUT,
                         MessageType.INFO,
-                        "Unused font: " + font.name,
+                        t("Unused font: {name}", { name: font.name }),
                         font
                     );
                 }
@@ -1880,7 +1882,7 @@ class Assets {
                     this.projectStore.outputSectionsStore.write(
                         Section.OUTPUT,
                         MessageType.INFO,
-                        "Unused bitmap: " + bitmap.name,
+                        t("Unused bitmap: {name}", { name: bitmap.name }),
                         bitmap
                     );
                 }

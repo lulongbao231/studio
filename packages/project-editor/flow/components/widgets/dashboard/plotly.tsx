@@ -47,6 +47,7 @@ import {
     evalConstantExpression
 } from "project-editor/flow/expression";
 import { humanize } from "eez-studio-shared/string";
+import { t } from "eez-studio-shared/i18n";
 import { Assets, DataBuffer } from "project-editor/build/assets";
 import { makeEndInstruction } from "project-editor/flow/expression/instructions";
 import type { IDashboardComponentContext, ValueType } from "eez-studio-types";
@@ -338,10 +339,10 @@ export class PlotlyWidget extends Widget {
             makeExpressionProperty(
                 {
                     name: "plotlyData",
-                    displayName: "Chart data",
+                    displayName: t("Chart data"),
                     formText: () => (
                         <span>
-                            Plotly chart data is set via JSON value, check{" "}
+                            {t("Plotly chart data is set via JSON value, check")}{" "}
                             <a
                                 href="#"
                                 onClick={event => {
@@ -352,9 +353,9 @@ export class PlotlyWidget extends Widget {
                                     );
                                 }}
                             >
-                                Plotly documentation
+                                {t("Plotly documentation")}
                             </a>{" "}
-                            for available options.
+                            {t("for available options.")}
                         </span>
                     ),
                     type: PropertyType.MultilineText,
@@ -366,10 +367,10 @@ export class PlotlyWidget extends Widget {
             makeExpressionProperty(
                 {
                     name: "layout",
-                    displayName: "Layout options",
+                    displayName: t("Layout options"),
                     formText: () => (
                         <span>
-                            Plotly layout options are set via JSON value, check{" "}
+                            {t("Plotly layout options are set via JSON value, check")}{" "}
                             <a
                                 href="#"
                                 onClick={event => {
@@ -380,9 +381,9 @@ export class PlotlyWidget extends Widget {
                                     );
                                 }}
                             >
-                                Plotly documentation
+                                {t("Plotly documentation")}
                             </a>{" "}
-                            for available options.
+                            {t("for available options.")}
                         </span>
                     ),
                     type: PropertyType.MultilineText,
@@ -393,11 +394,10 @@ export class PlotlyWidget extends Widget {
             makeExpressionProperty(
                 {
                     name: "config",
-                    displayName: "Configuration options",
+                    displayName: t("Configuration options"),
                     formText: () => (
                         <span>
-                            Plotly configuration options are set via JSON value,
-                            check{" "}
+                            {t("Plotly configuration options are set via JSON value, check")}{" "}
                             <a
                                 href="#"
                                 onClick={event => {
@@ -408,9 +408,9 @@ export class PlotlyWidget extends Widget {
                                     );
                                 }}
                             >
-                                Plotly documentation
+                                {t("Plotly documentation")}
                             </a>{" "}
-                            for available options.
+                            {t("for available options.")}
                         </span>
                     ),
                     type: PropertyType.MultilineText,
@@ -1057,7 +1057,7 @@ class LineChartLine extends EezObject {
                 messages.push(
                     new Message(
                         MessageType.ERROR,
-                        `Invalid expression: ${err}`,
+                        t("Invalid expression: {error}", { error: err }),
                         getChildOfObject(lineChartTrace, "label")
                     )
                 );
@@ -1072,7 +1072,7 @@ class LineChartLine extends EezObject {
                 messages.push(
                     new Message(
                         MessageType.ERROR,
-                        `Invalid expression: ${err}`,
+                        t("Invalid expression: {error}", { error: err }),
                         getChildOfObject(lineChartTrace, "value")
                     )
                 );
@@ -1087,7 +1087,7 @@ class LineChartLine extends EezObject {
                 messages.push(
                     new Message(
                         MessageType.ERROR,
-                        `Invalid expression: ${err}`,
+                        t("Invalid expression: {error}", { error: err }),
                         getChildOfObject(lineChartTrace, "visible")
                     )
                 );
@@ -1124,7 +1124,7 @@ export class LineChartWidget extends Widget {
             makeExpressionProperty(
                 {
                     name: "xValue",
-                    displayName: "X value",
+                    displayName: t("X value"),
                     type: PropertyType.MultilineText,
                     propertyGridGroup: specificGroup
                 },
@@ -1146,12 +1146,12 @@ export class LineChartWidget extends Widget {
             },
             {
                 name: "displayModebar",
-                displayName: "Display mode bar",
+                displayName: t("Display mode bar"),
                 type: PropertyType.Enum,
                 enumItems: [
-                    { id: "hover", label: "Hover" },
-                    { id: "always", label: "Always" },
-                    { id: "never", label: "Never" }
+                    { id: "hover", label: t("Hover") },
+                    { id: "always", label: t("Always") },
+                    { id: "never", label: t("Never") }
                 ],
                 propertyGridGroup: specificGroup
             },
@@ -1175,7 +1175,7 @@ export class LineChartWidget extends Widget {
             },
             {
                 name: "showXAxis",
-                displayName: "Show X axis",
+                displayName: t("Show X axis"),
                 type: PropertyType.Boolean,
                 propertyGridGroup: specificGroup,
                 checkboxStyleSwitch: true
@@ -1191,11 +1191,11 @@ export class LineChartWidget extends Widget {
                 enumItems: [
                     {
                         id: "floating",
-                        label: "Floating"
+                        label: t("Floating")
                     },
                     {
                         id: "fixed",
-                        label: "Fixed"
+                        label: t("Fixed")
                     }
                 ],
                 propertyGridGroup: specificGroup
@@ -1222,7 +1222,7 @@ export class LineChartWidget extends Widget {
             ),
             {
                 name: "showYAxis",
-                displayName: "Show Y axis",
+                displayName: t("Show Y axis"),
                 type: PropertyType.Boolean,
                 propertyGridGroup: specificGroup,
                 checkboxStyleSwitch: true
@@ -1238,11 +1238,11 @@ export class LineChartWidget extends Widget {
                 enumItems: [
                     {
                         id: "floating",
-                        label: "Floating"
+                        label: t("Floating")
                     },
                     {
                         id: "fixed",
-                        label: "Fixed"
+                        label: t("Fixed")
                     }
                 ],
                 propertyGridGroup: specificGroup

@@ -9,6 +9,7 @@ import {
     registerClass
 } from "project-editor/core/object";
 import { getLabel, Message } from "project-editor/store";
+import { t } from "eez-studio-shared/i18n";
 import type { Component } from "project-editor/flow/component";
 import {
     getInputDisplayName,
@@ -111,9 +112,10 @@ export class ConnectionLine extends EezObject {
                 messages.push(
                     new Message(
                         MessageType.ERROR,
-                        `Connection line ${getLabel(
-                            connectionLine
-                        )}: no source and target component`,
+                        t(
+                            "Connection line {lineLabel}: no source and target component",
+                            { lineLabel: getLabel(connectionLine) }
+                        ),
                         connectionLine
                     )
                 );
@@ -121,9 +123,10 @@ export class ConnectionLine extends EezObject {
                 messages.push(
                     new Message(
                         MessageType.ERROR,
-                        `Connection line ${getLabel(
-                            connectionLine
-                        )}: no source component`,
+                        t(
+                            "Connection line {lineLabel}: no source component",
+                            { lineLabel: getLabel(connectionLine) }
+                        ),
                         connectionLine
                     )
                 );
@@ -131,9 +134,10 @@ export class ConnectionLine extends EezObject {
                 messages.push(
                     new Message(
                         MessageType.ERROR,
-                        `Connection line ${getLabel(
-                            connectionLine
-                        )}: no target component`,
+                        t(
+                            "Connection line {lineLabel}: no target component",
+                            { lineLabel: getLabel(connectionLine) }
+                        ),
                         connectionLine
                     )
                 );
@@ -148,9 +152,10 @@ export class ConnectionLine extends EezObject {
                     messages.push(
                         new Message(
                             MessageType.ERROR,
-                            `Connection line ${getLabel(
-                                connectionLine
-                            )}: no source component output`,
+                            t(
+                                "Connection line {lineLabel}: no source component output",
+                                { lineLabel: getLabel(connectionLine) }
+                            ),
                             connectionLine
                         )
                     );
@@ -166,9 +171,10 @@ export class ConnectionLine extends EezObject {
                     messages.push(
                         new Message(
                             MessageType.ERROR,
-                            `Connection line ${getLabel(
-                                connectionLine
-                            )}: no target component input`,
+                            t(
+                                "Connection line {lineLabel}: no target component input",
+                                { lineLabel: getLabel(connectionLine) }
+                            ),
                             connectionLine
                         )
                     );
@@ -184,7 +190,7 @@ export class ConnectionLine extends EezObject {
                         messages.push(
                             new Message(
                                 MessageType.WARNING,
-                                `Connection line incompatible data types: ${componentOutput.type} -> ${componentInput.type}`,
+                                t("Connection line incompatible data types: {typeOut} -> {typeIn}", { typeOut: componentOutput.type, typeIn: componentInput.type }),
                                 connectionLine
                             )
                         );

@@ -7,6 +7,7 @@ import type * as TabulatorModule from "tabulator-tables";
 import type * as LuxonModule from "luxon";
 
 import * as notification from "eez-studio-ui/notification";
+import { t } from "eez-studio-shared/i18n";
 
 import {
     registerClass,
@@ -515,7 +516,7 @@ const CopyOptionsButton = observer(
             );
 
             notification.info(
-                "The options are copied as a JSON literal to the clipboard"
+                t("The options are copied as a JSON literal to the clipboard")
             );
         };
 
@@ -529,9 +530,9 @@ const CopyOptionsButton = observer(
                         marginTop: 10,
                         marginBottom: 10
                     }}
-                    title="Copy options as a JSON literal to the clipboard"
+                    title={t("Copy options as a JSON literal to the clipboard")}
                 >
-                    Copy Options
+                    {t("Copy Options")}
                 </Button>
             );
         }
@@ -695,7 +696,7 @@ class TabulatorColumn extends EezObject {
                     messages.push(
                         new Message(
                             MessageType.ERROR,
-                            `Invalid JSON: ${err}`,
+                            t("Invalid JSON: {error}", { error: err }),
                             getChildOfObject(column, "formatterParams")
                         )
                     );
@@ -709,7 +710,7 @@ class TabulatorColumn extends EezObject {
                     messages.push(
                         new Message(
                             MessageType.ERROR,
-                            `Invalid JSON: ${err}`,
+                            t("Invalid JSON: {error}", { error: err }),
                             getChildOfObject(column, "editorParams")
                         )
                     );
@@ -723,7 +724,7 @@ class TabulatorColumn extends EezObject {
                     messages.push(
                         new Message(
                             MessageType.ERROR,
-                            `Invalid JSON: ${err}`,
+                            t("Invalid JSON: {error}", { error: err }),
                             getChildOfObject(column, "headerFilterParams")
                         )
                     );
@@ -737,7 +738,7 @@ class TabulatorColumn extends EezObject {
                     messages.push(
                         new Message(
                             MessageType.ERROR,
-                            `Invalid JSON: ${err}`,
+                            t("Invalid JSON: {error}", { error: err }),
                             getChildOfObject(column, "advanced")
                         )
                     );
@@ -896,14 +897,14 @@ class TabulatorOptions extends EezObject {
             },
             {
                 name: "syncColumns",
-                displayName: "Sync columns with structure",
+                displayName: t("Sync columns with structure"),
                 type: PropertyType.Boolean,
                 checkboxStyleSwitch: true,
                 disabled: (options: TabulatorOptions) => options.autoColumns
             },
             {
                 name: "syncStructure",
-                displayName: "Structure",
+                displayName: t("Structure"),
                 type: PropertyType.ObjectReference,
                 referencedObjectCollectionPath: "variables/structures",
                 disabled: (options: TabulatorOptions) =>
@@ -941,7 +942,7 @@ class TabulatorOptions extends EezObject {
                                 (async () => {
                                     const result = await showGenericDialog({
                                         dialogDefinition: {
-                                            title: "Select Structure",
+                                            title: t("Select Structure"),
                                             fields: [
                                                 {
                                                     name: "structure",
@@ -971,7 +972,7 @@ class TabulatorOptions extends EezObject {
                                     );
                                 })();
                             }}
-                            title="Build From Structure Definition"
+                            title={t("Build From Structure Definition")}
                         />
                     ];
                 }
@@ -991,7 +992,9 @@ class TabulatorOptions extends EezObject {
                 messages.push(
                     new Message(
                         MessageType.ERROR,
-                        `"Selectable rows" should be either empty, true, false, number or highlight`,
+                        t(
+                            `"Selectable rows" should be either empty, true, false, number or highlight`
+                        ),
                         getChildOfObject(options, "selectableRows")
                     )
                 );
@@ -1009,7 +1012,13 @@ class TabulatorOptions extends EezObject {
                                 messages.push(
                                     new Message(
                                         MessageType.ERROR,
-                                        `Field "${column.field}" not found in the structure "${options.syncStructure}"`,
+                                        t(
+                                            'Field "{field}" not found in the structure "{structure}"',
+                                            {
+                                                field: column.field,
+                                                structure: options.syncStructure
+                                            }
+                                        ),
                                         getChildOfObject(column, "field")
                                     )
                                 );
@@ -1153,7 +1162,7 @@ export class TabulatorWidget extends Widget {
             makeDataPropertyInfo("data", {}, "json"),
             {
                 name: "options",
-                displayName: "Basic options",
+                displayName: t("Basic options"),
                 type: PropertyType.Object,
                 typeClass: TabulatorOptions,
                 propertyGridGroup: specificGroup
@@ -1161,10 +1170,10 @@ export class TabulatorWidget extends Widget {
             makeExpressionProperty(
                 {
                     name: "configuration",
-                    displayName: "Advanced options",
+                    displayName: t("Advanced options"),
                     formText: () => (
                         <span>
-                            Advanced options are set via JSON value, check{" "}
+                            {t("Advanced options are set via JSON value, check")}{" "}
                             <a
                                 href="#"
                                 onClick={event => {
@@ -1173,9 +1182,9 @@ export class TabulatorWidget extends Widget {
                                     openLink("https://tabulator.info/docs/6.2");
                                 }}
                             >
-                                Tabulator documentation
+                                {t("Tabulator documentation")}
                             </a>{" "}
-                            for available options.
+                            {t("for available options.")}
                         </span>
                     ),
                     type: PropertyType.MultilineText,
@@ -1186,7 +1195,7 @@ export class TabulatorWidget extends Widget {
             makeExpressionProperty(
                 {
                     name: "persistance",
-                    displayName: "Persistent configuration",
+                    displayName: t("Persistent configuration"),
                     type: PropertyType.MultilineText,
                     propertyGridGroup: specificGroup
                 },

@@ -1,6 +1,7 @@
 import { observable, makeObservable } from "mobx";
 
 import { validators } from "eez-studio-shared/validation";
+import { t } from "eez-studio-shared/i18n";
 
 import { showGenericDialog } from "eez-studio-ui/generic-dialog";
 
@@ -42,7 +43,7 @@ export class InstrumentCommand extends EezObject {
         newItem: async (parent: IEezObject) => {
             const result = await showGenericDialog({
                 dialogDefinition: {
-                    title: "New Instrument Command",
+                    title: t("New Instrument Command"),
                     fields: [
                         {
                             name: "command",
@@ -94,7 +95,7 @@ export class InstrumentCommands extends EezObject {
     commands: InstrumentCommand[];
 
     static classInfo: ClassInfo = {
-        label: () => "Instrument Commands",
+        label: () => t("Instrument Commands"),
         properties: [
             {
                 name: "commands",
@@ -122,10 +123,10 @@ registerClass("InstrumentCommands", InstrumentCommands);
 const feature: ProjectEditorFeature = {
     name: "eezstudio-project-feature-instrument-commands",
     version: "0.1.0",
-    description: "This feature adds support for instrument commands definition",
+    description: t("This feature adds support for instrument commands definition"),
     author: "EEZ",
     authorLogo: "../eez-studio-ui/_images/eez_logo.png",
-    displayName: "Instrument Commands",
+    displayName: t("Instrument Commands"),
     mandatory: false,
     key: "instrumentCommands",
     type: PropertyType.Object,

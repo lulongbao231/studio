@@ -18,6 +18,7 @@ import { splitCommandToMnemonics } from "instrument/commands-tree";
 import { ProjectStore } from "project-editor/store";
 import { ProjectEditorTab, tabs } from "home/tabs-store";
 import { initProjectEditor } from "project-editor/project-editor-bootstrap";
+import { t } from "eez-studio-shared/i18n";
 
 function generateExtensionGuid(extensionName: string) {
     var sha256 = require("sha256");
@@ -101,7 +102,7 @@ export async function importInstrumentDefinitionAsProject(
     instrumentDefinitionFilePath: string,
     projectFilePath: string
 ) {
-    const progressToastId = notification.info("Importing...", {
+    const progressToastId = notification.info(t("Importing..."), {
         autoClose: false
     });
 
@@ -120,7 +121,7 @@ export async function importInstrumentDefinitionAsProject(
         );
         if (!extension) {
             notification.update(progressToastId, {
-                render: "Failed to import instrument definition",
+                render: t("Failed to import instrument definition"),
                 type: notification.ERROR,
                 autoClose: 5000
             });
@@ -155,7 +156,7 @@ export async function importInstrumentDefinitionAsProject(
         await new Promise(resolve => setTimeout(resolve));
 
         notification.update(progressToastId, {
-            render: "Instrument definition imported",
+            render: t("Instrument definition imported"),
             type: notification.SUCCESS,
             autoClose: 1000
         });

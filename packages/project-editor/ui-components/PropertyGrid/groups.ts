@@ -4,30 +4,31 @@ import type {
     PropertyInfo
 } from "project-editor/core/object";
 import { ProjectEditor } from "project-editor/project-editor-interface";
+import { t } from "eez-studio-shared/i18n";
 
 export const indentationGroup: IPropertyGridGroupDefinition = {
     id: "indentation",
-    title: "Indentation",
+    title: t("Indentation"),
     position: 2
 };
 
 export const generalGroup: IPropertyGridGroupDefinition = {
     id: "general",
-    title: "General",
+    title: t("General"),
     position: (object: IEezObject) =>
         object instanceof ProjectEditor.ActionComponentClass ? 0 : 1
 };
 
 export const specificGroup: IPropertyGridGroupDefinition = {
     id: "specific",
-    title: "Specific",
+    title: t("Specific"),
     position: (object: IEezObject) =>
         object instanceof ProjectEditor.ActionComponentClass ? 1 : 2
 };
 
 export const layoutGroup: IPropertyGridGroupDefinition = {
     id: "layout",
-    title: "Layout",
+    title: t("Layout"),
     position: (object: IEezObject) =>
         object instanceof ProjectEditor.ActionComponentClass
             ? 3
@@ -38,14 +39,14 @@ export const layoutGroup: IPropertyGridGroupDefinition = {
 
 export const flowGroup: IPropertyGridGroupDefinition = {
     id: "flow",
-    title: "Flow",
+    title: t("Flow"),
     position: (object: IEezObject) =>
         object instanceof ProjectEditor.ActionComponentClass ? 2 : 5
 };
 
 export const geometryGroup: IPropertyGridGroupDefinition = {
     id: "geometry",
-    title: "Position and size",
+    title: t("Position and size"),
     position: (object: IEezObject) =>
         object instanceof ProjectEditor.ActionComponentClass
             ? 3
@@ -57,14 +58,14 @@ export const geometryGroup: IPropertyGridGroupDefinition = {
 
 export const styleGroup: IPropertyGridGroupDefinition = {
     id: "style",
-    title: "Style",
+    title: t("Style"),
     position: (object: IEezObject) =>
         object instanceof ProjectEditor.ActionComponentClass ? 4 : 3
 };
 
 export const timelineGroup: IPropertyGridGroupDefinition = {
     id: "timeline",
-    title: "Timeline keyframe",
+    title: t("Timeline keyframe"),
     position: (object: IEezObject) => -2
 };
 

@@ -37,6 +37,8 @@ import type { IShortcut } from "shortcuts/interfaces";
 import { DEFAULT_TOOLBAR_BUTTON_COLOR } from "shortcuts/toolbar-button-colors";
 import { showShortcutDialog } from "shortcuts/shortcut-dialog";
 
+import { t } from "eez-studio-shared/i18n";
+
 import type { InstrumentAppStore } from "instrument/window/app-store";
 import {
     executeShortcut,
@@ -175,25 +177,25 @@ export class ScriptsModel implements IModel {
                                 ? [
                                       {
                                           id: "scpi-commands",
-                                          label: "SCPI"
+                                          label: t("SCPI")
                                       },
                                       {
                                           id: "javascript",
-                                          label: "JavaScript"
+                                          label: t("JavaScript")
                                       },
                                       {
                                           id: "micropython",
-                                          label: "MicroPython"
+                                          label: t("MicroPython")
                                       }
                                   ]
                                 : [
                                       {
                                           id: "commands",
-                                          label: "Commands"
+                                          label: t("Commands")
                                       },
                                       {
                                           id: "javascript",
-                                          label: "JavaScript"
+                                          label: t("JavaScript")
                                       }
                                   ],
                         validators: [validators.required]
@@ -236,7 +238,7 @@ export class ScriptsModel implements IModel {
     deleteScript = () => {
         const selectedScript = this.selectedScript;
         if (selectedScript) {
-            confirm("Are you sure?", undefined, () => {
+            confirm(t("Are you sure?"), undefined, () => {
                 this.appStore.shortcutsStore.deleteShortcut(selectedScript);
             });
         }
@@ -272,10 +274,12 @@ export class ScriptsModel implements IModel {
                     destinationFileName: this.selectedScript!.name + ".py",
                     destinationFolderPath: "/Scripts"
                 }),
-                () => notification.success(`Script uploaded.`),
+                () => notification.success(t("Script uploaded.")),
                 err =>
                     notification.error(
-                        `Failed to upload script: ${err.toString()}`
+                        t("Failed to upload script: {error}", {
+                            error: err.toString()
+                        })
                     )
             );
         }
@@ -395,13 +399,13 @@ const MasterView = observer(
                         <IconAction
                             icon="material:add"
                             iconSize={16}
-                            title="Add script"
+                            title={t("Add script")}
                             onClick={scriptsModel.addScript}
                         />
                         <IconAction
                             icon="material:delete"
                             iconSize={16}
-                            title="Delete script"
+                            title={t("Delete script")}
                             enabled={!!scriptsModel.selectedScript}
                             onClick={scriptsModel.deleteScript}
                         />
@@ -468,17 +472,17 @@ export const ScriptHeader = observer(
                         }}
                     >
                         <ButtonAction
-                            text="Edit Shortcut"
+                            text={t("Edit Shortcut")}
                             className="btn-secondary btn-sm"
-                            title="Edit shortcut"
+                            title={t("Edit shortcut")}
                             onClick={this.editShortcut}
                         />
                         <ButtonAction
-                            text="Search and replace"
+                            text={t("Search and replace")}
                             icon="material:search"
                             iconSize={20}
                             className="btn-secondary btn-sm"
-                            title="Search and replace"
+                            title={t("Search and replace")}
                             onClick={this.searchAndReplace}
                         />
                     </Toolbar>
@@ -563,19 +567,19 @@ export function toolbarButtonsRender(appStore: InstrumentAppStore) {
         <React.Fragment>
             {scriptsModel.modified && (
                 <ButtonAction
-                    text="Save"
+                    text={t("Save")}
                     icon="material:save"
                     className="btn-secondary"
-                    title="Save changes"
+                    title={t("Save changes")}
                     onClick={scriptsModel.commit}
                 />
             )}
             {scriptsModel.canUpload && (
                 <ButtonAction
-                    text="Upload"
+                    text={t("Upload")}
                     icon="material:file_upload"
                     className="btn-secondary"
-                    title="Upload script to instrument"
+                    title={t("Upload script to instrument")}
                     onClick={scriptsModel.upload}
                 />
             )}
@@ -587,33 +591,33 @@ export function toolbarButtonsRender(appStore: InstrumentAppStore) {
                     scriptsModel.selectedScript.action.type ===
                         "javascript") && (
                     <ButtonAction
-                        text="Run"
+                        text={t("Run")}
                         icon="material:play_arrow"
                         className="btn-secondary"
-                        title="Run"
+                        title={t("Run")}
                         onClick={scriptsModel.run}
                     />
                 )}
             {isShorcutRunning() && (
                 <ButtonAction
-                    text="Stop"
+                    text={t("Stop")}
                     icon="material:stop"
                     className="btn-danger"
-                    title="Stop"
+                    title={t("Stop")}
                     onClick={stopActiveShortcut}
                 />
             )}
             <ButtonAction
                 text={
                     scriptsModel.terminalVisible
-                        ? "Hide Terminal"
-                        : "Show Terminal"
+                        ? t("Hide Terminal")
+                        : t("Show Terminal")
                 }
                 className="btn-secondary"
                 title={
                     scriptsModel.terminalVisible
-                        ? "Hide terminal"
-                        : "Show terminal"
+                        ? t("Hide terminal")
+                        : t("Show terminal")
                 }
                 onClick={scriptsModel.toggleTerminal}
             />

@@ -13,6 +13,7 @@ import type {
 import { onWasmFlowRuntimeTerminate } from "project-editor/flow/runtime/wasm-worker";
 
 import { registerActionComponents } from "project-editor/flow/component";
+import { t } from "eez-studio-shared/i18n";
 import { PYTHON_ICON, RightArrow } from "project-editor/ui-components/icons";
 import { settingsController } from "home/settings";
 
@@ -45,21 +46,21 @@ registerActionComponents("Python", [
                 enumItems: [
                     {
                         id: "inline-script",
-                        label: "Inline script"
+                        label: t("Inline script")
                     },
                     {
                         id: "inline-script-as-expression",
-                        label: "Inline script as expression"
+                        label: t("Inline script as expression")
                     },
                     {
                         id: "script-file",
-                        label: "Script file"
+                        label: t("Script file")
                     }
                 ]
             },
             {
                 name: "scriptSourceInline",
-                displayName: "Inline script",
+                displayName: t("Inline script"),
                 type: "inline-code",
                 language: "Python",
                 disabled: (...props: string[]) => {
@@ -68,7 +69,7 @@ registerActionComponents("Python", [
             },
             {
                 name: "scriptSourceInlineFromExpression",
-                displayName: "Inline script as expression",
+                displayName: t("Inline script as expression"),
                 type: "expression",
                 valueType: "string",
                 disabled: (...props: string[]) => {
@@ -77,7 +78,7 @@ registerActionComponents("Python", [
             },
             {
                 name: "scriptSourceFile",
-                displayName: "Script file",
+                displayName: t("Script file"),
                 type: "expression",
                 valueType: "string",
                 disabled: (...props: string[]) => {
@@ -131,7 +132,7 @@ registerActionComponents("Python", [
             }
 
             if (scriptSource == undefined) {
-                context.throwError(`Invalid script source`);
+                context.throwError(t("Invalid script source"));
                 return;
             }
 
@@ -259,18 +260,18 @@ registerActionComponents("Python", [
         execute: (context: IDashboardComponentContext) => {
             const handle = context.evalProperty<number>("handle");
             if (!handle) {
-                context.throwError(`Handle not defined`);
+                context.throwError(t("Handle not defined"));
                 return;
             }
             const { pythonShell } = getPythonShell(handle);
             if (!pythonShell) {
-                context.throwError(`Invalid handle ` + handle);
+                context.throwError(t("Invalid handle {handle}", { handle }));
                 return;
             }
 
             const message = context.evalProperty<string>("message");
             if (!message) {
-                context.throwError(`Message not defined`);
+                context.throwError(t("Message not defined"));
                 return;
             }
 
@@ -305,12 +306,12 @@ registerActionComponents("Python", [
         execute: (context: IDashboardComponentContext) => {
             const handle = context.evalProperty<number>("handle");
             if (!handle) {
-                context.throwError(`Handle not defined`);
+                context.throwError(t("Handle not defined"));
                 return;
             }
             const { pythonShell } = getPythonShell(handle);
             if (!pythonShell) {
-                context.throwError(`Invalid handle ` + handle);
+                context.throwError(t("Invalid handle {handle}", { handle }));
                 return;
             }
 

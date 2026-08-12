@@ -19,6 +19,7 @@ import * as FlexLayout from "flexlayout-react";
 import { uniqWith, range, map } from "lodash";
 
 import { getLocale } from "eez-studio-shared/i10n";
+import { t } from "eez-studio-shared/i18n";
 import { extensions } from "eez-studio-shared/extensions/extensions";
 import { IUnit, UNITS, UNKNOWN_UNIT } from "eez-studio-shared/units";
 import { Point, pointDistance } from "eez-studio-shared/geometry";
@@ -1268,7 +1269,7 @@ const AxisView = observer(
                                 height={ZOOM_ICON_SIZE}
                                 padding={ZOOM_ICON_PADDING}
                                 onClick={this.props.axisController.zoomIn}
-                                title="Zoom In"
+                                title={t("Zoom In")}
                             />
                         )}
 
@@ -1283,7 +1284,7 @@ const AxisView = observer(
                                 height={ZOOM_ICON_SIZE}
                                 padding={ZOOM_ICON_PADDING}
                                 onClick={this.props.axisController.zoomOut}
-                                title="Zoom Out"
+                                title={t("Zoom Out")}
                             />
                         )}
 
@@ -2473,7 +2474,7 @@ function HelpView(props: any) {
                             <Arrow />
                         </td>
                         <td>
-                            <span className="text">Drag chart</span>
+                            <span className="text">{t("Drag chart")}</span>
                         </td>
                     </tr>
                     <tr>
@@ -2488,7 +2489,7 @@ function HelpView(props: any) {
                             <Arrow />
                         </td>
                         <td>
-                            <span className="text">X-Axis Offset</span>
+                            <span className="text">{t("X-Axis Offset")}</span>
                         </td>
                     </tr>
                     <tr>
@@ -2505,7 +2506,7 @@ function HelpView(props: any) {
                             <Arrow />
                         </td>
                         <td>
-                            <span className="text">X-Axis Zoom</span>
+                            <span className="text">{t("X-Axis Zoom")}</span>
                         </td>
                     </tr>
                     <tr>
@@ -2522,7 +2523,7 @@ function HelpView(props: any) {
                             <Arrow />
                         </td>
                         <td>
-                            <span className="text">Y-Axis Offset</span>
+                            <span className="text">{t("Y-Axis Offset")}</span>
                         </td>
                     </tr>
                     <tr>
@@ -2543,7 +2544,7 @@ function HelpView(props: any) {
                             <Arrow />
                         </td>
                         <td>
-                            <span className="text">Y-Axis Zoom</span>
+                            <span className="text">{t("Y-Axis Zoom")}</span>
                         </td>
                     </tr>
                 </tbody>
@@ -3254,7 +3255,7 @@ const Fade = cssTransition({
 function showCalculating() {
     console.log("showCalculating");
     if (!calculatingToastId) {
-        calculatingToastId = notification.info("Calculating...", {
+        calculatingToastId = notification.info(t("Calculating..."), {
             transition: Fade,
             closeButton: false,
             position: "top-center"
@@ -5303,7 +5304,7 @@ const MeasurementInputField = observer(
             return (
                 <select
                     className="form-select"
-                    title="Chart rendering algorithm"
+                    title={t("Chart rendering algorithm")}
                     value={
                         measurement.arity === 1
                             ? measurement.chartIndex
@@ -5383,7 +5384,7 @@ const MeasurementComponent = observer(
                 <IconAction
                     icon="material:delete"
                     iconSize={16}
-                    title="Remove measurement"
+                    title={t("Remove measurement")}
                     onClick={() => {
                         runInAction(() => {
                             measurements.splice(index, 1);
@@ -5405,8 +5406,10 @@ const MeasurementComponent = observer(
                             name: `${INPUT_FILED_NAME}${inputIndex}`,
                             displayName:
                                 measurement.arity === 1
-                                    ? "Input"
-                                    : `Input ${inputIndex + 1}`,
+                                    ? t("Input")
+                                    : t("Input {index}", {
+                                          index: inputIndex + 1
+                                      }),
                             type: MeasurementInputField
                         } as IFieldProperties;
                     })
@@ -5420,7 +5423,7 @@ const MeasurementComponent = observer(
             if (this.isResultVisible) {
                 fields.push({
                     name: RESULT_FILED_NAME,
-                    displayName: "Result",
+                    displayName: t("Result"),
                     type: MeasurementResultField,
                     enclosureClassName:
                         "EezStudio_MeasurementsSideDockView_MeasurementResult_Enclosure"
@@ -5476,7 +5479,7 @@ const MeasurementComponent = observer(
             let progressToastId: string | number = 0;
 
             if (data.length > CHUNK) {
-                progressToastId = notification.info("Exporting to CSV ...", {
+                progressToastId = notification.info(t("Exporting to CSV ..."), {
                     autoClose: false,
                     closeButton: false,
                     closeOnClick: false,
@@ -5527,10 +5530,10 @@ const MeasurementComponent = observer(
                 let options: SaveDialogOptions = {
                     filters: [
                         {
-                            name: "CSV Files",
+                            name: t("CSV Files"),
                             extensions: ["csv"]
                         },
-                        { name: "All Files", extensions: ["*"] }
+                        { name: t("All Files"), extensions: ["*"] }
                     ]
                 };
 
@@ -5547,14 +5550,14 @@ const MeasurementComponent = observer(
 
                     try {
                         await writeBinaryData(filePath, csv);
-                        notification.success(`Saved as "${filePath}"`);
+                        notification.success(t('Saved as "{filePath}"', { filePath }));
                     } catch (err) {
                         console.error(err);
                         notification.error(err.toString());
                     }
                 }
             } else {
-                notification.error(`Failed to export to CSV!`);
+                notification.error(t("Failed to export to CSV!"));
             }
 
             runInAction(() => (this.operationInProgress = false));
@@ -5571,9 +5574,9 @@ const MeasurementComponent = observer(
                 const csv = await this.getCsv();
                 if (csv) {
                     clipboard.writeText(csv);
-                    notification.success("CSV copied to the clipboard");
+                    notification.success(t("CSV copied to the clipboard"));
                 } else {
-                    notification.error(`Failed to export to CSV!`);
+                    notification.error(t("Failed to export to CSV!"));
                 }
             } else {
                 const measurementResult = this.props.measurement.result!;
@@ -5603,9 +5606,9 @@ const MeasurementComponent = observer(
 
                 if (text) {
                     clipboard.writeText(text);
-                    notification.success("Value copied to the clipboard");
+                    notification.success(t("Value copied to the clipboard"));
                 } else {
-                    notification.error(`Failed to copy value to clipboard!`);
+                    notification.error(t("Failed to copy value to clipboard!"));
                 }
             }
 
@@ -5655,7 +5658,7 @@ const MeasurementComponent = observer(
                                 <IconAction
                                     icon="material:content_copy"
                                     iconSize={16}
-                                    title="Copy to clipboard"
+                                    title={t("Copy to clipboard")}
                                     onClick={this.onCopy}
                                     enabled={
                                         !this.operationInProgress &&
@@ -5665,7 +5668,7 @@ const MeasurementComponent = observer(
                                 <IconAction
                                     icon="material:save"
                                     iconSize={16}
-                                    title="Save as CSV file"
+                                    title={t("Save as CSV file")}
                                     onClick={this.onSaveAsCsv}
                                     overlayText={"CSV"}
                                     enabled={
@@ -5751,7 +5754,7 @@ const MeasurementsDockView = observer(
                                 );
                             }}
                         >
-                            Refresh
+                            {t("Refresh")}
                         </button>
                     )}
                     <div>
@@ -5777,7 +5780,7 @@ const MeasurementsDockView = observer(
                                 type="button"
                                 data-bs-toggle="dropdown"
                             >
-                                Add Measurement
+                                {t("Add Measurement")}
                             </button>
                             <div className="dropdown-menu">
                                 {map(
@@ -5844,8 +5847,9 @@ const MeasurementValue = observer(
                             }}
                         >
                             <div className="alert alert-danger">
-                                Too many samples. Use the X-axis ruler to reduce
-                                input samples.
+                                {t(
+                                    "Too many samples. Use the X-axis ruler to reduce input samples."
+                                )}
                             </div>
                         </div>
                     );

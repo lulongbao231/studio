@@ -13,6 +13,8 @@ import { Toolbar } from "eez-studio-ui/toolbar";
 import { IconAction } from "eez-studio-ui/action";
 import { Draggable } from "eez-studio-ui/draggable";
 
+import { t } from "eez-studio-shared/i18n";
+
 import {
     IEezObject,
     PropertyInfo,
@@ -220,8 +222,8 @@ export const ArrayProperty = observer(
                         onClick={this.collapseAll}
                         title={
                             this.allCollapsed
-                                ? "Expand All Items"
-                                : "Collapse All Items"
+                                ? t("Expand All Items")
+                                : t("Collapse All Items")
                         }
                     />
                 );
@@ -234,7 +236,7 @@ export const ArrayProperty = observer(
                         icon="material:add"
                         iconSize={18}
                         onClick={this.onAdd}
-                        title="Add item"
+                        title={t("Add item")}
                     />
                 );
             }
@@ -1060,7 +1062,7 @@ const ArrayElementProperties = observer(
                             }
                             iconSize={18}
                             onClick={this.toggleCollapse}
-                            title="Add Item Before"
+                            title={t("Add Item Before")}
                         />
 
                         <div className="EezStudio_ArrayElementProperty_Header_ElementIndexAndLabel" ref={this.refHeader}>
@@ -1087,7 +1089,7 @@ const ArrayElementProperties = observer(
                                 }
                                 iconSize={18}
                                 onClick={this.onAddBefore}
-                                title="Add Item Before"
+                                title={t("Add Item Before")}
                                 enabled={
                                     ArrayElementProperties.updateStartTime.get() ==
                                     undefined
@@ -1104,7 +1106,7 @@ const ArrayElementProperties = observer(
                                 }
                                 iconSize={18}
                                 onClick={this.onAddAfter}
-                                title="Add Item After"
+                                title={t("Add Item After")}
                                 enabled={
                                     ArrayElementProperties.updateStartTime.get() ==
                                     undefined
@@ -1115,7 +1117,7 @@ const ArrayElementProperties = observer(
                                 icon="material:delete"
                                 iconSize={16}
                                 onClick={this.onDelete}
-                                title="Delete Item"
+                                title={t("Delete Item")}
                                 enabled={
                                     ArrayElementProperties.updateStartTime.get() ==
                                     undefined
@@ -1162,7 +1164,7 @@ const ArrayElementProperties = observer(
                                 }
                                 iconSize={16}
                                 onClick={this.onMoveUp}
-                                title="Move Up"
+                                title={t("Move Up")}
                                 enabled={
                                     ArrayElementProperties.updateStartTime.get() ==
                                         undefined &&
@@ -1211,7 +1213,7 @@ const ArrayElementProperties = observer(
                                 }
                                 iconSize={16}
                                 onClick={this.onMoveDown}
-                                title="Move Down"
+                                title={t("Move Down")}
                                 enabled={
                                     ArrayElementProperties.updateStartTime.get() ==
                                         undefined &&

@@ -3,6 +3,7 @@ import { map } from "lodash";
 
 import { humanize } from "eez-studio-shared/string";
 import { guid } from "eez-studio-shared/guid";
+import { t } from "eez-studio-shared/i18n";
 
 import {
     IEezObject,
@@ -65,7 +66,9 @@ export let addObject = action((parentObject: IEezObject, object: EezObject) => {
         }),
 
         get description() {
-            return "Added: " + getHumanReadableObjectPath(object);
+            return t("Added: {path}", {
+                path: getHumanReadableObjectPath(object)
+            });
         }
     });
 
@@ -97,12 +100,11 @@ export let addObjects = action(
             }),
 
             get description() {
-                return (
-                    "Added: " +
-                    objects
+                return t("Added: {path}", {
+                    path: objects
                         .map(object => getHumanReadableObjectPath(object))
                         .join(", ")
-                );
+                });
             }
         });
 
@@ -128,7 +130,9 @@ export let insertObject = action(
             }),
 
             get description() {
-                return "Inserted: " + getHumanReadableObjectPath(object);
+                return t("Inserted: {path}", {
+                    path: getHumanReadableObjectPath(object)
+                });
             }
         });
 
@@ -242,7 +246,9 @@ export let deleteObject = action((object: any) => {
             }),
 
             get description() {
-                return "Deleted: " + getHumanReadableObjectPath(object);
+                return t("Deleted: {path}", {
+                    path: getHumanReadableObjectPath(object)
+                });
             }
         });
     } else {
@@ -293,12 +299,11 @@ export let deleteObjects = action((objects: IEezObject[]) => {
         }),
 
         get description() {
-            return (
-                "Deleted: " +
-                objects
+            return t("Deleted: {path}", {
+                path: objects
                     .map(object => getHumanReadableObjectPath(object))
                     .join(", ")
-            );
+            });
         }
     });
 });
@@ -334,7 +339,9 @@ export let replaceObject = action(
                 }),
 
                 get description() {
-                    return "Replaced: " + getHumanReadableObjectPath(object);
+                    return t("Replaced: {path}", {
+                        path: getHumanReadableObjectPath(object)
+                    });
                 }
             });
         } else {
@@ -403,12 +410,11 @@ export let replaceObjects = action(
             }),
 
             get description() {
-                return (
-                    "Replaced: " +
-                    objects
+                return t("Replaced: {path}", {
+                    path: objects
                         .map(object => getHumanReadableObjectPath(object))
                         .join(", ")
-                );
+                });
             }
         });
 

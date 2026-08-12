@@ -23,6 +23,7 @@ import {
 import { FileInputProperty } from "eez-studio-ui/properties-electron";
 
 import { IFileUploadInstructions } from "instrument/connection/file-upload";
+import { t } from "eez-studio-shared/i18n";
 
 const FileUploadSettingsDialog = observer(
     class FileUploadSettingsDialog extends React.Component<{
@@ -60,7 +61,7 @@ const FileUploadSettingsDialog = observer(
                 <Dialog onOk={this.handleSubmit} size="medium">
                     <PropertyList>
                         <BooleanProperty
-                            name="Use short (8.3) file names"
+                            name={t("Use short (8.3) file names")}
                             value={this.instructions.shortFileName}
                             onChange={action(
                                 (value: boolean) =>
@@ -69,7 +70,7 @@ const FileUploadSettingsDialog = observer(
                         />
 
                         <TextInputProperty
-                            name="Start command"
+                            name={t("Start command")}
                             value={this.instructions.startCommandTemplate}
                             onChange={action(
                                 (value: string) =>
@@ -80,7 +81,7 @@ const FileUploadSettingsDialog = observer(
                         />
 
                         <TextInputProperty
-                            name="File size command"
+                            name={t("File size command")}
                             value={
                                 this.instructions.fileSizeCommandTemplate || ""
                             }
@@ -92,7 +93,7 @@ const FileUploadSettingsDialog = observer(
                         />
 
                         <TextInputProperty
-                            name="Send one chunk command"
+                            name={t("Send one chunk command")}
                             value={this.instructions.sendChunkCommandTemplate}
                             onChange={action(
                                 (value: string) =>
@@ -105,7 +106,7 @@ const FileUploadSettingsDialog = observer(
                         />
 
                         <TextInputProperty
-                            name="Finish command"
+                            name={t("Finish command")}
                             value={
                                 this.instructions.finishCommandTemplate || ""
                             }
@@ -117,7 +118,7 @@ const FileUploadSettingsDialog = observer(
                         />
 
                         <TextInputProperty
-                            name="Abort command"
+                            name={t("Abort command")}
                             value={this.instructions.abortCommandTemplate || ""}
                             onChange={action(
                                 (value: string) =>
@@ -127,7 +128,7 @@ const FileUploadSettingsDialog = observer(
                         />
 
                         <NumberInputProperty
-                            name="Chunk size"
+                            name={t("Chunk size")}
                             value={this.instructions.chunkSize}
                             onChange={action(
                                 (value: number) =>
@@ -184,7 +185,7 @@ const FileUploadDialog = observer(
                         this.instructions.sourceFilePath &&
                         !(await fileExists(this.instructions.sourceFilePath))
                     ) {
-                        return "File not found.";
+                        return t("File not found.");
                     }
                     return null;
                 }
@@ -200,7 +201,7 @@ const FileUploadDialog = observer(
                             this.instructions.shortFileName
                         )
                     ) {
-                        return "Invalid file name.";
+                        return t("Invalid file name.");
                     }
                     return null;
                 }
@@ -215,7 +216,7 @@ const FileUploadDialog = observer(
                             this.instructions.shortFileName
                         )
                     ) {
-                        return "Invalid path.";
+                        return t("Invalid path.");
                     }
                     return null;
                 }
@@ -308,13 +309,13 @@ const FileUploadDialog = observer(
                             disabled: false,
                             style: { marginRight: "auto" },
                             icon: "material:settings",
-                            title: "Show advanced settings"
+                            title: t("Show advanced settings")
                         }
                     ]}
                 >
                     <PropertyList>
                         <FileInputProperty
-                            name="Source file path"
+                            name={t("Source file path")}
                             value={this.instructions.sourceFilePath || ""}
                             onChange={action((value: string) => {
                                 this.instructions.sourceFilePath = value;
@@ -351,7 +352,7 @@ const FileUploadDialog = observer(
                         />
 
                         <TextInputProperty
-                            name="Destination file name"
+                            name={t("Destination file name")}
                             value={this.instructions.destinationFileName}
                             onChange={action((value: string) => {
                                 this.instructions.destinationFileName = value;
@@ -361,7 +362,7 @@ const FileUploadDialog = observer(
                         />
 
                         <TextInputProperty
-                            name="Destination folder path"
+                            name={t("Destination folder path")}
                             value={this.instructions.destinationFolderPath}
                             onChange={action((value: string) => {
                                 this.instructions.destinationFolderPath = value;

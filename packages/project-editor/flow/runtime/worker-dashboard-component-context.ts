@@ -14,6 +14,7 @@ import {
 } from "project-editor/flow/runtime/component-execution-states";
 
 import { isArray } from "eez-studio-shared/util";
+import { t } from "eez-studio-shared/i18n";
 
 import { getObjectPathAsString } from "project-editor/store";
 import type { Component } from "project-editor/flow/component";
@@ -172,7 +173,7 @@ export class DashboardComponentContext implements IDashboardComponentContext {
         const component = flow.components[componentIndex];
         const inputIndex = component.inputIndexes[inputName];
         if (inputIndex == undefined) {
-            this.throwError(`Input "${inputName}" not found`);
+            this.throwError(t('Input "{inputName}" not found', { inputName }));
             return undefined;
         }
 
@@ -197,7 +198,7 @@ export class DashboardComponentContext implements IDashboardComponentContext {
         const component = flow.components[componentIndex];
         const inputIndex = component.inputIndexes[inputName];
         if (inputIndex == undefined) {
-            this.throwError(`Input "${inputName}" not found`);
+            this.throwError(t('Input "{inputName}" not found', { inputName }));
             return;
         }
 
@@ -214,7 +215,7 @@ export class DashboardComponentContext implements IDashboardComponentContext {
         const component = flow.components[componentIndex];
         const propertyIndex = component.propertyIndexes[propertyName];
         if (propertyIndex == undefined) {
-            this.throwError(`Property "${propertyName}" not found`);
+            this.throwError(t('Property "{propertyName}" not found', { propertyName }));
         }
 
         const valuePtr = this.WasmFlowRuntime._evalProperty(
@@ -252,7 +253,7 @@ export class DashboardComponentContext implements IDashboardComponentContext {
         const component = flow.components[componentIndex];
         const propertyIndex = component.propertyIndexes[propertyName];
         if (propertyIndex == undefined) {
-            this.throwError(`Property "${propertyName}" not found`);
+            this.throwError(t('Property "{propertyName}" not found', { propertyName }));
         }
         const valueTypeIndex =
             component.properties[propertyIndex].valueTypeIndex;
@@ -294,7 +295,7 @@ export class DashboardComponentContext implements IDashboardComponentContext {
         const component = flow.components[componentIndex];
         const propertyIndex = component.propertyIndexes[propertyName];
         if (propertyIndex == undefined) {
-            this.throwError(`Property "${propertyName}" not found`);
+            this.throwError(t('Property "{propertyName}" not found', { propertyName }));
         }
 
         const valueTypeIndex =
@@ -356,7 +357,7 @@ export class DashboardComponentContext implements IDashboardComponentContext {
                 value,
                 this
             );
-            this.throwError("Flow not found");
+            this.throwError(t("Flow not found"));
             return;
         }
         const componentIndex = this.getComponentIndex();
@@ -370,19 +371,19 @@ export class DashboardComponentContext implements IDashboardComponentContext {
                 value,
                 this
             );
-            this.throwError("Component not found");
+            this.throwError(t("Component not found"));
             return;
         }
         const outputIndex = component.outputIndexes[outputName];
         if (outputIndex == undefined) {
-            this.throwError(`Output "${outputName}" not found`);
+            this.throwError(t('Output "{outputName}" not found', { outputName }));
             return;
         }
         const output = component.outputs[outputIndex];
 
         const valueTypeIndex = output.valueTypeIndex;
         if (valueTypeIndex == -1) {
-            this.throwError("Invalid value");
+            this.throwError(t("Invalid value"));
             return;
         }
 
@@ -393,7 +394,7 @@ export class DashboardComponentContext implements IDashboardComponentContext {
         );
 
         if (!valuePtr) {
-            this.throwError("Out of memory");
+            this.throwError(t("Out of memory"));
             return;
         }
 

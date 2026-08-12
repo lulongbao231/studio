@@ -1,4 +1,5 @@
 import path from "path";
+import { t } from "eez-studio-shared/i18n";
 import type { Socket } from "net";
 import { action, observable, runInAction, makeObservable } from "mobx";
 import net from "net";
@@ -134,7 +135,7 @@ export class RemoteRuntime extends RuntimeBase {
 
         const parts = await partsPromise;
         if (!parts) {
-            notification.error("Build error...", {
+            notification.error(t("Build error..."), {
                 autoClose: false
             });
             this.projectStore.setEditorMode();
@@ -147,7 +148,7 @@ export class RemoteRuntime extends RuntimeBase {
             return;
         }
 
-        const toastId = notification.info("Uploading app...", {
+        const toastId = notification.info(t("Uploading app..."), {
             autoClose: false
         });
 
@@ -164,7 +165,7 @@ export class RemoteRuntime extends RuntimeBase {
         if (!instrument.isConnected) {
             notification.update(toastId, {
                 type: notification.ERROR,
-                render: `Instrument not connected`,
+                render: t("Instrument not connected"),
                 autoClose: 1000
             });
             this.projectStore.setEditorMode();
@@ -244,7 +245,7 @@ export class RemoteRuntime extends RuntimeBase {
             if (!this.isStopped) {
                 notification.update(toastId, {
                     type: notification.SUCCESS,
-                    render: `Flow started`,
+                    render: t("Flow started"),
                     autoClose: 1000
                 });
             }
@@ -291,14 +292,16 @@ export class RemoteRuntime extends RuntimeBase {
         if (this.error) {
             if (notifyUser) {
                 notification.error(
-                    `Flow stopped with error: ${this.error.toString()}`
+                    t("Flow stopped with error: {error}", {
+                        error: this.error.toString()
+                    })
                 );
             }
         } else {
             try {
                 await connection.acquire(false);
             } catch (err) {
-                notification.error(`Error: ${err.toString()}`);
+                notification.error(t("Error: {error}", { error: err.toString() }));
                 return;
             }
 
@@ -307,7 +310,7 @@ export class RemoteRuntime extends RuntimeBase {
                 if (runningScript != "" && runningScript != `""`) {
                     connection.command(`SCR:STOP`);
                     if (notifyUser) {
-                        notification.success("Flow stopped", {
+                        notification.success(t("Flow stopped"), {
                             autoClose: 1000
                         });
                     }
@@ -315,7 +318,9 @@ export class RemoteRuntime extends RuntimeBase {
             } catch (err) {
                 if (notifyUser) {
                     notification.error(
-                        `Flow stopped with error: ${err.toString()}`
+                        t("Flow stopped with error: {error}", {
+                            error: err.toString()
+                        })
                     );
                 }
             } finally {
@@ -1709,7 +1714,7 @@ class SocketDebuggerConnection extends DebuggerConnectionBase {
             this.socket.write(data, "binary");
         } else if (this.runtime.isDebuggerActive) {
             this.runtime.stopRuntimeWithError(
-                "Connection with debugger is closed"
+                t("Connection with debugger is closed")
             );
         }
     }
@@ -1756,7 +1761,7 @@ class WebSimulatorDebuggerConnection extends DebuggerConnectionBase {
             );
         } else if (this.runtime.isDebuggerActive) {
             this.runtime.stopRuntimeWithError(
-                "Connection with debugger is closed"
+                t("Connection with debugger is closed")
             );
         }
     }

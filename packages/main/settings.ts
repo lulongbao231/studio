@@ -83,6 +83,12 @@ class Settings {
 
         this._loaded = true;
 
+        // 主进程 i18n 模块可能在 loadSettings 之前（settings.locale 尚为 ""）就被
+        // 其它模块 require，导致其 currentLocale 初始化为 app.getLocale() 而非持久化语言。
+        // 此处确保启动后主进程侧 currentLocale 与持久化 locale 一致，从而首帧菜单即用正确语言。
+        const { setCurrentLocale } = require("eez-studio-shared/i18n") as any;
+        setCurrentLocale(this.locale || app.getLocale());
+
         makeObservable(this, {
             mru: observable,
             windowStates: observable,
@@ -412,6 +418,10 @@ export function getLocale() {
 
 export function setLocale(value: string) {
     runInAction(() => (settings.locale = value));
+
+    // 同步主进程侧 i18n observable，触发主进程菜单等重建（惰性 require 避免加载顺序问题）
+    const { setCurrentLocale } = require("eez-studio-shared/i18n") as any;
+    setCurrentLocale(value);
 }
 
 export function getDateFormat() {

@@ -1,4 +1,5 @@
 import React from "react";
+import { t } from "eez-studio-shared/i18n";
 import { observer } from "mobx-react";
 import classNames from "classnames";
 
@@ -122,7 +123,7 @@ export const StylesDefinitionTree = observer(
         get rootNode(): ITreeNode {
             return {
                 id: "root",
-                label: "Root",
+                label: t("Root"),
                 children:
                     this.props.styleProperties.map(styleProperty => {
                         const numModifications =

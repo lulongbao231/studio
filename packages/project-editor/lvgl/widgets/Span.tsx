@@ -1,3 +1,4 @@
+import { t } from "eez-studio-shared/i18n";
 import React from "react";
 import { observable, makeObservable } from "mobx";
 
@@ -91,7 +92,7 @@ export class LVGLSpan extends EezObject {
             ),
             {
                 name: "useStaticText",
-                displayName: "Use static text",
+                displayName: t("Use static text"),
                 type: PropertyType.Boolean,
                 propertyGridGroup: specificGroup,
                 checkboxStyleSwitch: true,
@@ -99,14 +100,14 @@ export class LVGLSpan extends EezObject {
             },
             {
                 name: "textColor",
-                displayName: "Text color",
+                displayName: t("Text color"),
                 type: PropertyType.ThemedColor,
                 isOptional: true,
                 propertyGridGroup: specificGroup
             },
             {
                 name: "textFont",
-                displayName: "Text font",
+                displayName: t("Text font"),
                 type: PropertyType.Enum,
                 enumItems: text_font_property_info.enumItems,
                 isOptional: true,
@@ -115,7 +116,7 @@ export class LVGLSpan extends EezObject {
             },
             {
                 name: "textDecor",
-                displayName: "Text decoration",
+                displayName: t("Text decoration"),
                 type: PropertyType.Enum,
                 enumItems: Object.keys(TEXT_DECOR_CODES).map(id => ({
                     id,
@@ -126,21 +127,21 @@ export class LVGLSpan extends EezObject {
             },
             {
                 name: "textLetterSpace",
-                displayName: "Letter spacing",
+                displayName: t("Letter spacing"),
                 type: PropertyType.Number,
                 isOptional: true,
                 propertyGridGroup: specificGroup
             },
             {
                 name: "textLineSpace",
-                displayName: "Line spacing",
+                displayName: t("Line spacing"),
                 type: PropertyType.Number,
                 isOptional: true,
                 propertyGridGroup: specificGroup
             },
             {
                 name: "textOpa",
-                displayName: "Text opacity",
+                displayName: t("Text opacity"),
                 type: PropertyType.Number,
                 isOptional: true,
                 propertyGridGroup: specificGroup
@@ -180,7 +181,7 @@ export class LVGLSpan extends EezObject {
                     messages.push(
                         new Message(
                             MessageType.ERROR,
-                            `Invalid expression: ${err}`,
+                            t("Invalid expression: {err}", { err }),
                             getChildOfObject(span, "text")
                         )
                     );
@@ -193,7 +194,7 @@ export class LVGLSpan extends EezObject {
                     messages.push(
                         new Message(
                             MessageType.ERROR,
-                            `Invalid color`,
+                            t("Invalid color"),
                             getChildOfObject(span, "textColor")
                         )
                     );
@@ -461,7 +462,7 @@ export class LVGLSpanWidget extends LVGLWidget {
             },
             {
                 name: "maxLines",
-                displayName: "Max lines",
+                displayName: t("Max lines"),
                 type: PropertyType.Number,
                 propertyGridGroup: specificGroup
             },

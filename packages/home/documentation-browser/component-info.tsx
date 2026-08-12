@@ -1,6 +1,8 @@
 import React from "react";
 import { makeObservable, observable, runInAction } from "mobx";
 
+import { t } from "eez-studio-shared/i18n";
+
 import {
     IObjectClassInfo,
     PropertyInfo,
@@ -201,7 +203,7 @@ export class ComponentInfo {
         if (text == undefined) {
             return (
                 <div className="alert alert-danger" role="alert">
-                    No description yet
+                    {t("No description yet")}
                 </div>
             );
         }

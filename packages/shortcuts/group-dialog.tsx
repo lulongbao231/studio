@@ -1,4 +1,5 @@
 import React from "react";
+import { t } from "eez-studio-shared/i18n";
 import { observable, action, makeObservable } from "mobx";
 import { observer } from "mobx-react";
 
@@ -37,7 +38,7 @@ export const GroupDialog = observer(
                                 group.id !== this.group.id
                         )
                     ) {
-                        return "Group with the same name already exists.";
+                        return t("Group with the same name already exists.");
                     }
                     return null;
                 }
@@ -57,7 +58,7 @@ export const GroupDialog = observer(
                 <Dialog onOk={this.handleSubmit}>
                     <PropertyList>
                         <TextInputProperty
-                            name="Name"
+                            name={t("Name")}
                             value={this.group.name!}
                             onChange={action(
                                 (value: string) => (this.group.name = value)

@@ -3,6 +3,7 @@ import { intersection } from "lodash";
 import { MenuItem } from "@electron/remote";
 
 import { type Point, type Rect } from "eez-studio-shared/geometry";
+import { t } from "eez-studio-shared/i18n";
 import type { IDocument } from "project-editor/flow/flow-interfaces";
 import type { EditorFlowContext } from "project-editor/flow/editor/context";
 import {
@@ -224,7 +225,7 @@ export class FlowDocument implements IDocument {
                 // Add to explicitly selected group
                 additionalMenuItems.push(
                     new MenuItem({
-                        label: "Add to Group",
+                        label: t("Add to Group"),
                         click: async () => {
                             this.addComponentsToGroup(
                                 selectedGroups[0].object as ComponentGroup,
@@ -238,7 +239,7 @@ export class FlowDocument implements IDocument {
                 // Add to the common group that some selected components belong to
                 additionalMenuItems.push(
                     new MenuItem({
-                        label: "Add to Group",
+                        label: t("Add to Group"),
                         click: async () => {
                             this.addComponentsToGroup(
                                 commonGroup!,
@@ -256,7 +257,7 @@ export class FlowDocument implements IDocument {
             if (componentsNotInGroup.length >= 1 && !addToGroupShown) {
                 additionalMenuItems.push(
                     new MenuItem({
-                        label: "Group",
+                        label: t("Group"),
                         click: async () => {
                             this.groupSelectedComponents(componentsNotInGroup);
                         }
@@ -268,7 +269,7 @@ export class FlowDocument implements IDocument {
                 // Show Ungroup option when there are components in groups
                 additionalMenuItems.push(
                     new MenuItem({
-                        label: "Remove from Group",
+                        label: t("Remove from Group"),
                         click: async () => {
                             this.projectStore.undoManager.setCombineCommands(true);
                             for (const obj of componentsInGroup) {
@@ -282,7 +283,7 @@ export class FlowDocument implements IDocument {
                 // Show Ungroup All option when groups are selected
                 additionalMenuItems.push(
                     new MenuItem({
-                        label: "Ungroup All",
+                        label: t("Ungroup All"),
                         click: async () => {
                             this.projectStore.undoManager.setCombineCommands(true);
                             for (const group of selectedGroups) {
@@ -300,7 +301,7 @@ export class FlowDocument implements IDocument {
             if (selectedGroups.length >= 2) {
                 additionalMenuItems.push(
                     new MenuItem({
-                        label: "Merge Groups",
+                        label: t("Merge Groups"),
                         click: async () => {
                             this.mergeGroups(
                                 selectedGroups.map(
@@ -325,7 +326,7 @@ export class FlowDocument implements IDocument {
         if (isPage && objects.length == 0) {
             additionalMenuItems.push(
                 new MenuItem({
-                    label: "Center View",
+                    label: t("Center View"),
                     click: async () => {
                         this.flowContext.viewState.centerView();
                     }
@@ -334,7 +335,7 @@ export class FlowDocument implements IDocument {
 
             additionalMenuItems.push(
                 new MenuItem({
-                    label: "Center View on All Pages",
+                    label: t("Center View on All Pages"),
                     click: async () => {
                         this.flowContext.viewState.centerView();
 
@@ -390,7 +391,7 @@ export class FlowDocument implements IDocument {
             if (!this.projectStore.uiStateStore.globalFlowZoom) {
                 additionalMenuItems.push(
                     new MenuItem({
-                        label: "Set the Same Zoom for All Pages",
+                        label: t("Set the Same Zoom for All Pages"),
                         click: async () => {
                             for (const page of this.projectStore.project
                                 .pages) {
@@ -527,7 +528,7 @@ export class FlowDocument implements IDocument {
         const group = createObject<ComponentGroup>(
             this.projectStore,
             {
-                description: "Group",
+                description: t("Group"),
                 components: componentIds
             },
             ComponentGroup

@@ -158,22 +158,15 @@ const Main = observer(
 );
 
 async function main() {
+    // 加载界面翻译字典
+    const { loadDictionaries } = require("eez-studio-shared/i18n");
+    loadDictionaries();
+
     const params = new URLSearchParams(location.search);
     const buildProject = params.get("build-project") === "1";
 
-    let nodeModuleFolders: string[];
-    try {
-        nodeModuleFolders = await getNodeModuleFolders();
-    } catch (err) {
-        console.info(`Failed to get node module folders.`);
-        nodeModuleFolders = [];
-    }
-
-    await loadExtensions(nodeModuleFolders);
-
-    extensionsCatalog.load();
-
     if (!buildProject) {
+        // 先挂载首页 UI，避免首屏被扩展加载（磁盘扫描 + 逐扩展 require）阻塞
         loadTabs();
 
         const root = createRoot(document.getElementById("EezStudio_Content")!);
@@ -187,7 +180,26 @@ async function main() {
         handleDragAndDrop();
     }
 
-    ipcRenderer.send("open-command-line-project");
+    // 扩展在后台加载，不阻塞首屏渲染。扩展就绪后再加载扩展目录数据、打开命令行传入的项目。
+    async function finishStartup() {
+        extensionsCatalog.load();
+        ipcRenderer.send("open-command-line-project");
+    }
+
+    let nodeModuleFolders: string[];
+    try {
+        nodeModuleFolders = await getNodeModuleFolders();
+    } catch (err) {
+        console.info(`Failed to get node module folders.`);
+        nodeModuleFolders = [];
+    }
+
+    loadExtensions(nodeModuleFolders)
+        .then(finishStartup)
+        .catch(err => {
+            console.error(err);
+            finishStartup();
+        });
 }
 
 main();

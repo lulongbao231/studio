@@ -1,3 +1,4 @@
+import { t } from "eez-studio-shared/i18n";
 import React from "react";
 import { observable, makeObservable } from "mobx";
 
@@ -47,7 +48,7 @@ export class LVGLTabviewWidget extends LVGLWidget {
         properties: [
             {
                 name: "tabviewPosition",
-                displayName: "Position",
+                displayName: t("Position"),
                 type: PropertyType.Enum,
                 enumItems: Object.keys(TABVIEW_POSITION).map(id => ({
                     id,
@@ -58,7 +59,7 @@ export class LVGLTabviewWidget extends LVGLWidget {
             },
             {
                 name: "tabviewSize",
-                displayName: "Size",
+                displayName: t("Size"),
                 type: PropertyType.Number,
                 propertyGridGroup: specificGroup
             },
@@ -69,7 +70,7 @@ export class LVGLTabviewWidget extends LVGLWidget {
                 ["literal", "expression"],
                 {
                     propertyGridGroup: specificGroup,
-                    displayName: "Active tab"
+                    displayName: t("Active tab")
                 }
             )
         ],
@@ -114,7 +115,7 @@ export class LVGLTabviewWidget extends LVGLWidget {
                             messages.push(
                                 new Message(
                                     MessageType.ERROR,
-                                    `Redundant Container widget`,
+                                    t("Redundant Container widget"),
                                     childWidget
                                 )
                             );
@@ -122,7 +123,7 @@ export class LVGLTabviewWidget extends LVGLWidget {
                             messages.push(
                                 new Message(
                                     MessageType.ERROR,
-                                    `Invalid Container widget position`,
+                                    t("Invalid Container widget position"),
                                     childWidget
                                 )
                             );
@@ -133,7 +134,7 @@ export class LVGLTabviewWidget extends LVGLWidget {
                         messages.push(
                             new Message(
                                 MessageType.ERROR,
-                                `Tab should be child of Content container`,
+                                t("Tab should be child of Content container"),
                                 childWidget
                             )
                         );
@@ -142,7 +143,7 @@ export class LVGLTabviewWidget extends LVGLWidget {
                     messages.push(
                         new Message(
                             MessageType.ERROR,
-                            `Tabview child is neither Tab or Container widget`,
+                            t("Tabview child is neither Tab or Container widget"),
                             childWidget
                         )
                     );
@@ -158,7 +159,7 @@ export class LVGLTabviewWidget extends LVGLWidget {
                     messages.push(
                         new Message(
                             MessageType.ERROR,
-                            `Min value must be an integer`,
+                            t("Min value must be an integer"),
                             getChildOfObject(widget, "selectedTab")
                         )
                     );
@@ -297,7 +298,7 @@ export class LVGLTabviewWidget extends LVGLWidget {
                         "int32_t",
                         "new_val",
                         this.selectedTab as string,
-                        "Failed to evaluate Active tab in Tabview widget"
+                        t("Failed to evaluate Active tab in Tabview widget")
                     );
 
                     const cur_val = code.callObjectFunctionWithAssignment(
@@ -353,7 +354,7 @@ export class LVGLTabviewWidget extends LVGLWidget {
                                 "selectedTab",
                                 this.selectedTab as string,
                                 value,
-                                "Failed to assign Active tab in Tabview widget"
+                                t("Failed to assign Active tab in Tabview widget")
                             );
                         });
                     }

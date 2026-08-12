@@ -33,6 +33,7 @@ import { Build, getName, NamingConvention } from "project-editor/build/helper";
 import { Icon } from "eez-studio-ui/icon";
 import { IconAction } from "eez-studio-ui/action";
 import { clipboard } from "electron";
+import { t } from "eez-studio-shared/i18n";
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -169,20 +170,19 @@ export const GroupImplementationInfoPropertyUI = observer(
                     <div className="EezStudio_PropertyGrid_TipBox_Description">
                         <div className="EezStudio_PropertyGrid_TipBox_Header">
                             <Icon icon="material:lightbulb_outline" />
-                            <span>TIP</span>
+                            <span>{t("TIP")}</span>
                         </div>
                         <div className="EezStudio_PropertyGrid_TipBox_DescriptionText">
-                            From your code you neeed to set a destination group
-                            for a particular input device using
-                            <i> lv_indev_set_group</i>. Below is an example code
-                            that does that.
+                            {t(
+                                "From your code you need to set a destination group for a particular input device using <i>lv_indev_set_group</i>. Below is an example code that does that."
+                            )}
                         </div>
                         <div className="EezStudio_PropertyGrid_TipBox_Toolbar">
                             <div />
                             <IconAction
                                 icon="material:content_copy"
                                 iconSize={20}
-                                title="Copy to Clipboard"
+                                title={t("Copy to Clipboard")}
                                 onClick={() => {
                                     clipboard.writeText(code);
                                 }}
@@ -219,14 +219,14 @@ export class LVGLGroup extends EezObject {
             },
             {
                 name: "defaultGroupForEncoderInSimulator",
-                displayName: "Use this for Encoder in simulator",
+                displayName: t("Use this for Encoder in simulator"),
                 type: PropertyType.Any,
                 computed: true,
                 propertyGridColumnComponent: DefaultGroupPropertyGridUI
             },
             {
                 name: "defaultGroupForKeyboardInSimulator",
-                displayName: "Use this for Keyboard in simulator",
+                displayName: t("Use this for Keyboard in simulator"),
                 type: PropertyType.Any,
                 computed: true,
                 propertyGridColumnComponent: DefaultGroupPropertyGridUI
@@ -242,7 +242,7 @@ export class LVGLGroup extends EezObject {
         newItem: async (parent: IEezObject) => {
             const result = await showGenericDialog({
                 dialogDefinition: {
-                    title: "New Group",
+                    title: t("New Group"),
                     fields: [
                         {
                             name: "name",
@@ -479,10 +479,10 @@ export const LVGLGroupsTab = observer(
 const feature: ProjectEditorFeature = {
     name: "eezstudio-project-feature-lvgl-groups",
     version: "0.1.0",
-    description: "LVGL Groups",
+    description: t("LVGL Groups"),
     author: "EEZ",
     authorLogo: "../eez-studio-ui/_images/eez_logo.png",
-    displayName: "LVGL Groups",
+    displayName: t("LVGL Groups"),
     mandatory: true,
     key: "lvglGroups",
     type: PropertyType.Object,

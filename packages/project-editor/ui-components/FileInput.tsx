@@ -1,6 +1,7 @@
 import React from "react";
 import { dialog, getCurrentWindow } from "@electron/remote";
 
+import { t } from "eez-studio-shared/i18n";
 import { Icon } from "eez-studio-ui/icon";
 import { FieldComponent } from "eez-studio-ui/generic-dialog";
 import { ProjectContext } from "project-editor/project/context";
@@ -165,7 +166,9 @@ export class MultipleAbsoluteFileInput extends FieldComponent {
         }
 
         if (value.length > 1) {
-            return `${value.length} images selected`;
+            return t("{count} images selected", {
+                count: value.length
+            });
         }
 
         return value;

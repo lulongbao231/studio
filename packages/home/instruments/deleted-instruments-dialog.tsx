@@ -5,6 +5,8 @@ import { observer } from "mobx-react";
 
 import { formatDateTimeLong } from "eez-studio-shared/util";
 
+import { t } from "eez-studio-shared/i18n";
+
 import { createStoreObjectsCollection } from "eez-studio-shared/store";
 
 import { Dialog, showDialog } from "eez-studio-ui/dialog";
@@ -59,16 +61,16 @@ const DeletedInstrumentsDialog = observer(
                         <>
                             <div>{instrument.name}</div>
                             <div>
-                                {"Creation date: " +
+                                {t("Creation date: ") +
                                     (creationDate
                                         ? formatDateTimeLong(creationDate)
-                                        : "unknown")}
+                                        : t("unknown"))}
                             </div>
                             <div style={{ display: "flex" }}>
                                 <ButtonAction
                                     className="btn btn-sm btn-outline-success"
-                                    text="Restore"
-                                    title="Restore"
+                                    text={t("Restore")}
+                                    title={t("Restore")}
                                     onClick={() => {
                                         instrument.restore();
                                         this.props.instrumentsStore.selectedInstrumentId =
@@ -78,12 +80,16 @@ const DeletedInstrumentsDialog = observer(
                                 />
                                 <ButtonAction
                                     className="btn btn-sm btn-outline-danger"
-                                    text="Delete Permanently"
-                                    title="Delete instrument permanently including all the history"
+                                    text={t("Delete Permanently")}
+                                    title={t(
+                                        "Delete instrument permanently including all the history"
+                                    )}
                                     onClick={() => {
                                         confirm(
-                                            "Are you sure?",
-                                            "It will also delete all the history.",
+                                            t("Are you sure?"),
+                                            t(
+                                                "It will also delete all the history."
+                                            ),
                                             () => {
                                                 instrument.deletePermanently();
                                             }
@@ -115,8 +121,8 @@ const DeletedInstrumentsDialog = observer(
 
         deleteAllPermanently() {
             confirm(
-                "Are you sure?",
-                "It will also delete all the history.",
+                t("Are you sure?"),
+                t("It will also delete all the history."),
                 () => {
                     let deletedInstruments = this.deletedInstruments.slice();
                     for (let i = 0; i < deletedInstruments.length; i++) {
@@ -146,7 +152,7 @@ const DeletedInstrumentsDialog = observer(
                             onClick: () => this.deleteAllPermanently(),
                             disabled: false,
                             style: { marginRight: "auto" },
-                            text: "Delete All Permanently"
+                            text: t("Delete All Permanently")
                         }
                     ]}
                 >

@@ -12,6 +12,7 @@ import { HistoryItem } from "instrument/window/history/item";
 import { IActivityLogEntry } from "instrument/window/history/activity-log";
 import { HistoryItemInstrumentInfo } from "../HistoryItemInstrumentInfo";
 import { PLOTTER_ICON } from "project-editor/ui-components/icons";
+import { t } from "eez-studio-shared/i18n";
 import { DlogWaveform } from "instrument/window/waveform/dlog";
 import {
     EMPTY_DLOG,
@@ -196,19 +197,20 @@ export const PlotterHistoryItemComponent = observer(
 
             let body;
             if (!this.variableNames) {
-                body = <p>Waiting for data ...</p>;
+                body = <p>{t("Waiting for data ...")}</p>;
             } else {
                 const numPoints = (
                     <p>
-                        <span>Num points: </span>
+                        <span>{t("Num points: ")}</span>
                         {this.numPoints}
                     </p>
                 );
 
                 const rate = (
                     <p>
-                        <span>Rate: </span>
-                        {Math.round(this.rate)} points/sec
+                        <span>{t("Rate: ")}</span>
+                        {Math.round(this.rate)}{" "}
+                        {t("points/sec")}
                     </p>
                 );
 

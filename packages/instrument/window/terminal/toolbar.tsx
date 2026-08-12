@@ -10,6 +10,7 @@ import type { IShortcut } from "shortcuts/interfaces";
 
 import type { InstrumentAppStore } from "instrument/window/app-store";
 import { shortcutsToolbarRegistry } from "instrument/window/shortcuts";
+import { t } from "eez-studio-shared/i18n";
 
 export const ShortcutButton = observer(
     class ShortcutButton extends React.Component<{
@@ -175,7 +176,7 @@ export const ShortcutsToolbar = observer(
                                 this.props.appStore.shortcutsStore.addMissingShortcuts();
                             }}
                         >
-                            Add missing shortcuts
+                            {t("Add missing shortcuts")}
                         </button>
                     )}
                 </div>

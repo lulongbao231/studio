@@ -13,6 +13,7 @@ import { map, find, each, pickBy } from "lodash";
 
 import { stringCompare } from "eez-studio-shared/string";
 import { Point, Rect } from "eez-studio-shared/geometry";
+import { t } from "eez-studio-shared/i18n";
 
 import {
     getProperty,
@@ -603,7 +604,9 @@ export class TreeObjectAdapter {
         ) {
             menuItems.push(
                 new MenuItem({
-                    label: `Add ${getAddItemName(parentObject)}...`,
+                    label: t("Add {name}...", {
+                        name: getAddItemName(parentObject) ?? ""
+                    }),
                     click: async () => {
                         const aNewObject = await addItem(parentObject!);
                         if (aNewObject) {
@@ -621,7 +624,7 @@ export class TreeObjectAdapter {
         ) {
             menuItems.push(
                 new MenuItem({
-                    label: "Duplicate",
+                    label: t("Duplicate"),
                     click: () => {
                         if (actions?.duplicateSelection) {
                             actions.duplicateSelection();
@@ -648,7 +651,7 @@ export class TreeObjectAdapter {
 
             menuItems.push(
                 new MenuItem({
-                    label: "Find All References",
+                    label: t("Find All References"),
                     click: () => {
                         ProjectEditor.getProjectStore(
                             selectedObject
@@ -667,7 +670,7 @@ export class TreeObjectAdapter {
         ) {
             clipboardMenuItems.push(
                 new MenuItem({
-                    label: "Cut",
+                    label: t("Cut"),
                     click: () => {
                         this.cutSelection();
                     }
@@ -682,7 +685,7 @@ export class TreeObjectAdapter {
         ) {
             clipboardMenuItems.push(
                 new MenuItem({
-                    label: "Copy",
+                    label: t("Copy"),
                     click: () => {
                         this.copySelection();
                     }
@@ -697,7 +700,7 @@ export class TreeObjectAdapter {
         ) {
             clipboardMenuItems.push(
                 new MenuItem({
-                    label: "Paste",
+                    label: t("Paste"),
                     click: () => {
                         if (actions?.pasteSelection) {
                             actions.pasteSelection();
@@ -732,7 +735,7 @@ export class TreeObjectAdapter {
 
             menuItems.push(
                 new MenuItem({
-                    label: "Delete",
+                    label: t("Delete"),
                     click: () => {
                         this.deleteSelection();
                     }

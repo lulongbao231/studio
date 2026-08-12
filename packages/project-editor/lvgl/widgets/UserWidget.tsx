@@ -1,3 +1,4 @@
+import { t } from "eez-studio-shared/i18n";
 import React from "react";
 import { observer } from "mobx-react";
 import { observable, makeObservable, computed } from "mobx";
@@ -84,7 +85,7 @@ const LVGLUserWidgetWidgetPropertyGridUI = observer(
                         size="small"
                         onClick={this.showUserWidgetPage}
                     >
-                        Show User Widget
+                        {t("Show User Widget")}
                     </Button>
                     <Button
                         color="secondary"
@@ -92,7 +93,7 @@ const LVGLUserWidgetWidgetPropertyGridUI = observer(
                         onClick={this.fitSize}
                         style={{ marginLeft: 10 }}
                     >
-                        Fit to User Widget Size
+                        {t("Fit to User Widget Size")}
                     </Button>
                 </div>
             );
@@ -129,7 +130,7 @@ export class LVGLUserWidgetWidget extends LVGLWidget {
         properties: [
             {
                 name: "userWidgetPageName",
-                displayName: "User widget",
+                displayName: t("User widget"),
                 type: PropertyType.ObjectReference,
                 propertyGridGroup: specificGroup,
                 referencedObjectCollectionPath: "userWidgets"
@@ -206,7 +207,10 @@ export class LVGLUserWidgetWidget extends LVGLWidget {
                         messages.push(
                             new Message(
                                 MessageType.ERROR,
-                                `Page "${userWidgetPage.name}" is not an user widget page`,
+                                t(
+                                    'Page "{name}" is not an user widget page',
+                                    { name: userWidgetPage.name }
+                                ),
                                 widget
                             )
                         );
@@ -216,7 +220,7 @@ export class LVGLUserWidgetWidget extends LVGLWidget {
                         messages.push(
                             new Message(
                                 MessageType.ERROR,
-                                `Cycle detected in user widget page`,
+                                t("Cycle detected in user widget page"),
                                 getChildOfObject(widget, "userWidgetPageName")
                             )
                         );

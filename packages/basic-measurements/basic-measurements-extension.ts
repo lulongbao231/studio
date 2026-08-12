@@ -2,6 +2,7 @@ import {
     IExtensionDefinition,
     IFieldProperties
 } from "eez-studio-shared/extensions/extension";
+import { t } from "eez-studio-shared/i18n";
 
 const fftParametersDescription: IFieldProperties[] = [
     // {
@@ -37,28 +38,28 @@ const fftParametersDescription: IFieldProperties[] = [
     // },
     {
         name: "xAxis",
-        displayName: "X axis",
+        displayName: t("X axis"),
         type: "enum",
         defaultValue: "logarithmic",
         enumItems: [
-            { id: "logarithmic", label: "Logarithmic" },
-            { id: "linear", label: "Linear" },
-            { id: "harmonics", label: "Harmonics" }
+            { id: "logarithmic", label: t("Logarithmic") },
+            { id: "linear", label: t("Linear") },
+            { id: "harmonics", label: t("Harmonics") }
         ]
     },
     {
         name: "yAxis",
-        displayName: "Y axis",
+        displayName: t("Y axis"),
         type: "enum",
         defaultValue: "decibel",
         enumItems: [
-            { id: "decibel", label: "Decibel" },
-            { id: "linear", label: "Linear" }
+            { id: "decibel", label: t("Decibel") },
+            { id: "linear", label: t("Linear") }
         ]
     },
     {
         name: "numHarmonics",
-        displayName: "No. of harmonics",
+        displayName: t("No. of harmonics"),
         type: "number",
         defaultValue: 40,
         visible: values => {
@@ -74,51 +75,51 @@ const basicMeasurementsExtension: IExtensionDefinition = {
     measurementFunctions: [
         {
             id: "min",
-            name: "Min",
+            name: t("Min"),
             script: "min.js"
         },
         {
             id: "max",
-            name: "Max",
+            name: t("Max"),
             script: "max.js"
         },
         {
             id: "peak-to-peak",
-            name: "Peak-to-peak",
+            name: t("Peak-to-peak"),
             script: "peak-to-peak.js"
         },
         {
             id: "average",
-            name: "Average",
+            name: t("Average"),
             script: "average.js"
         },
         {
             id: "period",
-            name: "Period",
+            name: t("Period"),
             script: "period.js"
         },
         {
             id: "frequency",
-            name: "Frequency",
+            name: t("Frequency"),
             script: "frequency.js"
         },
         {
             id: "fft",
-            name: "FFT",
+            name: t("FFT"),
             script: "fft.js",
             parametersDescription: fftParametersDescription,
             resultType: "chart"
         },
         {
             id: "add",
-            name: "A + B",
+            name: t("A + B"),
             script: "add.js",
             arity: 2,
             resultType: "chart"
         },
         {
             id: "sub",
-            name: "A - B",
+            name: t("A - B"),
             script: "sub.js",
             arity: 2,
             resultType: "chart"

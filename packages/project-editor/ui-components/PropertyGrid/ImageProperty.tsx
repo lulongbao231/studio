@@ -7,6 +7,7 @@ import { dialog } from "@electron/remote";
 import { pathToFileURL } from "url";
 
 import * as notification from "eez-studio-ui/notification";
+import { t } from "eez-studio-shared/i18n";
 
 import type { PropertyProps } from "project-editor/core/object";
 import { ProjectContext } from "project-editor/project/context";
@@ -74,10 +75,10 @@ export const ImageProperty = observer(
                                         )
                                     );
                                     notification.info(
-                                        "Image copied to clipboard"
+                                        t("Image copied to clipboard")
                                     );
                                 }}
-                                title="Copy image to clipboard"
+                                title={t("Copy image to clipboard")}
                             >
                                 <Icon icon="material:content_copy" size={16} />
                             </button>
@@ -91,7 +92,7 @@ export const ImageProperty = observer(
                                         clipboard.readImage().toDataURL()
                                     );
                                 }}
-                                title="Paste image from clipboard"
+                                title={t("Paste image from clipboard")}
                             >
                                 <Icon icon="material:content_paste" size={16} />
                             </button>
@@ -107,7 +108,7 @@ export const ImageProperty = observer(
                                             properties: ["openFile"],
                                             filters: [
                                                 {
-                                                    name: "Image files",
+                                                    name: t("Image files"),
                                                     extensions: [
                                                         "png",
                                                         "jpg",
@@ -115,7 +116,7 @@ export const ImageProperty = observer(
                                                     ]
                                                 },
                                                 {
-                                                    name: "All Files",
+                                                    name: t("All Files"),
                                                     extensions: ["*"]
                                                 }
                                             ],
@@ -158,7 +159,7 @@ export const ImageProperty = observer(
                                         }
                                     }
                                 }}
-                                title="Select image file"
+                                title={t("Select image file")}
                             >
                                 &hellip;
                             </button>
@@ -170,7 +171,7 @@ export const ImageProperty = observer(
                                 onClick={() => {
                                     changeValue(undefined);
                                 }}
-                                title="Remove image"
+                                title={t("Remove image")}
                             >
                                 <Icon icon="material:close" size={16} />
                             </button>

@@ -3,6 +3,7 @@ import path from "path";
 import { observable, computed, makeObservable } from "mobx";
 
 import { isValid, strToColor16 } from "eez-studio-shared/color";
+import { t } from "eez-studio-shared/i18n";
 
 import {
     ClassInfo,
@@ -76,7 +77,7 @@ const propertyMenu = (props: PropertyProps): Electron.MenuItem[] => {
         if (cssAttributeName) {
             menuItems.push(
                 new MenuItem({
-                    label: "Help",
+                    label: t("Help"),
                     click: () => {
                         openCssHelpPage(cssAttributeName);
                     }
@@ -95,7 +96,7 @@ const backgroundColorPropertyMenu = (
 
     menuItems.push(
         new MenuItem({
-            label: "Transparent",
+            label: t("Transparent"),
             click: () => {
                 props.objects.forEach(object =>
                     updateObject(object, {
@@ -109,7 +110,7 @@ const backgroundColorPropertyMenu = (
     if (isDashboardProject(props.objects[0])) {
         menuItems.push(
             new MenuItem({
-                label: "Help",
+                label: t("Help"),
                 click: () => {
                     openCssHelpPage("background-color");
                 }
@@ -168,7 +169,7 @@ export class ConditionalStyle extends EezObject {
                 messages.push(
                     new Message(
                         MessageType.ERROR,
-                        `Invalid condition: ${err}`,
+                        t("Invalid condition: {err}", { err }),
                         getChildOfObject(conditionalStyleItem, "condition")
                     )
                 );
@@ -226,7 +227,7 @@ function styleNameUnique(
             return null;
         }
 
-        return "Not an unique name";
+        return t("Not an unique name");
     };
 }
 
@@ -265,7 +266,7 @@ const useStyleProperty: PropertyInfo = {
         if (isAnyPropertyModified(props)) {
             menuItems.push(
                 new MenuItem({
-                    label: "Reset All Modifications",
+                    label: t("Reset All Modifications"),
                     click: () => {
                         const propertyValues: any = {};
                         properties.forEach(propertyInfo => {
@@ -283,11 +284,11 @@ const useStyleProperty: PropertyInfo = {
 
                 menuItems.push(
                     new MenuItem({
-                        label: "Create New Style",
+                        label: t("Create New Style"),
                         click: () => {
                             return showGenericDialog({
                                 dialogDefinition: {
-                                    title: "New Style",
+                                    title: t("New Style"),
                                     fields: [
                                         {
                                             name: "name",
@@ -350,7 +351,7 @@ const useStyleProperty: PropertyInfo = {
                 if (style) {
                     menuItems.push(
                         new MenuItem({
-                            label: "Update Style",
+                            label: t("Update Style"),
                             click: () => {
                                 projectStore.undoManager.setCombineCommands(
                                     true
@@ -621,7 +622,7 @@ const activeColorProperty: PropertyInfo = {
 
 const activeBackgroundColorProperty: PropertyInfo = {
     name: "activeBackgroundColor",
-    displayName: "Active back. color",
+    displayName: t("Active back. color"),
     type: PropertyType.ThemedColor,
     referencedObjectCollectionPath: "colors",
     defaultValue: "#ffffff",
@@ -644,7 +645,7 @@ const focusColorProperty: PropertyInfo = {
 
 const focusBackgroundColorProperty: PropertyInfo = {
     name: "focusBackgroundColor",
-    displayName: "Focus back. color",
+    displayName: t("Focus back. color"),
     type: PropertyType.ThemedColor,
     referencedObjectCollectionPath: "colors",
     defaultValue: "#000000",
@@ -770,7 +771,7 @@ const blinkProperty: PropertyInfo = {
 
 const cssProperty: PropertyInfo = {
     name: "css",
-    displayName: "Additional CSS",
+    displayName: t("Additional CSS"),
     type: PropertyType.CSS,
     cssAttributeName: "css",
     nonInheritable: true,
@@ -781,7 +782,7 @@ const cssProperty: PropertyInfo = {
 export const dynamicCssProperty = makeExpressionProperty(
     {
         name: "dynamicCSS",
-        displayName: "Dynamic CSS",
+        displayName: t("Dynamic CSS"),
         type: PropertyType.MultilineText,
         disabled: (object: IEezObject, propertyInfo: PropertyInfo) => {
             if (isNotDashboardProject(object)) {
@@ -798,7 +799,7 @@ export const dynamicCssProperty = makeExpressionProperty(
 
 const cssPreviewProperty: PropertyInfo = {
     name: "cssPreview",
-    displayName: "CSS preview",
+    displayName: t("CSS preview"),
     type: PropertyType.CSS,
     disabled: isNotDashboardProject,
     readOnlyInPropertyGrid: true,
@@ -807,7 +808,7 @@ const cssPreviewProperty: PropertyInfo = {
 
 const alwaysBuildProperty: PropertyInfo = {
     name: "alwaysBuild",
-    displayName: "Always add to the generated code",
+    displayName: t("Always add to the generated code"),
     type: PropertyType.Boolean,
     defaultValue: false,
     inheritable: false,
@@ -1125,7 +1126,7 @@ export class Style extends EezObject {
         newItem: async (parent: IEezObject) => {
             const result = await showGenericDialog({
                 dialogDefinition: {
-                    title: "New Style",
+                    title: t("New Style"),
                     fields: [
                         {
                             name: "name",
@@ -1179,7 +1180,7 @@ export class Style extends EezObject {
                         messages.push(
                             new Message(
                                 MessageType.ERROR,
-                                `invalid color`,
+                                t("invalid color"),
                                 getChildOfObject(style, propertyName)
                             )
                         );
@@ -1212,7 +1213,7 @@ export class Style extends EezObject {
                             messages.push(
                                 new Message(
                                     MessageType.ERROR,
-                                    `Invalid Dynamic CSS expression: ${err}`,
+                                    t("Invalid Dynamic CSS expression: {err}", { err }),
                                     getChildOfObject(style, "dynamicCSS")
                                 )
                             );
@@ -1248,7 +1249,10 @@ export class Style extends EezObject {
                         messages.push(
                             new Message(
                                 MessageType.ERROR,
-                                `"Border size": ${borderSizeError}.`,
+                                t('"{property}": {value}.', {
+                                    property: t("Border size"),
+                                    value: `${borderSizeError}`
+                                }),
                                 getChildOfObject(style, "borderSize")
                             )
                         );
@@ -1261,7 +1265,10 @@ export class Style extends EezObject {
                         messages.push(
                             new Message(
                                 MessageType.ERROR,
-                                `"Border radius": ${borderRadiusError}.`,
+                                t('"{property}": {value}.', {
+                                    property: t("Border radius"),
+                                    value: `${borderRadiusError}`
+                                }),
                                 getChildOfObject(style, "borderRadius")
                             )
                         );
@@ -1373,7 +1380,10 @@ export class Style extends EezObject {
                         messages.push(
                             new Message(
                                 MessageType.ERROR,
-                                `"Padding": ${paddingError}.`,
+                                t('"{property}": {value}.', {
+                                    property: t("Padding"),
+                                    value: `${paddingError}`
+                                }),
                                 getChildOfObject(style, "padding")
                             )
                         );
@@ -1387,7 +1397,10 @@ export class Style extends EezObject {
                             messages.push(
                                 new Message(
                                     MessageType.ERROR,
-                                    `"Margin": ${marginError}.`,
+                                    t('"{property}": {value}.', {
+                                        property: t("Margin"),
+                                        value: `${marginError}`
+                                    }),
                                     getChildOfObject(style, "margin")
                                 )
                             );
@@ -2412,10 +2425,10 @@ export function getAdditionalStyleFlowProperties(widget: Widget) {
 const feature: ProjectEditorFeature = {
     name: "eezstudio-project-feature-style",
     version: "0.1.0",
-    description: "Styles support for your project",
+    description: t("Styles support for your project"),
     author: "EEZ",
     authorLogo: "../eez-studio-ui/_images/eez_logo.png",
-    displayName: "Styles",
+    displayName: t("Styles"),
     mandatory: true,
     key: "styles",
     type: PropertyType.Array,
@@ -2436,9 +2449,9 @@ const feature: ProjectEditorFeature = {
             messages.push(
                 new Message(
                     MessageType.ERROR,
-                    `Themes are defined in multiple projects: ${projectNames.join(
-                        ", "
-                    )}`
+                    t("Themes are defined in multiple projects: {projects}", {
+                        projects: projectNames.join(", ")
+                    })
                 )
             );
         }

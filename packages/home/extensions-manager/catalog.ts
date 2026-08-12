@@ -8,6 +8,7 @@ import {
 } from "eez-studio-shared/util-electron";
 
 import * as notification from "eez-studio-ui/notification";
+import { t } from "eez-studio-shared/i18n";
 
 import { IExtension } from "eez-studio-shared/extensions/extension";
 
@@ -38,7 +39,9 @@ class ExtensionsCatalog {
             })
             .catch(error =>
                 notification.error(
-                    `Failed to load extensions catalog (${error})`
+                    t("Failed to load extensions catalog ({error})", {
+                        error: `${error}`
+                    })
                 )
             );
 
@@ -49,7 +52,11 @@ class ExtensionsCatalog {
                 this.checkNewVersionOfCatalog();
             })
             .catch(error =>
-                notification.error(`Failed to load catalog version (${error})`)
+                notification.error(
+                    t("Failed to load catalog version ({error})", {
+                        error: `${error}`
+                    })
+                )
             );
     }
 
@@ -107,7 +114,7 @@ class ExtensionsCatalog {
             }
         } catch (error) {
             console.error(error);
-            notification.error(`Failed to download extensions catalog version`);
+            notification.error(t("Failed to download extensions catalog version"));
         }
 
         return true;
@@ -149,7 +156,7 @@ class ExtensionsCatalog {
         req.open("GET", DEFAULT_EXTENSIONS_CATALOG_DOWNLOAD_URL);
 
         const progressToastId = notification.info(
-            "Downloading extensions catalog ...",
+            t("Downloading extensions catalog ..."),
             {
                 autoClose: false,
                 hideProgressBar: false
@@ -159,8 +166,13 @@ class ExtensionsCatalog {
         req.addEventListener("progress", event => {
             notification.update(progressToastId, {
                 render: event.total
-                    ? `Downloading extensions catalog: ${event.loaded} of ${event.total}`
-                    : `Downloading extensions catalog: ${event.loaded}`
+                    ? t("Downloading extensions catalog: {loaded} of {total}", {
+                          loaded: event.loaded,
+                          total: event.total
+                      })
+                    : t("Downloading extensions catalog: {loaded}", {
+                          loaded: event.loaded
+                      })
             });
         });
 
@@ -177,7 +189,7 @@ class ExtensionsCatalog {
 
             notification.update(progressToastId, {
                 type: notification.SUCCESS,
-                render: `The latest extensions catalog successfully downloaded.`,
+                render: t("The latest extensions catalog successfully downloaded."),
                 autoClose: 5000
             });
         });
@@ -186,7 +198,7 @@ class ExtensionsCatalog {
             console.error("ExtensionsCatalog download error", error);
             notification.update(progressToastId, {
                 type: notification.ERROR,
-                render: `Failed to download extensions catalog.`,
+                render: t("Failed to download extensions catalog."),
                 autoClose: 5000
             });
         });

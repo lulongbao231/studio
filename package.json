@@ -41,6 +41,7 @@
         "npm-module-publish": "node npm-module-publish.js",
         "generate-license-file": "npx generate-license-file",
         "madge-circular": "madge --circular packages/home/main.tsx > circular.txt",
+        "i18n-audit": "node tools/i18n-audit.js",
         "madge-graph": "madge --image source-graph.svg packages/home/main.tsx",
         "madge-graph-circular": "madge --circular --image source-graph-circular.svg packages/home/main.tsx"
     },

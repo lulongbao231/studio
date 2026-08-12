@@ -8,6 +8,7 @@ import {
 } from "eez-studio-ui/generic-dialog";
 import { validators } from "eez-studio-shared/validation";
 import * as notification from "eez-studio-ui/notification";
+import { t } from "eez-studio-shared/i18n";
 
 import {
     IObjectVariableValue,
@@ -403,16 +404,16 @@ export class MQTTDisconnectActionComponent extends ActionComponent {
 ////////////////////////////////////////////////////////////////////////////////
 
 const MQTT_EVENTS = [
-    { id: "connect", label: "Connect", paramExpressionType: "null" },
-    { id: "reconnect", label: "Reconnect", paramExpressionType: "null" },
-    { id: "close", label: "Close", paramExpressionType: "null" },
-    { id: "disconnect", label: "Disconnect", paramExpressionType: "null" },
-    { id: "offline", label: "Offline", paramExpressionType: "null" },
-    { id: "end", label: "End", paramExpressionType: "null" },
-    { id: "error", label: "Error", paramExpressionType: "string" },
+    { id: "connect", label: t("Connect"), paramExpressionType: "null" },
+    { id: "reconnect", label: t("Reconnect"), paramExpressionType: "null" },
+    { id: "close", label: t("Close"), paramExpressionType: "null" },
+    { id: "disconnect", label: t("Disconnect"), paramExpressionType: "null" },
+    { id: "offline", label: t("Offline"), paramExpressionType: "null" },
+    { id: "end", label: t("End"), paramExpressionType: "null" },
+    { id: "error", label: t("Error"), paramExpressionType: "string" },
     {
         id: "message",
-        label: "Message",
+        label: t("Message"),
         paramExpressionType: "struct:$MQTTMessage"
     }
 ];
@@ -436,7 +437,7 @@ class EventHandler extends EezObject {
         properties: [
             {
                 name: "eventName",
-                displayName: "Event",
+                displayName: t("Event"),
                 type: PropertyType.Enum,
                 enumItems: (eventHandler: EventHandler) => {
                     const component =
@@ -462,8 +463,8 @@ class EventHandler extends EezObject {
                 name: "handlerType",
                 type: PropertyType.Enum,
                 enumItems: [
-                    { id: "flow", label: "Flow" },
-                    { id: "action", label: "Action" }
+                    { id: "flow", label: t("Flow") },
+                    { id: "action", label: t("Action") }
                 ],
                 enumDisallowUndefined: true,
                 disabled: eventHandler =>
@@ -555,17 +556,17 @@ class EventHandler extends EezObject {
             );
 
             if (eventEnumItems.length == 0) {
-                notification.info("All event handlers are already defined");
+                notification.info(t("All event handlers are already defined"));
                 return;
             }
 
             const result = await showGenericDialog({
                 dialogDefinition: {
-                    title: "New Event Handler",
+                    title: t("New Event Handler"),
                     fields: [
                         {
                             name: "eventName",
-                            displayName: "Event",
+                            displayName: t("Event"),
                             type: "enum",
                             enumItems: eventEnumItems
                         },
@@ -573,8 +574,8 @@ class EventHandler extends EezObject {
                             name: "handlerType",
                             type: "enum",
                             enumItems: [
-                                { id: "flow", label: "Flow" },
-                                { id: "action", label: "Action" }
+                                { id: "flow", label: t("Flow") },
+                                { id: "action", label: t("Action") }
                             ],
                             visible: () =>
                                 project.projectTypeTraits.hasFlowSupport
@@ -1162,11 +1163,11 @@ async function showConnectDialog(
                 userName: "",
                 password: ""
             },
-            okButtonText: "Connect",
+            okButtonText: t("Connect"),
             onOk: async (result: GenericDialogResult) => {
                 return new Promise<boolean>(async resolve => {
                     const mqttConnection = new MQTTConnection(0, result.values);
-                    result.onProgress("info", "Connecting...");
+                    result.onProgress("info", t("Connecting..."));
                     try {
                         await mqttConnection.connect();
                         mqttConnection.disconnect();

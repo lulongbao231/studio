@@ -11,6 +11,7 @@ import {
     getProjectStore,
     Message
 } from "project-editor/store";
+import { t } from "eez-studio-shared/i18n";
 import type { LVGLWidget } from "project-editor/lvgl/widgets";
 import type { LVGLPageRuntime } from "project-editor/lvgl/page-runtime";
 import { evalConstantExpression } from "project-editor/flow/expression";
@@ -169,7 +170,10 @@ export function checkWidgetTypeLvglVersion(
         messages.push(
             new Message(
                 MessageType.ERROR,
-                `This widget type is not supported in LVGL ${projectStore.project.settings.general.lvglVersion}`,
+                t("This widget type is not supported in LVGL {lvglVersion}", {
+                    lvglVersion:
+                        projectStore.project.settings.general.lvglVersion
+                }),
                 widget
             )
         );

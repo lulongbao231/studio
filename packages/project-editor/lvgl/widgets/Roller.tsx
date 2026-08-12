@@ -1,4 +1,5 @@
 import React from "react";
+import { t } from "eez-studio-shared/i18n";
 import { observable, makeObservable } from "mobx";
 
 import { PropertyType, makeDerivedClassInfo } from "project-editor/core/object";
@@ -181,7 +182,7 @@ export class LVGLRollerWidget extends LVGLWidget {
                     "const char *",
                     "new_val",
                     this.options,
-                    "Failed to evaluate Options in Roller widget"
+                    t("Failed to evaluate Options in Roller widget")
                 );
 
                 const cur_val = code.callObjectFunctionWithAssignment(
@@ -261,7 +262,7 @@ export class LVGLRollerWidget extends LVGLWidget {
                     "int32_t",
                     "new_val",
                     this.selected as string,
-                    "Failed to evaluate Selected in Roller widget"
+                    t("Failed to evaluate Selected in Roller widget")
                 );
 
                 const cur_val = code.callObjectFunctionWithAssignment(
@@ -309,7 +310,7 @@ export class LVGLRollerWidget extends LVGLWidget {
                             "selected",
                             this.selected as string,
                             value,
-                            "Failed to assign Selected in Roller widget"
+                            t("Failed to assign Selected in Roller widget")
                         );
                     });
                 }

@@ -10,6 +10,7 @@ import {
 import { registerLvglEnum } from "./widgets";
 import { RightArrow } from "project-editor/ui-components/icons";
 import type { Project } from "project-editor/project/project";
+import { t } from "eez-studio-shared/i18n";
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -21,28 +22,29 @@ registerAction({
         {
             name: "screen",
             type: "screen",
-            helpText: "The screen to change to"
+            helpText: t("The screen to change to")
         },
         {
             name: "fadeMode",
             type: `enum:${LV_SCR_LOAD_ANIM_ENUM_NAME}`,
-            helpText:
+            helpText: t(
                 "Selection of animation when moving from the previous page to a new page"
+            )
         },
         {
             name: "speed",
             type: "integer",
-            helpText: "Animation duration in milliseconds"
+            helpText: t("Animation duration in milliseconds")
         },
         {
             name: "delay",
             type: "integer",
-            helpText: "Delay in milliseconds before the animation starts."
+            helpText: t("Delay in milliseconds before the animation starts.")
         },
         {
             name: "useStack",
             type: "boolean",
-            helpText: "Put active screen on the stack."
+            helpText: t("Put active screen on the stack.")
         }
     ],
     defaults: {
@@ -65,7 +67,7 @@ registerAction({
             )}
         </>
     ),
-    helpText: "Change the screen to the specified screen"
+    helpText: t("Change the screen to the specified screen")
 });
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -78,18 +80,19 @@ registerAction({
         {
             name: "fadeMode",
             type: `enum:${LV_SCR_LOAD_ANIM_ENUM_NAME}`,
-            helpText:
+            helpText: t(
                 "Selection of animation when moving from the previous page to a new page"
+            )
         },
         {
             name: "speed",
             type: "integer",
-            helpText: "Animation duration in milliseconds"
+            helpText: t("Animation duration in milliseconds")
         },
         {
             name: "delay",
             type: "integer",
-            helpText: "Delay in milliseconds before the animation starts."
+            helpText: t("Delay in milliseconds before the animation starts.")
         }
     ],
     defaults: {
@@ -102,11 +105,14 @@ registerAction({
             {fadeMode} <i>{speedLabel}</i>={speed} <i>{delayLabel}</i>={delay}
         </>
     ),
-    helpText: "Change to the previous screen"
+    helpText: t("Change to the previous screen")
 });
 
-const SCREENS_LIFETIME_SUPPORT_DISABLED_MESSAGE =
-    " action is not available if 'Screens lifetime support' is not enabled in Settings - Build";
+const SCREENS_LIFETIME_SUPPORT_DISABLED_MESSAGE = (action: string) =>
+    t(
+        "'{action}' action is not available if 'Screens lifetime support' is not enabled in Settings - Build",
+        { action }
+    );
 
 registerAction({
     id: 47,
@@ -116,16 +122,18 @@ registerAction({
         {
             name: "screen",
             type: "screen",
-            helpText: "The screen to create"
+            helpText: t("The screen to create")
         }
     ],
     defaults: {},
     label: ([screen]) => <>{screen}</>,
-    helpText: `Create the screen ("Screens lifetime support" should be enabled in Settings - Build)"`,
+    helpText: t(
+        `Create the screen ("Screens lifetime support" should be enabled in Settings - Build)`
+    ),
     disabled: (project: Project) =>
         project.settings.build.screensLifetimeSupport
             ? false
-            : "'Create Screen' " + SCREENS_LIFETIME_SUPPORT_DISABLED_MESSAGE
+            : SCREENS_LIFETIME_SUPPORT_DISABLED_MESSAGE("Create Screen")
 });
 
 registerAction({
@@ -136,16 +144,18 @@ registerAction({
         {
             name: "screen",
             type: "screen",
-            helpText: "The screen to delete"
+            helpText: t("The screen to delete")
         }
     ],
     defaults: {},
     label: ([screen]) => <>{screen}</>,
-    helpText: `Delete the screen ("Screens lifetime support" should be enabled in Settings - Build)"`,
+    helpText: t(
+        `Delete the screen ("Screens lifetime support" should be enabled in Settings - Build)`
+    ),
     disabled: (project: Project) =>
         project.settings.build.screensLifetimeSupport
             ? false
-            : "'Delete Screen' " + SCREENS_LIFETIME_SUPPORT_DISABLED_MESSAGE
+            : SCREENS_LIFETIME_SUPPORT_DISABLED_MESSAGE("Delete Screen")
 });
 
 registerAction({
@@ -156,13 +166,13 @@ registerAction({
         {
             name: "screen",
             type: "screen",
-            helpText: "The screen"
+            helpText: t("The screen")
         },
         {
             name: "result",
             type: "boolean",
             isAssignable: true,
-            helpText: "The boolean variable where to store the screen status"
+            helpText: t("The boolean variable where to store the screen status")
         }
     ],
     defaults: {},
@@ -175,12 +185,13 @@ registerAction({
             </>
         </>
     ),
-    helpText: `Check if screen is created ("Screens lifetime support" should be enabled in Settings - Build)"`,
+    helpText: t(
+        `Check if screen is created ("Screens lifetime support" should be enabled in Settings - Build)`
+    ),
     disabled: (project: Project) =>
         project.settings.build.screensLifetimeSupport
             ? false
-            : "'Is Screen Created' action " +
-              SCREENS_LIFETIME_SUPPORT_DISABLED_MESSAGE
+            : SCREENS_LIFETIME_SUPPORT_DISABLED_MESSAGE("Is Screen Created")
 });
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -188,17 +199,17 @@ registerAction({
 registerAction({
     id: 2,
     name: "objSetX",
-    group: "Widget - Position and Size",
+    group: t("Widget - Position and Size"),
     properties: [
         {
             name: "object",
             type: "widget",
-            helpText: "The object to set the x coordinate"
+            helpText: t("The object to set the x coordinate")
         },
         {
             name: "x",
             type: "integer",
-            helpText: "The x coordinate to set"
+            helpText: t("The x coordinate to set")
         }
     ],
     defaults: {},
@@ -207,7 +218,7 @@ registerAction({
             {object} {x}
         </>
     ),
-    helpText: "Set the x coordinate of the object"
+    helpText: t("Set the x coordinate of the object")
 });
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -215,18 +226,18 @@ registerAction({
 registerAction({
     id: 3,
     name: "objGetX",
-    group: "Widget - Position and Size",
+    group: t("Widget - Position and Size"),
     properties: [
         {
             name: "object",
             type: "widget",
-            helpText: "The object to get the x coordinate"
+            helpText: t("The object to get the x coordinate")
         },
         {
             name: "result",
             type: "integer",
             isAssignable: true,
-            helpText: "The variable to store the x coordinate"
+            helpText: t("The variable to store the x coordinate")
         }
     ],
     defaults: {},
@@ -237,7 +248,7 @@ registerAction({
             {width}
         </>
     ),
-    helpText: "Get the x coordinate of the object"
+    helpText: t("Get the x coordinate of the object")
 });
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -245,17 +256,17 @@ registerAction({
 registerAction({
     id: 4,
     name: "objSetY",
-    group: "Widget - Position and Size",
+    group: t("Widget - Position and Size"),
     properties: [
         {
             name: "object",
             type: "widget",
-            helpText: "The object to set the y coordinate"
+            helpText: t("The object to set the y coordinate")
         },
         {
             name: "y",
             type: "integer",
-            helpText: "The y coordinate to set"
+            helpText: t("The y coordinate to set")
         }
     ],
     defaults: {},
@@ -264,7 +275,7 @@ registerAction({
             {object} {y}
         </>
     ),
-    helpText: "Set the y coordinate of the object"
+    helpText: t("Set the y coordinate of the object")
 });
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -272,18 +283,18 @@ registerAction({
 registerAction({
     id: 5,
     name: "objGetY",
-    group: "Widget - Position and Size",
+    group: t("Widget - Position and Size"),
     properties: [
         {
             name: "object",
             type: "widget",
-            helpText: "The object to get the y coordinate"
+            helpText: t("The object to get the y coordinate")
         },
         {
             name: "result",
             type: "integer",
             isAssignable: true,
-            helpText: "The variable to store the y coordinate"
+            helpText: t("The variable to store the y coordinate")
         }
     ],
     defaults: {},
@@ -294,7 +305,7 @@ registerAction({
             {width}
         </>
     ),
-    helpText: "Get the y coordinate of the object"
+    helpText: t("Get the y coordinate of the object")
 });
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -302,18 +313,18 @@ registerAction({
 registerAction({
     id: 63,
     name: "objGetDisplayX",
-    group: "Widget - Position and Size",
+    group: t("Widget - Position and Size"),
     properties: [
         {
             name: "object",
             type: "widget",
-            helpText: "The object to get the x coordinate"
+            helpText: t("The object to get the x coordinate")
         },
         {
             name: "result",
             type: "integer",
             isAssignable: true,
-            helpText: "The variable to store the x coordinate"
+            helpText: t("The variable to store the x coordinate")
         }
     ],
     defaults: {},
@@ -324,7 +335,7 @@ registerAction({
             {width}
         </>
     ),
-    helpText: "Get the x coordinate of the object, relative to the display origin"
+    helpText: t("Get the x coordinate of the object, relative to the display origin")
 });
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -332,18 +343,18 @@ registerAction({
 registerAction({
     id: 64,
     name: "objGetDisplayY",
-    group: "Widget - Position and Size",
+    group: t("Widget - Position and Size"),
     properties: [
         {
             name: "object",
             type: "widget",
-            helpText: "The object to get the y coordinate"
+            helpText: t("The object to get the y coordinate")
         },
         {
             name: "result",
             type: "integer",
             isAssignable: true,
-            helpText: "The variable to store the y coordinate"
+            helpText: t("The variable to store the y coordinate")
         }
     ],
     defaults: {},
@@ -354,7 +365,7 @@ registerAction({
             {width}
         </>
     ),
-    helpText: "Get the y coordinate of the object, relative to the display origin"
+    helpText: t("Get the y coordinate of the object, relative to the display origin")
 });
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -362,17 +373,17 @@ registerAction({
 registerAction({
     id: 6,
     name: "objSetWidth",
-    group: "Widget - Position and Size",
+    group: t("Widget - Position and Size"),
     properties: [
         {
             name: "object",
             type: "widget",
-            helpText: "The object to set the width"
+            helpText: t("The object to set the width")
         },
         {
             name: "width",
             type: "integer",
-            helpText: "The width to set"
+            helpText: t("The width to set")
         }
     ],
     defaults: {},
@@ -381,7 +392,7 @@ registerAction({
             {object} {width}
         </>
     ),
-    helpText: "Set the width of the object"
+    helpText: t("Set the width of the object")
 });
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -389,18 +400,18 @@ registerAction({
 registerAction({
     id: 7,
     name: "objGetWidth",
-    group: "Widget - Position and Size",
+    group: t("Widget - Position and Size"),
     properties: [
         {
             name: "object",
             type: "widget",
-            helpText: "The object to get the width"
+            helpText: t("The object to get the width")
         },
         {
             name: "result",
             type: "integer",
             isAssignable: true,
-            helpText: "The variable to store the width"
+            helpText: t("The variable to store the width")
         }
     ],
     defaults: {},
@@ -411,7 +422,7 @@ registerAction({
             {width}
         </>
     ),
-    helpText: "Get the width of the object"
+    helpText: t("Get the width of the object")
 });
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -419,17 +430,17 @@ registerAction({
 registerAction({
     id: 8,
     name: "objSetHeight",
-    group: "Widget - Position and Size",
+    group: t("Widget - Position and Size"),
     properties: [
         {
             name: "object",
             type: "widget",
-            helpText: "The object to set the height"
+            helpText: t("The object to set the height")
         },
         {
             name: "height",
             type: "integer",
-            helpText: "The height to set"
+            helpText: t("The height to set")
         }
     ],
     defaults: {},
@@ -438,7 +449,7 @@ registerAction({
             {object} {height}
         </>
     ),
-    helpText: "Set the height of the object"
+    helpText: t("Set the height of the object")
 });
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -446,18 +457,18 @@ registerAction({
 registerAction({
     id: 9,
     name: "objGetHeight",
-    group: "Widget - Position and Size",
+    group: t("Widget - Position and Size"),
     properties: [
         {
             name: "object",
             type: "widget",
-            helpText: "The object to get the height"
+            helpText: t("The object to get the height")
         },
         {
             name: "result",
             type: "integer",
             isAssignable: true,
-            helpText: "The variable to store the height"
+            helpText: t("The variable to store the height")
         }
     ],
     defaults: {},
@@ -468,7 +479,7 @@ registerAction({
             {width}
         </>
     ),
-    helpText: "Get the height of the object"
+    helpText: t("Get the height of the object")
 });
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -476,33 +487,33 @@ registerAction({
 registerAction({
     id: 59,
     name: "objStyleSetProperty",
-    displayName: "Set Obj Style Prop",
-    group: "Widget - Styles",
+    displayName: t("Set Obj Style Prop"),
+    group: t("Widget - Styles"),
     properties: [
         {
             name: "object",
             type: "widget",
-            helpText: "Widget"
+            helpText: t("Widget")
         },
         {
             name: "property",
             type: "style-property",
-            helpText: "The style property to set"
+            helpText: t("The style property to set")
         },
         {
             name: "value",
             type: "style-value",
-            helpText: "The value to set for the property"
+            helpText: t("The value to set for the property")
         },
         {
             name: "part",
             type: `enum:${LV_PART_ENUM_NAME}`,
-            helpText: "The part of the object to set the property"
+            helpText: t("The part of the object to set the property")
         },
         {
             name: "state",
             type: `enum:${LV_STATE_ENUM_NAME}`,
-            helpText: "The state of the object to set the property"
+            helpText: t("The state of the object to set the property")
         }
     ],
     defaults: {
@@ -514,7 +525,7 @@ registerAction({
             {object} "{property}" {value ?? "?"}{part != "MAIN" ? ` ${part}` : ""}{state != "DEFAULT" ? ` ${state}` : ""}
         </>
     ),
-    helpText: "Set the value of property in a style."
+    helpText: t("Set the value of property in a style.")
 });
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -522,17 +533,17 @@ registerAction({
 registerAction({
     id: 10,
     name: "objSetStyleOpa",
-    group: "Widget - Styles",
+    group: t("Widget - Styles"),
     properties: [
         {
             name: "object",
             type: "widget",
-            helpText: "The object to set the opacity"
+            helpText: t("The object to set the opacity")
         },
         {
             name: "opacity",
             type: "integer",
-            helpText: "The opacity to set (0-255)"
+            helpText: t("The opacity to set (0-255)")
         }
     ],
     defaults: {},
@@ -541,7 +552,7 @@ registerAction({
             {object} {opacity}
         </>
     ),
-    helpText: "Set the opacity of the object"
+    helpText: t("Set the opacity of the object")
 });
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -549,18 +560,18 @@ registerAction({
 registerAction({
     id: 11,
     name: "objGetStyleOpa",
-    group: "Widget - Styles",
+    group: t("Widget - Styles"),
     properties: [
         {
             name: "object",
             type: "widget",
-            helpText: "The object to get the opacity"
+            helpText: t("The object to get the opacity")
         },
         {
             name: "result",
             type: "integer",
             isAssignable: true,
-            helpText: "The variable to store the opacity"
+            helpText: t("The variable to store the opacity")
         }
     ],
     defaults: {},
@@ -571,7 +582,7 @@ registerAction({
             {width}
         </>
     ),
-    helpText: "Get the opacity of the object"
+    helpText: t("Get the opacity of the object")
 });
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -579,17 +590,17 @@ registerAction({
 registerAction({
     id: 12,
     name: "objAddStyle",
-    group: "Widget - Styles",
+    group: t("Widget - Styles"),
     properties: [
         {
             name: "object",
             type: "widget",
-            helpText: "The object to add the style"
+            helpText: t("The object to add the style")
         },
         {
             name: "style",
             type: "style",
-            helpText: "The style to add"
+            helpText: t("The style to add")
         }
     ],
     defaults: {},
@@ -598,7 +609,7 @@ registerAction({
             {object} {style}
         </>
     ),
-    helpText: "Add a style to the object"
+    helpText: t("Add a style to the object")
 });
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -606,17 +617,17 @@ registerAction({
 registerAction({
     id: 13,
     name: "objRemoveStyle",
-    group: "Widget - Styles",
+    group: t("Widget - Styles"),
     properties: [
         {
             name: "object",
             type: "widget",
-            helpText: "The object to remove the style"
+            helpText: t("The object to remove the style")
         },
         {
             name: "style",
             type: "style",
-            helpText: "The style to remove"
+            helpText: t("The style to remove")
         }
     ],
     defaults: {},
@@ -625,7 +636,7 @@ registerAction({
             {object} {style}
         </>
     ),
-    helpText: "Remove a style from the object"
+    helpText: t("Remove a style from the object")
 });
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -633,17 +644,17 @@ registerAction({
 registerAction({
     id: 14,
     name: "objSetFlagHidden",
-    group: "Widget - Flags",
+    group: t("Widget - Flags"),
     properties: [
         {
             name: "object",
             type: "widget",
-            helpText: "The object to set the hidden flag"
+            helpText: t("The object to set the hidden flag")
         },
         {
             name: "hidden",
             type: "boolean",
-            helpText: "The hidden flag value"
+            helpText: t("The hidden flag value")
         }
     ],
     defaults: {
@@ -654,7 +665,7 @@ registerAction({
             {object} {hidden}
         </>
     ),
-    helpText: "Set the hidden flag of the object"
+    helpText: t("Set the hidden flag of the object")
 });
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -662,17 +673,17 @@ registerAction({
 registerAction({
     id: 15,
     name: "objAddFlag",
-    group: "Widget - Flags",
+    group: t("Widget - Flags"),
     properties: [
         {
             name: "object",
             type: "widget",
-            helpText: "The object to add the flag"
+            helpText: t("The object to add the flag")
         },
         {
             name: "flag",
             type: `enum:${LV_OBJ_FLAG_ENUM_NAME}`,
-            helpText: "The flag to add"
+            helpText: t("The flag to add")
         }
     ],
     defaults: {
@@ -683,7 +694,7 @@ registerAction({
             {object} {flag}
         </>
     ),
-    helpText: "Add a flag to the object"
+    helpText: t("Add a flag to the object")
 });
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -691,17 +702,17 @@ registerAction({
 registerAction({
     id: 16,
     name: "objClearFlag",
-    group: "Widget - Flags",
+    group: t("Widget - Flags"),
     properties: [
         {
             name: "object",
             type: "widget",
-            helpText: "The object to clear the flag"
+            helpText: t("The object to clear the flag")
         },
         {
             name: "flag",
             type: `enum:${LV_OBJ_FLAG_ENUM_NAME}`,
-            helpText: "The flag to clear"
+            helpText: t("The flag to clear")
         }
     ],
     defaults: {
@@ -712,7 +723,7 @@ registerAction({
             {object} {flag}
         </>
     ),
-    helpText: "Clear a flag from the object"
+    helpText: t("Clear a flag from the object")
 });
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -720,23 +731,23 @@ registerAction({
 registerAction({
     id: 17,
     name: "objHasFlag",
-    group: "Widget - Flags",
+    group: t("Widget - Flags"),
     properties: [
         {
             name: "object",
             type: "widget",
-            helpText: "The object to check the flag"
+            helpText: t("The object to check the flag")
         },
         {
             name: "flag",
             type: `enum:${LV_OBJ_FLAG_ENUM_NAME}`,
-            helpText: "The flag to check"
+            helpText: t("The flag to check")
         },
         {
             name: "result",
             type: `boolean`,
             isAssignable: true,
-            helpText: "The variable to store the result"
+            helpText: t("The variable to store the result")
         }
     ],
     defaults: {
@@ -749,7 +760,7 @@ registerAction({
             {result}
         </>
     ),
-    helpText: "Check if the object has the specified flag"
+    helpText: t("Check if the object has the specified flag")
 });
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -757,17 +768,17 @@ registerAction({
 registerAction({
     id: 18,
     name: "objSetStateChecked",
-    group: "Widget - Flags",
+    group: t("Widget - Flags"),
     properties: [
         {
             name: "object",
             type: "widget",
-            helpText: "The object to set the checked state"
+            helpText: t("The object to set the checked state")
         },
         {
             name: "checked",
             type: "boolean",
-            helpText: "The checked state to set"
+            helpText: t("The checked state to set")
         }
     ],
     defaults: {
@@ -778,7 +789,7 @@ registerAction({
             {object} {checked}
         </>
     ),
-    helpText: "Set the checked state of the object"
+    helpText: t("Set the checked state of the object")
 });
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -786,17 +797,17 @@ registerAction({
 registerAction({
     id: 19,
     name: "objSetStateDisabled",
-    group: "Widget - States",
+    group: t("Widget - States"),
     properties: [
         {
             name: "object",
             type: "widget",
-            helpText: "The object to set the disabled state"
+            helpText: t("The object to set the disabled state")
         },
         {
             name: "disabled",
             type: "boolean",
-            helpText: "The disabled state to set"
+            helpText: t("The disabled state to set")
         }
     ],
     defaults: {
@@ -807,7 +818,7 @@ registerAction({
             {object} {disabled}
         </>
     ),
-    helpText: "Set the disabled state of the object"
+    helpText: t("Set the disabled state of the object")
 });
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -815,17 +826,17 @@ registerAction({
 registerAction({
     id: 20,
     name: "objAddState",
-    group: "Widget - States",
+    group: t("Widget - States"),
     properties: [
         {
             name: "object",
             type: "widget",
-            helpText: "The object to add the state"
+            helpText: t("The object to add the state")
         },
         {
             name: "state",
             type: `enum:${LV_STATE_ENUM_NAME}`,
-            helpText: "The state to add"
+            helpText: t("The state to add")
         }
     ],
     defaults: {
@@ -836,7 +847,7 @@ registerAction({
             {object} {state}
         </>
     ),
-    helpText: "Add a state to the object"
+    helpText: t("Add a state to the object")
 });
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -844,17 +855,17 @@ registerAction({
 registerAction({
     id: 21,
     name: "objClearState",
-    group: "Widget - States",
+    group: t("Widget - States"),
     properties: [
         {
             name: "object",
             type: "widget",
-            helpText: "The object to clear the state"
+            helpText: t("The object to clear the state")
         },
         {
             name: "state",
             type: `enum:${LV_STATE_ENUM_NAME}`,
-            helpText: "The state to clear"
+            helpText: t("The state to clear")
         }
     ],
     defaults: {
@@ -865,7 +876,7 @@ registerAction({
             {object} {state}
         </>
     ),
-    helpText: "Clear a state from the object"
+    helpText: t("Clear a state from the object")
 });
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -873,23 +884,23 @@ registerAction({
 registerAction({
     id: 22,
     name: "objHasState",
-    group: "Widget - States",
+    group: t("Widget - States"),
     properties: [
         {
             name: "object",
             type: "widget",
-            helpText: "The object to check the state"
+            helpText: t("The object to check the state")
         },
         {
             name: "state",
             type: `enum:${LV_STATE_ENUM_NAME}`,
-            helpText: "The state to check"
+            helpText: t("The state to check")
         },
         {
             name: "result",
             type: `boolean`,
             isAssignable: true,
-            helpText: "The variable to store the result"
+            helpText: t("The variable to store the result")
         }
     ],
     defaults: {
@@ -902,7 +913,7 @@ registerAction({
             {result}
         </>
     ),
-    helpText: "Check if the object has the specified state"
+    helpText: t("Check if the object has the specified state")
 });
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -915,12 +926,12 @@ registerAction({
         {
             name: "object",
             type: "widget:Arc",
-            helpText: "The arc to set the value"
+            helpText: t("The arc to set the value")
         },
         {
             name: "value",
             type: "integer",
-            helpText: "The value to set"
+            helpText: t("The value to set")
         }
     ],
     defaults: {},
@@ -929,7 +940,7 @@ registerAction({
             {object} {value}
         </>
     ),
-    helpText: "Set the value of the arc"
+    helpText: t("Set the value of the arc")
 });
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -942,17 +953,17 @@ registerAction({
         {
             name: "object",
             type: "widget:Arc",
-            helpText: "The arc object"
+            helpText: t("The arc object")
         },
         {
             name: "objToRotate",
             type: "widget",
-            helpText: "The object to rotate"
+            helpText: t("The object to rotate")
         },
         {
             name: "offset",
             type: "integer",
-            helpText: "Consider the radius larger with this value (< 0: for smaller radius)"
+            helpText: t("Consider the radius larger with this value (< 0: for smaller radius)")
         }
     ],
     defaults: {},
@@ -961,7 +972,7 @@ registerAction({
             {object} {objToRotate} {offset}
         </>
     ),
-    helpText: "Rotate an object to the current position of the arc (knob)"
+    helpText: t("Rotate an object to the current position of the arc (knob)")
 });
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -974,17 +985,17 @@ registerAction({
         {
             name: "object",
             type: "widget:Bar",
-            helpText: "The bar to set the value"
+            helpText: t("The bar to set the value")
         },
         {
             name: "value",
             type: "integer",
-            helpText: "The value to set (0-100)"
+            helpText: t("The value to set (0-100)")
         },
         {
             name: "animated",
             type: "boolean",
-            helpText: "Use animation when setting the value"
+            helpText: t("Use animation when setting the value")
         }
     ],
     defaults: {
@@ -995,7 +1006,7 @@ registerAction({
             {object} {value} <i>{animatedLabel}</i>={animated}
         </>
     ),
-    helpText: "Set the value of the bar"
+    helpText: t("Set the value of the bar")
 });
 
 registerAction({
@@ -1006,19 +1017,21 @@ registerAction({
         {
             name: "object",
             type: "widget:ButtonMatrix",
-            helpText: "The bar to set the value"
+            helpText: t("The bar to set the value")
         },
         {
             name: "buttonID",
             type: "integer",
-            helpText:
+            helpText: t(
                 "0 based index of the button to modify. (Not counting new lines)"
+            )
         },
         {
             name: "ctrl",
             type: `enum:${LV_BUTTONMATRIX_CTRL_ENUM_NAME}`,
-            helpText:
+            helpText: t(
                 "OR-ed attributes. E.g. `LV_BUTTONMATRIX_CTRL.NO_REPEAT | LV_BUTTONMATRIX_CTRL.CHECKABLE`"
+            )
         }
     ],
     defaults: {},
@@ -1027,7 +1040,7 @@ registerAction({
             {object} {buttonID} {ctrl}
         </>
     ),
-    helpText: "Set the value of the bar"
+    helpText: t("Set the value of the bar")
 });
 
 registerAction({
@@ -1038,19 +1051,21 @@ registerAction({
         {
             name: "object",
             type: "widget:ButtonMatrix",
-            helpText: "The bar to set the value"
+            helpText: t("The bar to set the value")
         },
         {
             name: "buttonID",
             type: "integer",
-            helpText:
+            helpText: t(
                 "0 based index of the button to modify. (Not counting new lines)"
+            )
         },
         {
             name: "ctrl",
             type: `enum:${LV_BUTTONMATRIX_CTRL_ENUM_NAME}`,
-            helpText:
+            helpText: t(
                 "OR-ed attributes. E.g. `LV_BUTTONMATRIX_CTRL.NO_REPEAT | LV_BUTTONMATRIX_CTRL.CHECKABLE`"
+            )
         }
     ],
     defaults: {},
@@ -1059,7 +1074,7 @@ registerAction({
             {object} {buttonID} {ctrl}
         </>
     ),
-    helpText: "Clear the attributes of a button of the button matrix"
+    helpText: t("Clear the attributes of a button of the button matrix")
 });
 
 registerAction({
@@ -1070,22 +1085,22 @@ registerAction({
         {
             name: "object",
             type: "widget:Calendar",
-            helpText: "The calendar object"
+            helpText: t("The calendar object")
         },
         {
             name: "year",
             type: "integer",
-            helpText: "Today's year"
+            helpText: t("Today's year")
         },
         {
             name: "month",
             type: "integer",
-            helpText: "Today's month [1..12]"
+            helpText: t("Today's month [1..12]")
         },
         {
             name: "day",
             type: "integer",
-            helpText: "Today's day [1..31]"
+            helpText: t("Today's day [1..31]")
         }
     ],
     defaults: {},
@@ -1096,7 +1111,7 @@ registerAction({
             </>
         </>
     ),
-    helpText: "Set the today's date"
+    helpText: t("Set the today's date")
 });
 
 registerAction({
@@ -1107,17 +1122,17 @@ registerAction({
         {
             name: "object",
             type: "widget:Calendar",
-            helpText: "The calendar object"
+            helpText: t("The calendar object")
         },
         {
             name: "year",
             type: "integer",
-            helpText: "Showed year"
+            helpText: t("Showed year")
         },
         {
             name: "month",
             type: "integer",
-            helpText: "Showed month [1..12]"
+            helpText: t("Showed month [1..12]")
         }
     ],
     defaults: {},
@@ -1128,7 +1143,7 @@ registerAction({
             </>
         </>
     ),
-    helpText: "Set the currently showed"
+    helpText: t("Set the currently showed")
 });
 
 registerAction({
@@ -1139,22 +1154,22 @@ registerAction({
         {
             name: "object",
             type: "widget:Calendar",
-            helpText: "The calendar object"
+            helpText: t("The calendar object")
         },
         {
             name: "year",
             type: "integer",
-            helpText: "Highlight year"
+            helpText: t("Highlight year")
         },
         {
             name: "month",
             type: "integer",
-            helpText: "Highlight month [1..12]"
+            helpText: t("Highlight month [1..12]")
         },
         {
             name: "day",
             type: "integer",
-            helpText: "Hilighy day [1..31]"
+            helpText: t("Hilighy day [1..31]")
         }
     ],
     defaults: {},
@@ -1165,7 +1180,7 @@ registerAction({
             </>
         </>
     ),
-    helpText: "Set the highlighted date"
+    helpText: t("Set the highlighted date")
 });
 
 registerAction({
@@ -1176,25 +1191,25 @@ registerAction({
         {
             name: "object",
             type: "widget:Calendar",
-            helpText: "The calendar object"
+            helpText: t("The calendar object")
         },
         {
             name: "year",
             type: "integer",
             isAssignable: true,
-            helpText: "The integer variable where to store the year"
+            helpText: t("The integer variable where to store the year")
         },
         {
             name: "month",
             type: "integer",
             isAssignable: true,
-            helpText: "The integer variable where to store the month (1..12)"
+            helpText: t("The integer variable where to store the month (1..12)")
         },
         {
             name: "day",
             type: "integer",
             isAssignable: true,
-            helpText: "The integer variable where to store the day (1..31)"
+            helpText: t("The integer variable where to store the day (1..31)")
         }
     ],
     defaults: {},
@@ -1207,7 +1222,7 @@ registerAction({
             </>
         </>
     ),
-    helpText: "Get the currently pressed day"
+    helpText: t("Get the currently pressed day")
 });
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -1220,12 +1235,12 @@ registerAction({
         {
             name: "object",
             type: "widget:Dropdown",
-            helpText: "The dropdown to set the selected item"
+            helpText: t("The dropdown to set the selected item")
         },
         {
             name: "selected",
             type: "integer",
-            helpText: "The index of the selected item"
+            helpText: t("The index of the selected item")
         }
     ],
     defaults: {},
@@ -1234,7 +1249,7 @@ registerAction({
             {object} {selected}
         </>
     ),
-    helpText: "Set the selected item of the dropdown"
+    helpText: t("Set the selected item of the dropdown")
 });
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -1247,12 +1262,12 @@ registerAction({
         {
             name: "object",
             type: "widget:Image",
-            helpText: "The image to set the source"
+            helpText: t("The image to set the source")
         },
         {
             name: "src",
             type: "image",
-            helpText: "The source image to set given as a string"
+            helpText: t("The source image to set given as a string")
         }
     ],
     defaults: {},
@@ -1261,7 +1276,7 @@ registerAction({
             {object} {src}
         </>
     ),
-    helpText: "Set the source image of the image"
+    helpText: t("Set the source image of the image")
 });
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -1274,13 +1289,14 @@ registerAction({
         {
             name: "object",
             type: "widget:Image",
-            helpText: "The image to set the angle"
+            helpText: t("The image to set the angle")
         },
         {
             name: "angle",
             type: "integer",
-            helpText:
+            helpText: t(
                 "The angle to set. Angle has 0.1 degree precision, so for 45.8° set 458."
+            )
         }
     ],
     defaults: {},
@@ -1289,7 +1305,7 @@ registerAction({
             {object} {angle}
         </>
     ),
-    helpText: "Set the angle of the image"
+    helpText: t("Set the angle of the image")
 });
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -1302,13 +1318,14 @@ registerAction({
         {
             name: "object",
             type: "widget:Image",
-            helpText: "The image to set the zoom"
+            helpText: t("The image to set the zoom")
         },
         {
             name: "zoom",
             type: "integer",
-            helpText:
+            helpText: t(
                 "The zoom to set. Set factor to 256 to disable zooming. A larger value enlarges the images (e.g. 512 double size), a smaller value shrinks it (e.g. 128 half size)."
+            )
         }
     ],
     defaults: {},
@@ -1317,7 +1334,7 @@ registerAction({
             {object} {zoom}
         </>
     ),
-    helpText: "Set the zoom of the image"
+    helpText: t("Set the zoom of the image")
 });
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -1330,12 +1347,12 @@ registerAction({
         {
             name: "object",
             type: "widget:Keyboard",
-            helpText: "The keyboard to set the textarea"
+            helpText: t("The keyboard to set the textarea")
         },
         {
             name: "textarea",
             type: "widget:Textarea",
-            helpText: "The textarea to set"
+            helpText: t("The textarea to set")
         }
     ],
     defaults: {},
@@ -1344,7 +1361,7 @@ registerAction({
             {object} {textarea}
         </>
     ),
-    helpText: "Set the textarea for the keyboard"
+    helpText: t("Set the textarea for the keyboard")
 });
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -1357,12 +1374,12 @@ registerAction({
         {
             name: "object",
             type: "widget:Label",
-            helpText: "The label to set the text"
+            helpText: t("The label to set the text")
         },
         {
             name: "text",
             type: "string",
-            helpText: "The text to set"
+            helpText: t("The text to set")
         }
     ],
     defaults: {},
@@ -1371,7 +1388,7 @@ registerAction({
             {object} {text}
         </>
     ),
-    helpText: "Set the text of the label"
+    helpText: t("Set the text of the label")
 });
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -1379,18 +1396,18 @@ registerAction({
 registerAction({
     id: 58,
     name: "qrCodeUpdate",
-    displayName: "QR code update",
+    displayName: t("QR code update"),
     group: "QRCode",
     properties: [
         {
             name: "object",
             type: "widget:QRCode",
-            helpText: "QR code widget"
+            helpText: t("QR code widget")
         },
         {
             name: "text",
             type: "string",
-            helpText: "The text to display"
+            helpText: t("The text to display")
         }
     ],
     defaults: {},
@@ -1399,7 +1416,7 @@ registerAction({
             {object} {text}
         </>
     ),
-    helpText: "Set the text of a QR code object"
+    helpText: t("Set the text of a QR code object")
 });
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -1412,17 +1429,17 @@ registerAction({
         {
             name: "object",
             type: "widget:Roller",
-            helpText: "The roller to set the selected item"
+            helpText: t("The roller to set the selected item")
         },
         {
             name: "selected",
             type: "integer",
-            helpText: "The index of the selected item"
+            helpText: t("The index of the selected item")
         },
         {
             name: "animated",
             type: "boolean",
-            helpText: "Use animation when setting the selected item"
+            helpText: t("Use animation when setting the selected item")
         }
     ],
     defaults: {
@@ -1433,7 +1450,7 @@ registerAction({
             {object} {selected} <i>{animatedLabel}</i>={animated}
         </>
     ),
-    helpText: "Set the selected item of the roller"
+    helpText: t("Set the selected item of the roller")
 });
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -1446,17 +1463,17 @@ registerAction({
         {
             name: "object",
             type: "widget:Slider",
-            helpText: "The slider to set the value"
+            helpText: t("The slider to set the value")
         },
         {
             name: "value",
             type: "integer",
-            helpText: "The value to set"
+            helpText: t("The value to set")
         },
         {
             name: "animated",
             type: "boolean",
-            helpText: "Use animation when setting the value"
+            helpText: t("Use animation when setting the value")
         }
     ],
     defaults: {
@@ -1467,7 +1484,7 @@ registerAction({
             {object} {value} <i>{animatedLabel}</i>={animated}
         </>
     ),
-    helpText: "Set the value of the slider"
+    helpText: t("Set the value of the slider")
 });
 
 registerAction({
@@ -1478,17 +1495,17 @@ registerAction({
         {
             name: "object",
             type: "widget:Slider",
-            helpText: "The slider to set the value"
+            helpText: t("The slider to set the value")
         },
         {
             name: "valueLeft",
             type: "integer",
-            helpText: "The left value to set"
+            helpText: t("The left value to set")
         },
         {
             name: "animated",
             type: "boolean",
-            helpText: "Use animation when setting the value"
+            helpText: t("Use animation when setting the value")
         }
     ],
     defaults: {
@@ -1499,7 +1516,7 @@ registerAction({
             {object} {valueLeft} <i>{animatedLabel}</i>={animated}
         </>
     ),
-    helpText: "Set a new value for the left knob of a slider"
+    helpText: t("Set a new value for the left knob of a slider")
 });
 
 registerAction({
@@ -1510,17 +1527,17 @@ registerAction({
         {
             name: "object",
             type: "widget:Slider",
-            helpText: "The bar to set the value"
+            helpText: t("The bar to set the value")
         },
         {
             name: "min",
             type: "integer",
-            helpText: "Minimum value"
+            helpText: t("Minimum value")
         },
         {
             name: "max",
             type: "integer",
-            helpText: "Maximum value"
+            helpText: t("Maximum value")
         }
     ],
     defaults: {},
@@ -1529,7 +1546,7 @@ registerAction({
             {object} {min} {max}
         </>
     ),
-    helpText: "Set minimum and the maximum values of a slider"
+    helpText: t("Set minimum and the maximum values of a slider")
 });
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -1542,17 +1559,17 @@ registerAction({
         {
             name: "object",
             type: "widget:Tabview",
-            helpText: "The tabview to set the active tab"
+            helpText: t("The tabview to set the active tab")
         },
         {
             name: "tab",
             type: "integer",
-            helpText: "The index of the tab to activate (0-based)"
+            helpText: t("The index of the tab to activate (0-based)")
         },
         {
             name: "animated",
             type: "boolean",
-            helpText: "Use animation when switching tabs"
+            helpText: t("Use animation when switching tabs")
         }
     ],
     defaults: {
@@ -1563,7 +1580,7 @@ registerAction({
             {object} {tab} <i>{animatedLabel}</i>={animated}
         </>
     ),
-    helpText: "Set the active tab of the tabview"
+    helpText: t("Set the active tab of the tabview")
 });
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -1576,13 +1593,13 @@ registerAction({
         {
             name: "object",
             type: "widget:Tabview",
-            helpText: "The tabview to get the active tab"
+            helpText: t("The tabview to get the active tab")
         },
         {
             name: "result",
             type: "integer",
             isAssignable: true,
-            helpText: "The variable to store the active tab index"
+            helpText: t("The variable to store the active tab index")
         }
     ],
     defaults: {},
@@ -1593,7 +1610,7 @@ registerAction({
             {result}
         </>
     ),
-    helpText: "Get the active tab index of the tabview"
+    helpText: t("Get the active tab index of the tabview")
 });
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -1606,12 +1623,12 @@ registerAction({
         {
             name: "object",
             type: "widget",
-            helpText: "The object to focus"
+            helpText: t("The object to focus")
         }
     ],
     defaults: {},
     label: ([object]) => <>{object}</>,
-    helpText: "Focus the object"
+    helpText: t("Focus the object")
 });
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -1624,12 +1641,12 @@ registerAction({
         {
             name: "group",
             type: "group",
-            helpText: "The group to focus the next object"
+            helpText: t("The group to focus the next object")
         }
     ],
     defaults: {},
     label: ([group]) => <>{group}</>,
-    helpText: "Focus the next object in the group"
+    helpText: t("Focus the next object in the group")
 });
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -1642,12 +1659,12 @@ registerAction({
         {
             name: "group",
             type: "group",
-            helpText: "The group to focus the previous object"
+            helpText: t("The group to focus the previous object")
         }
     ],
     defaults: {},
     label: ([group]) => <>{group}</>,
-    helpText: "Focus the previous object in the group"
+    helpText: t("Focus the previous object in the group")
 });
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -1660,13 +1677,13 @@ registerAction({
         {
             name: "group",
             type: "group",
-            helpText: "The group to get the focused object"
+            helpText: t("The group to get the focused object")
         },
         {
             name: "result",
             type: "widget",
             isAssignable: true,
-            helpText: "The variable to store the focused object"
+            helpText: t("The variable to store the focused object")
         }
     ],
     defaults: {
@@ -1679,7 +1696,7 @@ registerAction({
             {result}
         </>
     ),
-    helpText: "Get the focused object in the group"
+    helpText: t("Get the focused object in the group")
 });
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -1692,12 +1709,12 @@ registerAction({
         {
             name: "group",
             type: "group",
-            helpText: "The group to freeze/unfreeze the focus"
+            helpText: t("The group to freeze/unfreeze the focus")
         },
         {
             name: "enabled",
             type: "boolean",
-            helpText: "true: freeze, false: release freezing (normal mode)"
+            helpText: t("true: freeze, false: release freezing (normal mode)")
         }
     ],
     defaults: {
@@ -1708,7 +1725,7 @@ registerAction({
             {group} {enabled}
         </>
     ),
-    helpText: "Do not let to change the focus from the current object"
+    helpText: t("Do not let to change the focus from the current object")
 });
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -1721,12 +1738,12 @@ registerAction({
         {
             name: "group",
             type: "group",
-            helpText: "The group to set the wrap"
+            helpText: t("The group to set the wrap")
         },
         {
             name: "enabled",
             type: "boolean",
-            helpText: "true: wrap, false: no wrap"
+            helpText: t("true: wrap, false: no wrap")
         }
     ],
     defaults: {
@@ -1737,8 +1754,9 @@ registerAction({
             {group} {enabled}
         </>
     ),
-    helpText:
+    helpText: t(
         "Set whether focus next/prev will allow wrapping from first->last or last->first object."
+    )
 });
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -1751,12 +1769,12 @@ registerAction({
         {
             name: "group",
             type: "group",
-            helpText: "The group to set the editing mode"
+            helpText: t("The group to set the editing mode")
         },
         {
             name: "enabled",
             type: "boolean",
-            helpText: "true: edit mode, false: navigate mode"
+            helpText: t("true: edit mode, false: navigate mode")
         }
     ],
     defaults: {
@@ -1767,7 +1785,7 @@ registerAction({
             {group} {enabled}
         </>
     ),
-    helpText: "Manually set the current mode (edit or navigate)."
+    helpText: t("Manually set the current mode (edit or navigate).")
 });
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -1787,44 +1805,46 @@ const ANIM_PROPERTIES: IActionPropertyDefinition[] = [
     {
         name: "object",
         type: "widget",
-        helpText: "The object to animate"
+        helpText: t("The object to animate")
     },
     {
         name: "start",
         type: "integer",
-        helpText: "The start value of the animation"
+        helpText: t("The start value of the animation")
     },
     {
         name: "end",
         type: "integer",
-        helpText: "The end value of the animation"
+        helpText: t("The end value of the animation")
     },
     {
         name: "delay",
         type: "integer",
-        helpText: "Delay in milliseconds before the animation starts"
+        helpText: t("Delay in milliseconds before the animation starts")
     },
     {
         name: "time",
         type: "integer",
-        helpText: "Animation duration in milliseconds"
+        helpText: t("Animation duration in milliseconds")
     },
     {
         name: "relative",
         type: "boolean",
-        helpText:
+        helpText: t(
             "Determines whether `Start` and `End` values are relative to the current value or are absolute values."
+        )
     },
     {
         name: "instant",
         type: "boolean",
-        helpText:
+        helpText: t(
             "If checked apply the start value immediately, otherwise apply the start value after a delay when the animation really starts"
+        )
     },
     {
         name: "path",
         type: `enum:${LV_ANIM_PATH_ENUM_NAME}`,
-        helpText: "The animation path"
+        helpText: t("The animation path")
     }
 ];
 
@@ -1866,7 +1886,7 @@ registerAction({
     properties: ANIM_PROPERTIES,
     defaults: ANIM_DEFAULTS,
     label: animLabel,
-    helpText: "Animate the x coordinate of the object"
+    helpText: t("Animate the x coordinate of the object")
 });
 
 registerAction({
@@ -1876,7 +1896,7 @@ registerAction({
     properties: ANIM_PROPERTIES,
     defaults: ANIM_DEFAULTS,
     label: animLabel,
-    helpText: "Animate the y coordinate of the object"
+    helpText: t("Animate the y coordinate of the object")
 });
 
 registerAction({
@@ -1886,7 +1906,7 @@ registerAction({
     properties: ANIM_PROPERTIES,
     defaults: ANIM_DEFAULTS,
     label: animLabel,
-    helpText: "Animate the width of the object"
+    helpText: t("Animate the width of the object")
 });
 
 registerAction({
@@ -1896,7 +1916,7 @@ registerAction({
     properties: ANIM_PROPERTIES,
     defaults: ANIM_DEFAULTS,
     label: animLabel,
-    helpText: "Animate the height of the object"
+    helpText: t("Animate the height of the object")
 });
 
 registerAction({
@@ -1906,7 +1926,7 @@ registerAction({
     properties: ANIM_PROPERTIES,
     defaults: ANIM_DEFAULTS,
     label: animLabel,
-    helpText: "Animate the opacity of the object"
+    helpText: t("Animate the opacity of the object")
 });
 
 registerAction({
@@ -1916,7 +1936,7 @@ registerAction({
     properties: ANIM_PROPERTIES,
     defaults: ANIM_DEFAULTS,
     label: animLabel,
-    helpText: "Animate the zoom of the image"
+    helpText: t("Animate the zoom of the image")
 });
 
 registerAction({
@@ -1926,5 +1946,5 @@ registerAction({
     properties: ANIM_PROPERTIES,
     defaults: ANIM_DEFAULTS,
     label: animLabel,
-    helpText: "Animate the angle of the image"
+    helpText: t("Animate the angle of the image")
 });

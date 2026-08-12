@@ -1,3 +1,4 @@
+import { t } from "eez-studio-shared/i18n";
 import React from "react";
 import { observable, makeObservable } from "mobx";
 
@@ -42,7 +43,7 @@ export class LVGLLineWidget extends LVGLWidget {
             },
             {
                 name: "invertY",
-                displayName: "Invert Y",
+                displayName: t("Invert Y"),
                 type: PropertyType.Boolean,
                 checkboxStyleSwitch: true,
                 propertyGridGroup: specificGroup,
@@ -51,7 +52,7 @@ export class LVGLLineWidget extends LVGLWidget {
             },
             {
                 name: "needleLength",
-                displayName: "Needle length",
+                displayName: t("Needle length"),
                 type: PropertyType.Number,
                 propertyGridGroup: specificGroup,
                 hideInPropertyGrid: (widget: LVGLLineWidget) =>
@@ -106,7 +107,7 @@ export class LVGLLineWidget extends LVGLWidget {
                     messages.push(
                         new Message(
                             MessageType.ERROR,
-                            `Needle length must be an integer`,
+                            t("Needle length must be an integer"),
                             getChildOfObject(widget, "needleLength")
                         )
                     );
@@ -121,7 +122,7 @@ export class LVGLLineWidget extends LVGLWidget {
                         messages.push(
                             new Message(
                                 MessageType.ERROR,
-                                `Value must be an integer`,
+                                t("Value must be an integer"),
                                 getChildOfObject(widget, "value")
                             )
                         );
@@ -138,9 +139,13 @@ export class LVGLLineWidget extends LVGLWidget {
                             messages.push(
                                 new Message(
                                     MessageType.ERROR,
-                                    `Invalid point value "${
-                                        valueStrs[i]
-                                    }" at position ${i + 1}`,
+                                    t(
+                                        'Invalid point value "{value}" at position {position}',
+                                        {
+                                            value: valueStrs[i],
+                                            position: i + 1
+                                        }
+                                    ),
                                     getChildOfObject(widget, "points")
                                 )
                             );
@@ -151,7 +156,7 @@ export class LVGLLineWidget extends LVGLWidget {
                         messages.push(
                             new Message(
                                 MessageType.ERROR,
-                                `The number of values ​​must be even`,
+                                t("The number of values must be even"),
                                 getChildOfObject(widget, "points")
                             )
                         );
@@ -273,7 +278,7 @@ export class LVGLLineWidget extends LVGLWidget {
                         "int32_t",
                         "new_val",
                         this.value as string,
-                        "Failed to evaluate Value in Line widget"
+                        t("Failed to evaluate Value in Line widget")
                     );
 
                     if (code.lvglBuild) {

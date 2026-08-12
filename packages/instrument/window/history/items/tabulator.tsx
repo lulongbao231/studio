@@ -17,6 +17,7 @@ import { logUpdate } from "instrument/window/history/activity-log";
 
 import type { IAppStore } from "instrument/window/history/history";
 import { HistoryItem } from "instrument/window/history/item";
+import { t } from "eez-studio-shared/i18n";
 
 import { HistoryItemInstrumentInfo } from "../HistoryItemInstrumentInfo";
 import { TABULATOR_ICON } from "project-editor/ui-components/icons";
@@ -172,10 +173,10 @@ export const TabulatorHistoryItemComponent = observer(
             const result = await dialog.showSaveDialog(getCurrentWindow(), {
                 filters: [
                     {
-                        name: "JSON Files",
+                        name: t("JSON Files"),
                         extensions: ["json"]
                     },
-                    { name: "All Files", extensions: ["*"] }
+                    { name: t("All Files"), extensions: ["*"] }
                 ],
                 defaultPath: "table.json"
             });
@@ -188,7 +189,7 @@ export const TabulatorHistoryItemComponent = observer(
 
                 try {
                     await writeTextFile(filePath, jsonStr);
-                    notification.success(`Exported to "${filePath}"`);
+                    notification.success(t('Exported to "{filePath}"', { filePath }));
                 } catch (err) {
                     console.error(err);
                     notification.error(err.toString());
@@ -207,10 +208,10 @@ export const TabulatorHistoryItemComponent = observer(
             const result = await dialog.showOpenDialog(getCurrentWindow(), {
                 filters: [
                     {
-                        name: "JSON Files",
+                        name: t("JSON Files"),
                         extensions: ["json"]
                     },
-                    { name: "All Files", extensions: ["*"] }
+                    { name: t("All Files"), extensions: ["*"] }
                 ]
             });
 
@@ -228,7 +229,7 @@ export const TabulatorHistoryItemComponent = observer(
                         json.persistance
                     );
 
-                    notification.success(`Imported from "${filePath}"`);
+                    notification.success(t('Imported from "{filePath}"', { filePath }));
                 } catch (err) {
                     console.error(err);
                     notification.error(err.toString());
@@ -245,7 +246,7 @@ export const TabulatorHistoryItemComponent = observer(
                 <Toolbar>
                     <IconAction
                         icon="material:save"
-                        title="Save as CSV file"
+                        title={t("Save as CSV file")}
                         onClick={this.onExportCSV}
                         overlayText={"CSV"}
                         enabled={!this.actionInProgress}
@@ -253,7 +254,7 @@ export const TabulatorHistoryItemComponent = observer(
 
                     <IconAction
                         icon="material:file_download"
-                        title="Export to JSON file"
+                        title={t("Export to JSON file")}
                         onClick={this.onExportJSON}
                         overlayText={"JSON"}
                         style={{ marginLeft: 10 }}
@@ -262,7 +263,7 @@ export const TabulatorHistoryItemComponent = observer(
 
                     <IconAction
                         icon="material:file_upload"
-                        title="Import from JSON file"
+                        title={t("Import from JSON file")}
                         onClick={this.onImportJSON}
                         overlayText={"JSON"}
                         style={{ marginLeft: 5 }}

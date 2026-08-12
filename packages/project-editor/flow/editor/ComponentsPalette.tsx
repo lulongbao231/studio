@@ -46,6 +46,7 @@ import {
     getComponentGroupDisplayName
 } from "project-editor/flow/components/components-registry";
 import { Point } from "eez-studio-shared/geometry";
+import { t } from "eez-studio-shared/i18n";
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -100,9 +101,11 @@ const SelectComponentDialog = observer(
                         open={this.open}
                         modal={true}
                         backdrop="static"
-                        title={`Add ${
-                            this.props.type == "actions" ? "Action" : "Widget"
-                        }`}
+                        title={
+                            this.props.type == "actions"
+                                ? t("Add Action")
+                                : t("Add Widget")
+                        }
                         onCancel={this.props.onCancel}
                     >
                         <ComponentsPalette1
@@ -159,7 +162,10 @@ export function newComponentMenuItem(
 
             menuItems.unshift(
                 new MenuItem({
-                    label: `Add ${type == "actions" ? "Action" : "Widget"}...`,
+                    label:
+                        type == "actions"
+                            ? t("Add Action...")
+                            : t("Add Widget..."),
                     click: async () => {
                         const projectStore =
                             ProjectEditor.getProjectStore(object);

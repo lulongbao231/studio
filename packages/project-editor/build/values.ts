@@ -29,6 +29,7 @@ import {
 } from "project-editor/build/value-types";
 import { Project } from "project-editor/project/project";
 import { isArray } from "eez-studio-shared/util";
+import { t } from "eez-studio-shared/i18n";
 import type { UserProperty } from "project-editor/flow/user-property";
 
 export interface FlowValue {
@@ -81,7 +82,7 @@ function getVariableFlowValue(
         assets.projectStore.outputSectionsStore.write(
             Section.OUTPUT,
             MessageType.ERROR,
-            "Variable type not set",
+            t("Variable type not set"),
             variable
         );
         type = FLOW_VALUE_TYPE_UNDEFINED;

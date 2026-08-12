@@ -7,6 +7,9 @@ import { QueueTask, RuntimeBase } from "project-editor/flow/runtime/runtime";
 import { IconAction } from "eez-studio-ui/action";
 import { DebugInfoRuntime } from "project-editor/flow//runtime/debug-info-runtime";
 import { getQueueTaskLabel } from "project-editor/flow/debugger/logs";
+
+import { t } from "eez-studio-shared/i18n";
+
 import { isLVGLProject } from "project-editor/project/project-type-traits";
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -27,12 +30,16 @@ export const QueuePanel = observer(
                                 this.props.runtime.projectStore.project
                             )
                                 ? this.props.runtime.totalMemory != 0
-                                    ? `Memory usage: ${memAlloc}`
+                                    ? t("Memory usage: {memAlloc}", { memAlloc })
                                     : ""
                                 : this.props.runtime.totalMemory != 0
-                                  ? `Memory usage: ${memAlloc} of ${memTotal} (${Math.round(
-                                        (memAlloc * 100) / memTotal
-                                    )}%)`
+                                  ? t("Memory usage: {memAlloc} of {memTotal} ({percentage}%)", {
+                                        memAlloc,
+                                        memTotal: this.props.runtime.totalMemory,
+                                        percentage: Math.round(
+                                            (memAlloc * 100) / this.props.runtime.totalMemory
+                                        )
+                                    })
                                   : ""
                         }
                         buttons={
@@ -47,7 +54,7 @@ export const QueuePanel = observer(
                                               </svg>
                                           }
                                           iconSize={16}
-                                          title="Resume (F5)"
+                                          title={t("Resume (F5)")}
                                           onClick={() =>
                                               this.props.runtime.resume()
                                           }
@@ -64,7 +71,7 @@ export const QueuePanel = observer(
                                               </svg>
                                           }
                                           iconSize={16}
-                                          title="Pause (F6)"
+                                          title={t("Pause (F6)")}
                                           onClick={() =>
                                               this.props.runtime.pause()
                                           }
@@ -82,7 +89,7 @@ export const QueuePanel = observer(
                                           }
                                           iconSize={18}
                                           style={{ marginTop: 4 }}
-                                          title="Step over (F10)"
+                                          title={t("Step over (F10)")}
                                           onClick={() => {
                                               this.props.runtime.runSingleStep(
                                                   "step-over"
@@ -104,7 +111,7 @@ export const QueuePanel = observer(
                                           }
                                           iconSize={18}
                                           style={{ marginTop: 4 }}
-                                          title="Step into (F11)"
+                                          title={t("Step into (F11)")}
                                           onClick={() => {
                                               this.props.runtime.runSingleStep(
                                                   "step-into"
@@ -126,7 +133,7 @@ export const QueuePanel = observer(
                                           }
                                           iconSize={18}
                                           style={{ marginTop: 4 }}
-                                          title="Step out (Shift + F11)"
+                                          title={t("Step out (Shift + F11)")}
                                           onClick={() => {
                                               this.props.runtime.runSingleStep(
                                                   "step-out"

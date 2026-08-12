@@ -5,6 +5,7 @@ import classNames from "classnames";
 import { Loader } from "eez-studio-ui/loader";
 
 import { List } from "instrument/bb3/objects/List";
+import { t } from "eez-studio-shared/i18n";
 
 export const ListActions = observer(({ list }: { list: List }) => {
     if (!list.bb3Instrument.instrument.isConnected) {
@@ -28,9 +29,9 @@ export const ListActions = observer(({ list }: { list: List }) => {
                     })}
                     onClick={list.download}
                     disabled={list.bb3Instrument.busy}
-                    title="Download from Instrument"
+                    title={t("Download from Instrument")}
                 >
-                    Dowload
+                    {t("Dowload")}
                 </button>
             )}
             {list.canUpload && (
@@ -44,9 +45,9 @@ export const ListActions = observer(({ list }: { list: List }) => {
                     })}
                     onClick={list.upload}
                     disabled={list.bb3Instrument.busy}
-                    title="Upload to Instrument"
+                    title={t("Upload to Instrument")}
                 >
-                    Upload
+                    {t("Upload")}
                 </button>
             )}
             {list.canUpload && (
@@ -54,9 +55,9 @@ export const ListActions = observer(({ list }: { list: List }) => {
                     className="btn btn-sm btn-secondary"
                     onClick={list.edit}
                     disabled={false}
-                    title="Edit list in Studio"
+                    title={t("Edit list in Studio")}
                 >
-                    Edit
+                    {t("Edit")}
                 </button>
             )}
         </div>

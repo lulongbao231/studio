@@ -6,6 +6,7 @@ import { FSWatcher, watch } from "chokidar";
 import * as notification from "eez-studio-ui/notification";
 
 import { sourceRootDir } from "eez-studio-shared/util";
+import { t, getCurrentLocale, isChineseLocale } from "eez-studio-shared/i18n";
 
 import { ComponentInfo, ParentComponentInfo } from "./component-info";
 import { getModel } from "./model";
@@ -274,10 +275,19 @@ export async function doReadMarkdown(
     };
 }
 
+// 组件文档 markdown 的语言目录（en-US / zh-CN）。中文界面读取 help/zh-CN 下的中文文档，
+// 其余语言回退到英文文档。H1/H2 标题（DESCRIPTION/PROPERTIES/... 及属性名）是解析与查找键，
+// 因此中文文档中标题保持英文，仅正文为中文。
+export function getHelpComponentsDir() {
+    return `${sourceRootDir()}/../help/${
+        isChineseLocale(getCurrentLocale()) ? "zh-CN" : "en-US"
+    }/components`;
+}
+
 export async function readMarkdown(
     componentInfo: ComponentInfo
 ): Promise<MarkdownData | undefined> {
-    const filePathPrefix = `${sourceRootDir()}/../help/en-US/components/${
+    const filePathPrefix = `${getHelpComponentsDir()}/${
         componentInfo.type
     }s/${componentInfo.name}`;
 
@@ -287,7 +297,7 @@ export async function readMarkdown(
 export async function readParentMarkdown(
     className: string
 ): Promise<MarkdownData | undefined> {
-    const filePathPrefix = `${sourceRootDir()}/../help/en-US/components/${className}`;
+    const filePathPrefix = `${getHelpComponentsDir()}/${className}`;
     return doReadMarkdown(resolve(`${filePathPrefix}.md`));
 }
 
@@ -433,7 +443,7 @@ async function generateMarkdownFiles(componentInfo: ComponentInfo) {
             "utf8"
         );
     } catch (e) {
-        notification.error("Error writing common markdown file");
+        notification.error(t("Error writing common markdown file"));
     }
 }
 
@@ -487,7 +497,7 @@ async function generateParentMarkdownFiles(
             "utf8"
         );
     } catch (e) {
-        notification.error("Error writing common markdown file");
+        notification.error(t("Error writing common markdown file"));
     }
 }
 
@@ -503,7 +513,9 @@ export async function generateMarkdownFilesForAllComponents() {
         try {
             await generateMarkdownFiles(componentInfo);
         } catch (err) {
-            notification.error(`Failed for: ${componentInfo.name}`);
+            notification.error(
+                t("Failed for: {name}", { name: componentInfo.name })
+            );
             return;
         }
     }

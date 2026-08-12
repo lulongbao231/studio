@@ -11,6 +11,7 @@ import { ComponentInfo } from "./component-info";
 import { getModel } from "./model";
 import { ComponentContent } from "./components/ComponentContent";
 import { sourceRootDir } from "eez-studio-shared/util";
+import { t } from "eez-studio-shared/i18n";
 
 async function generateHTMLFile(
     componentInfo: ComponentInfo,
@@ -64,7 +65,7 @@ ${div.innerHTML}
 }
 
 export async function generateHTMLFilesForAllComponents() {
-    const progressToastId = notification.info("Start...", {
+    const progressToastId = notification.info(t("Start..."), {
         autoClose: false
     });
 
@@ -89,13 +90,18 @@ export async function generateHTMLFilesForAllComponents() {
                 type: notification.INFO
             });
         } catch (err) {
-            notification.error(`Failed for ${componentInfo.name}: ${err}`);
+            notification.error(
+                t("Failed for {name}: {error}", {
+                    name: componentInfo.name,
+                    error: String(err)
+                })
+            );
             return;
         }
     }
 
     notification.update(progressToastId, {
-        render: `Copying images folder...`,
+        render: t("Copying images folder..."),
         type: notification.INFO
     });
 

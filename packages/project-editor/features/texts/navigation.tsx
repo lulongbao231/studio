@@ -5,6 +5,8 @@ import { observer } from "mobx-react";
 import { readTextFile, writeTextFile } from "eez-studio-shared/util-electron";
 import { validators } from "eez-studio-shared/validation";
 
+import { t } from "eez-studio-shared/i18n";
+
 import * as notification from "eez-studio-ui/notification";
 import { ListNavigation } from "project-editor/ui-components/ListNavigation";
 import { FlexLayoutContainer } from "eez-studio-ui/FlexLayout";
@@ -27,7 +29,7 @@ export const TextsTab = observer(
         export = () => {
             showGenericDialog({
                 dialogDefinition: {
-                    title: "Export to XLIFF",
+                    title: t("Export to XLIFF"),
                     fields: [
                         {
                             name: "filePath",
@@ -36,10 +38,10 @@ export const TextsTab = observer(
                             options: {
                                 filters: [
                                     {
-                                        name: "XLIFF files",
+                                        name: t("XLIFF files"),
                                         extensions: ["xliff", "xlf"]
                                     },
-                                    { name: "All Files", extensions: ["*"] }
+                                    { name: t("All Files"), extensions: ["*"] }
                                 ]
                             }
                         },
@@ -77,7 +79,7 @@ export const TextsTab = observer(
                         },
                         {
                             name: "xliffVersion",
-                            displayName: "XLIFF file format version",
+                            displayName: t("XLIFF file format version"),
                             type: "enum",
                             enumItems: [
                                 { id: "1.2", label: "1.2" },
@@ -88,7 +90,7 @@ export const TextsTab = observer(
                     ]
                 },
 
-                okButtonText: "Export",
+                okButtonText: t("Export"),
 
                 values: {
                     sourceLanguage:
@@ -157,7 +159,7 @@ export const TextsTab = observer(
                                 }
 
                                 await writeTextFile(filePath, res);
-                                notification.info("File saved!");
+                                notification.info(t("File saved!"));
                             } catch (err) {
                                 notification.error(err.toString());
                             }
@@ -170,7 +172,7 @@ export const TextsTab = observer(
         import = () => {
             showGenericDialog({
                 dialogDefinition: {
-                    title: "Import from XLIFF",
+                    title: t("Import from XLIFF"),
                     fields: [
                         {
                             name: "filePath",
@@ -179,16 +181,16 @@ export const TextsTab = observer(
                             options: {
                                 filters: [
                                     {
-                                        name: "XLIFF files",
+                                        name: t("XLIFF files"),
                                         extensions: ["xliff", "xlf"]
                                     },
-                                    { name: "All Files", extensions: ["*"] }
+                                    { name: t("All Files"), extensions: ["*"] }
                                 ]
                             }
                         },
                         {
                             name: "targetLanguage",
-                            displayName: "Import into language",
+                            displayName: t("Import into language"),
                             type: "enum",
                             enumItems: (values: any) =>
                                 this.context.project.texts.languages.map(
@@ -204,7 +206,7 @@ export const TextsTab = observer(
 
                 values: {},
 
-                okButtonText: "Import"
+                okButtonText: t("Import")
             })
                 .then(async result => {
                     try {
@@ -252,7 +254,14 @@ export const TextsTab = observer(
                             this.context.undoManager.setCombineCommands(false);
 
                             notification.info(
-                                `Updated ${updated} translation(s) in language ${result.values.targetLanguage}`
+                                t(
+                                    "Updated {updated} translation(s) in language {language}",
+                                    {
+                                        updated,
+                                        language:
+                                            result.values.targetLanguage
+                                    }
+                                )
                             );
                         };
 
@@ -303,14 +312,14 @@ export const TextsTab = observer(
                                 ? [
                                       <TextAction
                                           key="export"
-                                          text="Export"
-                                          title="Export to XLIFF"
+                                          text={t("Export")}
+                                          title={t("Export to XLIFF")}
                                           onClick={this.export}
                                       />,
                                       <TextAction
                                           key="import"
-                                          text="Import"
-                                          title="Import from XLIFF"
+                                          text={t("Import")}
+                                          title={t("Import from XLIFF")}
                                           onClick={this.import}
                                       />
                                   ]
@@ -374,23 +383,23 @@ export const Statistics = observer(
             return (
                 <div className="EezStudio_TextsStatistics">
                     <LabelWithProgress
-                        label="Progress"
+                        label={t("Progress")}
                         progress={this.progress}
                     />
                     <LabelWithInfo
-                        label="Available languages"
+                        label={t("Available languages")}
                         info={this.context.project.texts.languages.length}
                     />
                     <LabelWithInfo
-                        label="Available text resources"
+                        label={t("Available text resources")}
                         info={this.context.project.texts.resources.length}
                     />
                     <LabelWithInfo
-                        label="Total strings"
+                        label={t("Total strings")}
                         info={this.totalStrings}
                     />
                     <LabelWithInfo
-                        label="No. translations"
+                        label={t("No. translations")}
                         info={this.numTranslated}
                     />
                 </div>

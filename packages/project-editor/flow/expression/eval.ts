@@ -1,5 +1,8 @@
 import type { Component } from "project-editor/flow/component";
 import type { Project } from "project-editor/project/project";
+
+import { t } from "eez-studio-shared/i18n";
+
 import type {
     ExpressionNode,
     NonComputedPropertyExpressionNode
@@ -260,7 +263,7 @@ function evalConstantExpressionNode(
                 node.callee.object.type != "Identifier" ||
                 node.callee.property.type != "Identifier"
             ) {
-                throw "Invalid call expression";
+                throw t("Invalid call expression");
             }
 
             let functionName = `${node.callee.object.name}.${node.callee.property.name}`;
@@ -432,7 +435,7 @@ function evalExpressionWithContext(
                 node.callee.object.type != "Identifier" ||
                 node.callee.property.type != "Identifier"
             ) {
-                throw "Invalid call expression";
+                throw t("Invalid call expression");
             }
 
             let functionName = `${node.callee.object.name}.${node.callee.property.name}`;

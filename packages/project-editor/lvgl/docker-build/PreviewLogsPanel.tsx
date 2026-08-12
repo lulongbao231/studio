@@ -1,4 +1,5 @@
 import React from "react";
+import { t } from "eez-studio-shared/i18n";
 import { observer } from "mobx-react";
 
 import { IconAction } from "eez-studio-ui/action";
@@ -54,7 +55,7 @@ export const PreviewLogsPanel = observer(
                         <div className="actions">
                             <IconAction
                                 icon="material:clear_all"
-                                title="Clear logs"
+                                title={t("Clear logs")}
                                 onClick={this.handleClear}
                             />
                         </div>
@@ -81,7 +82,7 @@ export const PreviewLogsPanel = observer(
                         ))}
                         {projectState.previewLogs.length === 0 && (
                             <div className="EezStudio_PreviewLogsPanel_Empty">
-                                No logs yet.
+                                {t("No logs yet.")}
                             </div>
                         )}
                     </div>

@@ -2,6 +2,7 @@ import React from "react";
 import { observer } from "mobx-react";
 
 import { Loader } from "eez-studio-ui/loader";
+import { t } from "eez-studio-shared/i18n";
 
 import { Script } from "instrument/bb3/objects/Script";
 
@@ -22,7 +23,7 @@ export const ScriptActions = observer(({ script }: { script: Script }) => {
                     onClick={script.install}
                     disabled={script.bb3Instrument.busy}
                 >
-                    Install
+                    {t("Install")}
                 </button>
             )}
             {script.canUninstall && (
@@ -31,7 +32,7 @@ export const ScriptActions = observer(({ script }: { script: Script }) => {
                     onClick={script.uninstall}
                     disabled={script.bb3Instrument.busy}
                 >
-                    Uninstall
+                    {t("Uninstall")}
                 </button>
             )}
             {script.canUpdate && (
@@ -40,7 +41,7 @@ export const ScriptActions = observer(({ script }: { script: Script }) => {
                     onClick={script.update}
                     disabled={script.bb3Instrument.busy}
                 >
-                    Update
+                    {t("Update")}
                 </button>
             )}
             {script.canReplace && (
@@ -49,7 +50,7 @@ export const ScriptActions = observer(({ script }: { script: Script }) => {
                     onClick={script.replace}
                     disabled={script.bb3Instrument.busy}
                 >
-                    Replace
+                    {t("Replace")}
                 </button>
             )}
         </div>

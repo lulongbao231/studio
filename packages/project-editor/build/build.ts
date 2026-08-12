@@ -7,6 +7,7 @@ import {
     writeBinaryData as originalWriteBinaryData,
     makeFolder
 } from "eez-studio-shared/util-electron";
+import { t } from "eez-studio-shared/i18n";
 
 import type { BuildResult } from "project-editor/store/features";
 import {
@@ -195,7 +196,7 @@ async function deleteOrphanedFiles(
             outputSectionsStore.write(
                 Section.OUTPUT,
                 MessageType.INFO,
-                `Deleted orphaned file: ${relativePath}`
+                t("Deleted orphaned file: {path}", { path: relativePath })
             );
         } catch (err) {
             // Ignore errors (file might already be deleted)
@@ -210,27 +211,31 @@ function showCheckResult(projectStore: ProjectStore) {
 
     let outputSection = OutputSections.getSection(Section.OUTPUT);
 
-    let checkResultMassage: string;
+    const numErrors = outputSection.numErrors;
+    const numWarnings = outputSection.numWarnings;
 
-    if (outputSection.numErrors == 0) {
-        checkResultMassage = "No error";
-    } else if (outputSection.numErrors == 1) {
-        checkResultMassage = "1 error";
+    let errorsStr: string;
+    if (numErrors == 0) {
+        errorsStr = t("No error");
+    } else if (numErrors == 1) {
+        errorsStr = t("1 error");
     } else {
-        checkResultMassage = `${outputSection.numErrors} errors`;
+        errorsStr = t("{count} errors", { count: numErrors });
     }
 
-    checkResultMassage += " and";
-
-    if (outputSection.numWarnings == 0) {
-        checkResultMassage += " no warning";
-    } else if (outputSection.numWarnings == 1) {
-        checkResultMassage += " 1 warning";
+    let warningsStr: string;
+    if (numWarnings == 0) {
+        warningsStr = t("no warning");
+    } else if (numWarnings == 1) {
+        warningsStr = t("1 warning");
     } else {
-        checkResultMassage += ` ${outputSection.numWarnings} warnings`;
+        warningsStr = t("{count} warnings", { count: numWarnings });
     }
 
-    checkResultMassage += " detected";
+    const checkResultMassage = t("{errors} and {warnings} detected", {
+        errors: errorsStr,
+        warnings: warningsStr
+    });
 
     OutputSections.write(Section.OUTPUT, MessageType.INFO, checkResultMassage);
 }
@@ -341,7 +346,7 @@ async function generateFile(
             projectStore.outputSectionsStore.write(
                 Section.OUTPUT,
                 MessageType.INFO,
-                `File "${filePath}.map" built`
+                t('File "{path}.map" built', { path: filePath })
             );
         }
     }
@@ -349,7 +354,7 @@ async function generateFile(
     projectStore.outputSectionsStore.write(
         Section.OUTPUT,
         MessageType.INFO,
-        `File "${filePath}" built`
+        t('File "{path}" built', { path: filePath })
     );
 
     return parts;
@@ -469,7 +474,7 @@ export async function build(
         OutputSections.write(
             Section.OUTPUT,
             MessageType.INFO,
-            `Nothing to build!`
+            t("Nothing to build!")
         );
         return undefined;
     }
@@ -597,15 +602,17 @@ export async function build(
             OutputSections.write(
                 Section.OUTPUT,
                 MessageType.INFO,
-                `Build duration: ${
-                    (new Date().getTime() - timeStart) / 1000
-                } seconds`
+                t("Build duration: {seconds} seconds", {
+                    seconds: (new Date().getTime() - timeStart) / 1000
+                })
             );
 
             OutputSections.write(
                 Section.OUTPUT,
                 MessageType.INFO,
-                `Build successfully finished at ${new Date().toLocaleString()}`
+                t("Build successfully finished at {time}", {
+                    time: new Date().toLocaleString()
+                })
             );
 
             return parts;
@@ -710,15 +717,17 @@ export async function build(
         OutputSections.write(
             Section.OUTPUT,
             MessageType.INFO,
-            `Build duration: ${
-                (new Date().getTime() - timeStart) / 1000
-            } seconds`
+            t("Build duration: {seconds} seconds", {
+                seconds: (new Date().getTime() - timeStart) / 1000
+            })
         );
 
         OutputSections.write(
             Section.OUTPUT,
             MessageType.INFO,
-            `Build successfully finished at ${new Date().toLocaleString()}`
+            t("Build successfully finished at {time}", {
+                time: new Date().toLocaleString()
+            })
         );
 
         // Save build manifest and delete orphaned files
@@ -753,7 +762,7 @@ export async function build(
             OutputSections.write(
                 Section.OUTPUT,
                 MessageType.ERROR,
-                `Module build error: ${err}`
+                t("Module build error: {err}", { err })
             );
         }
 
@@ -776,7 +785,7 @@ export async function buildExtensions(projectStore: ProjectStore) {
         OutputSections.write(
             Section.OUTPUT,
             MessageType.INFO,
-            `Nothing to build!`
+            t("Nothing to build!")
         );
         return [];
     }
@@ -795,25 +804,27 @@ export async function buildExtensions(projectStore: ProjectStore) {
             project.settings.build.destinationFolder || "."
         );
         if (!fs.existsSync(destinationFolderPath)) {
-            throw new BuildException("Cannot find destination folder.");
+            throw new BuildException(t("Cannot find destination folder."));
         }
 
         showCheckResult(projectStore);
 
         extensionFilePaths = await extensionDefinitionBuild(projectStore);
 
+        const buildDuration = (new Date().getTime() - timeStart) / 1000;
+
         OutputSections.write(
             Section.OUTPUT,
             MessageType.INFO,
-            `Build duration: ${
-                (new Date().getTime() - timeStart) / 1000
-            } seconds`
+            t("Build duration: {seconds} seconds", { seconds: buildDuration })
         );
 
         OutputSections.write(
             Section.OUTPUT,
             MessageType.INFO,
-            `Build successfully finished at ${new Date().toLocaleString()}`
+            t("Build successfully finished at {time}", {
+                time: new Date().toLocaleString()
+            })
         );
     } catch (err) {
         console.error(err);
@@ -829,7 +840,7 @@ export async function buildExtensions(projectStore: ProjectStore) {
             OutputSections.write(
                 Section.OUTPUT,
                 MessageType.ERROR,
-                `Module build error: ${err}`
+                t("Module build error: {err}", { err })
             );
         }
 
