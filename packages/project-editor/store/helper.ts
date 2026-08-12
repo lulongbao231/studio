@@ -407,7 +407,7 @@ export function humanizePropertyName(object: IEezObject, propertyName: string) {
         }
         return property.displayName(object);
     }
-    return humanize(propertyName);
+    return t(humanize(propertyName));
 }
 
 export function getAncestorOfType<T extends EezObject = EezObject>(

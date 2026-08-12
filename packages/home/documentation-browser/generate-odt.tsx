@@ -440,7 +440,7 @@ async function generateODTFile(
     }${componentInfo.name}</text:h>
                     <text:list>
                         <text:list-item>
-                            <text:h text:style-name="Heading_20_2" text:outline-level="2">Description</text:h>
+                            <text:h text:style-name="Heading_20_2" text:outline-level="2">{t("Description")}</text:h>
                         </text:list-item>
                     </text:list>
                 </text:list-item>
@@ -541,7 +541,7 @@ async function generateODTFile(
                     <text:list-item>
                         <text:list>
                             <text:list-item>
-                                <text:h text:style-name="Heading_20_2" text:outline-level="2">Inputs</text:h>
+                                <text:h text:style-name="Heading_20_2" text:outline-level="2">{t("Inputs")}</text:h>
                             </text:list-item>
                         </text:list>
                     </text:list-item>
@@ -592,7 +592,7 @@ async function generateODTFile(
                     <text:list-item>
                         <text:list>
                             <text:list-item>
-                                <text:h text:style-name="Heading_20_2" text:outline-level="2">Outputs</text:h>
+                                <text:h text:style-name="Heading_20_2" text:outline-level="2">{t("Outputs")}</text:h>
                             </text:list-item>
                         </text:list>
                     </text:list-item>
@@ -647,7 +647,7 @@ async function generateODTFile(
                         <text:list-item>
                             <text:list>
                                 <text:list-item>
-                                    <text:h text:style-name="Heading_20_2" text:outline-level="2">Examples</text:h>
+                                    <text:h text:style-name="Heading_20_2" text:outline-level="2">{t("Examples")}</text:h>
                                 </text:list-item>
                             </text:list>
                         </text:list-item>

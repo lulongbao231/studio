@@ -1,6 +1,7 @@
 import { ImageMode, ImageModeUtil, OutputMode } from "./enums";
 import { buildPalette, utils, applyPalette } from "./image-q/image-q";
 import { round_half_up, str_pad, dechex } from "./helpers";
+import { t } from "eez-studio-shared/i18n";
 
 export interface ConverterOptions {
     dith?: boolean;
@@ -163,7 +164,7 @@ class Converter {
             this.imageData = [];
             outPointArray.forEach((point, arrayIndex) => {
                 const index = paletteColors.indexOf(point.uint32);
-                if (index == -1) throw new Error("Unknown color??");
+                if (index == -1) throw new Error(t("Unknown color??"));
                 (this.imageData as Array<number>).push(index);
             });
         }
@@ -304,7 +305,7 @@ const LV_ATTRIBUTE_MEM_ALIGN LV_ATTRIBUTE_LARGE_CONST ${$attr_name} uint8_t ` +
             case ImageMode.CF_INDEXED_8_BIT:
                 return "LV_IMG_" + ImageMode[$cf].replace("_BIT", "BIT");
             default:
-                throw new Error("unexpected color format " + $cf);
+                throw new Error(t("unexpected color format") + " " + $cf);
         }
     }
 
@@ -340,7 +341,7 @@ const LV_ATTRIBUTE_MEM_ALIGN LV_ATTRIBUTE_LARGE_CONST ${$attr_name} uint8_t ` +
                 data_size = this.raw_len;
                 break;
             default:
-                throw new Error("unexpected color format " + ImageMode[$cf]);
+                throw new Error(t("unexpected color format") + " " + ImageMode[$cf]);
         }
 
         var $c_footer;
@@ -737,7 +738,7 @@ const lv_img_dsc_t ${out_name} = {
             this.cf == ImageMode.CF_RGB565A8
         ) {
             /* No special handling required */
-        } else throw new Error("Unhandled color format: " + ImageMode[this.cf]);
+        } else throw new Error(t("Unhandled color format:") + " " + ImageMode[this.cf]);
 
         for (var y = 0; y < y_end; y++) {
             c_array += "\n  ";
@@ -876,7 +877,7 @@ const lv_img_dsc_t ${out_name} = {
                     i++;
                 } else
                     throw new Error(
-                        "Unhandled color format: " + ImageMode[this.cf]
+                        t("Unhandled color format:") + " " + ImageMode[this.cf]
                     );
             }
         }

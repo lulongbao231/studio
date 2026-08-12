@@ -293,6 +293,7 @@ export class Build extends EezObject {
         properties: [
             {
                 name: "configurations",
+                displayName: t("Configurations"),
                 type: PropertyType.Array,
                 typeClass: BuildConfiguration,
                 enumerable: object => !isLVGLProject(object),
@@ -301,6 +302,7 @@ export class Build extends EezObject {
             },
             {
                 name: "files",
+                displayName: t("Files"),
                 type: PropertyType.Array,
                 typeClass: BuildFile,
                 hideInPropertyGrid: true,
@@ -309,6 +311,7 @@ export class Build extends EezObject {
             },
             {
                 name: "destinationFolder",
+                displayName: t("Destination folder"),
                 type: PropertyType.RelativeFolder
             },
             {
@@ -320,6 +323,7 @@ export class Build extends EezObject {
             },
             {
                 name: "imageExportMode",
+                displayName: t("Image export mode"),
                 type: PropertyType.Enum,
                 enumItems: [
                     {
@@ -336,6 +340,7 @@ export class Build extends EezObject {
             },
             {
                 name: "fontExportMode",
+                displayName: t("Font export mode"),
                 type: PropertyType.Enum,
                 enumItems: [
                     {
@@ -352,6 +357,7 @@ export class Build extends EezObject {
             },
             {
                 name: "fileSystemPath",
+                displayName: t("File system path"),
                 type: PropertyType.String,
                 disabled: (object: Build) =>
                     isNotLVGLProject(object) ||
@@ -366,6 +372,7 @@ export class Build extends EezObject {
             },
             {
                 name: "screensLifetimeSupport",
+                displayName: t("Screens lifetime support"),
                 checkboxStyleSwitch: true,
                 type: PropertyType.Boolean,
                 disabled: isNotLVGLProject
@@ -390,6 +397,7 @@ export class Build extends EezObject {
             },
             {
                 name: "compressFlowDefinition",
+                displayName: t("Compress flow definition"),
                 type: PropertyType.Boolean,
                 checkboxStyleSwitch: true,
                 disabled: (object: Build) =>
@@ -399,6 +407,7 @@ export class Build extends EezObject {
             },
             {
                 name: "executionQueueSize",
+                displayName: t("Execution queue size"),
                 type: PropertyType.Number,
                 disabled: (object: Build) =>
                     isNotLVGLProject(object) ||
@@ -407,6 +416,7 @@ export class Build extends EezObject {
             },
             {
                 name: "expressionEvaluatorStackSize",
+                displayName: t("Expression evaluator stack size"),
                 type: PropertyType.Number,
                 disabled: (object: Build) =>
                     isNotLVGLProject(object) ||
@@ -826,39 +836,40 @@ export class General extends EezObject {
         properties: [
             {
                 name: "projectType",
+                displayName: t("Project type"),
                 type: PropertyType.Enum,
                 enumItems: [
                     {
                         id: ProjectType.UNDEFINED,
-                        label: PROJECT_TYPE_NAMES[ProjectType.UNDEFINED]
+                        label: t(PROJECT_TYPE_NAMES[ProjectType.UNDEFINED])
                     },
                     {
                         id: ProjectType.FIRMWARE,
-                        label: PROJECT_TYPE_NAMES[ProjectType.FIRMWARE]
+                        label: t(PROJECT_TYPE_NAMES[ProjectType.FIRMWARE])
                     },
                     {
                         id: ProjectType.FIRMWARE_MODULE,
-                        label: PROJECT_TYPE_NAMES[ProjectType.FIRMWARE_MODULE]
+                        label: t(PROJECT_TYPE_NAMES[ProjectType.FIRMWARE_MODULE])
                     },
                     {
                         id: ProjectType.RESOURCE,
-                        label: PROJECT_TYPE_NAMES[ProjectType.RESOURCE]
+                        label: t(PROJECT_TYPE_NAMES[ProjectType.RESOURCE])
                     },
                     {
                         id: ProjectType.APPLET,
-                        label: PROJECT_TYPE_NAMES[ProjectType.APPLET]
+                        label: t(PROJECT_TYPE_NAMES[ProjectType.APPLET])
                     },
                     {
                         id: ProjectType.DASHBOARD,
-                        label: PROJECT_TYPE_NAMES[ProjectType.DASHBOARD]
+                        label: t(PROJECT_TYPE_NAMES[ProjectType.DASHBOARD])
                     },
                     {
                         id: ProjectType.LVGL,
-                        label: PROJECT_TYPE_NAMES[ProjectType.LVGL]
+                        label: t(PROJECT_TYPE_NAMES[ProjectType.LVGL])
                     },
                     {
                         id: ProjectType.IEXT,
-                        label: PROJECT_TYPE_NAMES[ProjectType.IEXT]
+                        label: t(PROJECT_TYPE_NAMES[ProjectType.IEXT])
                     }
                 ],
                 readOnlyInPropertyGrid: (general: General) =>
@@ -890,6 +901,7 @@ export class General extends EezObject {
             },
             {
                 name: "commandsProtocol",
+                displayName: t("Commands protocol"),
                 type: PropertyType.Enum,
                 enumItems: [
                     { id: "SCPI", label: "SCPI" },
@@ -930,6 +942,7 @@ export class General extends EezObject {
             },
             {
                 name: "masterProject",
+                displayName: t("Master project"),
                 type: PropertyType.RelativeFile,
                 fileFilters: [
                     { name: t("EEZ Project"), extensions: ["eez-project"] },
@@ -958,6 +971,7 @@ export class General extends EezObject {
             },
             {
                 name: "imports",
+                displayName: t("Imports"),
                 type: PropertyType.Array,
                 typeClass: ImportDirective,
                 defaultValue: [],
@@ -978,6 +992,7 @@ export class General extends EezObject {
             */
             {
                 name: "displayWidth",
+                displayName: t("Display width"),
                 type: PropertyType.Number,
                 disabled: (general: General) =>
                     !ProjectEditor.getProject(general).projectTypeTraits
@@ -985,6 +1000,7 @@ export class General extends EezObject {
             },
             {
                 name: "displayHeight",
+                displayName: t("Display height"),
                 type: PropertyType.Number,
                 disabled: (general: General) =>
                     !ProjectEditor.getProject(general).projectTypeTraits
@@ -992,18 +1008,21 @@ export class General extends EezObject {
             },
             {
                 name: "circularDisplay",
+                displayName: t("Circular display"),
                 type: PropertyType.Boolean,
                 checkboxStyleSwitch: true,
                 disabled: isNotLVGLProject
             },
             {
                 name: "displayBorderRadius",
+                displayName: t("Display border radius"),
                 type: PropertyType.Number,
                 disabled: (general: General) =>
                     isNotLVGLProject(general) || general.circularDisplay
             },
             {
                 name: "darkTheme",
+                displayName: t("Dark theme"),
                 type: PropertyType.Boolean,
                 checkboxStyleSwitch: true,
                 disabled: isNotLVGLProject
@@ -1023,6 +1042,7 @@ export class General extends EezObject {
             },
             {
                 name: "bitmapColorFormat",
+                displayName: t("Bitmap color format"),
                 type: PropertyType.Enum,
                 enumItems: [
                     { id: "RGB", label: "RGB" },
@@ -1035,6 +1055,7 @@ export class General extends EezObject {
             },
             {
                 name: "flowSupport",
+                displayName: t("Flow support"),
                 type: PropertyType.Boolean,
                 checkboxStyleSwitch: true,
                 disabled: (general: General) => {
@@ -1047,6 +1068,7 @@ export class General extends EezObject {
             },
             {
                 name: "hiddenWidgetLines",
+                displayName: t("Hidden widget lines"),
                 type: PropertyType.Enum,
                 enumItems: [
                     { id: "visible", label: t("Fully visible") },
@@ -1099,17 +1121,20 @@ export class General extends EezObject {
             },
             {
                 name: "defaultStyleForUserWidgetInEditor",
+                displayName: t("Default style for user widget in editor"),
                 type: PropertyType.ObjectReference,
                 referencedObjectCollectionPath: "allStyles",
                 disabled: isLVGLProject
             },
             {
                 name: "title",
+                displayName: t("Title"),
                 type: PropertyType.String,
                 disabled: isNotDashboardProject
             },
             {
                 name: "icon",
+                displayName: t("Icon"),
                 type: PropertyType.Image,
                 embeddedImage: true,
                 disabled: isNotDashboardProject
@@ -1117,15 +1142,18 @@ export class General extends EezObject {
 
             {
                 name: "description",
+                displayName: t("Description"),
                 type: PropertyType.MultilineText
             },
             {
                 name: "image",
+                displayName: t("Image"),
                 type: PropertyType.Image,
                 embeddedImage: true
             },
             {
                 name: "keywords",
+                displayName: t("Keywords"),
                 type: PropertyType.String
             },
             {
@@ -1146,10 +1174,12 @@ export class General extends EezObject {
             },
             {
                 name: "author",
+                displayName: t("Author"),
                 type: PropertyType.String
             },
             {
                 name: "authorLink",
+                displayName: t("Author link"),
                 type: PropertyType.String
             },
             {

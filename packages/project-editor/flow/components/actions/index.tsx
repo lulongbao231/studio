@@ -542,7 +542,7 @@ export class WatchVariableActionComponent extends ActionComponent {
             },
             {
                 name: "variable",
-                displayName: "changed",
+                displayName: t("changed"),
                 type: "any" as ValueType,
                 isSequenceOutput: false,
                 isOptionalOutput: false

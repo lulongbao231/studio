@@ -9,6 +9,7 @@ import * as http from "http";
 import * as fs from "fs";
 import * as path from "path";
 import { AddressInfo } from "net";
+import { t } from "eez-studio-shared/i18n";
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -56,7 +57,7 @@ export class PreviewServer {
         return new Promise((resolve, reject) => {
             let timeout: any = setTimeout(() => {
                 timeout = undefined;
-                reject(new Error("Failed to start preview server"));
+                reject(new Error(t("Failed to start preview server")));
             }, 5000);  // 5 second timeout           
 
             this.server = http.createServer((req, res) => {

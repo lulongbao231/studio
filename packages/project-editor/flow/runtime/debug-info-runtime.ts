@@ -14,6 +14,7 @@ import {
 import type { IFlowContext } from "project-editor/flow/flow-interfaces";
 import type { ValueType } from "eez-studio-types";
 import { getProperty } from "project-editor/core/object";
+import { t } from "eez-studio-shared/i18n";
 
 export class DebugInfoRuntime extends RuntimeBase {
     pumpTimeoutId: any;
@@ -27,7 +28,7 @@ export class DebugInfoRuntime extends RuntimeBase {
         const response = await fetch(filePath);
 
         if (!response.ok) {
-            throw new Error("File read error " + response.status);
+            throw new Error(t("File read error") + " " + response.status);
         }
 
         const decompress = require("decompress");
