@@ -133,6 +133,34 @@ interface IProjectType {
 const EEZ_PROJECT_TEMPLATES_BASE_URL =
     "https://raw.githubusercontent.com/eez-open/eez-project-templates/master/";
 
+// 【定制】示例页面只显示以下示例（按 catalog 的 projectName 精确匹配）。
+// 恢复显示全部：清空数组为 [] 即可。
+const EXAMPLES_PROJECT_NAMES_FILTER = [
+    "Arc",
+    "Calculator",
+    "Change Screen",
+    "LVGL Widgets Demo",
+    "Meter",
+    "QR Code",
+    "Scale",
+    "Smart Home",
+    "Smart Home (LVGL 9.x)",
+    "Smart Home Low Res",
+    "Spinbox",
+    "Styled Tabview",
+    "Tabview"
+];
+
+// 【定制】创建页面只显示白名单内的模板（按模板 id 匹配）。
+// 只保留 LVGL 这一个内置模板；BB3 与 gitea 在线模板因 id 不匹配被过滤。
+// 恢复显示全部：清空数组为 [] 即可。
+const CREATE_PROJECT_TYPES_FILTER = ["LVGL"];
+
+// 【定制】是否拉取并显示 gitea 在线模板（envox.eu）。
+// 此处关闭：创建页白名单只含内置 id，gitea 模板（id 为 clone URL）永远被过滤，
+// 拉取纯属浪费网络请求（离线环境尤其明显）。恢复拉取：改为 true。
+const SHOW_GITEA_TEMPLATES = false;
+
 // Helper function to convert GitHub URL to local path if local templates are enabled
 function getTemplatePathOrUrl(relativePath: string): string {
     if (
@@ -506,7 +534,8 @@ export class WizardModel {
             this.searchText = "";
         });
 
-        if (this.section == "templates") {
+        // 【定制】默认不拉取 gitea 在线模板（见 SHOW_GITEA_TEMPLATES）。
+        if (this.section == "templates" && SHOW_GITEA_TEMPLATES) {
             this.fetchTemplateProjects();
         }
 
@@ -563,6 +592,14 @@ export class WizardModel {
                         packageJSON.version,
                         example.minStudioVersion
                     ) >= 0
+            )
+            // 【定制】示例页按名称白名单过滤（见 EXAMPLES_PROJECT_NAMES_FILTER）。
+            .filter(
+                example =>
+                    EXAMPLES_PROJECT_NAMES_FILTER.length === 0 ||
+                    EXAMPLES_PROJECT_NAMES_FILTER.includes(
+                        example.projectName
+                    )
             )
             .sort((a, b) => stringCompare(a.projectName, b.projectName));
 
@@ -843,7 +880,7 @@ export class WizardModel {
                     "templates/eez-gui-lite.eez-project"
                 )
             }
-        ].filter(projectType => this.searchFilter(projectType));
+        ].filter(projectType => this.isProjectTypeVisible(projectType));
     }
 
     get bb3ProjectTypes(): IProjectType[] {
@@ -872,7 +909,7 @@ export class WizardModel {
                     "templates/resource.eez-project"
                 )
             }
-        ].filter(projectType => this.searchFilter(projectType));
+        ].filter(projectType => this.isProjectTypeVisible(projectType));
     }
 
     get templateProjectTypes(): IProjectType[] {
@@ -896,7 +933,7 @@ export class WizardModel {
                 targetPlatform: templateProject._targetPlatform,
                 targetPlatformLink: templateProject._targetPlatformLink
             }))
-            .filter(projectType => this.searchFilter(projectType));
+            .filter(projectType => this.isProjectTypeVisible(projectType));
     }
 
     get allTemplateProjectTypes(): IProjectType[] {
@@ -1885,6 +1922,15 @@ export class WizardModel {
         }
 
         return this.selectedProjectType?.repository;
+    }
+
+    // 【定制】创建页模板可见性：搜索过滤 + 白名单过滤（见 CREATE_PROJECT_TYPES_FILTER）。
+    isProjectTypeVisible(projectType: IProjectType) {
+        return (
+            this.searchFilter(projectType) &&
+            (CREATE_PROJECT_TYPES_FILTER.length === 0 ||
+                CREATE_PROJECT_TYPES_FILTER.includes(projectType.id))
+        );
     }
 
     searchFilter(projectType: IProjectType) {

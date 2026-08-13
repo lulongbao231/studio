@@ -10,10 +10,9 @@ import {
 } from "electron";
 import { autorun, runInAction } from "mobx";
 
-import {
-    importInstrumentDefinitionFile,
-    openHomeWindow
-} from "main/home-window";
+// 【定制】隐藏「导入仪器定义」菜单项，移除其引用的 import（恢复时取消注释并还原共享 import）。
+// import { importInstrumentDefinitionFile } from "main/home-window";
+import { openHomeWindow } from "main/home-window";
 import {
     IWindow,
     setForceQuit,
@@ -113,9 +112,10 @@ function createNewProject() {
     BrowserWindow.getFocusedWindow()!.webContents.send("new-project");
 }
 
-function addInstrument() {
-    BrowserWindow.getFocusedWindow()!.webContents.send("add-instrument");
-}
+// 【定制】「添加仪器」菜单项的辅助函数，随菜单一并隐藏（恢复时取消注释并还原 Add Instrument 菜单项）。
+// function addInstrument() {
+//     BrowserWindow.getFocusedWindow()!.webContents.send("add-instrument");
+// }
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -182,13 +182,14 @@ function buildFileMenu(win: IWindow | undefined) {
                 createNewProject();
             }
         },
-        {
-            label: t("Add Instrument..."),
-            accelerator: "CmdOrCtrl+Alt+N",
-            click: function (item, focusedWindow) {
-                addInstrument();
-            }
-        },
+        //【定制】隐藏「文件」菜单项：Add Instrument...（恢复时取消本注释及 addInstrument 函数）
+        // {
+        //     label: t("Add Instrument..."),
+        //     accelerator: "CmdOrCtrl+Alt+N",
+        //     click: function (item, focusedWindow) {
+        //         addInstrument();
+        //     }
+        // },
         {
             label: t("New Window"),
             accelerator: "CmdOrCtrl+Shift+N",
@@ -302,30 +303,31 @@ function buildFileMenu(win: IWindow | undefined) {
         }
     }
 
-    fileMenuSubmenu.push(
-        {
-            type: "separator"
-        },
-        {
-            label: t("Import Instrument Definition..."),
-            click: async function (item: any, focusedWindow: any) {
-                const result = await dialog.showOpenDialog(focusedWindow, {
-                    properties: ["openFile"],
-                    filters: [
-                        {
-                            name: t("Instrument Definition Files"),
-                            extensions: ["zip"]
-                        },
-                        { name: t("All Files"), extensions: ["*"] }
-                    ]
-                });
-                const filePaths = result.filePaths;
-                if (filePaths && filePaths[0]) {
-                    importInstrumentDefinitionFile(filePaths[0]);
-                }
-            }
-        }
-    );
+    //【定制】隐藏「文件」菜单项：Import Instrument Definition...（恢复时取消本注释并还原 import）
+    // fileMenuSubmenu.push(
+    //     {
+    //         type: "separator"
+    //     },
+    //     {
+    //         label: t("Import Instrument Definition..."),
+    //         click: async function (item: any, focusedWindow: any) {
+    //             const result = await dialog.showOpenDialog(focusedWindow, {
+    //                 properties: ["openFile"],
+    //                 filters: [
+    //                     {
+    //                         name: t("Instrument Definition Files"),
+    //                         extensions: ["zip"]
+    //                     },
+    //                     { name: t("All Files"), extensions: ["*"] }
+    //                 ]
+    //             });
+    //             const filePaths = result.filePaths;
+    //             if (filePaths && filePaths[0]) {
+    //                 importInstrumentDefinitionFile(filePaths[0]);
+    //             }
+    //         }
+    //     }
+    // );
 
     if (win?.activeTabType === "project") {
         fileMenuSubmenu.push(
@@ -375,28 +377,29 @@ function buildFileMenu(win: IWindow | undefined) {
             }
         );
 
-        if (win.state.hasExtensionDefinitions) {
-            fileMenuSubmenu.push(
-                {
-                    label: t("Build Extensions"),
-                    click: function (item: any, focusedWindow: any) {
-                        if (focusedWindow) {
-                            focusedWindow.webContents.send("build-extensions");
-                        }
-                    }
-                },
-                {
-                    label: t("Build and Install Extensions"),
-                    click: function (item: any, focusedWindow: any) {
-                        if (focusedWindow) {
-                            focusedWindow.webContents.send(
-                                "build-and-install-extensions"
-                            );
-                        }
-                    }
-                }
-            );
-        }
+        //【定制】隐藏「文件」菜单项：Build Extensions / Build and Install Extensions（恢复时取消本注释）
+        // if (win.state.hasExtensionDefinitions) {
+        //     fileMenuSubmenu.push(
+        //         {
+        //             label: t("Build Extensions"),
+        //             click: function (item: any, focusedWindow: any) {
+        //                 if (focusedWindow) {
+        //                     focusedWindow.webContents.send("build-extensions");
+        //                 }
+        //             }
+        //         },
+        //         {
+        //             label: t("Build and Install Extensions"),
+        //             click: function (item: any, focusedWindow: any) {
+        //                 if (focusedWindow) {
+        //                     focusedWindow.webContents.send(
+        //                         "build-and-install-extensions"
+        //                     );
+        //                 }
+        //             }
+        //         }
+        //     );
+        // }
     } else if (win?.activeTabType === "instrument") {
         fileMenuSubmenu.push(
             {
@@ -643,14 +646,15 @@ function buildViewMenu(win: IWindow | undefined) {
                 }
             }
         },
-        {
-            label: t("Extensions"),
-            click: function (item) {
-                if (win) {
-                    win.browserWindow.webContents.send("openTab", "extensions");
-                }
-            }
-        },
+        //【定制】隐藏「视图」菜单项：Extensions（恢复时取消本注释）
+        // {
+        //     label: t("Extensions"),
+        //     click: function (item) {
+        //         if (win) {
+        //             win.browserWindow.webContents.send("openTab", "extensions");
+        //         }
+        //     }
+        // },
         {
             label: t("Settings"),
             click: function (item) {

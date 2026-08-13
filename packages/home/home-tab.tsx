@@ -13,12 +13,13 @@ import {
     wizardModelTemplates,
     wizardModelExamples
 } from "project-editor/project/ui/Wizard";
-import {
-    ExtensionsManager,
-    extensionsManagerStore
-} from "./extensions-manager/extensions-manager";
+// 【定制】隐藏首页「扩展」「仪器」入口，以下 import 暂不启用（恢复时取消注释）。
+// import {
+//     ExtensionsManager,
+//     extensionsManagerStore
+// } from "./extensions-manager/extensions-manager";
 import { Projects } from "home/open-projects";
-import { Instruments, defaultInstrumentsStore } from "home/instruments";
+// import { Instruments, defaultInstrumentsStore } from "home/instruments";
 import { HOME_TAB_OPEN_ICON } from "project-editor/ui-components/icons";
 import { instrumentDatabases } from "eez-studio-shared/db";
 
@@ -92,11 +93,12 @@ const HOME_TAB_EXAMPLES_ICON = (
     </svg>
 );
 
-const HOME_TAB_INSTRUMENTS_ICON = (
-    <svg viewBox="-50 -50 1124 1124" fill="currentcolor">
-        <path d="M128 896h896v128H0V0h128v896zm18.4-450.2 236.6-.2L443 205h81l74.4 318.6L662.6 314l81.4-.6L796.6 448l226.8-2.4.4 84H746.4l-41-104.2-60 289h-75l-89.6-333.2-32.6 148.4-301.8.2v-84z" />
-    </svg>
-);
+// 【定制】「仪器」导航图标，随「仪器」入口一并隐藏（恢复时取消注释）。
+// const HOME_TAB_INSTRUMENTS_ICON = (
+//     <svg viewBox="-50 -50 1124 1124" fill="currentcolor">
+//         <path d="M128 896h896v128H0V0h128v896zm18.4-450.2 236.6-.2L443 205h81l74.4 318.6L662.6 314l81.4-.6L796.6 448l226.8-2.4.4 84H746.4l-41-104.2-60 289h-75l-89.6-333.2-32.6 148.4-301.8.2v-84z" />
+//     </svg>
+// );
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -172,7 +174,8 @@ export const Home = observer(
                             >
                                 <Icon icon="material:apps" size={32} /> Run
                             </div>*/}
-                            <div
+                            {/*【定制】隐藏「仪器」「扩展」导航入口（恢复时取消本注释）*/}
+                            {/*<div
                                 className={classNames(
                                     "EezStudio_HomeTab_NavigationItem",
                                     {
@@ -215,7 +218,7 @@ export const Home = observer(
                                     }
                                 />
                                 {t("Extensions")}
-                            </div>
+                            </div>*/}
                             <div
                                 className={classNames(
                                     "EezStudio_HomeTab_NavigationItem",
@@ -274,7 +277,8 @@ export const Home = observer(
                             <div style={{ margin: "auto" }}></div>
                         )
                         */}
-                        {homeTabStore.activeTab == "instruments" && (
+                        {/*【定制】隐藏「仪器」「扩展」内容区（恢复时取消本注释）*/}
+                        {/*{homeTabStore.activeTab == "instruments" && (
                             <Instruments
                                 instrumentsStore={defaultInstrumentsStore}
                                 size="M"
@@ -282,7 +286,7 @@ export const Home = observer(
                         )}
                         {homeTabStore.activeTab == "extensions" && (
                             <ExtensionsManager />
-                        )}
+                        )}*/}
                         {homeTabStore.activeTab == "settings" && <Settings />}
                     </div>
                 </div>
