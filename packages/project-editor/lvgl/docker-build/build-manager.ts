@@ -50,6 +50,7 @@ function createLogFunction(projectPath: string | undefined) {
 
 ////////////////////////////////////////////////////////////////////////////////
 
+// Docker 完整模拟器（Full Sim）的构建与管理：Docker 构建 LVGL 应用并运行预览。
 export class DockerBuildManager {
     /**
      * Reset the simulator state for a project (call when project is closed)

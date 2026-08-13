@@ -27,6 +27,7 @@ import { instrumentDatabases } from "eez-studio-shared/db";
 
 const SAVED_OPTIONS_VERSION = 1;
 
+// 首页（Home tab）状态：当前导航项、选项的读写。
 class HomeTabStore {
     activeTab:
         | "open"
@@ -102,6 +103,7 @@ const HOME_TAB_EXAMPLES_ICON = (
 
 ////////////////////////////////////////////////////////////////////////////////
 
+// 首页主体：左侧导航（打开/创建/示例/设置）与对应内容区。【定制】已隐藏「仪器」「扩展」导航。
 export const Home = observer(
     class Home extends React.Component {
         render() {

@@ -68,6 +68,7 @@ interface UpdateColorCallbackForUserWidget {
     updateColorsForPage: UpdateColorCallbackForPage;
 }
 
+// LVGL 构建主流程：遍历项目生成 LVGL C 代码、资源与 Makefile。
 export class LVGLBuild extends Build {
     project: Project;
 
@@ -3200,6 +3201,7 @@ ${source}`;
     }
 }
 
+// 生成 EEZ Flow 引擎（eez-framework）的 C++ 源码。
 export async function generateSourceCodeForEezFramework(
     project: Project,
     destinationFolderPath: string,

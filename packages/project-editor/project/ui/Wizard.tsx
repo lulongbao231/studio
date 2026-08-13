@@ -203,11 +203,13 @@ enum SaveOptionsFlags {
     View
 }
 
+// 新建项目向导（Wizard）的状态模型：管理「创建」页模板与「示例」页展示、选取与校验。
 export class WizardModel {
     section: "templates" | "examples" = "templates";
     folder: string | undefined = "_allTemplates";
     type: string | undefined = "dashboard";
 
+    // 「创建」页模型：内置/BB3/gitea 模板。
     static makeTemplatesWizardModel() {
         const wizardModel = new WizardModel();
 
@@ -220,6 +222,7 @@ export class WizardModel {
         return wizardModel;
     }
 
+    // 「示例」页模型：从 examples catalog 加载并展示示例。
     static makeExamplesWizardModel() {
         const wizardModel = new WizardModel();
 
@@ -451,6 +454,7 @@ export class WizardModel {
         }
     }
 
+    // 从 envox.eu/gitea 拉取在线模板列表并读取各仓库 manifest。【定制】默认不调用（SHOW_GITEA_TEMPLATES=false）。
     async fetchTemplateProjects() {
         const result = await fetch(
             "https://envox.eu/gitea/api/v1/repos/search?q=eez-flow-template&topic=true"
@@ -519,6 +523,7 @@ export class WizardModel {
         }
     }
 
+    // 进入向导页时初始化状态，并按需拉取模板/示例数据。
     mount() {
         runInAction(() => {
             this.name = undefined;
@@ -570,6 +575,7 @@ export class WizardModel {
         this.dispose2();
     }
 
+    // 从 examples catalog 构建示例列表，按 folder 分组（含全部/新示例两个汇总分组）。
     get exampleProjectTypes() {
         const map = new Map<string, IProjectType[]>();
 
@@ -779,6 +785,7 @@ export class WizardModel {
         return rootNode;
     }
 
+    // 内置模板列表（Dashboard / EEZ-GUI / LVGL / IEXT 等），【定制】已按 CREATE_PROJECT_TYPES_FILTER 过滤。
     get standardProjectTypes(): IProjectType[] {
         return [
             {
@@ -944,6 +951,7 @@ export class WizardModel {
         ];
     }
 
+    // 左侧分组树：模板页（All/Builtin/BB3/gitea）或示例页（按示例文件夹分组）。
     get folders(): ITreeNode {
         if (this.section == "templates") {
             const children = [];
@@ -1047,6 +1055,7 @@ export class WizardModel {
         }
     }
 
+    // 当前选中分组下可见的模板/示例列表（随 folder 切换）。
     get projectTypes(): IProjectType[] {
         if (this.section == "templates") {
             if (this.folder == "_allTemplates") {
@@ -1210,6 +1219,7 @@ export class WizardModel {
         return `${this.projectFolderPath}${path.sep}${resourceFileRelativePath}`;
     }
 
+    // 校验项目名称合法性与唯一性。
     validateName() {
         const name = this.name?.trim();
         if (!name) {

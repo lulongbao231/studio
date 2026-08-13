@@ -155,6 +155,7 @@ type ProjectStoreContext =
     | { type: "instrument-dashboard"; instrument: InstrumentObject }
     | { type: "standalone" };
 
+// 项目状态中枢：持有项目对象及撤销、导航、布局等子管理器。
 export class ProjectStore {
     project: Project;
 
@@ -1233,6 +1234,7 @@ export class ProjectStore {
         return false;
     }
 
+    // 内部：按项目类型选择运行时（WASM/Remote）并启动运行。
     setRuntimeMode(isDebuggerActive: boolean) {
         if (this.debounceChangeRuntimeMode()) {
             return;
@@ -1269,6 +1271,7 @@ export class ProjectStore {
         }        
     }
 
+    // 内部：停止运行时并恢复编辑器界面。
     async setEditorMode(force: boolean = false) {
         if (this.debounceChangeRuntimeMode()) {
             if (force) {
@@ -1305,6 +1308,7 @@ export class ProjectStore {
         }
     }
 
+    // 进入「编辑」模式：停止运行/退出模拟器，回到属性面板。
     onSetEditorMode = async () => {
         if (this.changingRuntimeMode) {
             this.changingRuntimeModeNewMode = "editor";
@@ -1328,6 +1332,7 @@ export class ProjectStore {
         }
     };
 
+    // 进入「运行」模式：启动交互式预览（非调试）。
     onSetRuntimeMode = async () => {
         if (this.changingRuntimeMode) {
             this.changingRuntimeModeNewMode = "runtime";
@@ -1343,6 +1348,7 @@ export class ProjectStore {
         }
     };
 
+    // 进入「调试」模式：启动运行并打开调试器（断点/监视/队列面板）。
     onSetDebuggerMode = () => {
         if (this.changingRuntimeMode) {
             this.changingRuntimeModeNewMode = "debugger";
@@ -1364,6 +1370,7 @@ export class ProjectStore {
         );
     };
 
+    // 进入「完整模拟」模式：使用 Docker 构建并运行完整模拟器（Full Sim，F7）。
     onSetFullSimulatorMode = async () => {
         if (this.changingRuntimeMode) {
             this.changingRuntimeModeNewMode = "full-simulator";
@@ -1698,6 +1705,7 @@ export class ProjectStore {
 
 ////////////////////////////////////////////////////////////////////////////////
 
+// 将项目对象序列化为 JSON（供保存/导出）。
 export function getJSON(projectStore: ProjectStore, tabWidth: number = 2) {
     const toJsHook = (jsObject: any, object: IEezObject) => {
         let projectFeatures = ProjectEditor.extensions;
@@ -1717,6 +1725,7 @@ export function getJSON(projectStore: ProjectStore, tabWidth: number = 2) {
     return json;
 }
 
+// 保存项目到文件（普通项目或剪贴板条目）。
 export function save(projectStore: ProjectStore, filePath: string) {
     const json = getJSON(projectStore);
 

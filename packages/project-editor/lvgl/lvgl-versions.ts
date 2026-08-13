@@ -435,6 +435,7 @@ const versions = {
 
 type Version = (typeof versions)["8.4.0"];
 
+// 按 LVGL 版本取某属性值（versions 表支持 8.x / 9.x 差异）。
 function getVersionPropertyForLvglVersion<
     PN extends keyof (typeof versions)["8.4.0"]
 >(lvglVersion: LVGLVersion, propertyName: PN): Version[PN] {
@@ -458,6 +459,7 @@ const wasmFlowRuntimeConstructors: {
     [key: string]: any;
 } = {};
 
+// 获取指定 LVGL 版本的 WASM Flow 运行时构造函数（带缓存）。
 export function getLvglWasmFlowRuntimeConstructor(
     lvglVersion: LVGLVersion
 ) {
@@ -483,6 +485,7 @@ export function getLvglBitmapColorFormats(object: IEezObject) {
     return getVersionProperty(object, "bitmapColorFormats");
 }
 
+// 按版本将位图转换为 LVGL C 源码或二进制文件。
 export async function getLvglBitmapSourceFile(
     bitmap: Bitmap,
     fileName: string,
@@ -510,6 +513,7 @@ export function getLvglStylePropCode(
     return code[ProjectEditor.getProject(object).settings.general.lvglVersion];
 }
 
+// 按版本取 LVGL 坐标基元（8.x 与 9.x 坐标/百分比语义不同）。
 export function getLvglCoord(object: IEezObject) {
     return getVersionProperty(object, "LV_COORD");
 }

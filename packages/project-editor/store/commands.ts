@@ -140,6 +140,7 @@ export let insertObject = action(
     }
 );
 
+// 属性修改命令（命令模式）：记录对象属性的旧值/新值以支持撤销。
 class UpdateCommand implements ICommand {
     private oldValues: any = {};
     private newValues: any = {};

@@ -863,6 +863,7 @@ const RunEditSwitchControls = observer(
             return previewStore.state === "building";
         }
 
+        // 项目操作模式切换按钮：编辑(Shift+F5) / 运行(F5) / 调试(Ctrl+F5) / 完整模拟(F7)。
         render() {
             const iconSize = 30;
             return (

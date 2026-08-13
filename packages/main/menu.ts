@@ -171,6 +171,7 @@ function buildMacOSAppMenu(
 
 ////////////////////////////////////////////////////////////////////////////////
 
+// 构建「文件」菜单。【定制】已隐藏 Add Instrument / Import Instrument Definition / Build Extensions。
 function buildFileMenu(win: IWindow | undefined) {
     const fileMenuSubmenu: Electron.MenuItemConstructorOptions[] = [];
 
@@ -604,6 +605,7 @@ function buildEditMenu(win: IWindow | undefined) {
 
 ////////////////////////////////////////////////////////////////////////////////
 
+// 构建「视图」菜单。【定制】已隐藏 Extensions 与 Shortcuts and Groups。
 function buildViewMenu(win: IWindow | undefined) {
     let viewSubmenu: Electron.MenuItemConstructorOptions[] = [];
 
@@ -886,6 +888,7 @@ function buildHelpMenu(
 
 ////////////////////////////////////////////////////////////////////////////////
 
+// 组装完整应用菜单模板（文件/编辑/视图/窗口/帮助，按平台分支）。
 function buildMenuTemplate(win: IWindow | undefined) {
     var menuTemplate: Electron.MenuItemConstructorOptions[] = [];
 

@@ -52,6 +52,7 @@ import { PageStructure } from "project-editor/features/page/PagesNavigation";
 
 ////////////////////////////////////////////////////////////////////////////////
 
+// 项目编辑器主体视图：工具栏 + 内容区（根据编辑/运行/调试/模拟模式切换）。
 export const ProjectEditorView = observer(
     class ProjectEditorView extends React.Component<{
         showToolbar: boolean;

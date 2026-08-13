@@ -16,6 +16,7 @@ import {
     RUN_PROJECT_TAB_ID_PREFIX
 } from "home/tabs-store-conf";
 
+// 窗口状态：当前文档是否修改、撤销/重做描述、调试器开关、扩展定义有无。
 export interface IWindowSate {
     modified: boolean;
     undo: string | null;
@@ -24,6 +25,7 @@ export interface IWindowSate {
     hasExtensionDefinitions: boolean;
 }
 
+// 创建窗口的参数：页面 URL 及隐藏/辅助窗口选项。
 export interface IWindowParams {
     url: string;
     hideOnClose?: boolean;
@@ -43,6 +45,7 @@ type ActiveTabType =
     | "notebooks"
     | undefined;
 
+// 一个应用窗口的运行期包装：浏览器窗口及其当前状态。
 export interface IWindow {
     url: string;
     browserWindow: Electron.BrowserWindow;
@@ -52,14 +55,17 @@ export interface IWindow {
     activeTabType: ActiveTabType;
 }
 
+// 全部应用窗口的状态集合（主进程侧管理）。
 export const windows = observable<IWindow>([]);
 
 let forceQuit = false;
 
+// 标记应用强制退出（忽略窗口关闭拦截）。
 export function setForceQuit() {
     forceQuit = true;
 }
 
+// 创建应用窗口（BrowserWindow + 加载页面）。
 export function createWindow(params: IWindowParams) {
     let windowUrl = params.url;
     if (!windowUrl.startsWith("file://")) {
@@ -170,22 +176,27 @@ export function createWindow(params: IWindowParams) {
     return browserWindow;
 }
 
+// 按参数（url）查找窗口。
 export function findWindowByParams(params: IWindowParams) {
     return windows.find(win => win.url === params.url);
 }
 
+// 按 BrowserWindow 实例查找窗口。
 export function findWindowByBrowserWindow(browserWindow: Electron.BaseWindow) {
     return windows.find(win => win.browserWindow === browserWindow);
 }
 
+// 按 webContents 查找窗口。
 export function findWindowByWebContents(webContents: Electron.WebContents) {
     return windows.find(win => win.browserWindow.webContents === webContents);
 }
 
+// 打开窗口（无去重，直接新建）。
 export function openWindow(params: IWindowParams) {
     return createWindow(params);
 }
 
+// 按参数查找并关闭窗口。
 export function closeWindow(params: IWindowParams) {
     let win = findWindowByParams(params);
     if (win) {
@@ -193,6 +204,7 @@ export function closeWindow(params: IWindowParams) {
     }
 }
 
+// 窗口 webContents 是否已崩溃。
 export function isCrashed(window: BrowserWindow) {
     return window.webContents.isCrashed();
 }

@@ -89,6 +89,7 @@ export * from "project-editor/project/helper";
 
 ////////////////////////////////////////////////////////////////////////////////
 
+// 命名构建配置（一组构建参数合集，可在构建时选用）。
 export class BuildConfiguration extends EezObject {
     name: string;
     description: string;
@@ -187,6 +188,7 @@ registerClass("BuildConfiguration", BuildConfiguration);
 
 ////////////////////////////////////////////////////////////////////////////////
 
+// 一条构建生成的文件（按模板生成到输出目录）。
 export class BuildFile extends EezObject {
     fileName: string;
     description?: string;
@@ -272,6 +274,7 @@ function isFilesPropertyEnumerable(object: IEezObject): boolean {
     );
 }
 
+// 项目「构建」设置：输出目录、图片/字体导出模式及 LVGL 运行时选项。
 export class Build extends EezObject {
     configurations: BuildConfiguration[];
     files: BuildFile[];
@@ -506,6 +509,7 @@ registerClass("Build", Build);
 
 ////////////////////////////////////////////////////////////////////////////////
 
+// 导入指令：把另一个外部项目导入本项目的资源和页面。
 export class ImportDirective extends EezObject {
     projectFilePath: string;
     importAs: string;
@@ -633,6 +637,7 @@ export const ExtensionDirectiveCustomUI = observer((props: PropertyProps) => {
     );
 });
 
+// 扩展指令：声明项目依赖的扩展（按名称加载）。
 export class ExtensionDirective extends EezObject {
     extensionName: string;
 
@@ -720,6 +725,7 @@ registerClass("ExtensionDirective", ExtensionDirective);
 
 ////////////////////////////////////////////////////////////////////////////////
 
+// 项目资源文件（随项目打包的外部文件）。
 export class ResourceFile extends EezObject {
     filePath: string;
 
@@ -789,6 +795,7 @@ export const PROJECT_TYPE_NAMES = {
 
 export type LVGLVersion = "8.4.0" | "9.2.2" | "9.3.0" | "9.4.0" | "9.5.0";
 
+// 项目「常规」设置：项目类型、显示参数、LVGL 版本、作者信息等。
 export class General extends EezObject {
     projectVersion: ProjectVersion = "v3";
     projectType: ProjectType;
@@ -1399,6 +1406,7 @@ registerClass("General", General);
 
 ////////////////////////////////////////////////////////////////////////////////
 
+// 项目设置顶层：包含「常规」与「构建」两大块。
 export class Settings extends EezObject {
     general: General;
     build: Build;
@@ -1454,6 +1462,7 @@ let numProjectFeatures = 0;
 let builtinProjectProperties: PropertyInfo[];
 let projectProperties: PropertyInfo[] = [];
 
+// 动态构造项目根对象的属性表：内置属性 + 各扩展 feature 注册的属性（含缓存）。
 function getProjectClassInfo() {
     if (!projectClassInfo) {
         builtinProjectProperties = [
@@ -1798,6 +1807,7 @@ function getProjectClassInfo() {
     return projectClassInfo;
 }
 
+// 项目根对象：承载 General/Build/Settings 等全部项目内容。
 export class Project extends EezObject {
     _store!: ProjectStore;
     _isReadOnly: boolean = false;
@@ -1892,10 +1902,12 @@ export class Project extends EezObject {
         return objectsMap;
     }
 
+    // 全部页面（普通页面 + 用户控件页面）。
     get pages() {
         return [...this.userPages, ...this.userWidgets];
     }
 
+    // 当前项目类型的特性描述（决定哪些功能/属性可用）。
     get projectTypeTraits() {
         return createProjectTypeTraits(this);
     }

@@ -30,6 +30,7 @@ import { layoutModels } from "eez-studio-ui/side-dock";
 configure({ enforceActions: "observed", useProxies: "always" });
 
 // make sure we store all the values waiting to be stored inside blur event handler
+// 将焦点从当前元素移开（用于触发输入框失焦提交）。
 function blurAll() {
     var tmp = document.createElement("input");
     document.body.appendChild(tmp);
@@ -37,6 +38,7 @@ function blurAll() {
     document.body.removeChild(tmp);
 }
 
+// 关闭应用前的清理：依次通知各 tab 保存状态、卸载扩展、持久化布局。
 async function beforeAppClose() {
     blurAll();
 
@@ -144,6 +146,7 @@ ipcRenderer.on("add-instrument", async (sender: any, filePath: any) => {
     });
 });
 
+// 首页渲染进程应用主体：挂载子内容与通知容器。
 const Main = observer(
     class Main extends React.Component<{ children: React.ReactNode }> {
         render() {
@@ -157,6 +160,7 @@ const Main = observer(
     }
 );
 
+// 渲染进程启动入口：加载翻译、挂载 UI、注册全局 IPC 处理。
 async function main() {
     // 加载界面翻译字典
     const { loadDictionaries } = require("eez-studio-shared/i18n");

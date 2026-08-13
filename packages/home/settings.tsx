@@ -126,6 +126,7 @@ const setShowComponentsPaletteInProjectEditor = function (value: boolean) {
 
 ////////////////////////////////////////////////////////////////////////////////
 
+// 全局设置控制器：读写各设置项（本地化、模板路径、主题等）。
 class SettingsController {
     activeDateFormat = getDateFormat();
     activeTimeFormat = getTimeFormat();

@@ -119,6 +119,7 @@ export class HomeTab implements IHomeTab {
     }
 }
 
+// 「历史记录」tab：展示仪器会话历史。
 class HistoryTab implements IHomeTab {
     constructor(public tabs: Tabs) {
         makeObservable(this, {
@@ -221,6 +222,7 @@ class HistoryTab implements IHomeTab {
     }
 }
 
+// 「快捷键和分组」tab：管理快捷键与分组。
 class ShortcutsAndGroupsTab implements IHomeTab {
     constructor(public tabs: Tabs) {
         makeObservable(this, {
@@ -265,6 +267,7 @@ class ShortcutsAndGroupsTab implements IHomeTab {
 
 ////////////////////////////////////////////////////////////////////////////////
 
+// 首页区块 tab（如通知、随笔等 Home 子区块）。
 class HomeSectionTab implements IHomeTab {
     constructor(public tabs: Tabs, public homeSection: IHomeSection) {
         makeObservable(this, {
@@ -310,6 +313,7 @@ class HomeSectionTab implements IHomeTab {
 
 ////////////////////////////////////////////////////////////////////////////////
 
+// 仪器 tab：打开一个仪器对象（仪器管理器/连接界面）。
 export class InstrumentTab implements IHomeTab {
     constructor(public tabs: Tabs, public object: InstrumentObject) {
         makeObservable(this, {
@@ -422,6 +426,7 @@ export class InstrumentTab implements IHomeTab {
 
 ////////////////////////////////////////////////////////////////////////////////
 
+// 项目编辑器 tab：打开并编辑一个项目文件。
 export class ProjectEditorTab implements IHomeTab {
     constructor(
         public tabs: Tabs,
@@ -1002,6 +1007,7 @@ interface ISavedTab {
     active: boolean;
 }
 
+// tab 管理器：维护全部 tab 的增删、切换、保存/恢复。
 export class Tabs {
     tabs: IHomeTab[] = [];
     activeTab: IHomeTab | undefined;
@@ -1179,10 +1185,12 @@ export class Tabs {
         );
     }
 
+    // 将 tab 加入列表。
     addTab(tab: IHomeTab) {
         this.tabs.push(tab);
     }
 
+    // 按 id 打开 tab（内置 tab 走首页导航，其余按类型创建）。
     openTabById(tabId: string, makeActive: boolean) {
         let tab;
 
@@ -1241,6 +1249,7 @@ export class Tabs {
         return null;
     }
 
+    // 打开仪器（已存在则复用，否则新建）并返回 tab。
     addInstrumentTab(instrument: InstrumentObject) {
         for (let tabIndex = 0; tabIndex < this.tabs.length; tabIndex++) {
             if (this.tabs[tabIndex].id === instrument.id) {
@@ -1259,6 +1268,7 @@ export class Tabs {
         return tab;
     }
 
+    // 关闭 tab：从列表移除，并按需切换活动 tab。
     removeTab(tab: IHomeTab) {
         const tabIndex = this.tabs.indexOf(tab);
         if (tabIndex > 0) {
@@ -1383,6 +1393,7 @@ export class Tabs {
 
 export let tabs: Tabs;
 
+// 初始化 tab 管理器并注册全局 tab 导航 IPC。
 export function loadTabs() {
     tabs = new Tabs();
 
@@ -1395,6 +1406,7 @@ export function loadTabs() {
     });
 }
 
+// 打开项目文件（运行模式为 true 时直接运行）。
 export function openProject(filePath: string, runMode: boolean) {
     try {
         let tab = tabs.findProjectEditorTab(filePath, runMode);

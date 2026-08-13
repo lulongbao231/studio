@@ -198,6 +198,7 @@ export interface LVGLCode {
 
 ////////////////////////////////////////////////////////////////////////////////
 
+// 模拟器（预览）运行时的 LVGL C 代码生成器。
 export class SimulatorLVGLCode implements LVGLCode {
     constructor(
         public runtime: LVGLPageRuntime,
@@ -850,6 +851,7 @@ export class SimulatorLVGLCode implements LVGLCode {
     }
 }
 
+// 构建（导出源码）时的 LVGL C 代码生成器。
 export class BuildLVGLCode implements LVGLCode {
     constructor(public build: LVGLBuild) {}
 

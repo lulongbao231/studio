@@ -35,6 +35,7 @@ app.commandLine.appendSwitch("disable-renderer-backgrounding");
 
 let homeWindow: BrowserWindow;
 
+// 应用就绪：解析启动参数（如 --build-project），加载设置并启动主界面窗口。
 app.on("ready", async function () {
     let buildProjectFilePath;
     const buildProjectArgIndex = process.argv.indexOf("--build-project");
@@ -52,6 +53,7 @@ app.on("ready", async function () {
         }
     }
 
+    // 单实例：二次启动时转发命令行（如 --reload-project 重载项目）。
     app.on("second-instance", function (event, commandLine, workingDirectory) {
         if (commandLine.includes("--reload-project")) {
             console.log("[reload-project] second-instance triggered, commandLine:", commandLine);

@@ -11,6 +11,7 @@ interface IUndoItem {
     selectionAfter: any;
 }
 
+// 撤销/重做管理器：负责命令的合并、执行与双向回滚。
 export class UndoManager {
     undoStack: IUndoItem[] = [];
     redoStack: IUndoItem[] = [];
@@ -39,6 +40,7 @@ export class UndoManager {
         });
     }
 
+    // 清空撤销/重做栈（如新项目加载时）。
     clear() {
         this.undoStack = [];
         this.redoStack = [];
@@ -118,6 +120,7 @@ export class UndoManager {
         return undefined;
     }
 
+    // 回滚最近一组命令。
     undo() {
         this.pushToUndoStack();
 
@@ -153,6 +156,7 @@ export class UndoManager {
         return undefined;
     }
 
+    // 重放最近撤销的命令。
     redo() {
         let redoItem = this.redoStack.pop();
         if (redoItem) {

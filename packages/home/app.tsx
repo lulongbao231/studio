@@ -28,6 +28,7 @@ import { homeTabStore } from "home/home-tab";
 
 ////////////////////////////////////////////////////////////////////////////////
 
+// 应用主内容区：顶部 tab 栏 + 当前页面内容（FlexLayout 布局）。
 const MainContent = observer(
     class Content extends React.Component {
         render() {
@@ -64,6 +65,7 @@ const MainContent = observer(
     }
 );
 
+// 应用根组件：FlexLayout 布局工厂、挂载剪贴板模型。
 export const App = observer(
     class App extends React.Component {
         componentDidMount(): void {
@@ -121,6 +123,7 @@ export const App = observer(
 
 ////////////////////////////////////////////////////////////////////////////////
 
+// Home 页面（首页 tab）内容渲染：惰性渲染各首页区块。
 const Tabs = observer(
     class Tabs extends React.Component {
         renderedItems = new Set<string | number>();
