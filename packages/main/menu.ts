@@ -624,17 +624,18 @@ function buildViewMenu(win: IWindow | undefined) {
                 }
             }
         },
-        {
-            label: t("Shortcuts and Groups"),
-            click: function (item) {
-                if (win) {
-                    win.browserWindow.webContents.send(
-                        "openTab",
-                        "shortcutsAndGroups"
-                    );
-                }
-            }
-        },
+        //【定制】隐藏「视图」菜单项：Shortcuts and Groups（快捷键和分组）（恢复时取消本注释）
+        // {
+        //     label: t("Shortcuts and Groups"),
+        //     click: function (item) {
+        //         if (win) {
+        //             win.browserWindow.webContents.send(
+        //                 "openTab",
+        //                 "shortcutsAndGroups"
+        //             );
+        //         }
+        //     }
+        // },
         {
             label: t("Noteboooks"),
             click: function (item) {
