@@ -254,7 +254,7 @@ class EventHandler extends EezObject {
         properties: [
             {
                 name: "eventName",
-                displayName: t("Event"),
+                displayName: () => t("Event"),
                 type: PropertyType.Enum,
                 enumItems: (eventHandler: EventHandler) => {
                     const component =
@@ -280,8 +280,8 @@ class EventHandler extends EezObject {
                 name: "handlerType",
                 type: PropertyType.Enum,
                 enumItems: [
-                    { id: "flow", label: t("Flow") },
-                    { id: "action", label: t("Action") }
+                    { id: "flow", label: () => t("Flow") },
+                    { id: "action", label: () => t("Action") }
                 ],
                 enumDisallowUndefined: true,
                 disabled: eventHandler =>

@@ -339,7 +339,7 @@ export class PlotlyWidget extends Widget {
             makeExpressionProperty(
                 {
                     name: "plotlyData",
-                    displayName: t("Chart data"),
+                    displayName: () => t("Chart data"),
                     formText: () => (
                         <span>
                             {t("Plotly chart data is set via JSON value, check")}{" "}
@@ -367,7 +367,7 @@ export class PlotlyWidget extends Widget {
             makeExpressionProperty(
                 {
                     name: "layout",
-                    displayName: t("Layout options"),
+                    displayName: () => t("Layout options"),
                     formText: () => (
                         <span>
                             {t("Plotly layout options are set via JSON value, check")}{" "}
@@ -394,7 +394,7 @@ export class PlotlyWidget extends Widget {
             makeExpressionProperty(
                 {
                     name: "config",
-                    displayName: t("Configuration options"),
+                    displayName: () => t("Configuration options"),
                     formText: () => (
                         <span>
                             {t("Plotly configuration options are set via JSON value, check")}{" "}
@@ -1124,7 +1124,7 @@ export class LineChartWidget extends Widget {
             makeExpressionProperty(
                 {
                     name: "xValue",
-                    displayName: t("X value"),
+                    displayName: () => t("X value"),
                     type: PropertyType.MultilineText,
                     propertyGridGroup: specificGroup
                 },
@@ -1146,12 +1146,12 @@ export class LineChartWidget extends Widget {
             },
             {
                 name: "displayModebar",
-                displayName: t("Display mode bar"),
+                displayName: () => t("Display mode bar"),
                 type: PropertyType.Enum,
                 enumItems: [
-                    { id: "hover", label: t("Hover") },
-                    { id: "always", label: t("Always") },
-                    { id: "never", label: t("Never") }
+                    { id: "hover", label: () => t("Hover") },
+                    { id: "always", label: () => t("Always") },
+                    { id: "never", label: () => t("Never") }
                 ],
                 propertyGridGroup: specificGroup
             },
@@ -1175,7 +1175,7 @@ export class LineChartWidget extends Widget {
             },
             {
                 name: "showXAxis",
-                displayName: t("Show X axis"),
+                displayName: () => t("Show X axis"),
                 type: PropertyType.Boolean,
                 propertyGridGroup: specificGroup,
                 checkboxStyleSwitch: true
@@ -1191,11 +1191,11 @@ export class LineChartWidget extends Widget {
                 enumItems: [
                     {
                         id: "floating",
-                        label: t("Floating")
+                        label: () => t("Floating")
                     },
                     {
                         id: "fixed",
-                        label: t("Fixed")
+                        label: () => t("Fixed")
                     }
                 ],
                 propertyGridGroup: specificGroup
@@ -1222,7 +1222,7 @@ export class LineChartWidget extends Widget {
             ),
             {
                 name: "showYAxis",
-                displayName: t("Show Y axis"),
+                displayName: () => t("Show Y axis"),
                 type: PropertyType.Boolean,
                 propertyGridGroup: specificGroup,
                 checkboxStyleSwitch: true
@@ -1238,11 +1238,11 @@ export class LineChartWidget extends Widget {
                 enumItems: [
                     {
                         id: "floating",
-                        label: t("Floating")
+                        label: () => t("Floating")
                     },
                     {
                         id: "fixed",
-                        label: t("Fixed")
+                        label: () => t("Fixed")
                     }
                 ],
                 propertyGridGroup: specificGroup

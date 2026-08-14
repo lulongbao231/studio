@@ -98,25 +98,25 @@ import { FIT_HEIGHT_TO_CONTENT_ICON, FIT_WIDTH_TO_CONTENT_ICON, PERCENT_ICON, PX
 
 const generalGroup: IPropertyGridGroupDefinition = {
     id: "lvgl-general",
-    title: t("General"),
+    title: () => t("General"),
     position: 0
 };
 
 export const flagsGroup: IPropertyGridGroupDefinition = {
     id: "lvgl-flags",
-    title: t("Flags"),
+    title: () => t("Flags"),
     position: 4
 };
 
 const styleGroup: IPropertyGridGroupDefinition = {
     id: "lvgl-style",
-    title: t("Style"),
+    title: () => t("Style"),
     position: 3
 };
 
 export const statesGroup: IPropertyGridGroupDefinition = {
     id: "lvgl-states",
-    title: t("States"),
+    title: () => t("States"),
     position: 4
 };
 
@@ -323,7 +323,7 @@ const LVGLWidgetFlagsProperty = observer(
                             <Checkbox
                                 key={flagName}
                                 state={state}
-                                label={humanize(flagName)}
+                                label={t(humanize(flagName))}
                                 onChange={(value: boolean) => {
                                     this.context.undoManager.setCombineCommands(
                                         true
@@ -471,7 +471,7 @@ const LVGLWidgetStatesProperty = observer(
                             <Checkbox
                                 key={stateName}
                                 state={state}
-                                label={humanize(stateName)}
+                                label={t(humanize(stateName))}
                                 onChange={(value: boolean) => {
                                     this.context.undoManager.setCombineCommands(
                                         true
@@ -618,7 +618,7 @@ export class LVGLWidget extends Widget {
         enabledInComponentPalette: (projectType: ProjectType) => projectType === ProjectType.LVGL,
 
         label: (widget: LVGLWidget) => {
-            let name = getComponentName(widget.type);
+            let name = t(getComponentName(widget.type));
 
             if (widget.identifier) {
                 return `${name} [${widget.identifier}]`;
@@ -630,7 +630,7 @@ export class LVGLWidget extends Widget {
         properties: [
             {
                 name: "identifier",
-                displayName: t("Name"),
+                displayName: () => t("Name"),
                 type: PropertyType.String,
                 isOptional: true,
                 propertyGridGroup: generalGroup,
@@ -656,8 +656,8 @@ export class LVGLWidget extends Widget {
                 name: "leftUnit",
                 type: PropertyType.Enum,
                 enumItems: [
-                    { id: "px", label: t("Pixels"), icon: PX_ICON },
-                    { id: "%", label: t("Percent"), icon: PERCENT_ICON }
+                    { id: "px", label: () => t("Pixels"), icon: PX_ICON },
+                    { id: "%", label: () => t("Percent"), icon: PERCENT_ICON }
                 ],
                 enumDisallowUndefined: true,
                 propertyGridGroup: geometryGroup,
@@ -676,8 +676,8 @@ export class LVGLWidget extends Widget {
                 name: "topUnit",
                 type: PropertyType.Enum,
                 enumItems: [
-                    { id: "px", label: t("Pixels"), icon: PX_ICON },
-                    { id: "%", label: t("Percent"), icon: PERCENT_ICON }
+                    { id: "px", label: () => t("Pixels"), icon: PX_ICON },
+                    { id: "%", label: () => t("Percent"), icon: PERCENT_ICON }
                 ],
                 enumDisallowUndefined: true,
                 propertyGridGroup: geometryGroup,
@@ -696,9 +696,9 @@ export class LVGLWidget extends Widget {
                 name: "widthUnit",
                 type: PropertyType.Enum,
                 enumItems: [
-                    { id: "px", label: t("Pixels"), icon: PX_ICON },
-                    { id: "%", label: t("Percent"), icon: PERCENT_ICON },
-                    { id: "content", label: t("Content"), icon: FIT_WIDTH_TO_CONTENT_ICON }
+                    { id: "px", label: () => t("Pixels"), icon: PX_ICON },
+                    { id: "%", label: () => t("Percent"), icon: PERCENT_ICON },
+                    { id: "content", label: () => t("Content"), icon: FIT_WIDTH_TO_CONTENT_ICON }
                 ],
                 enumDisallowUndefined: true,
                 propertyGridGroup: geometryGroup,
@@ -717,9 +717,9 @@ export class LVGLWidget extends Widget {
                 name: "heightUnit",
                 type: PropertyType.Enum,
                 enumItems: [
-                    { id: "px", label: t("Pixels"), icon: PX_ICON },
-                    { id: "%", label: t("Percent"), icon: PERCENT_ICON },
-                    { id: "content", label: t("Content"), icon: FIT_HEIGHT_TO_CONTENT_ICON }
+                    { id: "px", label: () => t("Pixels"), icon: PX_ICON },
+                    { id: "%", label: () => t("Percent"), icon: PERCENT_ICON },
+                    { id: "content", label: () => t("Content"), icon: FIT_HEIGHT_TO_CONTENT_ICON }
                 ],
                 enumDisallowUndefined: true,
                 propertyGridGroup: geometryGroup,
@@ -737,7 +737,7 @@ export class LVGLWidget extends Widget {
             },
             {
                 name: "absolutePosition",
-                displayName: t("Absolute pos."),
+                displayName: () => t("Absolute pos."),
                 type: PropertyType.String,
                 propertyGridGroup: geometryGroup,
                 computed: true,
@@ -752,12 +752,12 @@ export class LVGLWidget extends Widget {
                 hideInPropertyGrid: true
             },
             ...makeLvglExpressionProperty("hiddenFlag", "boolean", "input", ["literal", "expression"], {
-                displayName: t("Hidden"),
+                displayName: () => t("Hidden"),
                 propertyGridGroup: flagsGroup,
                 disabled: (widget: LVGLWidget) => !flagEnabledInWidget(widget, "HIDDEN")
             }),
             ...makeLvglExpressionProperty("clickableFlag", "boolean", "input", ["literal", "expression"], {
-                displayName: t("Clickable"),
+                displayName: () => t("Clickable"),
                 propertyGridGroup: flagsGroup,
                 disabled: (widget: LVGLWidget) => !flagEnabledInWidget(widget, "CLICKABLE")
             }),
@@ -771,24 +771,24 @@ export class LVGLWidget extends Widget {
             },
             {
                 name: "flagScrollbarMode",
-                displayName: t("Scrollbar mode"),
+                displayName: () => t("Scrollbar mode"),
                 type: PropertyType.Enum,
                 enumItems: [
                     {
                         id: "off",
-                        label: t("OFF")
+                        label: () => t("OFF")
                     },
                     {
                         id: "on",
-                        label: t("ON")
+                        label: () => t("ON")
                     },
                     {
                         id: "active",
-                        label: t("ACTIVE")
+                        label: () => t("ACTIVE")
                     },
                     {
                         id: "auto",
-                        label: t("AUTO")
+                        label: () => t("AUTO")
                     }
                 ],
                 enumDisallowUndefined: false,
@@ -796,40 +796,40 @@ export class LVGLWidget extends Widget {
             },
             {
                 name: "flagScrollDirection",
-                displayName: t("Scroll direction"),
+                displayName: () => t("Scroll direction"),
                 type: PropertyType.Enum,
                 enumItems: [
                     {
                         id: "none",
-                        label: t("NONE")
+                        label: () => t("NONE")
                     },
                     {
                         id: "top",
-                        label: t("TOP")
+                        label: () => t("TOP")
                     },
                     {
                         id: "left",
-                        label: t("LEFT")
+                        label: () => t("LEFT")
                     },
                     {
                         id: "bottom",
-                        label: t("BOTTOM")
+                        label: () => t("BOTTOM")
                     },
                     {
                         id: "right",
-                        label: t("RIGHT")
+                        label: () => t("RIGHT")
                     },
                     {
                         id: "hor",
-                        label: t("HOR")
+                        label: () => t("HOR")
                     },
                     {
                         id: "ver",
-                        label: t("VER")
+                        label: () => t("VER")
                     },
                     {
                         id: "all",
-                        label: t("ALL")
+                        label: () => t("ALL")
                     }
                 ],
                 enumDisallowUndefined: false,
@@ -837,24 +837,24 @@ export class LVGLWidget extends Widget {
             },
             {
                 name: "scrollSnapX",
-                displayName: t("Scroll snap X"),
+                displayName: () => t("Scroll snap X"),
                 type: PropertyType.Enum,
                 enumItems: [
                     {
                         id: "none",
-                        label: t("NONE")
+                        label: () => t("NONE")
                     },
                     {
                         id: "start",
-                        label: t("START")
+                        label: () => t("START")
                     },
                     {
                         id: "end",
-                        label: t("END")
+                        label: () => t("END")
                     },
                     {
                         id: "center",
-                        label: t("CENTER")
+                        label: () => t("CENTER")
                     }
                 ],
                 enumDisallowUndefined: false,
@@ -862,35 +862,35 @@ export class LVGLWidget extends Widget {
             },
             {
                 name: "scrollSnapY",
-                displayName: t("Scroll snap Y"),
+                displayName: () => t("Scroll snap Y"),
                 type: PropertyType.Enum,
                 enumItems: [
                     {
                         id: "none",
-                        label: t("NONE")
+                        label: () => t("NONE")
                     },
                     {
                         id: "start",
-                        label: t("START")
+                        label: () => t("START")
                     },
                     {
                         id: "end",
-                        label: t("END")
+                        label: () => t("END")
                     },
                     {
                         id: "center",
-                        label: t("CENTER")
+                        label: () => t("CENTER")
                     }
                 ],
                 enumDisallowUndefined: false,
                 propertyGridGroup: flagsGroup
             },
             ...makeLvglExpressionProperty("checkedState", "boolean", "assignable", ["literal", "expression"], {
-                displayName: t("Checked"),
+                displayName: () => t("Checked"),
                 propertyGridGroup: statesGroup
             }),
             ...makeLvglExpressionProperty("disabledState", "boolean", "input", ["literal", "expression"], {
-                displayName: t("Disabled"),
+                displayName: () => t("Disabled"),
                 propertyGridGroup: statesGroup
             }),
             {

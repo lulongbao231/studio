@@ -45,7 +45,7 @@ import {
     LV_LAYOUT_NONE
 } from "project-editor/lvgl/lvgl-constants";
 import { ProjectEditor } from "project-editor/project-editor-interface";
-import { getEnumItems } from "project-editor/ui-components/PropertyGrid/utils";
+import { getEnumItems, getEnumItemDisplayLabel } from "project-editor/ui-components/PropertyGrid/utils";
 import { settingsController } from "home/settings";
 import { registerSystemEnum } from "project-editor/features/variable/value-type";
 import { getLvglCoord } from "project-editor/lvgl/lvgl-versions";
@@ -209,7 +209,7 @@ const height_property_info: LVGLPropertyInfo = {
 
 const min_width_property_info: LVGLPropertyInfo = {
     name: "min_width",
-    displayName: t("Min. width"),
+    displayName: () => t("Min. width"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_MIN_WIDTH,
@@ -224,7 +224,7 @@ const min_width_property_info: LVGLPropertyInfo = {
 
 const max_width_property_info: LVGLPropertyInfo = {
     name: "max_width",
-    displayName: t("Max. width"),
+    displayName: () => t("Max. width"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_MAX_WIDTH,
@@ -239,7 +239,7 @@ const max_width_property_info: LVGLPropertyInfo = {
 
 const min_height_property_info: LVGLPropertyInfo = {
     name: "min_height",
-    displayName: t("Min. height"),
+    displayName: () => t("Min. height"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_MIN_HEIGHT,
@@ -253,7 +253,7 @@ const min_height_property_info: LVGLPropertyInfo = {
 };
 const max_height_property_info: LVGLPropertyInfo = {
     name: "max_height",
-    displayName: t("Max. height"),
+    displayName: () => t("Max. height"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_MAX_HEIGHT,
@@ -267,7 +267,7 @@ const max_height_property_info: LVGLPropertyInfo = {
 };
 const length_property_info: LVGLPropertyInfo = {
     name: "length",
-    displayName: t("Length"),
+    displayName: () => t("Length"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_LENGTH,
@@ -377,7 +377,7 @@ const transform_height_property_info: LVGLPropertyInfo = {
 
 const translate_x_property_info: LVGLPropertyInfo = {
     name: "translate_x",
-    displayName: t("Translate X"),
+    displayName: () => t("Translate X"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_TRANSLATE_X,
@@ -392,7 +392,7 @@ const translate_x_property_info: LVGLPropertyInfo = {
 
 const translate_y_property_info: LVGLPropertyInfo = {
     name: "translate_y",
-    displayName: t("Translate Y"),
+    displayName: () => t("Translate Y"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_TRANSLATE_Y,
@@ -421,7 +421,7 @@ export const transform_zoom_property_info: LVGLPropertyInfo = {
 
 export const transform_scale_x_property_info: LVGLPropertyInfo = {
     name: "transform_scale_x",
-    displayName: t("Transform scale X"),
+    displayName: () => t("Transform scale X"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_TRANSFORM_SCALE_X,
@@ -436,7 +436,7 @@ export const transform_scale_x_property_info: LVGLPropertyInfo = {
 
 export const transform_scale_y_property_info: LVGLPropertyInfo = {
     name: "transform_scale_y",
-    displayName: t("Transform scale Y"),
+    displayName: () => t("Transform scale Y"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_TRANSFORM_SCALE_Y,
@@ -479,7 +479,7 @@ export const transform_rotation_property_info: LVGLPropertyInfo = {
 
 const transform_pivot_x_property_info: LVGLPropertyInfo = {
     name: "transform_pivot_x",
-    displayName: t("Transform pivot X"),
+    displayName: () => t("Transform pivot X"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_TRANSFORM_PIVOT_X,
@@ -493,7 +493,7 @@ const transform_pivot_x_property_info: LVGLPropertyInfo = {
 };
 const transform_pivot_y_property_info: LVGLPropertyInfo = {
     name: "transform_pivot_y",
-    displayName: t("Transform pivot Y"),
+    displayName: () => t("Transform pivot Y"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_TRANSFORM_PIVOT_Y,
@@ -508,7 +508,7 @@ const transform_pivot_y_property_info: LVGLPropertyInfo = {
 
 const transform_skew_x_property_info: LVGLPropertyInfo = {
     name: "transform_skew_x",
-    displayName: t("Transform skew X"),
+    displayName: () => t("Transform skew X"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_TRANSFORM_SKEW_X,
@@ -521,7 +521,7 @@ const transform_skew_x_property_info: LVGLPropertyInfo = {
 };
 const transform_skew_y_property_info: LVGLPropertyInfo = {
     name: "transform_skew_y",
-    displayName: t("Transform skew Y"),
+    displayName: () => t("Transform skew Y"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_TRANSFORM_SKEW_Y,
@@ -648,7 +648,7 @@ const flex_track_place_property_info = makeEnumPropertyInfo(
 
 const flex_grow_property_info: LVGLPropertyInfo = {
     name: "flex_grow",
-    displayName: t("Flex grow"),
+    displayName: () => t("Flex grow"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_FLEX_GROW,
@@ -796,7 +796,7 @@ function dscArrayIsInt16(projectStore: ProjectStore) {
 
 export const grid_row_dsc_array_property_info: LVGLPropertyInfo = {
     name: "grid_row_dsc_array",
-    displayName: t("Grid row descriptor"),
+    displayName: () => t("Grid row descriptor"),
     type: PropertyType.NumberArrayAsString,
     formText: t("Defines the size of grid rows as a comma or space-separated list of values. Options: fixed value in pixels (e.g. 50), FR(x) (e.g. FR(1), FR(2), etc.) or CONTENT."),
     lvglStyleProp: {
@@ -816,7 +816,7 @@ export const grid_row_dsc_array_property_info: LVGLPropertyInfo = {
 
 export const grid_column_dsc_array_property_info: LVGLPropertyInfo = {
     name: "grid_column_dsc_array",
-    displayName: t("Grid column descriptor"),
+    displayName: () => t("Grid column descriptor"),
     type: PropertyType.NumberArrayAsString,
     formText: t("Defines the size of grid columns as a comma or space-separated list of values. Options: fixed value in pixels (e.g. 50), FR(x) (e.g. FR(1), FR(2), etc.) or CONTENT. "),
     lvglStyleProp: {
@@ -836,7 +836,7 @@ export const grid_column_dsc_array_property_info: LVGLPropertyInfo = {
 
 export const grid_cell_column_pos_property_info: LVGLPropertyInfo = {
     name: "grid_cell_column_pos",
-    displayName: t("Grid cell column pos"),
+    displayName: () => t("Grid cell column pos"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_GRID_CELL_COLUMN_POS,
@@ -850,7 +850,7 @@ export const grid_cell_column_pos_property_info: LVGLPropertyInfo = {
 
 export const grid_cell_column_span_property_info: LVGLPropertyInfo = {
     name: "grid_cell_column_span",
-    displayName: t("Grid cell column span"),
+    displayName: () => t("Grid cell column span"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_GRID_CELL_COLUMN_SPAN,
@@ -888,7 +888,7 @@ const grid_cell_x_align_property_info: LVGLPropertyInfo = makeEnumPropertyInfo(
 
 export const grid_cell_row_pos_property_info: LVGLPropertyInfo = {
     name: "grid_cell_row_pos",
-    displayName: t("Grid cell row pos"),
+    displayName: () => t("Grid cell row pos"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_GRID_CELL_ROW_POS,
@@ -902,7 +902,7 @@ export const grid_cell_row_pos_property_info: LVGLPropertyInfo = {
 
 export const grid_cell_row_span_property_info: LVGLPropertyInfo = {
     name: "grid_cell_row_span",
-    displayName: t("Grid cell row span"),
+    displayName: () => t("Grid cell row span"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_GRID_CELL_ROW_SPAN,
@@ -944,7 +944,7 @@ const grid_cell_y_align_property_info: LVGLPropertyInfo = makeEnumPropertyInfo(
 
 export const pad_top_property_info: LVGLPropertyInfo = {
     name: "pad_top",
-    displayName: t("Pad Top"),
+    displayName: () => t("Pad Top"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_PAD_TOP,
@@ -958,7 +958,7 @@ export const pad_top_property_info: LVGLPropertyInfo = {
 };
 export const pad_bottom_property_info: LVGLPropertyInfo = {
     name: "pad_bottom",
-    displayName: t("Pad Bottom"),
+    displayName: () => t("Pad Bottom"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_PAD_BOTTOM,
@@ -972,7 +972,7 @@ export const pad_bottom_property_info: LVGLPropertyInfo = {
 };
 export const pad_left_property_info: LVGLPropertyInfo = {
     name: "pad_left",
-    displayName: t("Pad Left"),
+    displayName: () => t("Pad Left"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_PAD_LEFT,
@@ -986,7 +986,7 @@ export const pad_left_property_info: LVGLPropertyInfo = {
 };
 export const pad_right_property_info: LVGLPropertyInfo = {
     name: "pad_right",
-    displayName: t("Pad Right"),
+    displayName: () => t("Pad Right"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_PAD_RIGHT,
@@ -1000,7 +1000,7 @@ export const pad_right_property_info: LVGLPropertyInfo = {
 };
 const pad_radial_property_info: LVGLPropertyInfo = {
     name: "pad_radial",
-    displayName: t("Pad Radial"),
+    displayName: () => t("Pad Radial"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_PAD_RADIAL,
@@ -1013,7 +1013,7 @@ const pad_radial_property_info: LVGLPropertyInfo = {
 };
 const pad_row_property_info: LVGLPropertyInfo = {
     name: "pad_row",
-    displayName: t("Pad Row"),
+    displayName: () => t("Pad Row"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_PAD_ROW,
@@ -1026,7 +1026,7 @@ const pad_row_property_info: LVGLPropertyInfo = {
 };
 const pad_column_property_info: LVGLPropertyInfo = {
     name: "pad_column",
-    displayName: t("Pad Column"),
+    displayName: () => t("Pad Column"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_PAD_COLUMN,
@@ -1044,7 +1044,7 @@ const pad_column_property_info: LVGLPropertyInfo = {
 //
 const margin_top_property_info: LVGLPropertyInfo = {
     name: "margin_top",
-    displayName: t("Margin Top"),
+    displayName: () => t("Margin Top"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_MARGIN_TOP,
@@ -1058,7 +1058,7 @@ const margin_top_property_info: LVGLPropertyInfo = {
 };
 const margin_bottom_property_info: LVGLPropertyInfo = {
     name: "margin_bottom",
-    displayName: t("Margin Bottom"),
+    displayName: () => t("Margin Bottom"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_MARGIN_BOTTOM,
@@ -1072,7 +1072,7 @@ const margin_bottom_property_info: LVGLPropertyInfo = {
 };
 const margin_left_property_info: LVGLPropertyInfo = {
     name: "margin_left",
-    displayName: t("Margin Left"),
+    displayName: () => t("Margin Left"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_MARGIN_LEFT,
@@ -1086,7 +1086,7 @@ const margin_left_property_info: LVGLPropertyInfo = {
 };
 const margin_right_property_info: LVGLPropertyInfo = {
     name: "margin_right",
-    displayName: t("Margin Right"),
+    displayName: () => t("Margin Right"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_MARGIN_RIGHT,
@@ -1105,7 +1105,7 @@ const margin_right_property_info: LVGLPropertyInfo = {
 
 const bg_color_property_info: LVGLPropertyInfo = {
     name: "bg_color",
-    displayName: t("Bg Color"),
+    displayName: () => t("Bg Color"),
     type: PropertyType.ThemedColor,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_BG_COLOR,
@@ -1118,7 +1118,7 @@ const bg_color_property_info: LVGLPropertyInfo = {
 };
 export const bg_opa_property_info: LVGLPropertyInfo = {
     name: "bg_opa",
-    displayName: t("Bg Opacity"),
+    displayName: () => t("Bg Opacity"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_BG_OPA,
@@ -1132,7 +1132,7 @@ export const bg_opa_property_info: LVGLPropertyInfo = {
 };
 const bg_grad_color_property_info: LVGLPropertyInfo = {
     name: "bg_grad_color",
-    displayName: t("Bg Grad. color"),
+    displayName: () => t("Bg Grad. color"),
     type: PropertyType.ThemedColor,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_BG_GRAD_COLOR,
@@ -1165,7 +1165,7 @@ const bg_grad_dir_property_info = makeEnumPropertyInfo(
 );
 const bg_main_stop_property_info: LVGLPropertyInfo = {
     name: "bg_main_stop",
-    displayName: t("Bg Main Stop"),
+    displayName: () => t("Bg Main Stop"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_BG_MAIN_STOP,
@@ -1179,7 +1179,7 @@ const bg_main_stop_property_info: LVGLPropertyInfo = {
 };
 const bg_grad_stop_property_info: LVGLPropertyInfo = {
     name: "bg_grad_stop",
-    displayName: t("Bg Gradient Stop"),
+    displayName: () => t("Bg Gradient Stop"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_BG_GRAD_STOP,
@@ -1250,7 +1250,7 @@ const bg_dither_mode_property_info = makeEnumPropertyInfo(
 );
 const bg_img_src_property_info: LVGLPropertyInfo = {
     name: "bg_img_src",
-    displayName: t("Bg Image Source"),
+    displayName: () => t("Bg Image Source"),
     type: PropertyType.ObjectReference,
     referencedObjectCollectionPath: "bitmaps",
     lvglStyleProp: {
@@ -1265,7 +1265,7 @@ const bg_img_src_property_info: LVGLPropertyInfo = {
 };
 const bg_img_opa_property_info: LVGLPropertyInfo = {
     name: "bg_img_opa",
-    displayName: t("Bg Image Opacity"),
+    displayName: () => t("Bg Image Opacity"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_BG_IMG_OPA,
@@ -1279,7 +1279,7 @@ const bg_img_opa_property_info: LVGLPropertyInfo = {
 };
 const bg_img_recolor_property_info: LVGLPropertyInfo = {
     name: "bg_img_recolor",
-    displayName: t("Bg Image Recolor"),
+    displayName: () => t("Bg Image Recolor"),
     type: PropertyType.ThemedColor,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_BG_IMG_RECOLOR,
@@ -1292,7 +1292,7 @@ const bg_img_recolor_property_info: LVGLPropertyInfo = {
 };
 const bg_img_recolor_opa_property_info: LVGLPropertyInfo = {
     name: "bg_img_recolor_opa",
-    displayName: t("Bg Image Recolor Opa."),
+    displayName: () => t("Bg Image Recolor Opa."),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_BG_IMG_RECOLOR_OPA,
@@ -1306,7 +1306,7 @@ const bg_img_recolor_opa_property_info: LVGLPropertyInfo = {
 };
 const bg_img_tiled_property_info: LVGLPropertyInfo = {
     name: "bg_img_tiled",
-    displayName: t("Bg Image Tiled"),
+    displayName: () => t("Bg Image Tiled"),
     type: PropertyType.Boolean,
     checkboxStyleSwitch: true,
     lvglStyleProp: {
@@ -1326,7 +1326,7 @@ const bg_img_tiled_property_info: LVGLPropertyInfo = {
 
 const border_color_property_info: LVGLPropertyInfo = {
     name: "border_color",
-    displayName: t("Border Color"),
+    displayName: () => t("Border Color"),
     type: PropertyType.ThemedColor,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_BORDER_COLOR,
@@ -1339,7 +1339,7 @@ const border_color_property_info: LVGLPropertyInfo = {
 };
 const border_opa_property_info: LVGLPropertyInfo = {
     name: "border_opa",
-    displayName: t("Border Opacity"),
+    displayName: () => t("Border Opacity"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_BORDER_OPA,
@@ -1353,7 +1353,7 @@ const border_opa_property_info: LVGLPropertyInfo = {
 };
 export const border_width_property_info: LVGLPropertyInfo = {
     name: "border_width",
-    displayName: t("Border Width"),
+    displayName: () => t("Border Width"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_BORDER_WIDTH,
@@ -1387,7 +1387,7 @@ const BorderSide = observer(
 
             const options = enumItems.map(enumItem => ({
                 value: enumItem.id.toString(),
-                label: (enumItem.label || enumItem.id).toString()
+                label: (getEnumItemDisplayLabel(enumItem) || enumItem.id).toString()
             }));
 
             let propertyValue = (objects[0] as any)[propertyInfo.name];
@@ -1678,7 +1678,7 @@ const border_side_property_info = makeEnumPropertyInfo(
 
 const border_post_property_info: LVGLPropertyInfo = {
     name: "border_post",
-    displayName: t("Border Post"),
+    displayName: () => t("Border Post"),
     type: PropertyType.Boolean,
     checkboxStyleSwitch: true,
     lvglStyleProp: {
@@ -1698,7 +1698,7 @@ const border_post_property_info: LVGLPropertyInfo = {
 
 const outline_width_property_info: LVGLPropertyInfo = {
     name: "outline_width",
-    displayName: t("Outline Width"),
+    displayName: () => t("Outline Width"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_OUTLINE_WIDTH,
@@ -1711,7 +1711,7 @@ const outline_width_property_info: LVGLPropertyInfo = {
 };
 const outline_color_property_info: LVGLPropertyInfo = {
     name: "outline_color",
-    displayName: t("Outline Color"),
+    displayName: () => t("Outline Color"),
     type: PropertyType.ThemedColor,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_OUTLINE_COLOR,
@@ -1724,7 +1724,7 @@ const outline_color_property_info: LVGLPropertyInfo = {
 };
 const outline_opa_property_info: LVGLPropertyInfo = {
     name: "outline_opa",
-    displayName: t("Outline Opacity"),
+    displayName: () => t("Outline Opacity"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_OUTLINE_OPA,
@@ -1738,7 +1738,7 @@ const outline_opa_property_info: LVGLPropertyInfo = {
 };
 const outline_pad_property_info: LVGLPropertyInfo = {
     name: "outline_pad",
-    displayName: t("Outline Padding"),
+    displayName: () => t("Outline Padding"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_OUTLINE_PAD,
@@ -1757,7 +1757,7 @@ const outline_pad_property_info: LVGLPropertyInfo = {
 
 const shadow_width_property_info: LVGLPropertyInfo = {
     name: "shadow_width",
-    displayName: t("Shadow Width"),
+    displayName: () => t("Shadow Width"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_SHADOW_WIDTH,
@@ -1771,7 +1771,7 @@ const shadow_width_property_info: LVGLPropertyInfo = {
 };
 const shadow_ofs_x_property_info: LVGLPropertyInfo = {
     name: "shadow_ofs_x",
-    displayName: t("Shadow X Offset"),
+    displayName: () => t("Shadow X Offset"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_SHADOW_OFS_X,
@@ -1784,7 +1784,7 @@ const shadow_ofs_x_property_info: LVGLPropertyInfo = {
 };
 const shadow_ofs_y_property_info: LVGLPropertyInfo = {
     name: "shadow_ofs_y",
-    displayName: t("Shadow Y Offset"),
+    displayName: () => t("Shadow Y Offset"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_SHADOW_OFS_Y,
@@ -1797,7 +1797,7 @@ const shadow_ofs_y_property_info: LVGLPropertyInfo = {
 };
 const shadow_spread_property_info: LVGLPropertyInfo = {
     name: "shadow_spread",
-    displayName: t("Shadow Spread"),
+    displayName: () => t("Shadow Spread"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_SHADOW_SPREAD,
@@ -1811,7 +1811,7 @@ const shadow_spread_property_info: LVGLPropertyInfo = {
 };
 const shadow_color_property_info: LVGLPropertyInfo = {
     name: "shadow_color",
-    displayName: t("Shadow Color"),
+    displayName: () => t("Shadow Color"),
     type: PropertyType.ThemedColor,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_SHADOW_COLOR,
@@ -1824,7 +1824,7 @@ const shadow_color_property_info: LVGLPropertyInfo = {
 };
 const shadow_opa_property_info: LVGLPropertyInfo = {
     name: "shadow_opa",
-    displayName: t("Shadow Opacity"),
+    displayName: () => t("Shadow Opacity"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_SHADOW_OPA,
@@ -1843,7 +1843,7 @@ const shadow_opa_property_info: LVGLPropertyInfo = {
 
 const img_opa_property_info: LVGLPropertyInfo = {
     name: "img_opa",
-    displayName: t("Image Opacity"),
+    displayName: () => t("Image Opacity"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_IMG_OPA,
@@ -1857,7 +1857,7 @@ const img_opa_property_info: LVGLPropertyInfo = {
 };
 const img_recolor_property_info: LVGLPropertyInfo = {
     name: "img_recolor",
-    displayName: t("Image Recolor"),
+    displayName: () => t("Image Recolor"),
     type: PropertyType.ThemedColor,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_IMG_RECOLOR,
@@ -1870,7 +1870,7 @@ const img_recolor_property_info: LVGLPropertyInfo = {
 };
 const img_recolor_opa_property_info: LVGLPropertyInfo = {
     name: "img_recolor_opa",
-    displayName: t("Image Recolor Opa."),
+    displayName: () => t("Image Recolor Opa."),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_IMG_RECOLOR_OPA,
@@ -1889,7 +1889,7 @@ const img_recolor_opa_property_info: LVGLPropertyInfo = {
 
 const line_width_property_info: LVGLPropertyInfo = {
     name: "line_width",
-    displayName: t("Line Width"),
+    displayName: () => t("Line Width"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_LINE_WIDTH,
@@ -1902,7 +1902,7 @@ const line_width_property_info: LVGLPropertyInfo = {
 };
 const line_dash_width_property_info: LVGLPropertyInfo = {
     name: "line_dash_width",
-    displayName: t("Line Dash Width"),
+    displayName: () => t("Line Dash Width"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_LINE_DASH_WIDTH,
@@ -1916,7 +1916,7 @@ const line_dash_width_property_info: LVGLPropertyInfo = {
 };
 const line_dash_gap_property_info: LVGLPropertyInfo = {
     name: "line_dash_gap",
-    displayName: t("Line Dash Gap"),
+    displayName: () => t("Line Dash Gap"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_LINE_DASH_GAP,
@@ -1930,7 +1930,7 @@ const line_dash_gap_property_info: LVGLPropertyInfo = {
 };
 const line_rounded_property_info: LVGLPropertyInfo = {
     name: "line_rounded",
-    displayName: t("Line Rounded"),
+    displayName: () => t("Line Rounded"),
     type: PropertyType.Boolean,
     checkboxStyleSwitch: true,
     lvglStyleProp: {
@@ -1945,7 +1945,7 @@ const line_rounded_property_info: LVGLPropertyInfo = {
 };
 const line_color_property_info: LVGLPropertyInfo = {
     name: "line_color",
-    displayName: t("Line Color"),
+    displayName: () => t("Line Color"),
     type: PropertyType.ThemedColor,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_LINE_COLOR,
@@ -1958,7 +1958,7 @@ const line_color_property_info: LVGLPropertyInfo = {
 };
 const line_opa_property_info: LVGLPropertyInfo = {
     name: "line_opa",
-    displayName: t("Line Opacity"),
+    displayName: () => t("Line Opacity"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_LINE_OPA,
@@ -1976,7 +1976,7 @@ const line_opa_property_info: LVGLPropertyInfo = {
 
 const arc_width_property_info: LVGLPropertyInfo = {
     name: "arc_width",
-    displayName: t("Arc Width"),
+    displayName: () => t("Arc Width"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_ARC_WIDTH,
@@ -1989,7 +1989,7 @@ const arc_width_property_info: LVGLPropertyInfo = {
 };
 const arc_rounded_property_info: LVGLPropertyInfo = {
     name: "arc_rounded",
-    displayName: t("Arc Rounded"),
+    displayName: () => t("Arc Rounded"),
     type: PropertyType.Boolean,
     checkboxStyleSwitch: true,
     lvglStyleProp: {
@@ -2004,7 +2004,7 @@ const arc_rounded_property_info: LVGLPropertyInfo = {
 };
 const arc_color_property_info: LVGLPropertyInfo = {
     name: "arc_color",
-    displayName: t("Arc Color"),
+    displayName: () => t("Arc Color"),
     type: PropertyType.ThemedColor,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_ARC_COLOR,
@@ -2017,7 +2017,7 @@ const arc_color_property_info: LVGLPropertyInfo = {
 };
 const arc_opa_property_info: LVGLPropertyInfo = {
     name: "arc_opa",
-    displayName: t("Arc Opacity"),
+    displayName: () => t("Arc Opacity"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_ARC_OPA,
@@ -2030,7 +2030,7 @@ const arc_opa_property_info: LVGLPropertyInfo = {
 };
 const arc_img_src_property_info: LVGLPropertyInfo = {
     name: "arc_img_src",
-    displayName: t("Arc Image Source"),
+    displayName: () => t("Arc Image Source"),
     type: PropertyType.ObjectReference,
     referencedObjectCollectionPath: "bitmaps",
     lvglStyleProp: {
@@ -2050,7 +2050,7 @@ const arc_img_src_property_info: LVGLPropertyInfo = {
 
 const text_color_property_info: LVGLPropertyInfo = {
     name: "text_color",
-    displayName: t("Text Color"),
+    displayName: () => t("Text Color"),
     type: PropertyType.ThemedColor,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_TEXT_COLOR,
@@ -2063,7 +2063,7 @@ const text_color_property_info: LVGLPropertyInfo = {
 };
 const text_opa_property_info: LVGLPropertyInfo = {
     name: "text_opa",
-    displayName: t("Text Opacity"),
+    displayName: () => t("Text Opacity"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_TEXT_OPA,
@@ -2077,7 +2077,7 @@ const text_opa_property_info: LVGLPropertyInfo = {
 };
 export const text_font_property_info: LVGLPropertyInfo = {
     name: "text_font",
-    displayName: t("Text Font"),
+    displayName: () => t("Text Font"),
     type: PropertyType.Enum,
     referencedObjectCollectionPath: "fonts",
     enumItems: (propertyValueHolder: PropertyValueHolder) => {
@@ -2104,7 +2104,7 @@ export const text_font_property_info: LVGLPropertyInfo = {
 };
 const text_letter_space_property_info: LVGLPropertyInfo = {
     name: "text_letter_space",
-    displayName: t("Text Letter Space"),
+    displayName: () => t("Text Letter Space"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_TEXT_LETTER_SPACE,
@@ -2117,7 +2117,7 @@ const text_letter_space_property_info: LVGLPropertyInfo = {
 };
 const text_line_space_property_info: LVGLPropertyInfo = {
     name: "text_line_space",
-    displayName: t("Text Line Space"),
+    displayName: () => t("Text Line Space"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_TEXT_LINE_SPACE,
@@ -2150,7 +2150,7 @@ const TextDecorationSide = observer(
 
             const options = enumItems.map(enumItem => ({
                 value: enumItem.id.toString(),
-                label: (enumItem.label || enumItem.id).toString()
+                label: (getEnumItemDisplayLabel(enumItem) || enumItem.id).toString()
             }));
 
             let propertyValue = (objects[0] as any)[propertyInfo.name];
@@ -2385,7 +2385,7 @@ const text_align_property_info = makeEnumPropertyInfo(
 
 export const radius_property_info: LVGLPropertyInfo = {
     name: "radius",
-    displayName: t("Radius"),
+    displayName: () => t("Radius"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_RADIUS,
@@ -2400,7 +2400,7 @@ export const radius_property_info: LVGLPropertyInfo = {
 
 const radial_offset_property_info: LVGLPropertyInfo = {
     name: "radial_offset",
-    displayName: t("Radial Offset"),
+    displayName: () => t("Radial Offset"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_RADIAL_OFFSET,
@@ -2415,7 +2415,7 @@ const radial_offset_property_info: LVGLPropertyInfo = {
 
 const clip_corner_property_info: LVGLPropertyInfo = {
     name: "clip_corner",
-    displayName: t("Clip corner"),
+    displayName: () => t("Clip corner"),
     type: PropertyType.Boolean,
     checkboxStyleSwitch: true,
     lvglStyleProp: {
@@ -2430,7 +2430,7 @@ const clip_corner_property_info: LVGLPropertyInfo = {
 };
 export const opa_property_info: LVGLPropertyInfo = {
     name: "opa",
-    displayName: t("Opacity"),
+    displayName: () => t("Opacity"),
     type: PropertyType.Number,
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_OPA,

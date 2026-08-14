@@ -100,7 +100,8 @@ export const enum ProjectType {
 
 export interface EnumItem {
     id: string | number;
-    label?: string;
+    // 支持惰性求值（函数），使得运行时切换语言时枚举选项文本能随之更新
+    label?: string | (() => string);
     icon?: React.ReactNode;
 }
 
@@ -121,7 +122,8 @@ export interface IMessage {
 
 export interface IPropertyGridGroupDefinition {
     id: string;
-    title: string;
+    // 支持惰性求值（函数），使得运行时切换语言时分组标题能随之更新
+    title: string | (() => string);
     position?: number | ((object: IEezObject) => number);
 }
 

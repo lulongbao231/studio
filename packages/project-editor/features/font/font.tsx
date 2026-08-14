@@ -111,7 +111,7 @@ export class GlyphSource extends EezObject {
             },
             {
                 name: "size",
-                displayName: t("Font size"),
+                displayName: () => t("Font size"),
                 type: PropertyType.Number,
                 formText: object => {
                     if (object && isLVGLProject(object)) {
@@ -940,7 +940,7 @@ export class FontSource extends EezObject {
             },
             {
                 name: "size",
-                displayName: t("Font size"),
+                displayName: () => t("Font size"),
                 type: PropertyType.Number,
                 readOnlyInPropertyGrid: (fontSource: FontSource) =>
                     isLVGLProject(fontSource) &&
@@ -1047,13 +1047,13 @@ export class AdditionalFontSource extends EezObject {
             },
             {
                 name: "lvglRanges",
-                displayName: t("Ranges"),
+                displayName: () => t("Ranges"),
                 type: PropertyType.String,
                 readOnlyInPropertyGrid: true
             },
             {
                 name: "lvglSymbols",
-                displayName: t("Symbols"),
+                displayName: () => t("Symbols"),
                 type: PropertyType.String,
                 readOnlyInPropertyGrid: true
             },
@@ -1555,11 +1555,11 @@ export class Font extends EezObject {
                 enumItems: [
                     {
                         id: "freetype",
-                        label: t("FreeType")
+                        label: () => t("FreeType")
                     },
                     {
                         id: "opentype",
-                        label: t("OpenType")
+                        label: () => t("OpenType")
                     }
                 ],
                 disabled: (font: Font) => isLVGLProject(font),
@@ -1578,7 +1578,7 @@ export class Font extends EezObject {
             },
             {
                 name: "bpp",
-                displayName: t("Bits per pixel"),
+                displayName: () => t("Bits per pixel"),
                 type: PropertyType.Enum,
                 enumItems: [{ id: 1 }, { id: 2 }, { id: 4 }, { id: 8 }],
                 defaultValue: 1,
@@ -1653,7 +1653,7 @@ export class Font extends EezObject {
             },
             {
                 name: "alwaysBuild",
-                displayName: t("Always add to the generated code"),
+                displayName: () => t("Always add to the generated code"),
                 type: PropertyType.Boolean,
                 disabled: isLVGLProject
             },
@@ -1672,7 +1672,7 @@ export class Font extends EezObject {
             },
             {
                 name: "lvglRanges",
-                displayName: t("Ranges"),
+                displayName: () => t("Ranges"),
                 type: PropertyType.String,
                 readOnlyInPropertyGrid: true,
                 disabled: (font: Font) =>
@@ -1681,7 +1681,7 @@ export class Font extends EezObject {
             },
             {
                 name: "lvglSymbols",
-                displayName: t("Symbols"),
+                displayName: () => t("Symbols"),
                 type: PropertyType.String,
                 readOnlyInPropertyGrid: true,
                 disabled: (font: Font) =>
@@ -1700,7 +1700,7 @@ export class Font extends EezObject {
             },
             {
                 name: "lvglAdditionalSources",
-                displayName: t("Additional sources"),
+                displayName: () => t("Additional sources"),
                 type: PropertyType.Array,
                 typeClass: AdditionalFontSource,
                 defaultValue: [],
@@ -1719,7 +1719,7 @@ export class Font extends EezObject {
             },
             {
                 name: "lvglFallbackFont",
-                displayName: t("Fallback font"),
+                displayName: () => t("Fallback font"),
                 type: PropertyType.String,
                 disabled: (font: Font) =>
                     !isLVGLProject(font) ||
@@ -1729,7 +1729,7 @@ export class Font extends EezObject {
             },
             {
                 name: "lvglUseFreeType",
-                displayName: t("Use FreeType for rendering"),
+                displayName: () => t("Use FreeType for rendering"),
                 type: PropertyType.Boolean,
                 checkboxStyleSwitch: true,
                 readOnlyInPropertyGrid: true,
@@ -1738,16 +1738,16 @@ export class Font extends EezObject {
             },
             {
                 name: "lvglFreeTypeRenderMode",
-                displayName: t("Render Mode"),
+                displayName: () => t("Render Mode"),
                 type: PropertyType.Enum,
                 enumItems: [
                     {
                         id: "BITMAP",
-                        label: t("Bitmap")
+                        label: () => t("Bitmap")
                     },
                     {
                         id: "OUTLINE",
-                        label: t("Outline")
+                        label: () => t("Outline")
                     }
                 ],
                 disabled: (font: Font) =>
@@ -1759,24 +1759,24 @@ export class Font extends EezObject {
             },
             {
                 name: "lvglFreeTypeStyle",
-                displayName: t("Style"),
+                displayName: () => t("Style"),
                 type: PropertyType.Enum,
                 enumItems: [
                     {
                         id: "NORMAL",
-                        label: t("Normal")
+                        label: () => t("Normal")
                     },
                     {
                         id: "ITALIC",
-                        label: t("Italic")
+                        label: () => t("Italic")
                     },
                     {
                         id: "BOLD",
-                        label: t("Bold")
+                        label: () => t("Bold")
                     },
                     {
                         id: "BOLD_ITALIC",
-                        label: t("Bold Italic")
+                        label: () => t("Bold Italic")
                     }
                 ],
                 disabled: (font: Font) =>
@@ -1784,7 +1784,7 @@ export class Font extends EezObject {
             },
             {
                 name: "lvglFreeTypeFilePath",
-                displayName: t("File path"),
+                displayName: () => t("File path"),
                 type: PropertyType.String,
                 disabled: (font: Font) =>
                     !isLVGLProject(font) || !font.lvglUseFreeType

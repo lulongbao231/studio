@@ -185,7 +185,7 @@ export const LVGLStylesDefinitionProperty = observer(
                                             size={18}
                                             className="triangle"
                                         />
-                                        {propertiesGroup.groupName}
+                                        {t(propertiesGroup.groupName)}
                                         {numModifications > 0
                                             ? ` (${numModifications})`
                                             : ""}
@@ -326,7 +326,7 @@ export const LVGLStylesDefinitionTree = observer(
                               const numModifications =
                                   this.getNumModificationsForPart(part);
 
-                              const partLabel = humanize(part) + t(" part");
+                              const partLabel = t(humanize(part) + " part");
 
                               return {
                                   id: part,

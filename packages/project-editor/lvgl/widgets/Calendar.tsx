@@ -42,19 +42,19 @@ export class LVGLCalendarWidget extends LVGLWidget {
         properties: [
             {
                 name: "todayYear",
-                displayName: t("Year"),
+                displayName: () => t("Year"),
                 type: PropertyType.Number,
                 propertyGridGroup: specificGroup
             },
             {
                 name: "todayMonth",
-                displayName: t("Month"),
+                displayName: () => t("Month"),
                 type: PropertyType.Number,
                 propertyGridGroup: specificGroup
             },
             {
                 name: "todayDay",
-                displayName: t("Day"),
+                displayName: () => t("Day"),
                 type: PropertyType.Number,
                 propertyGridGroup: specificGroup
             },

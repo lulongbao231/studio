@@ -135,7 +135,7 @@ export class SCPIActionComponent extends ActionComponent {
             makeExpressionProperty(
                 {
                     name: "timeout",
-                    displayName: t("Timeout (ms)"),
+                    displayName: () => t("Timeout (ms)"),
                     type: PropertyType.MultilineText,
                     propertyGridGroup: specificGroup
                 },
@@ -144,7 +144,7 @@ export class SCPIActionComponent extends ActionComponent {
             makeExpressionProperty(
                 {
                     name: "delay",
-                    displayName: t("Delay (ms)"),
+                    displayName: () => t("Delay (ms)"),
                     formText: t("Minimum delay between commands."),
                     type: PropertyType.MultilineText,
                     propertyGridGroup: specificGroup
@@ -442,7 +442,7 @@ export class GetInstrumentActionComponent extends ActionComponent {
             makeExpressionProperty(
                 {
                     name: "instrumentId",
-                    displayName: t("Instrument ID"),
+                    displayName: () => t("Instrument ID"),
                     type: PropertyType.MultilineText,
                     propertyGridGroup: specificGroup
                 },
@@ -1212,7 +1212,7 @@ export class AddToInstrumentHistoryActionComponent extends ActionComponent {
                     },
                     {
                         id: "widget",
-                        label: t("Widget")
+                        label: () => t("Widget")
                     }
                 ],
                 propertyGridGroup: specificGroup

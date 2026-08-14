@@ -183,7 +183,7 @@ export class LVGLArcWidget extends LVGLWidget {
             },
             {
                 name: "useAngle",
-                displayName: t("Use start/end angle"),
+                displayName: () => t("Use start/end angle"),
                 type: PropertyType.Boolean,
                 checkboxStyleSwitch: true,
                 propertyGridGroup: specificGroup

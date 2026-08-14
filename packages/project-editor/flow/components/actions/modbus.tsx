@@ -181,7 +181,7 @@ export class ModbusActionComponent extends ActionComponent {
             makeExpressionProperty(
                 {
                     name: "timeout",
-                    displayName: t("Timeout (ms)"),
+                    displayName: () => t("Timeout (ms)"),
                     type: PropertyType.MultilineText,
                     propertyGridGroup: specificGroup
                 },

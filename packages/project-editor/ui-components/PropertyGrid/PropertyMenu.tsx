@@ -51,7 +51,7 @@ export const PropertyMenu = observer(
         };
 
         render() {
-            let title = humanize(this.sourceInfo.source);
+            let title = t(humanize(this.sourceInfo.source));
             if (this.sourceInfo.inheritedFrom) {
                 title +=
                     " from " + objectToString(this.sourceInfo.inheritedFrom);

@@ -37,6 +37,7 @@ import {
 
 import {
     getEnumItems,
+    getEnumItemDisplayLabel,
     getFormText,
     getObjectPropertyValue,
     getPropertyValue,
@@ -678,7 +679,8 @@ export const Property = observer(
                         enumItem => enumItem.id == this._value
                     );
                     const value = enumItem
-                        ? enumItem.label || humanize(enumItem.id.toString())
+                        ? getEnumItemDisplayLabel(enumItem) ||
+                          t(humanize(enumItem.id.toString()))
                         : this._value;
 
                     return (
@@ -699,8 +701,10 @@ export const Property = observer(
                             const id = enumItem.id.toString();
                             let label;
                             
-                            if (enumItem.label) {
-                                label = enumItem.label;
+                            const enumLabel =
+                                getEnumItemDisplayLabel(enumItem);
+                            if (enumLabel) {
+                                label = enumLabel;
                                 if (enumGroupSeparator) {
                                     const parts = label.split(
                                         propertyInfo.enumGroupSeparator!
@@ -708,7 +712,7 @@ export const Property = observer(
                                     label = parts[1];
                                 }
                             } else {
-                                label = humanize(id);
+                                label = t(humanize(id));
                             }
                             
                             options.push(
@@ -727,7 +731,9 @@ export const Property = observer(
                         }[] = [];
 
                         enumItems.forEach(enumItem => {
-                            const label = enumItem.label || humanize(enumItem.id);
+                            const label =
+                                getEnumItemDisplayLabel(enumItem) ||
+                                t(humanize(enumItem.id));
                             const parts = label.split(
                                 propertyInfo.enumGroupSeparator!
                             );

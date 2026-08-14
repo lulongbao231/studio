@@ -79,7 +79,7 @@ export class LVGLMeterIndicator extends EezObject {
         properties: [
             {
                 name: "identifier",
-                displayName: t("Name"),
+                displayName: () => t("Name"),
                 type: PropertyType.String,
                 isOptional: true
             },
@@ -121,7 +121,7 @@ export class LVGLMeterIndicator extends EezObject {
                                 label:
                                     id == "NEEDLE_IMG"
                                         ? t("Needle image")
-                                        : humanize(id)
+                                        : t(humanize(id))
                             }))
                         }
                     ]
@@ -1073,7 +1073,7 @@ class LVGLMeterScale extends EezObject {
         properties: [
             {
                 name: "identifier",
-                displayName: t("Name"),
+                displayName: () => t("Name"),
                 type: PropertyType.String,
                 isOptional: true
             },
@@ -1099,12 +1099,12 @@ class LVGLMeterScale extends EezObject {
 
             {
                 name: "nthMajor",
-                displayName: t("Major tick distance"),
+                displayName: () => t("Major tick distance"),
                 type: PropertyType.Number
             },
             {
                 name: "majorTickWidth",
-                displayName: t("Major tick line width"),
+                displayName: () => t("Major tick line width"),
                 type: PropertyType.Number
             },
             { name: "majorTickLength", type: PropertyType.Number },
@@ -1113,7 +1113,7 @@ class LVGLMeterScale extends EezObject {
             makeExpressionProperty(
                 {
                     name: "label",
-                    displayName: t("Major tick label"),
+                    displayName: () => t("Major tick label"),
                     type: PropertyType.MultilineText,
                     disabled: object =>
                         !ProjectEditor.getProject(object).projectTypeTraits
@@ -1123,7 +1123,7 @@ class LVGLMeterScale extends EezObject {
             ),
             {
                 name: "labelGap",
-                displayName: t("Major Tick label gap"),
+                displayName: () => t("Major Tick label gap"),
                 type: PropertyType.Number
             },
 

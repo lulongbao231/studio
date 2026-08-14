@@ -52,7 +52,7 @@ export class LVGLImageWidget extends LVGLWidget {
         componentPaletteGroupName: "!1Basic",
 
         label: (widget: LVGLImageWidget) => {
-            let name = getComponentName(widget.type);
+            let name = t(getComponentName(widget.type));
 
             if (widget.identifier) {
                 return `${name} [${widget.identifier}]`;
@@ -74,27 +74,27 @@ export class LVGLImageWidget extends LVGLWidget {
             },
             {
                 name: "setPivot",
-                displayName: t("Change pivot point (default is center)"),
+                displayName: () => t("Change pivot point (default is center)"),
                 type: PropertyType.Boolean,
                 propertyGridGroup: specificGroup
             },
             {
                 name: "pivotX",
-                displayName: t("Pivot X"),
+                displayName: () => t("Pivot X"),
                 type: PropertyType.Number,
                 propertyGridGroup: specificGroup,
                 disabled: (widget: LVGLImageWidget) => !widget.setPivot
             },
             {
                 name: "pivotY",
-                displayName: t("Pivot Y"),
+                displayName: () => t("Pivot Y"),
                 type: PropertyType.Number,
                 propertyGridGroup: specificGroup,
                 disabled: (widget: LVGLImageWidget) => !widget.setPivot
             },
             {
                 name: "zoom",
-                displayName: t("Scale"),
+                displayName: () => t("Zoom"),
                 type: PropertyType.Number,
                 propertyGridGroup: specificGroup,
                 hideInPropertyGrid: (widget: LVGLImageWidget) =>
@@ -102,7 +102,7 @@ export class LVGLImageWidget extends LVGLWidget {
             },
             {
                 name: "angle",
-                displayName: t("Rotation"),
+                displayName: () => t("Rotation"),
                 type: PropertyType.Number,
                 propertyGridGroup: specificGroup,
                 hideInPropertyGrid: (widget: LVGLImageWidget) =>

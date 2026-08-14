@@ -218,7 +218,7 @@ export class InputActionComponent extends ActionComponent {
             },
             {
                 name: "inputType",
-                displayName: t("Type"),
+                displayName: () => t("Type"),
                 type: PropertyType.String,
                 propertyGridColumnComponent: VariableTypeUI,
                 propertyGridGroup: specificGroup
@@ -311,7 +311,7 @@ export class OutputActionComponent extends ActionComponent {
             },
             {
                 name: "outputType",
-                displayName: t("Type"),
+                displayName: () => t("Type"),
                 type: PropertyType.String,
                 propertyGridColumnComponent: VariableTypeUI,
                 propertyGridGroup: specificGroup
@@ -475,7 +475,7 @@ export class WatchVariableActionComponent extends ActionComponent {
             makeExpressionProperty(
                 {
                     name: "variable",
-                    displayName: t("Expression"),
+                    displayName: () => t("Expression"),
                     type: PropertyType.MultilineText,
                     propertyGridGroup: specificGroup
                 },
@@ -542,7 +542,7 @@ export class WatchVariableActionComponent extends ActionComponent {
             },
             {
                 name: "variable",
-                displayName: t("changed"),
+                displayName: () => t("changed"),
                 type: "any" as ValueType,
                 isSequenceOutput: false,
                 isOptionalOutput: false
@@ -822,7 +822,7 @@ export class SetVariableActionComponent extends ActionComponent {
         properties: [
             {
                 name: "entries",
-                displayName: t("Set variable entries"),
+                displayName: () => t("Set variable entries"),
                 type: PropertyType.Array,
                 typeClass: SetVariableEntry,
                 propertyGridGroup: specificGroup,
@@ -941,21 +941,21 @@ class SwitchTest extends EezObject {
             makeExpressionProperty(
                 {
                     name: "condition",
-                    displayName: t("When"),
+                    displayName: () => t("When"),
                     type: PropertyType.MultilineText
                 },
                 "boolean"
             ),
             {
                 name: "outputName",
-                displayName: t("Then output"),
+                displayName: () => t("Then output"),
                 type: PropertyType.String,
                 unique: componentOutputUnique
             },
             makeExpressionProperty(
                 {
                     name: "outputValue",
-                    displayName: t("With value"),
+                    displayName: () => t("With value"),
                     type: PropertyType.MultilineText
                 },
                 "any"
@@ -1052,7 +1052,7 @@ export class SwitchActionComponent extends ActionComponent {
         properties: [
             {
                 name: "tests",
-                displayName: t("Cases"),
+                displayName: () => t("Cases"),
                 type: PropertyType.Array,
                 typeClass: SwitchTest,
                 propertyGridGroup: specificGroup,
@@ -1425,14 +1425,14 @@ export class IsTrueActionComponent extends ActionComponent {
             },
             {
                 name: "True",
-                displayName: t("Yes"),
+                displayName: () => t("Yes"),
                 type: "boolean",
                 isSequenceOutput: true,
                 isOptionalOutput: outputIsOptionalIfAtLeastOneOutputExists
             },
             {
                 name: "False",
-                displayName: t("No"),
+                displayName: () => t("No"),
                 type: "boolean",
                 isSequenceOutput: true,
                 isOptionalOutput: outputIsOptionalIfAtLeastOneOutputExists
@@ -3200,9 +3200,9 @@ export class ShowMessageBoxActionComponent extends ActionComponent {
                 name: "messageType",
                 type: PropertyType.Enum,
                 enumItems: [
-                    { id: MESSAGE_BOX_TYPE_INFO, label: t("Info") },
-                    { id: MESSAGE_BOX_TYPE_ERROR, label: t("Error") },
-                    { id: MESSAGE_BOX_TYPE_QUESTION, label: t("Question") }
+                    { id: MESSAGE_BOX_TYPE_INFO, label: () => t("Info") },
+                    { id: MESSAGE_BOX_TYPE_ERROR, label: () => t("Error") },
+                    { id: MESSAGE_BOX_TYPE_QUESTION, label: () => t("Question") }
                 ],
                 propertyGridGroup: specificGroup
             },

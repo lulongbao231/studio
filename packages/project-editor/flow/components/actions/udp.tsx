@@ -100,11 +100,11 @@ export class UDPInActionComponent extends ActionComponent {
         properties: [
             {
                 name: "multicast",
-                displayName: t("Listen for"),
+                displayName: () => t("Listen for"),
                 type: PropertyType.Enum,
                 enumItems: [
-                    { id: "udp", label: t("UDP messages") },
-                    { id: "multicast", label: t("Multicast messages") }
+                    { id: "udp", label: () => t("UDP messages") },
+                    { id: "multicast", label: () => t("Multicast messages") }
                 ],
                 enumDisallowUndefined: true,
                 propertyGridGroup: specificGroup
@@ -122,7 +122,7 @@ export class UDPInActionComponent extends ActionComponent {
             makeExpressionProperty(
                 {
                     name: "iface",
-                    displayName: t("Local interface"),
+                    displayName: () => t("Local interface"),
                     type: PropertyType.MultilineText,
                     propertyGridGroup: specificGroup,
                     isOptional: true,
@@ -134,7 +134,7 @@ export class UDPInActionComponent extends ActionComponent {
             makeExpressionProperty(
                 {
                     name: "port",
-                    displayName: t("On port"),
+                    displayName: () => t("On port"),
                     type: PropertyType.MultilineText,
                     propertyGridGroup: specificGroup
                 },
@@ -142,11 +142,11 @@ export class UDPInActionComponent extends ActionComponent {
             ),
             {
                 name: "ipv",
-                displayName: t("Using"),
+                displayName: () => t("Using"),
                 type: PropertyType.Enum,
                 enumItems: [
-                    { id: "udp4", label: t("IPv4") },
-                    { id: "udp6", label: t("IPv6") }
+                    { id: "udp4", label: () => t("IPv4") },
+                    { id: "udp6", label: () => t("IPv6") }
                 ],
                 enumDisallowUndefined: true,
                 propertyGridGroup: specificGroup
@@ -359,12 +359,12 @@ export class UDPOutActionComponent extends ActionComponent {
         properties: [
             {
                 name: "multicast",
-                displayName: t("Send a"),
+                displayName: () => t("Send a"),
                 type: PropertyType.Enum,
                 enumItems: [
-                    { id: "udp", label: t("UDP message") },
-                    { id: "broadcast", label: t("Broadcast message") },
-                    { id: "multicast", label: t("Multicast message") }
+                    { id: "udp", label: () => t("UDP message") },
+                    { id: "broadcast", label: () => t("Broadcast message") },
+                    { id: "multicast", label: () => t("Multicast message") }
                 ],
                 enumDisallowUndefined: true,
                 propertyGridGroup: specificGroup
@@ -372,7 +372,7 @@ export class UDPOutActionComponent extends ActionComponent {
             makeExpressionProperty(
                 {
                     name: "port",
-                    displayName: t("To port"),
+                    displayName: () => t("To port"),
                     type: PropertyType.MultilineText,
                     propertyGridGroup: specificGroup
                 },
@@ -399,7 +399,7 @@ export class UDPOutActionComponent extends ActionComponent {
             makeExpressionProperty(
                 {
                     name: "iface",
-                    displayName: t("Local interface"),
+                    displayName: () => t("Local interface"),
                     type: PropertyType.MultilineText,
                     propertyGridGroup: specificGroup,
                     isOptional: true,
@@ -412,19 +412,19 @@ export class UDPOutActionComponent extends ActionComponent {
                 name: "ipv",
                 type: PropertyType.Enum,
                 enumItems: [
-                    { id: "udp4", label: t("IPv4") },
-                    { id: "udp6", label: t("IPv6") }
+                    { id: "udp4", label: () => t("IPv4") },
+                    { id: "udp6", label: () => t("IPv6") }
                 ],
                 enumDisallowUndefined: true,
                 propertyGridGroup: specificGroup
             },
             {
                 name: "outportType",
-                displayName: t("Bind to"),
+                displayName: () => t("Bind to"),
                 type: PropertyType.Enum,
                 enumItems: [
-                    { id: "random", label: t("Random local port") },
-                    { id: "fixed", label: t("Fixed local port") }
+                    { id: "random", label: () => t("Random local port") },
+                    { id: "fixed", label: () => t("Fixed local port") }
                 ],
                 enumDisallowUndefined: true,
                 propertyGridGroup: specificGroup

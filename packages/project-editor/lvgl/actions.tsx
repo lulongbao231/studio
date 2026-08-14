@@ -30,6 +30,7 @@ import {
 import { COMPONENT_TYPE_LVGL_ACTION_API } from "project-editor/flow/components/component-types";
 import type { IFlowContext } from "project-editor/flow/flow-interfaces";
 import { specificGroup } from "project-editor/ui-components/PropertyGrid/groups";
+import { getEnumItemDisplayLabel } from "project-editor/ui-components/PropertyGrid/utils";
 import { humanize } from "eez-studio-shared/string";
 import { t } from "eez-studio-shared/i18n";
 import {
@@ -148,12 +149,16 @@ const actionNameToActionId = new Map<string, number>();
 const actionIdToActionName = new Map<number, string>();
 
 function getActionDisplayName(actionDefinition: IActionDefinition) {
-    return (actionDefinition.displayName || humanize(actionDefinition.name))
-        .split(" ")
-        .map(word =>
-            word == "to" ? word : word[0].toUpperCase() + word.substring(1)
-        )
-        .join(" ");
+    return t(
+        (actionDefinition.displayName || humanize(actionDefinition.name))
+            .split(" ")
+            .map(word =>
+                word == "to"
+                    ? word
+                    : word[0].toUpperCase() + word.substring(1)
+            )
+            .join(" ")
+    );
 }
 
 function getStyleProperties(actionType: LVGLActionType): EnumItem[] {
@@ -175,7 +180,7 @@ function getStyleProperties(actionType: LVGLActionType): EnumItem[] {
 
             styleProperties.push({
                 id: styleProperty.name,
-                label: `${propertiesGroup.groupName} / ${propertyName}`
+                label: `${t(propertiesGroup.groupName)} / ${propertyName}`
             });
         }
     }
@@ -235,9 +240,10 @@ export function registerAction(actionDefinition: IActionDefinition) {
                 makeAssignableExpressionProperty(
                     {
                         name: actionProperty.name,
-                        displayName: t("Store {name} into", {
-                            name: actionProperty.name
-                        }),
+                        displayName: () =>
+                            t("Store {name} into", {
+                                name: actionProperty.name
+                            }),
                         type: PropertyType.MultilineText
                     },
                     expressionType
@@ -444,7 +450,9 @@ export function registerAction(actionDefinition: IActionDefinition) {
                         const enumItem = enumItems.find(item => item.id == value);
 
                         if (enumItem) {
-                            value = `${enumItem.label!.split(" / ")[1]}`;
+                            value = `${(
+                                getEnumItemDisplayLabel(enumItem) || ""
+                            ).split(" / ")[1]}`;
                         } else {
                             value = `<unknown>`;
                         }
@@ -866,7 +874,7 @@ const NewLVGLActionDialog = observer(
             for (const group of newLVGLActionDialogState.groups) {
                 nodes.push({
                     id: group,
-                    label: group,
+                    label: t(group),
                     data: group,
                     selected: group == newLVGLActionDialogState.selectedGroup
                 });
@@ -1837,11 +1845,11 @@ export class LVGLActionType extends EezObject {
                     fields: [
                         {
                             name: "action",
-                            displayName: t("Action type"),
+                            displayName: () => t("Action type"),
                             type: "enum",
                             enumItems: Object.keys(LVGL_ACTIONS).map(id => ({
                                 id,
-                                label: humanize(id)
+                                label: t(humanize(id))
                             }))
                         }
                     ]
@@ -2008,7 +2016,7 @@ export class LVGLChangeScreenActionType extends LVGLActionType {
         properties: [
             {
                 name: "showPreviousScreen",
-                displayName: t("Previous screen"),
+                displayName: () => t("Previous screen"),
                 type: PropertyType.Boolean,
                 checkboxStyleSwitch: true
             },
@@ -2029,12 +2037,12 @@ export class LVGLChangeScreenActionType extends LVGLActionType {
             },
             {
                 name: "speed",
-                displayName: t("Speed (ms)"),
+                displayName: () => t("Speed (ms)"),
                 type: PropertyType.Number
             },
             {
                 name: "delay",
-                displayName: t("Delay (ms)"),
+                displayName: () => t("Delay (ms)"),
                 type: PropertyType.Number
             }
         ],
@@ -2184,12 +2192,12 @@ export class LVGLPlayAnimationActionType extends LVGLActionType {
             },
             {
                 name: "delay",
-                displayName: t("Delay (ms)"),
+                displayName: () => t("Delay (ms)"),
                 type: PropertyType.Number
             },
             {
                 name: "time",
-                displayName: t("Time (ms)"),
+                displayName: () => t("Time (ms)"),
                 type: PropertyType.Number
             },
             {
@@ -2511,7 +2519,7 @@ export class LVGLSetPropertyActionType extends LVGLActionType {
             },
             {
                 name: "target",
-                displayName: t("Target"),
+                displayName: () => t("Target"),
                 type: PropertyType.Enum,
                 enumItems: (actionType: LVGLSetPropertyActionType) => {
                     const lvglIdentifiers = ProjectEditor.getProjectStore(
@@ -2846,7 +2854,7 @@ export class LVGLAddStyleActionType extends LVGLActionType {
         properties: [
             {
                 name: "target",
-                displayName: t("Target"),
+                displayName: () => t("Target"),
                 type: PropertyType.Enum,
                 enumItems: (actionType: LVGLAddStyleActionType) => {
                     const lvglIdentifiers = ProjectEditor.getProjectStore(
@@ -2974,7 +2982,7 @@ export class LVGLRemoveStyleActionType extends LVGLActionType {
         properties: [
             {
                 name: "target",
-                displayName: t("Target"),
+                displayName: () => t("Target"),
                 type: PropertyType.Enum,
                 enumItems: (actionType: LVGLRemoveStyleActionType) => {
                     const lvglIdentifiers = ProjectEditor.getProjectStore(
@@ -3100,7 +3108,7 @@ export class LVGLAddFlagActionType extends LVGLActionType {
         properties: [
             {
                 name: "target",
-                displayName: t("Target"),
+                displayName: () => t("Target"),
                 type: PropertyType.Enum,
                 enumItems: (actionType: LVGLAddFlagActionType) => {
                     const lvglIdentifiers = ProjectEditor.getProjectStore(
@@ -3203,7 +3211,7 @@ export class LVGLClearFlagActionType extends LVGLActionType {
         properties: [
             {
                 name: "target",
-                displayName: t("Target"),
+                displayName: () => t("Target"),
                 type: PropertyType.Enum,
                 enumItems: (actionType: LVGLClearFlagActionType) => {
                     const lvglIdentifiers = ProjectEditor.getProjectStore(
@@ -3306,7 +3314,7 @@ export class LVGLAddStateActionType extends LVGLActionType {
         properties: [
             {
                 name: "target",
-                displayName: t("Target"),
+                displayName: () => t("Target"),
                 type: PropertyType.Enum,
                 enumItems: (actionType: LVGLAddStateActionType) => {
                     const lvglIdentifiers = ProjectEditor.getProjectStore(
@@ -3407,7 +3415,7 @@ export class LVGLClearStateActionType extends LVGLActionType {
         properties: [
             {
                 name: "target",
-                displayName: t("Target"),
+                displayName: () => t("Target"),
                 type: PropertyType.Enum,
                 enumItems: (actionType: LVGLClearStateActionType) => {
                     const lvglIdentifiers = ProjectEditor.getProjectStore(

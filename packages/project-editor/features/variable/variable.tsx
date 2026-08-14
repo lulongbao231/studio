@@ -1442,13 +1442,13 @@ export class EnumMember extends EezObject implements IEnumMember {
             },
             {
                 name: "specificValue",
-                displayName: t("Value"),
+                displayName: () => t("Value"),
                 type: PropertyType.Number,
                 disabled: (enumMember: EnumMember) => enumMember.automaticValue
             },
             {
                 name: "value",
-                displayName: t("Value"),
+                displayName: () => t("Value"),
                 type: PropertyType.Number,
                 computed: true,
                 readOnlyInPropertyGrid: true,

@@ -11,7 +11,7 @@ import { ProjectContext } from "project-editor/project/context";
 import { IEezObject, PropertyInfo } from "project-editor/core/object";
 import { findBitmap } from "project-editor/project/project";
 import { SortDirectionType } from "project-editor/core/objectAdapter";
-import { getEnumItems } from "./utils";
+import { getEnumItems, getEnumItemDisplayLabel } from "./utils";
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -59,7 +59,8 @@ export const ObjectReferenceInput = observer(
                     return getEnumItems(this.props.objects, propertyInfo)
                         .filter(
                             enumItem =>
-                                (enumItem.label || enumItem.id.toString())
+                                (getEnumItemDisplayLabel(enumItem) ||
+                                    enumItem.id.toString())
                                     .toLowerCase()
                                     .indexOf(
                                         this.searchText.trim().toLowerCase()

@@ -1783,7 +1783,7 @@ export class Component extends EezObject {
             },
             {
                 name: "absolutePosition",
-                displayName: t("Absolute pos."),
+                displayName: () => t("Absolute pos."),
                 type: PropertyType.String,
                 propertyGridGroup: geometryGroup,
                 computed: true,
@@ -1823,7 +1823,7 @@ export class Component extends EezObject {
             },
             {
                 name: "centerWidgetUI",
-                displayName: t("Center widget"),
+                displayName: () => t("Center widget"),
                 type: PropertyType.Any,
                 propertyGridGroup: geometryGroup,
                 computed: true,
@@ -1848,7 +1848,7 @@ export class Component extends EezObject {
             },
             {
                 name: "customInputs",
-                displayName: t("Inputs"),
+                displayName: () => t("Inputs"),
                 type: PropertyType.Array,
                 typeClass: CustomInput,
                 propertyGridGroup: flowGroup,
@@ -1862,7 +1862,7 @@ export class Component extends EezObject {
             },
             {
                 name: "customOutputs",
-                displayName: t("Outputs"),
+                displayName: () => t("Outputs"),
                 type: PropertyType.Array,
                 typeClass: CustomOutput,
                 propertyGridGroup: flowGroup,
@@ -2524,7 +2524,7 @@ export class EventHandler extends EezObject {
         properties: [
             {
                 name: "eventName",
-                displayName: t("Event"),
+                displayName: () => t("Event"),
                 type: PropertyType.Enum,
                 enumItems: (eventHandler: EventHandler) => {
                     const eventHandlers = getParent(
@@ -2538,8 +2538,8 @@ export class EventHandler extends EezObject {
                 name: "handlerType",
                 type: PropertyType.Enum,
                 enumItems: [
-                    { id: "flow", label: t("Flow") },
-                    { id: "action", label: t("Action") }
+                    { id: "flow", label: () => t("Flow") },
+                    { id: "action", label: () => t("Action") }
                 ],
                 enumDisallowUndefined: true,
                 disabled: eventHandler =>
@@ -2799,7 +2799,7 @@ export class EventHandler extends EezObject {
 
 const eventsGroup: IPropertyGridGroupDefinition = {
     id: "widget-event-handlers",
-    title: t("Events"),
+    title: () => t("Events"),
     position: 4
 };
 
@@ -2862,7 +2862,7 @@ export class Widget extends Component {
             },
             {
                 name: "allowOutside",
-                displayName: t('Hide "Widget is outside of its parent" warning'),
+                displayName: () => t('Hide "Widget is outside of its parent" warning'),
                 type: PropertyType.Boolean,
                 propertyGridGroup: geometryGroup,
                 disabled: component => isLVGLProject(component),
@@ -2889,7 +2889,7 @@ export class Widget extends Component {
             },
             {
                 name: "timelineUI",
-                displayName: t("Keyframe editor"),
+                displayName: () => t("Keyframe editor"),
                 type: PropertyType.Any,
                 propertyGridGroup: timelineGroup,
                 propertyGridRowComponent: TimelineKeyframePropertyUI,

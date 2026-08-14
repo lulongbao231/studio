@@ -405,7 +405,7 @@ class PaletteGroup extends React.Component<{
     onSelectComponent?: (value: Component) => void;
 }> {
     render() {
-        let name = getComponentGroupDisplayName(this.props.name);
+        let name = t(getComponentGroupDisplayName(this.props.name));
 
         const target = `eez-component-palette-group-${name
             .replace(/(^-\d-|^\d|^-\d|^--)/, "a$1")
@@ -583,6 +583,7 @@ const PaletteItem = observer(
                 this.props.componentClass,
                 this.context
             );
+            const translatedLabel = t(label);
 
             return (
                 <div
@@ -608,7 +609,7 @@ const PaletteItem = observer(
                     style={titleStyle}
                 >
                     {typeof icon === "string" ? <img src={icon} /> : icon}
-                    <span title={label}>{label}</span>
+                    <span title={translatedLabel}>{translatedLabel}</span>
                 </div>
             );
         }

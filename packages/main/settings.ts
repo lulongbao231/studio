@@ -422,6 +422,15 @@ export function setLocale(value: string) {
     // 同步主进程侧 i18n observable，触发主进程菜单等重建（惰性 require 避免加载顺序问题）
     const { setCurrentLocale } = require("eez-studio-shared/i18n") as any;
     setCurrentLocale(value);
+
+    // 广播到所有窗口：每个渲染进程持有独立的 i18n 模块实例，
+    // 若不主动同步，其它窗口（如项目编辑器）会一直停留在启动时的语言。
+    const { windows } = require("main/window") as any;
+    if (windows) {
+        windows.forEach((win: any) => {
+            win.browserWindow.webContents.send("setLocale", value);
+        });
+    }
 }
 
 export function getDateFormat() {

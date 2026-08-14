@@ -189,7 +189,7 @@ export class LVGLAnimationImageWidget extends LVGLWidget {
             },
             {
                 name: "repeat",
-                displayName: t("Repeat count"),
+                displayName: () => t("Repeat count"),
                 type: PropertyType.Number,
                 propertyGridGroup: specificGroup,
                 hideInPropertyGrid: (widget: LVGLAnimationImageWidget) =>

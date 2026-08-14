@@ -166,7 +166,7 @@ export class ExtensionDefinition extends EezObject {
             },
             {
                 name: "extensionName",
-                displayName: t("IEXT name"),
+                displayName: () => t("IEXT name"),
                 type: PropertyType.String,
                 defaultValue: undefined
             },
@@ -177,7 +177,7 @@ export class ExtensionDefinition extends EezObject {
             },
             {
                 name: "idn",
-                displayName: t("IDN"),
+                displayName: () => t("IDN"),
                 type: PropertyType.String,
                 defaultValue: undefined,
                 disabled: isNotScpiProject
@@ -189,20 +189,20 @@ export class ExtensionDefinition extends EezObject {
             },
             {
                 name: "idfName",
-                displayName: t("IDF name"),
+                displayName: () => t("IDF name"),
                 type: PropertyType.String,
                 disabled: isNotScpiProject
             },
             {
                 name: "idfShortName",
-                displayName: t("IDF short name"),
+                displayName: () => t("IDF short name"),
                 type: PropertyType.String,
                 defaultValue: undefined,
                 disabled: isNotScpiProject
             },
             {
                 name: "idfFirmwareVersion",
-                displayName: t("IDF firmware version"),
+                displayName: () => t("IDF firmware version"),
                 type: PropertyType.String,
                 defaultValue: undefined,
                 disabled: isNotScpiProject
@@ -233,14 +233,14 @@ export class ExtensionDefinition extends EezObject {
             },
             {
                 name: "idfSupportedModels",
-                displayName: t("IDF supported models"),
+                displayName: () => t("IDF supported models"),
                 type: PropertyType.String,
                 defaultValue: undefined,
                 disabled: isNotScpiProject
             },
             {
                 name: "idfRevisionComments",
-                displayName: t("IDF revision comments"),
+                displayName: () => t("IDF revision comments"),
                 type: PropertyType.String,
                 defaultValue: undefined,
                 disabled: isNotScpiProject
@@ -254,14 +254,14 @@ export class ExtensionDefinition extends EezObject {
             },
             {
                 name: "sdlFriendlyName",
-                displayName: t("SDL friendly name"),
+                displayName: () => t("SDL friendly name"),
                 type: PropertyType.String,
                 defaultValue: undefined,
                 disabled: isNotScpiProject
             },
             {
                 name: "useDashboardProjects",
-                displayName: t("Dashboard projects"),
+                displayName: () => t("Dashboard projects"),
                 type: PropertyType.Array,
                 typeClass: UseDashboardProject,
                 defaultValue: []

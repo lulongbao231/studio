@@ -64,56 +64,56 @@ class LVGLMatrixButton extends EezObject {
             },
             {
                 name: "ctrlHidden",
-                displayName: t("HIDDEN"),
+                displayName: () => t("HIDDEN"),
                 type: PropertyType.Boolean,
                 checkboxStyleSwitch: true,
                 hideInPropertyGrid: (button: LVGLMatrixButton) => button.newLine
             },
             {
                 name: "ctrlNoRepeat",
-                displayName: t("NO_REPEAT"),
+                displayName: () => t("NO_REPEAT"),
                 type: PropertyType.Boolean,
                 checkboxStyleSwitch: true,
                 hideInPropertyGrid: (button: LVGLMatrixButton) => button.newLine
             },
             {
                 name: "ctrlDisabled",
-                displayName: t("DISABLED"),
+                displayName: () => t("DISABLED"),
                 type: PropertyType.Boolean,
                 checkboxStyleSwitch: true,
                 hideInPropertyGrid: (button: LVGLMatrixButton) => button.newLine
             },
             {
                 name: "ctrlCheckable",
-                displayName: t("CHECKABLE"),
+                displayName: () => t("CHECKABLE"),
                 type: PropertyType.Boolean,
                 checkboxStyleSwitch: true,
                 hideInPropertyGrid: (button: LVGLMatrixButton) => button.newLine
             },
             {
                 name: "ctrlChecked",
-                displayName: t("CHECKED"),
+                displayName: () => t("CHECKED"),
                 type: PropertyType.Boolean,
                 checkboxStyleSwitch: true,
                 hideInPropertyGrid: (button: LVGLMatrixButton) => button.newLine
             },
             {
                 name: "ctrlClickTrig",
-                displayName: t("CLICK_TRIG"),
+                displayName: () => t("CLICK_TRIG"),
                 type: PropertyType.Boolean,
                 checkboxStyleSwitch: true,
                 hideInPropertyGrid: (button: LVGLMatrixButton) => button.newLine
             },
             {
                 name: "ctrlPopover",
-                displayName: t("POPOVER"),
+                displayName: () => t("POPOVER"),
                 type: PropertyType.Boolean,
                 checkboxStyleSwitch: true,
                 hideInPropertyGrid: (button: LVGLMatrixButton) => button.newLine
             },
             {
                 name: "ctrlRecolor",
-                displayName: t("RECOLOR"),
+                displayName: () => t("RECOLOR"),
                 type: PropertyType.Boolean,
                 checkboxStyleSwitch: true,
                 hideInPropertyGrid: (button: LVGLMatrixButton) =>
@@ -123,14 +123,14 @@ class LVGLMatrixButton extends EezObject {
             },
             {
                 name: "ctrlCustom1",
-                displayName: t("CUSTOM_1"),
+                displayName: () => t("CUSTOM_1"),
                 type: PropertyType.Boolean,
                 checkboxStyleSwitch: true,
                 hideInPropertyGrid: (button: LVGLMatrixButton) => button.newLine
             },
             {
                 name: "ctrlCustom2",
-                displayName: t("CUSTOM_2"),
+                displayName: () => t("CUSTOM_2"),
                 type: PropertyType.Boolean,
                 checkboxStyleSwitch: true,
                 hideInPropertyGrid: (button: LVGLMatrixButton) => button.newLine

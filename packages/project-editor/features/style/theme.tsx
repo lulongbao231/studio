@@ -359,7 +359,7 @@ export class Color extends EezObject {
             },
             {
                 name: "name",
-                displayName: t("Color name"),
+                displayName: () => t("Color name"),
                 type: PropertyType.String,
                 unique: true
             }
@@ -563,7 +563,7 @@ export class Theme extends EezObject implements ITheme {
         properties: [
             {
                 name: "name",
-                displayName: t("Theme name"),
+                displayName: () => t("Theme name"),
                 type: PropertyType.String,
                 unique: true
             },

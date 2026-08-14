@@ -43,7 +43,7 @@ export class LVGLLineWidget extends LVGLWidget {
             },
             {
                 name: "invertY",
-                displayName: t("Invert Y"),
+                displayName: () => t("Invert Y"),
                 type: PropertyType.Boolean,
                 checkboxStyleSwitch: true,
                 propertyGridGroup: specificGroup,
@@ -52,7 +52,7 @@ export class LVGLLineWidget extends LVGLWidget {
             },
             {
                 name: "needleLength",
-                displayName: t("Needle length"),
+                displayName: () => t("Needle length"),
                 type: PropertyType.Number,
                 propertyGridGroup: specificGroup,
                 hideInPropertyGrid: (widget: LVGLLineWidget) =>

@@ -181,27 +181,27 @@ export class DisplayDataWidget extends Widget {
                 enumItems: [
                     {
                         id: DisplayOption.All,
-                        label: t("All")
+                        label: () => t("All")
                     },
                     {
                         id: DisplayOption.Integer,
-                        label: t("Integer")
+                        label: () => t("Integer")
                     },
                     {
                         id: DisplayOption.FractionAndUnit,
-                        label: t("Fraction and unit")
+                        label: () => t("Fraction and unit")
                     },
                     {
                         id: DisplayOption.Fraction,
-                        label: t("Fraction")
+                        label: () => t("Fraction")
                     },
                     {
                         id: DisplayOption.Unit,
-                        label: t("Unit")
+                        label: () => t("Unit")
                     },
                     {
                         id: DisplayOption.IntegerAndFraction,
-                        label: t("Integer and fraction")
+                        label: () => t("Integer and fraction")
                     }
                 ],
                 propertyGridGroup: specificGroup
@@ -444,7 +444,7 @@ export class TextWidget extends Widget {
                 }
             }),
             makeTextPropertyInfo("text", {
-                displayName: t("Static text"),
+                displayName: () => t("Static text"),
                 disabled: isProjectWithFlowSupport
             }),
             {
@@ -866,18 +866,18 @@ export class MultilineTextWidget extends Widget {
                 }
             }),
             makeTextPropertyInfo("text", {
-                displayName: t("Static text"),
+                displayName: () => t("Static text"),
                 disabled: isProjectWithFlowSupport
             }),
             {
                 name: "firstLineIndent",
-                displayName: t("First line"),
+                displayName: () => t("First line"),
                 type: PropertyType.Number,
                 propertyGridGroup: indentationGroup
             },
             {
                 name: "hangingIndent",
-                displayName: t("Hanging"),
+                displayName: () => t("Hanging"),
                 type: PropertyType.Number,
                 propertyGridGroup: indentationGroup
             },
@@ -2038,8 +2038,8 @@ export class BarGraphWidget extends Widget {
                 propertyGridGroup: specificGroup
             },
             makeDataPropertyInfo("data"),
-            makeDataPropertyInfo("line1Data", { displayName: t("Threshold1") }),
-            makeDataPropertyInfo("line2Data", { displayName: t("Threshold2") }),
+            makeDataPropertyInfo("line1Data", { displayName: () => t("Threshold1") }),
+            makeDataPropertyInfo("line2Data", { displayName: () => t("Threshold2") }),
             makeDataPropertyInfo("min", {
                 disabled: hasNotFlowSupport
             }),
@@ -3452,7 +3452,7 @@ class LineChartLine extends EezObject {
             },
             {
                 name: "width",
-                displayName: t("Line width"),
+                displayName: () => t("Line width"),
                 type: PropertyType.Number,
                 propertyGridGroup: specificGroup
             },
@@ -3543,7 +3543,7 @@ export class LineChartEmbeddedWidget extends Widget {
             makeExpressionProperty(
                 {
                     name: "xValue",
-                    displayName: t("X value"),
+                    displayName: () => t("X value"),
                     type: PropertyType.MultilineText,
                     propertyGridGroup: specificGroup
                 },
@@ -3562,12 +3562,12 @@ export class LineChartEmbeddedWidget extends Widget {
             makeDataPropertyInfo("showLegend", {}, "boolean"),
             makeDataPropertyInfo(
                 "showXAxis",
-                { displayName: t("Show X axis") },
+                { displayName: () => t("Show X axis") },
                 "boolean"
             ),
             makeDataPropertyInfo(
                 "showYAxis",
-                { displayName: t("Show Y axis") },
+                { displayName: () => t("Show Y axis") },
                 "boolean"
             ),
             makeDataPropertyInfo("showYAxis", {}, "boolean"),
@@ -3579,11 +3579,11 @@ export class LineChartEmbeddedWidget extends Widget {
                 enumItems: [
                     {
                         id: "floating",
-                        label: t("Floating")
+                        label: () => t("Floating")
                     },
                     {
                         id: "fixed",
-                        label: t("Fixed")
+                        label: () => t("Fixed")
                     }
                 ],
                 propertyGridGroup: specificGroup
@@ -5856,7 +5856,7 @@ export class QRCodeWidget extends Widget {
 
         properties: [
             makeDataPropertyInfo("data", {
-                displayName: t("Text")
+                displayName: () => t("Text")
             }),
             {
                 name: "errorCorrection",

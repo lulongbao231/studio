@@ -8,27 +8,27 @@ import { t } from "eez-studio-shared/i18n";
 
 export const indentationGroup: IPropertyGridGroupDefinition = {
     id: "indentation",
-    title: t("Indentation"),
+    title: () => t("Indentation"),
     position: 2
 };
 
 export const generalGroup: IPropertyGridGroupDefinition = {
     id: "general",
-    title: t("General"),
+    title: () => t("General"),
     position: (object: IEezObject) =>
         object instanceof ProjectEditor.ActionComponentClass ? 0 : 1
 };
 
 export const specificGroup: IPropertyGridGroupDefinition = {
     id: "specific",
-    title: t("Specific"),
+    title: () => t("Specific"),
     position: (object: IEezObject) =>
         object instanceof ProjectEditor.ActionComponentClass ? 1 : 2
 };
 
 export const layoutGroup: IPropertyGridGroupDefinition = {
     id: "layout",
-    title: t("Layout"),
+    title: () => t("Layout"),
     position: (object: IEezObject) =>
         object instanceof ProjectEditor.ActionComponentClass
             ? 3
@@ -39,14 +39,14 @@ export const layoutGroup: IPropertyGridGroupDefinition = {
 
 export const flowGroup: IPropertyGridGroupDefinition = {
     id: "flow",
-    title: t("Flow"),
+    title: () => t("Flow"),
     position: (object: IEezObject) =>
         object instanceof ProjectEditor.ActionComponentClass ? 2 : 5
 };
 
 export const geometryGroup: IPropertyGridGroupDefinition = {
     id: "geometry",
-    title: t("Position and size"),
+    title: () => t("Position and size"),
     position: (object: IEezObject) =>
         object instanceof ProjectEditor.ActionComponentClass
             ? 3
@@ -58,14 +58,14 @@ export const geometryGroup: IPropertyGridGroupDefinition = {
 
 export const styleGroup: IPropertyGridGroupDefinition = {
     id: "style",
-    title: t("Style"),
+    title: () => t("Style"),
     position: (object: IEezObject) =>
         object instanceof ProjectEditor.ActionComponentClass ? 4 : 3
 };
 
 export const timelineGroup: IPropertyGridGroupDefinition = {
     id: "timeline",
-    title: t("Timeline keyframe"),
+    title: () => t("Timeline keyframe"),
     position: (object: IEezObject) => -2
 };
 

@@ -7,6 +7,8 @@ import { closest } from "eez-studio-shared/dom";
 
 import { EnumItem } from "project-editor/core/object";
 import { humanize } from "eez-studio-shared/string";
+import { t } from "eez-studio-shared/i18n";
+import { getEnumItemDisplayLabel } from "./utils";
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -125,7 +127,8 @@ export const IconEnumDropdown = observer(
                     <ul>
                         {enumItems.map(item => {
                             const id = item.id.toString();
-                            const label = item.label || humanize(id);
+                            const label =
+                                getEnumItemDisplayLabel(item) || t(humanize(id));
                             const isSelected =
                                 id === value?.toString();
                             const isHighlighted =
@@ -174,8 +177,8 @@ export const IconEnumDropdown = observer(
                         onClick={this.openDropdown}
                         title={
                             selectedItem
-                                ? selectedItem.label ||
-                                  humanize(selectedItem.id.toString())
+                                ? getEnumItemDisplayLabel(selectedItem) ||
+                                  t(humanize(selectedItem.id.toString()))
                                 : ""
                         }
                     >

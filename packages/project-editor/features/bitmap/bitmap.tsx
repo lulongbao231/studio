@@ -247,7 +247,7 @@ export class Bitmap extends EezObject {
             },
             {
                 name: "alwaysBuild",
-                displayName: t("Always add to the generated code"),
+                displayName: () => t("Always add to the generated code"),
                 type: PropertyType.Boolean,
                 disabled: object =>
                     isLVGLProject(object) || isDashboardProject(object)

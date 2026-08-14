@@ -296,7 +296,7 @@ export class Build extends EezObject {
         properties: [
             {
                 name: "configurations",
-                displayName: t("Configurations"),
+                displayName: () => t("Configurations"),
                 type: PropertyType.Array,
                 typeClass: BuildConfiguration,
                 enumerable: object => !isLVGLProject(object),
@@ -305,7 +305,7 @@ export class Build extends EezObject {
             },
             {
                 name: "files",
-                displayName: t("Files"),
+                displayName: () => t("Files"),
                 type: PropertyType.Array,
                 typeClass: BuildFile,
                 hideInPropertyGrid: true,
@@ -314,28 +314,28 @@ export class Build extends EezObject {
             },
             {
                 name: "destinationFolder",
-                displayName: t("Destination folder"),
+                displayName: () => t("Destination folder"),
                 type: PropertyType.RelativeFolder
             },
             {
                 name: "separateFolderForImagesAndFonts",
-                displayName: t("Store image and font files in a separate folder"),
+                displayName: () => t("Store image and font files in a separate folder"),
                 checkboxStyleSwitch: true,
                 type: PropertyType.Boolean,
                 disabled: isNotLVGLProject
             },
             {
                 name: "imageExportMode",
-                displayName: t("Image export mode"),
+                displayName: () => t("Image export mode"),
                 type: PropertyType.Enum,
                 enumItems: [
                     {
                         id: "source",
-                        label: t("Source code")
+                        label: () => t("Source code")
                     },
                     {
                         id: "binary",
-                        label: t("Binary")
+                        label: () => t("Binary")
                     }
                 ],
                 enumDisallowUndefined: true,
@@ -343,16 +343,16 @@ export class Build extends EezObject {
             },
             {
                 name: "fontExportMode",
-                displayName: t("Font export mode"),
+                displayName: () => t("Font export mode"),
                 type: PropertyType.Enum,
                 enumItems: [
                     {
                         id: "source",
-                        label: t("Source code")
+                        label: () => t("Source code")
                     },
                     {
                         id: "binary",
-                        label: t("Binary")
+                        label: () => t("Binary")
                     }
                 ],
                 enumDisallowUndefined: true,
@@ -360,7 +360,7 @@ export class Build extends EezObject {
             },
             {
                 name: "fileSystemPath",
-                displayName: t("File system path"),
+                displayName: () => t("File system path"),
                 type: PropertyType.String,
                 disabled: (object: Build) =>
                     isNotLVGLProject(object) ||
@@ -369,20 +369,20 @@ export class Build extends EezObject {
             },
             {
                 name: "lvglInclude",
-                displayName: t("LVGL include"),
+                displayName: () => t("LVGL include"),
                 type: PropertyType.String,
                 disabled: isNotLVGLProject
             },
             {
                 name: "screensLifetimeSupport",
-                displayName: t("Screens lifetime support"),
+                displayName: () => t("Screens lifetime support"),
                 checkboxStyleSwitch: true,
                 type: PropertyType.Boolean,
                 disabled: isNotLVGLProject
             },
             {
                 name: "useDockerDesktop",
-                displayName: t("Use Docker Desktop for full simulator"),
+                displayName: () => t("Use Docker Desktop for full simulator"),
                 checkboxStyleSwitch: true,
                 type: PropertyType.Boolean,
                 disabled: isNotLVGLProject
@@ -400,7 +400,7 @@ export class Build extends EezObject {
             },
             {
                 name: "compressFlowDefinition",
-                displayName: t("Compress flow definition"),
+                displayName: () => t("Compress flow definition"),
                 type: PropertyType.Boolean,
                 checkboxStyleSwitch: true,
                 disabled: (object: Build) =>
@@ -410,7 +410,7 @@ export class Build extends EezObject {
             },
             {
                 name: "executionQueueSize",
-                displayName: t("Execution queue size"),
+                displayName: () => t("Execution queue size"),
                 type: PropertyType.Number,
                 disabled: (object: Build) =>
                     isNotLVGLProject(object) ||
@@ -419,7 +419,7 @@ export class Build extends EezObject {
             },
             {
                 name: "expressionEvaluatorStackSize",
-                displayName: t("Expression evaluator stack size"),
+                displayName: () => t("Expression evaluator stack size"),
                 type: PropertyType.Number,
                 disabled: (object: Build) =>
                     isNotLVGLProject(object) ||
@@ -532,7 +532,7 @@ export class ImportDirective extends EezObject {
             },
             {
                 name: "customUI",
-                displayName: t("Actions"),
+                displayName: () => t("Actions"),
                 type: PropertyType.Any,
                 computed: true,
                 propertyGridRowComponent: ImportDirectiveCustomUI,
@@ -843,40 +843,40 @@ export class General extends EezObject {
         properties: [
             {
                 name: "projectType",
-                displayName: t("Project type"),
+                displayName: () => t("Project type"),
                 type: PropertyType.Enum,
                 enumItems: [
                     {
                         id: ProjectType.UNDEFINED,
-                        label: t(PROJECT_TYPE_NAMES[ProjectType.UNDEFINED])
+                        label: () => t(PROJECT_TYPE_NAMES[ProjectType.UNDEFINED])
                     },
                     {
                         id: ProjectType.FIRMWARE,
-                        label: t(PROJECT_TYPE_NAMES[ProjectType.FIRMWARE])
+                        label: () => t(PROJECT_TYPE_NAMES[ProjectType.FIRMWARE])
                     },
                     {
                         id: ProjectType.FIRMWARE_MODULE,
-                        label: t(PROJECT_TYPE_NAMES[ProjectType.FIRMWARE_MODULE])
+                        label: () => t(PROJECT_TYPE_NAMES[ProjectType.FIRMWARE_MODULE])
                     },
                     {
                         id: ProjectType.RESOURCE,
-                        label: t(PROJECT_TYPE_NAMES[ProjectType.RESOURCE])
+                        label: () => t(PROJECT_TYPE_NAMES[ProjectType.RESOURCE])
                     },
                     {
                         id: ProjectType.APPLET,
-                        label: t(PROJECT_TYPE_NAMES[ProjectType.APPLET])
+                        label: () => t(PROJECT_TYPE_NAMES[ProjectType.APPLET])
                     },
                     {
                         id: ProjectType.DASHBOARD,
-                        label: t(PROJECT_TYPE_NAMES[ProjectType.DASHBOARD])
+                        label: () => t(PROJECT_TYPE_NAMES[ProjectType.DASHBOARD])
                     },
                     {
                         id: ProjectType.LVGL,
-                        label: t(PROJECT_TYPE_NAMES[ProjectType.LVGL])
+                        label: () => t(PROJECT_TYPE_NAMES[ProjectType.LVGL])
                     },
                     {
                         id: ProjectType.IEXT,
-                        label: t(PROJECT_TYPE_NAMES[ProjectType.IEXT])
+                        label: () => t(PROJECT_TYPE_NAMES[ProjectType.IEXT])
                     }
                 ],
                 readOnlyInPropertyGrid: (general: General) =>
@@ -908,11 +908,11 @@ export class General extends EezObject {
             },
             {
                 name: "commandsProtocol",
-                displayName: t("Commands protocol"),
+                displayName: () => t("Commands protocol"),
                 type: PropertyType.Enum,
                 enumItems: [
                     { id: "SCPI", label: "SCPI" },
-                    { id: "PROPRIETARY", label: t("Proprietary") }
+                    { id: "PROPRIETARY", label: () => t("Proprietary") }
                 ],
                 enumDisallowUndefined: true,
                 readOnlyInPropertyGrid: true,
@@ -922,7 +922,7 @@ export class General extends EezObject {
             },
             {
                 name: "lvglVersion",
-                displayName: t("LVGL version"),
+                displayName: () => t("LVGL version"),
                 type: PropertyType.Enum,
                 enumItems: [
                     { id: "8.4.0", label: "8.4.0" },
@@ -949,7 +949,7 @@ export class General extends EezObject {
             },
             {
                 name: "masterProject",
-                displayName: t("Master project"),
+                displayName: () => t("Master project"),
                 type: PropertyType.RelativeFile,
                 fileFilters: [
                     { name: t("EEZ Project"), extensions: ["eez-project"] },
@@ -978,7 +978,7 @@ export class General extends EezObject {
             },
             {
                 name: "imports",
-                displayName: t("Imports"),
+                displayName: () => t("Imports"),
                 type: PropertyType.Array,
                 typeClass: ImportDirective,
                 defaultValue: [],
@@ -999,7 +999,7 @@ export class General extends EezObject {
             */
             {
                 name: "displayWidth",
-                displayName: t("Display width"),
+                displayName: () => t("Display width"),
                 type: PropertyType.Number,
                 disabled: (general: General) =>
                     !ProjectEditor.getProject(general).projectTypeTraits
@@ -1007,7 +1007,7 @@ export class General extends EezObject {
             },
             {
                 name: "displayHeight",
-                displayName: t("Display height"),
+                displayName: () => t("Display height"),
                 type: PropertyType.Number,
                 disabled: (general: General) =>
                     !ProjectEditor.getProject(general).projectTypeTraits
@@ -1015,32 +1015,32 @@ export class General extends EezObject {
             },
             {
                 name: "circularDisplay",
-                displayName: t("Circular display"),
+                displayName: () => t("Circular display"),
                 type: PropertyType.Boolean,
                 checkboxStyleSwitch: true,
                 disabled: isNotLVGLProject
             },
             {
                 name: "displayBorderRadius",
-                displayName: t("Display border radius"),
+                displayName: () => t("Display border radius"),
                 type: PropertyType.Number,
                 disabled: (general: General) =>
                     isNotLVGLProject(general) || general.circularDisplay
             },
             {
                 name: "darkTheme",
-                displayName: t("Dark theme"),
+                displayName: () => t("Dark theme"),
                 type: PropertyType.Boolean,
                 checkboxStyleSwitch: true,
                 disabled: isNotLVGLProject
             },
             {
                 name: "colorBpp",
-                displayName: t("Color BPP"),
+                displayName: () => t("Color BPP"),
                 type: PropertyType.Enum,
                 enumItems: [
-                    { id: "16", label: t("16 bit") },
-                    { id: "32", label: t("32 bit") }
+                    { id: "16", label: () => t("16 bit") },
+                    { id: "32", label: () => t("32 bit") }
                 ],
                 disabled: (general: General) => {
                     const project = getProject(general);
@@ -1049,7 +1049,7 @@ export class General extends EezObject {
             },
             {
                 name: "bitmapColorFormat",
-                displayName: t("Bitmap color format"),
+                displayName: () => t("Bitmap color format"),
                 type: PropertyType.Enum,
                 enumItems: [
                     { id: "RGB", label: "RGB" },
@@ -1062,7 +1062,7 @@ export class General extends EezObject {
             },
             {
                 name: "flowSupport",
-                displayName: t("Flow support"),
+                displayName: () => t("Flow support"),
                 type: PropertyType.Boolean,
                 checkboxStyleSwitch: true,
                 disabled: (general: General) => {
@@ -1075,12 +1075,12 @@ export class General extends EezObject {
             },
             {
                 name: "hiddenWidgetLines",
-                displayName: t("Hidden widget lines"),
+                displayName: () => t("Hidden widget lines"),
                 type: PropertyType.Enum,
                 enumItems: [
-                    { id: "visible", label: t("Fully visible") },
-                    { id: "dimmed", label: t("Dimmed") },
-                    { id: "hidden", label: t("Hidden") }
+                    { id: "visible", label: () => t("Fully visible") },
+                    { id: "dimmed", label: () => t("Dimmed") },
+                    { id: "hidden", label: () => t("Hidden") }
                 ],
                 enumDisallowUndefined: true,
                 disabled: (general: General) => {
@@ -1092,7 +1092,7 @@ export class General extends EezObject {
             },
             {
                 name: "dimmedLinesOpacity",
-                displayName: t("Dimmed lines opacity (%)"),
+                displayName: () => t("Dimmed lines opacity (%)"),
                 type: PropertyType.Number,
                 disabled: (general: General) => {
                     return (
@@ -1104,13 +1104,13 @@ export class General extends EezObject {
             },
             {
                 name: "embedBitmaps",
-                displayName: t("Embed bitmaps inside eez-project file"),
+                displayName: () => t("Embed bitmaps inside eez-project file"),
                 type: PropertyType.Boolean,
                 checkboxStyleSwitch: true
             },
             {
                 name: "embedFonts",
-                displayName: t("Embed fonts inside eez-project file"),
+                displayName: () => t("Embed fonts inside eez-project file"),
                 type: PropertyType.Boolean,
                 checkboxStyleSwitch: true,
                 disabled: (general: General) => {
@@ -1119,7 +1119,7 @@ export class General extends EezObject {
             },
             {
                 name: "cacheFonts",
-                displayName: t("Cache font definitions"),
+                displayName: () => t("Cache font definitions"),
                 type: PropertyType.Boolean,
                 checkboxStyleSwitch: true,
                 disabled: (general: General) => {
@@ -1128,20 +1128,20 @@ export class General extends EezObject {
             },
             {
                 name: "defaultStyleForUserWidgetInEditor",
-                displayName: t("Default style for user widget in editor"),
+                displayName: () => t("Default style for user widget in editor"),
                 type: PropertyType.ObjectReference,
                 referencedObjectCollectionPath: "allStyles",
                 disabled: isLVGLProject
             },
             {
                 name: "title",
-                displayName: t("Title"),
+                displayName: () => t("Title"),
                 type: PropertyType.String,
                 disabled: isNotDashboardProject
             },
             {
                 name: "icon",
-                displayName: t("Icon"),
+                displayName: () => t("Icon"),
                 type: PropertyType.Image,
                 embeddedImage: true,
                 disabled: isNotDashboardProject
@@ -1149,18 +1149,18 @@ export class General extends EezObject {
 
             {
                 name: "description",
-                displayName: t("Description"),
+                displayName: () => t("Description"),
                 type: PropertyType.MultilineText
             },
             {
                 name: "image",
-                displayName: t("Image"),
+                displayName: () => t("Image"),
                 type: PropertyType.Image,
                 embeddedImage: true
             },
             {
                 name: "keywords",
-                displayName: t("Keywords"),
+                displayName: () => t("Keywords"),
                 type: PropertyType.String
             },
             {
@@ -1181,17 +1181,17 @@ export class General extends EezObject {
             },
             {
                 name: "author",
-                displayName: t("Author"),
+                displayName: () => t("Author"),
                 type: PropertyType.String
             },
             {
                 name: "authorLink",
-                displayName: t("Author link"),
+                displayName: () => t("Author link"),
                 type: PropertyType.String
             },
             {
                 name: "minStudioVersion",
-                displayName: t("Min. studio version"),
+                displayName: () => t("Min. studio version"),
                 type: PropertyType.String
             },
             {

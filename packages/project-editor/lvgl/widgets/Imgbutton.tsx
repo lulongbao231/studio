@@ -36,42 +36,42 @@ export class LVGLImgbuttonWidget extends LVGLWidget {
         properties: [
             {
                 name: "imageReleased",
-                displayName: t("Released image"),
+                displayName: () => t("Released image"),
                 type: PropertyType.ObjectReference,
                 referencedObjectCollectionPath: "bitmaps",
                 propertyGridGroup: specificGroup
             },
             {
                 name: "imagePressed",
-                displayName: t("Pressed image"),
+                displayName: () => t("Pressed image"),
                 type: PropertyType.ObjectReference,
                 referencedObjectCollectionPath: "bitmaps",
                 propertyGridGroup: specificGroup
             },
             {
                 name: "imageDisabled",
-                displayName: t("Disabled image"),
+                displayName: () => t("Disabled image"),
                 type: PropertyType.ObjectReference,
                 referencedObjectCollectionPath: "bitmaps",
                 propertyGridGroup: specificGroup
             },
             {
                 name: "imageCheckedReleased",
-                displayName: t("Checked released image"),
+                displayName: () => t("Checked released image"),
                 type: PropertyType.ObjectReference,
                 referencedObjectCollectionPath: "bitmaps",
                 propertyGridGroup: specificGroup
             },
             {
                 name: "imageCheckedPressed",
-                displayName: t("Checked pressed image"),
+                displayName: () => t("Checked pressed image"),
                 type: PropertyType.ObjectReference,
                 referencedObjectCollectionPath: "bitmaps",
                 propertyGridGroup: specificGroup
             },
             {
                 name: "imageCheckedDisabled",
-                displayName: t("Checked disabled image"),
+                displayName: () => t("Checked disabled image"),
                 type: PropertyType.ObjectReference,
                 referencedObjectCollectionPath: "bitmaps",
                 propertyGridGroup: specificGroup

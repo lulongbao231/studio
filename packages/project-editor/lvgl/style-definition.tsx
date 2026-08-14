@@ -6,11 +6,11 @@ import {
     IMessage,
     MessageType,
     PropertyType,
+    getObjectPropertyDisplayName,
     registerClass,
     setKey
 } from "project-editor/core/object";
 
-import { humanize } from "eez-studio-shared/string";
 import { t } from "eez-studio-shared/i18n";
 
 import { ProjectEditor } from "project-editor/project-editor-interface";
@@ -391,8 +391,10 @@ export class LVGLStylesDefinition extends EezObject {
                                             t("Bitmap not found for style property {part} - {state} - {property}", {
                                                 part,
                                                 state,
-                                                property: `${propertyInfo.displayName ||
-                                                    humanize(propertyInfo.name)}`
+                                                property: getObjectPropertyDisplayName(
+                                                    this,
+                                                    propertyInfo
+                                                )
                                             }),
                                             valueObject
                                         )
@@ -431,8 +433,10 @@ export class LVGLStylesDefinition extends EezObject {
                                             t("Font not found for style property {part} - {state} - {property}", {
                                                 part,
                                                 state,
-                                                property: `${propertyInfo.displayName ||
-                                                    humanize(propertyInfo.name)}`
+                                                property: getObjectPropertyDisplayName(
+                                                    this,
+                                                    propertyInfo
+                                                )
                                             }),
                                             valueObject
                                         )

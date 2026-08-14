@@ -146,7 +146,7 @@ export class LVGLStyle extends EezObject {
                             ? componentClass.displayName
                             : componentClass.objectClass.classInfo
                                   .componentPaletteLabel ||
-                              getComponentName(componentClass.name)
+                              t(getComponentName(componentClass.name))
                         : style.forWidgetType;
                 },
                 readOnlyInPropertyGrid: true
@@ -249,8 +249,10 @@ export class LVGLStyle extends EezObject {
                                         label: componentClass.displayName
                                             ? componentClass.displayName
                                             : classInfo.componentPaletteLabel ||
-                                              getComponentName(
-                                                  componentClass.name
+                                              t(
+                                                  getComponentName(
+                                                      componentClass.name
+                                                  )
                                               )
                                     };
                                 });

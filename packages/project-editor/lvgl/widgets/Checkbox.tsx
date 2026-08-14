@@ -37,7 +37,7 @@ export class LVGLCheckboxWidget extends LVGLWidget {
             ),
             {
                 name: "useStaticText",
-                displayName: t("Use static text"),
+                displayName: () => t("Use static text"),
                 type: PropertyType.Boolean,
                 propertyGridGroup: specificGroup,
                 checkboxStyleSwitch: true,

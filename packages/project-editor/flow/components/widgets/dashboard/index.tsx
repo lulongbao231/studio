@@ -127,7 +127,7 @@ export class TextDashboardWidget extends Widget {
                 propertyGridGroup: generalGroup
             },
             makeDataPropertyInfo("data", {
-                displayName: t("Text")
+                displayName: () => t("Text")
             }),
             makeStylePropertyInfo("style", "Default style")
         ],
@@ -429,7 +429,7 @@ export class TextInputWidget extends Widget {
 
         properties: [
             makeDataPropertyInfo("data", {
-                displayName: t("Value")
+                displayName: () => t("Value")
             }),
             makeDataPropertyInfo("readOnly"),
             makeDataPropertyInfo("placehoder"),
@@ -906,7 +906,7 @@ export class CheckboxWidget extends Widget {
 
         properties: [
             makeDataPropertyInfo("data", {
-                displayName: t("Value")
+                displayName: () => t("Value")
             }),
             makeExpressionProperty(
                 {
@@ -1102,7 +1102,7 @@ export class RadioWidget extends Widget {
             makeAssignableExpressionProperty(
                 {
                     name: "variable",
-                    displayName: t("Group variable"),
+                    displayName: () => t("Group variable"),
                     type: PropertyType.MultilineText,
                     propertyGridGroup: specificGroup
                 },
@@ -1265,7 +1265,7 @@ export class SwitchDashboardWidget extends Widget {
 
         properties: [
             makeDataPropertyInfo("data", {
-                displayName: t("Value")
+                displayName: () => t("Value")
             }),
             makeDataPropertyInfo("enabled"),
             makeStylePropertyInfo("style", "Default style")
@@ -1785,7 +1785,7 @@ export class QRCodeDashboardWidget extends Widget {
 
         properties: [
             makeDataPropertyInfo("data", {
-                displayName: t("Text")
+                displayName: () => t("Text")
             }),
             {
                 name: "errorCorrection",
@@ -1936,7 +1936,7 @@ export class ButtonDashboardWidget extends Widget {
 
         properties: [
             makeDataPropertyInfo("data", {
-                displayName: t("Label")
+                displayName: () => t("Label")
             }),
             makeDataPropertyInfo("enabled"),
             makeStylePropertyInfo("style", "Default style"),

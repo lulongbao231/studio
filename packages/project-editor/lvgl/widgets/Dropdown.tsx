@@ -62,7 +62,7 @@ export class LVGLDropdownWidget extends LVGLWidget {
             ),
             {
                 name: "useStaticText",
-                displayName: t("Use static text"),
+                displayName: () => t("Use static text"),
                 type: PropertyType.Boolean,
                 propertyGridGroup: specificGroup,
                 checkboxStyleSwitch: true,
@@ -83,19 +83,19 @@ export class LVGLDropdownWidget extends LVGLWidget {
                 enumItems: [
                     {
                         id: "top",
-                        label: t("TOP")
+                        label: () => t("TOP")
                     },
                     {
                         id: "left",
-                        label: t("LEFT")
+                        label: () => t("LEFT")
                     },
                     {
                         id: "bottom",
-                        label: t("BOTTOM")
+                        label: () => t("BOTTOM")
                     },
                     {
                         id: "right",
-                        label: t("RIGHT")
+                        label: () => t("RIGHT")
                     }
                 ],
                 enumDisallowUndefined: true,

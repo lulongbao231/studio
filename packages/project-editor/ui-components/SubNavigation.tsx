@@ -3,6 +3,7 @@ import { computed, makeObservable, action } from "mobx";
 import { observer } from "mobx-react";
 
 import { ProjectContext } from "project-editor/project/context";
+import { t } from "eez-studio-shared/i18n";
 import classNames from "classnames";
 
 export interface SubNavigationItem {
@@ -71,7 +72,7 @@ export const SubNavigation = observer(
                                     })}
                                     href="#"
                                 >
-                                    {item.name}
+                                    {t(item.name)}
                                     {item.numItems > 0 ? (
                                         <span
                                             className="badge rounded-pill bg-secondary ms-1"

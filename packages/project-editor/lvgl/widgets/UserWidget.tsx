@@ -114,7 +114,7 @@ export class LVGLUserWidgetWidget extends LVGLWidget {
         componentPaletteGroupName: "!1Basic",
 
         label: (widget: LVGLUserWidgetWidget) => {
-            let name = getComponentName(widget.type);
+            let name = t(getComponentName(widget.type));
 
             if (widget.identifier) {
                 name = `${name} [${widget.identifier}]`;
@@ -130,7 +130,7 @@ export class LVGLUserWidgetWidget extends LVGLWidget {
         properties: [
             {
                 name: "userWidgetPageName",
-                displayName: t("User widget"),
+                displayName: () => t("User widget"),
                 type: PropertyType.ObjectReference,
                 propertyGridGroup: specificGroup,
                 referencedObjectCollectionPath: "userWidgets"

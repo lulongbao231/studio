@@ -40,7 +40,10 @@ export const ComponentProperties = observer(
                                     key={groupProperties.group.id}
                                 >
                                     <h3>
-                                        {groupProperties.group.title ||
+                                        {(typeof groupProperties.group.title ===
+                                        "function"
+                                            ? groupProperties.group.title()
+                                            : groupProperties.group.title) ||
                                             t("Other")}
                                     </h3>
                                     <dl>
@@ -167,7 +170,11 @@ export function getPropertyGroups(
 
     groupPropertiesArray.sort((a: IGroupProperties, b: IGroupProperties) => {
         function pos(groupProperties: IGroupProperties) {
-            if (groupProperties.group.title == "Specific") return -1000;
+            const groupTitle =
+                typeof groupProperties.group.title === "function"
+                    ? groupProperties.group.title()
+                    : groupProperties.group.title;
+            if (groupTitle == "Specific") return -1000;
 
             if (groupProperties.group.position !== undefined) {
                 if (typeof groupProperties.group.position == "number")

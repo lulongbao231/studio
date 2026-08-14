@@ -72,6 +72,15 @@ export function setCurrentLocale(value: string) {
     });
 }
 
+// 接收主进程广播的 locale 变化，使本渲染进程（如项目编辑器窗口）的
+// 界面文案能实时跟随语言切换（否则会停留在窗口启动时的语言）。
+if (isRenderer()) {
+    const { ipcRenderer } = require("electron");
+    ipcRenderer.on("setLocale", (event: any, value: string) => {
+        setCurrentLocale(value);
+    });
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 
 function interpolate(text: string, vars?: Record<string, string | number>) {

@@ -206,7 +206,7 @@ export function objectToString(object: IEezObject) {
         }
 
         if (!propertyName) {
-            propertyName = humanize(propertyKey);
+            propertyName = t(humanize(propertyKey));
         }
 
         label = `${propertyName}: ${getProperty(parent, propertyKey)}`;
@@ -218,7 +218,7 @@ export function objectToString(object: IEezObject) {
         label =
             (propertyInfo &&
                 getObjectPropertyDisplayName(object, propertyInfo)) ||
-            humanize(getKey(object));
+            t(humanize(getKey(object)));
     } else {
         label = getLabel(object);
     }
@@ -758,7 +758,7 @@ export function getAddItemName(object: IEezObject) {
         return t("Group");
     }
 
-    return humanize(getClass(parent).name);
+    return t(humanize(getClass(parent).name));
 }
 
 export async function addItem(object: IEezObject) {

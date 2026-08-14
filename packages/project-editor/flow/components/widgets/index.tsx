@@ -373,7 +373,7 @@ export class ContainerWidget extends Widget {
                               },
                               {
                                   id: "docking-manager",
-                                  label: t("Docking Manager")
+                                  label: () => t("Docking Manager")
                               }
                           ]
                         : [
@@ -1659,7 +1659,7 @@ export class UserWidgetWidget extends Widget {
             makeDataPropertyInfo("context"),
             {
                 name: "userWidgetPageName",
-                displayName: t("User widget"),
+                displayName: () => t("User widget"),
                 type: PropertyType.ObjectReference,
                 propertyGridGroup: specificGroup,
                 referencedObjectCollectionPath: "userWidgets"

@@ -92,7 +92,7 @@ export class LVGLSpan extends EezObject {
             ),
             {
                 name: "useStaticText",
-                displayName: t("Use static text"),
+                displayName: () => t("Use static text"),
                 type: PropertyType.Boolean,
                 propertyGridGroup: specificGroup,
                 checkboxStyleSwitch: true,
@@ -100,14 +100,14 @@ export class LVGLSpan extends EezObject {
             },
             {
                 name: "textColor",
-                displayName: t("Text color"),
+                displayName: () => t("Text color"),
                 type: PropertyType.ThemedColor,
                 isOptional: true,
                 propertyGridGroup: specificGroup
             },
             {
                 name: "textFont",
-                displayName: t("Text font"),
+                displayName: () => t("Text font"),
                 type: PropertyType.Enum,
                 enumItems: text_font_property_info.enumItems,
                 isOptional: true,
@@ -116,7 +116,7 @@ export class LVGLSpan extends EezObject {
             },
             {
                 name: "textDecor",
-                displayName: t("Text decoration"),
+                displayName: () => t("Text decoration"),
                 type: PropertyType.Enum,
                 enumItems: Object.keys(TEXT_DECOR_CODES).map(id => ({
                     id,
@@ -127,21 +127,21 @@ export class LVGLSpan extends EezObject {
             },
             {
                 name: "textLetterSpace",
-                displayName: t("Letter spacing"),
+                displayName: () => t("Letter spacing"),
                 type: PropertyType.Number,
                 isOptional: true,
                 propertyGridGroup: specificGroup
             },
             {
                 name: "textLineSpace",
-                displayName: t("Line spacing"),
+                displayName: () => t("Line spacing"),
                 type: PropertyType.Number,
                 isOptional: true,
                 propertyGridGroup: specificGroup
             },
             {
                 name: "textOpa",
-                displayName: t("Text opacity"),
+                displayName: () => t("Text opacity"),
                 type: PropertyType.Number,
                 isOptional: true,
                 propertyGridGroup: specificGroup
@@ -462,7 +462,7 @@ export class LVGLSpanWidget extends LVGLWidget {
             },
             {
                 name: "maxLines",
-                displayName: t("Max lines"),
+                displayName: () => t("Max lines"),
                 type: PropertyType.Number,
                 propertyGridGroup: specificGroup
             },

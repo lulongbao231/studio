@@ -48,7 +48,7 @@ export class LVGLTabviewWidget extends LVGLWidget {
         properties: [
             {
                 name: "tabviewPosition",
-                displayName: t("Position"),
+                displayName: () => t("Position"),
                 type: PropertyType.Enum,
                 enumItems: Object.keys(TABVIEW_POSITION).map(id => ({
                     id,
@@ -59,7 +59,7 @@ export class LVGLTabviewWidget extends LVGLWidget {
             },
             {
                 name: "tabviewSize",
-                displayName: t("Size"),
+                displayName: () => t("Size"),
                 type: PropertyType.Number,
                 propertyGridGroup: specificGroup
             },
@@ -70,7 +70,7 @@ export class LVGLTabviewWidget extends LVGLWidget {
                 ["literal", "expression"],
                 {
                     propertyGridGroup: specificGroup,
-                    displayName: t("Active tab")
+                    displayName: () => t("Active tab")
                 }
             )
         ],

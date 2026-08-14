@@ -1,6 +1,7 @@
 import {
     IEezObject,
     PropertyInfo,
+    EnumItem,
     getParent,
     getKey,
     isPropertyHidden,
@@ -205,4 +206,17 @@ export function getEnumItems(
     }
 
     return result;
+}
+
+export function getEnumItemDisplayLabel(
+    enumItem: EnumItem
+): string | undefined {
+    const label = enumItem.label;
+    if (label === undefined) {
+        return undefined;
+    }
+    if (typeof label === "function") {
+        return label();
+    }
+    return label;
 }

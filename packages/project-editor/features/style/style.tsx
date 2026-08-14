@@ -622,7 +622,7 @@ const activeColorProperty: PropertyInfo = {
 
 const activeBackgroundColorProperty: PropertyInfo = {
     name: "activeBackgroundColor",
-    displayName: t("Active back. color"),
+    displayName: () => t("Active back. color"),
     type: PropertyType.ThemedColor,
     referencedObjectCollectionPath: "colors",
     defaultValue: "#ffffff",
@@ -645,7 +645,7 @@ const focusColorProperty: PropertyInfo = {
 
 const focusBackgroundColorProperty: PropertyInfo = {
     name: "focusBackgroundColor",
-    displayName: t("Focus back. color"),
+    displayName: () => t("Focus back. color"),
     type: PropertyType.ThemedColor,
     referencedObjectCollectionPath: "colors",
     defaultValue: "#000000",
@@ -771,7 +771,7 @@ const blinkProperty: PropertyInfo = {
 
 const cssProperty: PropertyInfo = {
     name: "css",
-    displayName: t("Additional CSS"),
+    displayName: () => t("Additional CSS"),
     type: PropertyType.CSS,
     cssAttributeName: "css",
     nonInheritable: true,
@@ -782,7 +782,7 @@ const cssProperty: PropertyInfo = {
 export const dynamicCssProperty = makeExpressionProperty(
     {
         name: "dynamicCSS",
-        displayName: t("Dynamic CSS"),
+        displayName: () => t("Dynamic CSS"),
         type: PropertyType.MultilineText,
         disabled: (object: IEezObject, propertyInfo: PropertyInfo) => {
             if (isNotDashboardProject(object)) {
@@ -799,7 +799,7 @@ export const dynamicCssProperty = makeExpressionProperty(
 
 const cssPreviewProperty: PropertyInfo = {
     name: "cssPreview",
-    displayName: t("CSS preview"),
+    displayName: () => t("CSS preview"),
     type: PropertyType.CSS,
     disabled: isNotDashboardProject,
     readOnlyInPropertyGrid: true,
@@ -808,7 +808,7 @@ const cssPreviewProperty: PropertyInfo = {
 
 const alwaysBuildProperty: PropertyInfo = {
     name: "alwaysBuild",
-    displayName: t("Always add to the generated code"),
+    displayName: () => t("Always add to the generated code"),
     type: PropertyType.Boolean,
     defaultValue: false,
     inheritable: false,

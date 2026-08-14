@@ -897,14 +897,14 @@ class TabulatorOptions extends EezObject {
             },
             {
                 name: "syncColumns",
-                displayName: t("Sync columns with structure"),
+                displayName: () => t("Sync columns with structure"),
                 type: PropertyType.Boolean,
                 checkboxStyleSwitch: true,
                 disabled: (options: TabulatorOptions) => options.autoColumns
             },
             {
                 name: "syncStructure",
-                displayName: t("Structure"),
+                displayName: () => t("Structure"),
                 type: PropertyType.ObjectReference,
                 referencedObjectCollectionPath: "variables/structures",
                 disabled: (options: TabulatorOptions) =>
@@ -1162,7 +1162,7 @@ export class TabulatorWidget extends Widget {
             makeDataPropertyInfo("data", {}, "json"),
             {
                 name: "options",
-                displayName: t("Basic options"),
+                displayName: () => t("Basic options"),
                 type: PropertyType.Object,
                 typeClass: TabulatorOptions,
                 propertyGridGroup: specificGroup
@@ -1170,7 +1170,7 @@ export class TabulatorWidget extends Widget {
             makeExpressionProperty(
                 {
                     name: "configuration",
-                    displayName: t("Advanced options"),
+                    displayName: () => t("Advanced options"),
                     formText: () => (
                         <span>
                             {t("Advanced options are set via JSON value, check")}{" "}
@@ -1195,7 +1195,7 @@ export class TabulatorWidget extends Widget {
             makeExpressionProperty(
                 {
                     name: "persistance",
-                    displayName: t("Persistent configuration"),
+                    displayName: () => t("Persistent configuration"),
                     type: PropertyType.MultilineText,
                     propertyGridGroup: specificGroup
                 },

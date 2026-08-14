@@ -45,7 +45,7 @@ export class Language extends EezObject {
         properties: [
             {
                 name: "languageID",
-                displayName: t("Language ID"),
+                displayName: () => t("Language ID"),
                 type: PropertyType.String,
                 unique: true
             }

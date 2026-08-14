@@ -409,7 +409,7 @@ export class Page extends Flow {
             },
             {
                 name: "dataContextOverrides",
-                displayName: t("Data context"),
+                displayName: () => t("Data context"),
                 type: PropertyType.JSON,
                 propertyGridGroup: generalGroup,
                 disabled: (object: Page) => isLVGLProject(object) || isEezGuiLiteProject(object)
@@ -502,7 +502,7 @@ export class Page extends Flow {
             },
             {
                 name: "deleteOnScreenUnload",
-                displayName: t("Delete on unload"),
+                displayName: () => t("Delete on unload"),
                 type: PropertyType.Boolean,
                 propertyGridGroup: generalGroup,
                 checkboxStyleSwitch: true,

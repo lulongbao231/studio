@@ -1,11 +1,11 @@
 import React from "react";
 
-import { action, computed, makeObservable } from "mobx";
+import { action, computed, makeObservable, autorun } from "mobx";
 import { observable } from "mobx";
 import * as FlexLayout from "flexlayout-react";
 
 import { Icon } from "eez-studio-ui/icon";
-import { t } from "eez-studio-shared/i18n";
+import { t, currentLocale } from "eez-studio-shared/i18n";
 import {
     AbstractLayoutModels,
     ILayoutModel
@@ -250,6 +250,12 @@ export class LayoutModels extends AbstractLayoutModels {
             themes: observable,
             scpi: observable,
             texts: observable
+        });
+
+        // 运行时切换语言时，就地更新各布局页签标题（保留用户布局结构）
+        autorun(() => {
+            currentLocale.get();
+            this.localizeTabTitles();
         });
     }
 

@@ -307,7 +307,7 @@ export class ScpiParameter extends EezObject {
             },
             {
                 name: "isOptional",
-                displayName: t("Is optional?"),
+                displayName: () => t("Is optional?"),
                 type: PropertyType.Boolean,
                 checkboxStyleSwitch: true
             },
@@ -754,7 +754,7 @@ export class ScpiCommand extends EezObject {
             },
             {
                 name: "sendsBackDataBlock",
-                displayName: t("This command sends back data block"),
+                displayName: () => t("This command sends back data block"),
                 type: PropertyType.Boolean,
                 disabled: (command: ScpiCommand) => {
                     return command.isQuery;
