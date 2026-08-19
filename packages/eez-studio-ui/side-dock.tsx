@@ -1,5 +1,5 @@
 import React from "react";
-import { observable, action, makeObservable } from "mobx";
+import { observable, action, makeObservable, autorun } from "mobx";
 import { observer } from "mobx-react";
 import classNames from "classnames";
 import * as FlexLayout from "flexlayout-react";
@@ -11,8 +11,9 @@ import {
     Body
 } from "eez-studio-ui/header-with-body";
 import { FlexLayoutContainer } from "eez-studio-ui/FlexLayout";
+import { AbstractLayoutModels } from "eez-studio-ui/layout-models";
 
-import { t } from "eez-studio-shared/i18n";
+import { t, currentLocale } from "eez-studio-shared/i18n";
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -122,7 +123,7 @@ export const SideDock2 = observer(SideDockComponent2);
 
 ////////////////////////////////////////////////////////////////////////////////
 
-export class LayoutModels {
+export class LayoutModels extends AbstractLayoutModels {
     static FONT = {
         size: "small"
     };
@@ -139,86 +140,106 @@ export class LayoutModels {
         tabEnableRename: false
     };
 
-    static HISTORY_VIEW_SEARCH_RESULTS = {
-        type: "tab",
-        enableClose: false,
-        name: t("Search results"),
-        id: "SearchResults",
-        component: "SearchResults"
-    };
+    static get HISTORY_VIEW_SEARCH_RESULTS() {
+        return {
+            type: "tab",
+            enableClose: false,
+            name: t("Search results"),
+            id: "SearchResults",
+            component: "SearchResults"
+        };
+    }
 
-    static HISTORY_VIEW_FILTERS = {
-        type: "tab",
-        enableClose: false,
-        name: t("Filters"),
-        id: "Filters",
-        component: "Filters"
-    };
+    static get HISTORY_VIEW_FILTERS() {
+        return {
+            type: "tab",
+            enableClose: false,
+            name: t("Filters"),
+            id: "Filters",
+            component: "Filters"
+        };
+    }
 
-    static HISTORY_VIEW_CALENDAR = {
-        type: "tab",
-        enableClose: false,
-        name: t("Calendar"),
-        id: "Calendar",
-        component: "Calendar"
-    };
+    static get HISTORY_VIEW_CALENDAR() {
+        return {
+            type: "tab",
+            enableClose: false,
+            name: t("Calendar"),
+            id: "Calendar",
+            component: "Calendar"
+        };
+    }
 
     static HISTORY_VIEW_SESSIONS_TAB_ID = "sessions";
-    static HISTORY_VIEW_SESSIONS = {
-        type: "tab",
-        enableClose: false,
-        name: t("Sessions"),
-        id: LayoutModels.HISTORY_VIEW_SESSIONS_TAB_ID,
-        component: "Sessions"
-    };
+    static get HISTORY_VIEW_SESSIONS() {
+        return {
+            type: "tab",
+            enableClose: false,
+            name: t("Sessions"),
+            id: LayoutModels.HISTORY_VIEW_SESSIONS_TAB_ID,
+            component: "Sessions"
+        };
+    }
 
-    static HISTORY_VIEW_SCRAPBOOK = {
-        type: "tab",
-        enableClose: false,
-        name: t("Scrapbook"),
-        id: "Scrapbook",
-        component: "Scrapbook"
-    };
+    static get HISTORY_VIEW_SCRAPBOOK() {
+        return {
+            type: "tab",
+            enableClose: false,
+            name: t("Scrapbook"),
+            id: "Scrapbook",
+            component: "Scrapbook"
+        };
+    }
 
-    static CHARTS_VIEW_RULERS = {
-        type: "tab",
-        enableClose: false,
-        name: t("Rulers"),
-        id: "Rulers",
-        component: "Rulers"
-    };
+    static get CHARTS_VIEW_RULERS() {
+        return {
+            type: "tab",
+            enableClose: false,
+            name: t("Rulers"),
+            id: "Rulers",
+            component: "Rulers"
+        };
+    }
 
-    static CHARTS_VIEW_MEASUREMENTS = {
-        type: "tab",
-        enableClose: false,
-        name: t("Measurements"),
-        id: "Measurements",
-        component: "Measurements"
-    };
+    static get CHARTS_VIEW_MEASUREMENTS() {
+        return {
+            type: "tab",
+            enableClose: false,
+            name: t("Measurements"),
+            id: "Measurements",
+            component: "Measurements"
+        };
+    }
 
-    static CHARTS_VIEW_OPTIONS = {
-        type: "tab",
-        enableClose: false,
-        name: t("View Options"),
-        id: "ViewOptions",
-        component: "ViewOptions"
-    };
+    static get CHARTS_VIEW_OPTIONS() {
+        return {
+            type: "tab",
+            enableClose: false,
+            name: t("View Options"),
+            id: "ViewOptions",
+            component: "ViewOptions"
+        };
+    }
 
-    static CHARTS_VIEW_BOOKMARKS = {
-        type: "tab",
-        enableClose: false,
-        name: t("Bookmarks"),
-        id: "Bookmarks",
-        component: "Bookmarks"
-    };
+    static get CHARTS_VIEW_BOOKMARKS() {
+        return {
+            type: "tab",
+            enableClose: false,
+            name: t("Bookmarks"),
+            id: "Bookmarks",
+            component: "Bookmarks"
+        };
+    }
 
-    static CHARTS_VIEW_HELP = {
-        type: "tab",
-        enableClose: false,
-        name: t("Help"),
-        id: "Help",
-        component: "Help"
-    };
+    static get CHARTS_VIEW_HELP() {
+        return {
+            type: "tab",
+            enableClose: false,
+            name: t("Help"),
+            id: "Help",
+            component: "Help"
+        };
+    }
 
     historyViewModel1: FlexLayout.Model;
     historyViewModel2: FlexLayout.Model;
@@ -237,6 +258,7 @@ export class LayoutModels {
     app: FlexLayout.Model;
 
     constructor() {
+        super();
         makeObservable(this, {
             historyViewModel1: observable,
             historyViewModel2: observable,
@@ -262,6 +284,12 @@ export class LayoutModels {
             ? JSON.parse(sideDockLayoutModelsStr)
             : undefined;
         this.load(sideDockLayoutModels);
+
+        // 运行时切换语言时，就地更新侧栏页签标题（保留用户布局）
+        autorun(() => {
+            currentLocale.get();
+            this.localizeTabTitles();
+        });
     }
 
     get models(): {
@@ -648,34 +676,37 @@ export class LayoutModels {
         }
     }
 
-    load(layoutModels: any) {
-        for (const model of this.models) {
-            const savedModel = layoutModels && layoutModels[model.name];
-            if (savedModel && savedModel.version == model.version) {
-                model.set(FlexLayout.Model.fromJson(savedModel.json));
-            } else {
-                model.set(FlexLayout.Model.fromJson(model.json));
-            }
-        }
-    }
-
-    save() {
-        const layoutModels: any = {};
-
-        for (const model of this.models) {
-            try {
-                layoutModels[model.name] = {
-                    version: model.version,
-                    json: model.get().toJson()
-                };
-            } catch (err) {
-                console.log(model);
-                console.error(err);
-            }
-        }
-
-        return layoutModels;
-    }
+    //【定制】load / save 与基类 AbstractLayoutModels（eez-studio-ui/layout-models.ts）
+    // 的实现完全重复；本类已 extends AbstractLayoutModels，故此处不再覆盖，
+    // 沿用基类的 load / save / localizeTabTitles（仅保留本类特有的 saveToLocalStorage 与 selectTab）。
+    // load(layoutModels: any) {
+    //     for (const model of this.models) {
+    //         const savedModel = layoutModels && layoutModels[model.name];
+    //         if (savedModel && savedModel.version == model.version) {
+    //             model.set(FlexLayout.Model.fromJson(savedModel.json));
+    //         } else {
+    //             model.set(FlexLayout.Model.fromJson(model.json));
+    //         }
+    //     }
+    // }
+    //
+    // save() {
+    //     const layoutModels: any = {};
+    //
+    //     for (const model of this.models) {
+    //         try {
+    //             layoutModels[model.name] = {
+    //                 version: model.version,
+    //                 json: model.get().toJson()
+    //             };
+    //         } catch (err) {
+    //             console.log(model);
+    //             console.error(err);
+    //         }
+    //     }
+    //
+    //     return layoutModels;
+    // }
 
     saveToLocalStorage() {
         window.localStorage.setItem(

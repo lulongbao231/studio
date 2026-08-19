@@ -178,11 +178,18 @@ const ProjectFeature = observer(
                                 size={32}
                                 style={{ marginRight: 5 }}
                             />
-                            {this.props.projectFeature.displayName ||
+                            {(typeof this.props.projectFeature.displayName ===
+                            "function"
+                                ? this.props.projectFeature.displayName()
+                                : this.props.projectFeature.displayName) ||
                                 this.props.projectFeature.name}
                         </h5>
                         <p className="card-text">
-                            {this.props.projectFeature.description}.
+                            {typeof this.props.projectFeature.description ===
+                            "function"
+                                ? this.props.projectFeature.description()
+                                : this.props.projectFeature.description}
+                            .
                         </p>
                         <div
                             style={{

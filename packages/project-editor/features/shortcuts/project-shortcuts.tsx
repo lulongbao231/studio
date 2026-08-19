@@ -317,12 +317,12 @@ registerClass("Shortcuts", Shortcuts);
 const feature: ProjectEditorFeature = {
     name: "eezstudio-project-feature-shortcuts",
     version: "0.1.0",
-    description: t(
+    description: () => t(
         "This feature adds support for shortcut definitions into your project"
     ),
     author: "EEZ",
     authorLogo: "../eez-studio-ui/_images/eez_logo.png",
-    displayName: t("Shortcuts"),
+    displayName: () => t("Shortcuts"),
     mandatory: false,
     key: "shortcuts",
     type: PropertyType.Object,

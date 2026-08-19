@@ -107,7 +107,7 @@ export class LVGLScaleSection extends EezObject {
                 name: "codeIdentifier",
                 type: PropertyType.String,
                 computed: true,
-                formText: t(
+                formText: () => t(
                     "This identifier will be used in the generated source code. It is different from the \"Name\" above because in the source code we are following \"lowercase with underscore\" naming convention."
                 ),
                 disabled: (object: LVGLWidget) => object.codeIdentifier == undefined
@@ -518,7 +518,7 @@ export class LVGLScaleWidget extends LVGLWidget {
                 displayName: () => t("Label texts"),
                 type: PropertyType.MultilineText,
                 propertyGridGroup: specificGroup,
-                formText: t("Comma-separated list of label texts")
+                formText: () => t("Comma-separated list of label texts")
             },
 
             // Main line styles (straight line mode - LV_PART_MAIN)

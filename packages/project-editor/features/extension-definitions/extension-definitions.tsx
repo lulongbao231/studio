@@ -391,12 +391,12 @@ registerClass("ExtensionDefinition", ExtensionDefinition);
 const feature: ProjectEditorFeature = {
     name: "eezstudio-project-feature-extension-definitions",
     version: "0.1.0",
-    description: t(
+    description: () => t(
         "This feature adds support for IEXT definitions into your project"
     ),
     author: "EEZ",
     authorLogo: "../eez-studio-ui/_images/eez_logo.png",
-    displayName: t("IEXT defs"),
+    displayName: () => t("IEXT defs"),
     mandatory: false,
     key: "extensionDefinitions",
     type: PropertyType.Array,

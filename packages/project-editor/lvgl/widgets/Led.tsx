@@ -44,7 +44,7 @@ export class LVGLLedWidget extends LVGLWidget {
                 ["literal", "expression"],
                 {
                     propertyGridGroup: specificGroup,
-                    formText: t(
+                    formText: () => t(
                         "The brightness should be between 0 (darkest) and 255 (lightest)."
                     )
                 }

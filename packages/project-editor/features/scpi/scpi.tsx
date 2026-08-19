@@ -934,10 +934,10 @@ registerClass("Scpi", Scpi);
 const feature: ProjectEditorFeature = {
     name: "eezstudio-project-feature-scpi",
     version: "0.1.0",
-    description: t("This feature adds SCPI support for your project"),
+    description: () => t("This feature adds SCPI support for your project"),
     author: "EEZ",
     authorLogo: "../eez-studio-ui/_images/eez_logo.png",
-    displayName: t("SCPI"),
+    displayName: () => t("SCPI"),
     mandatory: false,
     key: "scpi",
     type: PropertyType.Object,

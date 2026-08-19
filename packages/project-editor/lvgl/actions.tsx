@@ -89,7 +89,8 @@ export interface IActionPropertyDefinition {
     name: string;
     type: LvglActionPropertyType;
     isAssignable?: boolean;
-    helpText: string;
+    // 支持惰性求值（函数），使运行时切语言后帮助文档可随之更新
+    helpText: string | (() => string);
 }
 
 function getValueTypeFromActionPropertyType(
@@ -131,7 +132,8 @@ function getValueTypeFromActionPropertyType(
 export interface IActionDefinition {
     id: number;
     name: string;
-    displayName?: string;
+    // 支持惰性求值（函数）
+    displayName?: string | (() => string);
     group: string;
     properties: IActionPropertyDefinition[];
     defaults: any;
@@ -139,7 +141,8 @@ export interface IActionDefinition {
         propertyValues: string[],
         propertyNames: string[]
     ) => React.ReactNode;
-    helpText: string;
+    // 支持惰性求值（函数）
+    helpText: string | (() => string);
     disabled?: (project: Project) => string | false;
 }
 
@@ -149,8 +152,15 @@ const actionNameToActionId = new Map<string, number>();
 const actionIdToActionName = new Map<number, string>();
 
 function getActionDisplayName(actionDefinition: IActionDefinition) {
+    const displayName =
+        actionDefinition.displayName === undefined
+            ? undefined
+            : typeof actionDefinition.displayName === "function"
+            ? actionDefinition.displayName()
+            : actionDefinition.displayName;
+
     return t(
-        (actionDefinition.displayName || humanize(actionDefinition.name))
+        (displayName || humanize(actionDefinition.name))
             .split(" ")
             .map(word =>
                 word == "to"
@@ -1745,17 +1755,20 @@ export function generateLVGLActionsMarkdown() {
     let result =
         t("List of actions to be executed. The following actions are available:\n\n");
 
+    const getHelpText = (helpText: string | (() => string)) =>
+        typeof helpText === "function" ? helpText() : helpText;
+
     for (const actionDefinition of actionDefinitions) {
-        result += `- **${getActionDisplayName(actionDefinition)}**: ${
+        result += `- **${getActionDisplayName(actionDefinition)}**: ${getHelpText(
             actionDefinition.helpText
-        }\n`;
+        )}\n`;
 
         for (const actionProperty of actionDefinition.properties) {
             result += `  - *${
                 actionProperty.isAssignable
                     ? `Store ${actionProperty.name} into`
                     : humanize(actionProperty.name)
-            }*: ${actionProperty.helpText}\n`;
+            }*: ${getHelpText(actionProperty.helpText)}\n`;
         }
 
         result += "\n";

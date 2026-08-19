@@ -859,10 +859,10 @@ export async function preloadAllBitmaps(projectStore: ProjectStore) {
 const feature: ProjectEditorFeature = {
     name: "eezstudio-project-feature-bitmap",
     version: "0.1.0",
-    description: t("Bitmaps support for your project"),
+    description: () => t("Bitmaps support for your project"),
     author: "EEZ",
     authorLogo: "../eez-studio-ui/_images/eez_logo.png",
-    displayName: t("Bitmaps"),
+    displayName: () => t("Bitmaps"),
     mandatory: false,
     key: "bitmaps",
     type: PropertyType.Array,

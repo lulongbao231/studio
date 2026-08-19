@@ -30,10 +30,10 @@ registerClass("Changes", Changes);
 const feature: ProjectEditorFeature = {
     name: "eezstudio-project-feature-changes",
     version: "0.1.0",
-    description: t("Compare project with previous versions"),
+    description: () => t("Compare project with previous versions"),
     author: "EEZ",
     authorLogo: "../eez-studio-ui/_images/eez_logo.png",
-    displayName: t("Changes"),
+    displayName: () => t("Changes"),
     mandatory: false,
     key: "changes",
     type: PropertyType.Object,

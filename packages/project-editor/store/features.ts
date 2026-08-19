@@ -33,9 +33,11 @@ export type BuildResult = { [key: string]: string };
 
 export interface ProjectEditorFeature {
     name: string;
-    displayName: string;
+    // 支持惰性求值（函数），使得运行时切换语言时功能名能随之更新
+    displayName: string | (() => string);
     version: string;
-    description: string;
+    // 支持惰性求值（函数）
+    description: string | (() => string);
     author: string;
     authorLogo: string;
     mandatory: boolean;

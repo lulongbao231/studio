@@ -2425,10 +2425,10 @@ export function getAdditionalStyleFlowProperties(widget: Widget) {
 const feature: ProjectEditorFeature = {
     name: "eezstudio-project-feature-style",
     version: "0.1.0",
-    description: t("Styles support for your project"),
+    description: () => t("Styles support for your project"),
     author: "EEZ",
     authorLogo: "../eez-studio-ui/_images/eez_logo.png",
-    displayName: t("Styles"),
+    displayName: () => t("Styles"),
     mandatory: true,
     key: "styles",
     type: PropertyType.Array,

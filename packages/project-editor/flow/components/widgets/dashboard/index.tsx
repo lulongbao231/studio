@@ -1414,7 +1414,7 @@ export class DropDownListDashboardWidget extends Widget {
             projectType === ProjectType.DASHBOARD,
 
         componentPaletteGroupName: "!1Input",
-        componentPaletteLabel: t("Dropdown"),
+        componentPaletteLabel: "Dropdown",
 
         properties: [
             makeDataPropertyInfo("data", {}, "integer"),

@@ -145,7 +145,7 @@ export class SCPIActionComponent extends ActionComponent {
                 {
                     name: "delay",
                     displayName: () => t("Delay (ms)"),
-                    formText: t("Minimum delay between commands."),
+                    formText: () => t("Minimum delay between commands."),
                     type: PropertyType.MultilineText,
                     propertyGridGroup: specificGroup
                 },

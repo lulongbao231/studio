@@ -396,7 +396,7 @@ export class EvalExprActionComponent extends ActionComponent {
             projectType !== ProjectType.EEZ_GUI_LITE &&
             (!projectStore || !projectStore.projectTypeTraits.isEezFlowLite),
         label: () => t("Evaluate"),
-        componentPaletteLabel: t("Evaluate"),
+        componentPaletteLabel: "Evaluate",
         properties: [
             makeExpressionProperty(
                 {
@@ -470,7 +470,7 @@ export class WatchVariableActionComponent extends ActionComponent {
     static classInfo = makeDerivedClassInfo(ActionComponent.classInfo, {
         flowComponentId: COMPONENT_TYPE_WATCH_VARIABLE_ACTION,
         label: () => t("Watch"),
-        componentPaletteLabel: t("Watch"),
+        componentPaletteLabel: "Watch",
         properties: [
             makeExpressionProperty(
                 {
@@ -565,8 +565,8 @@ export class WatchVariableActionComponent extends ActionComponent {
 export class EvalJSExprActionComponent extends ActionComponent {
     static classInfo = makeDerivedClassInfo(ActionComponent.classInfo, {
         label: () => t("Eval JS"),
-        componentPaletteLabel: t("Eval JS"),
-        componentPaletteGroupName: t("Dashboard Specific"),
+        componentPaletteLabel: "Eval JS",
+        componentPaletteGroupName: "Dashboard Specific",
         properties: [
             {
                 name: "expression",
@@ -1826,7 +1826,7 @@ export class SortArrayActionComponent extends ActionComponent {
 
 export class ReadSettingActionComponent extends ActionComponent {
     static classInfo = makeDerivedClassInfo(ActionComponent.classInfo, {
-        componentPaletteGroupName: t("Dashboard Specific"),
+        componentPaletteGroupName: "Dashboard Specific",
         properties: [
             makeExpressionProperty(
                 {
@@ -1926,7 +1926,7 @@ export class ReadSettingActionComponent extends ActionComponent {
 
 export class WriteSettingsActionComponent extends ActionComponent {
     static classInfo = makeDerivedClassInfo(ActionComponent.classInfo, {
-        componentPaletteGroupName: t("Dashboard Specific"),
+        componentPaletteGroupName: "Dashboard Specific",
         componentPaletteLabel: "WriteSetting",
         properties: [
             makeExpressionProperty(
@@ -2499,7 +2499,7 @@ export class DynamicCallActionActionComponent extends ActionComponent {
             </svg>
         ),
         componentHeaderColor: "#C7E9C0",
-        componentPaletteGroupName: t("Dashboard Specific"),
+        componentPaletteGroupName: "Dashboard Specific",
         execute: (context: IDashboardComponentContext) => {
             const actionName = context.evalProperty<string>("action");
 
@@ -3007,7 +3007,7 @@ export class OnEventActionComponent extends ActionComponent {
 
     static classInfo = makeDerivedClassInfo(ActionComponent.classInfo, {
         flowComponentId: COMPONENT_TYPE_ON_EVENT_ACTION,
-        componentPaletteGroupName: t("GUI"),
+        componentPaletteGroupName: "GUI",
         enabledInComponentPalette: (projectType: ProjectType) =>
             projectType !== ProjectType.LVGL && 
             projectType !== ProjectType.EEZ_GUI_LITE,
@@ -3100,7 +3100,7 @@ export class OnEventActionComponent extends ActionComponent {
 export class ShowPageActionComponent extends ActionComponent {
     static classInfo = makeDerivedClassInfo(ActionComponent.classInfo, {
         flowComponentId: COMPONENT_TYPE_SHOW_PAGE_ACTION,
-        componentPaletteGroupName: t("GUI"),
+        componentPaletteGroupName: "GUI",
         enabledInComponentPalette: (projectType: ProjectType) =>
             projectType !== ProjectType.LVGL,
         properties: [
@@ -3190,7 +3190,7 @@ const MESSAGE_BOX_TYPE_QUESTION = 3;
 export class ShowMessageBoxActionComponent extends ActionComponent {
     static classInfo = makeDerivedClassInfo(ActionComponent.classInfo, {
         flowComponentId: COMPONENT_TYPE_SHOW_MESSAGE_BOX_ACTION,
-        componentPaletteGroupName: t("GUI"),
+        componentPaletteGroupName: "GUI",
         enabledInComponentPalette: (projectType: ProjectType) =>
             projectType !== ProjectType.LVGL &&
             projectType !== ProjectType.DASHBOARD && 
@@ -3310,7 +3310,7 @@ export class ShowMessageBoxActionComponent extends ActionComponent {
 export class ShowKeyboardActionComponent extends ActionComponent {
     static classInfo = makeDerivedClassInfo(ActionComponent.classInfo, {
         flowComponentId: COMPONENT_TYPE_SHOW_KEYBOARD_ACTION,
-        componentPaletteGroupName: t("GUI"),
+        componentPaletteGroupName: "GUI",
         enabledInComponentPalette: (projectType: ProjectType) =>
             projectType !== ProjectType.LVGL &&
             projectType !== ProjectType.DASHBOARD && 
@@ -3440,7 +3440,7 @@ export class ShowKeyboardActionComponent extends ActionComponent {
 export class ShowKeypadActionComponent extends ActionComponent {
     static classInfo = makeDerivedClassInfo(ActionComponent.classInfo, {
         flowComponentId: COMPONENT_TYPE_SHOW_KEYPAD_ACTION,
-        componentPaletteGroupName: t("GUI"),
+        componentPaletteGroupName: "GUI",
         enabledInComponentPalette: (projectType: ProjectType) =>
             projectType !== ProjectType.LVGL &&
             projectType !== ProjectType.DASHBOARD && 
@@ -3570,7 +3570,7 @@ export class ShowKeypadActionComponent extends ActionComponent {
 export class SelectLanguageActionComponent extends ActionComponent {
     static classInfo = makeDerivedClassInfo(ActionComponent.classInfo, {
         flowComponentId: COMPONENT_TYPE_SELECT_LANGUAGE_ACTION,
-        componentPaletteGroupName: t("GUI"),
+        componentPaletteGroupName: "GUI",
         enabledInComponentPalette: (projectType: ProjectType) =>
             projectType !== ProjectType.LVGL && 
             projectType !== ProjectType.EEZ_GUI_LITE,
@@ -3628,7 +3628,7 @@ export class SelectLanguageActionComponent extends ActionComponent {
 export class SetPageDirectionActionComponent extends ActionComponent {
     static classInfo = makeDerivedClassInfo(ActionComponent.classInfo, {
         flowComponentId: COMPONENT_TYPE_SET_PAGE_DIRECTION_ACTION,
-        componentPaletteGroupName: t("GUI"),
+        componentPaletteGroupName: "GUI",
         enabledInComponentPalette: (projectType: ProjectType) =>
             projectType !== ProjectType.LVGL && 
             projectType !== ProjectType.EEZ_GUI_LITE,
@@ -3706,7 +3706,7 @@ export class SetPageDirectionActionComponent extends ActionComponent {
 export class OverrideStyleActionComponent extends ActionComponent {
     static classInfo = makeDerivedClassInfo(ActionComponent.classInfo, {
         flowComponentId: COMPONENT_TYPE_OVERRIDE_STYLE_ACTION,
-        componentPaletteGroupName: t("GUI"),
+        componentPaletteGroupName: "GUI",
         enabledInComponentPalette: (projectType: ProjectType) =>
             projectType !== ProjectType.LVGL &&
             projectType !== ProjectType.DASHBOARD && 
@@ -3799,7 +3799,7 @@ export class OverrideStyleActionComponent extends ActionComponent {
 export class AnimateActionComponent extends ActionComponent {
     static classInfo = makeDerivedClassInfo(ActionComponent.classInfo, {
         flowComponentId: COMPONENT_TYPE_ANIMATE_ACTION,
-        componentPaletteGroupName: t("GUI"),
+        componentPaletteGroupName: "GUI",
         enabledInComponentPalette: (projectType: ProjectType, projectStore?: ProjectStore) =>
             projectType !== ProjectType.EEZ_GUI_LITE,
         properties: [
@@ -3922,7 +3922,7 @@ export class AnimateActionComponent extends ActionComponent {
 export class SetColorThemeActionComponent extends ActionComponent {
     static classInfo = makeDerivedClassInfo(ActionComponent.classInfo, {
         flowComponentId: COMPONENT_TYPE_SET_COLOR_THEME_ACTION,
-        componentPaletteGroupName: t("GUI"),
+        componentPaletteGroupName: "GUI",
         properties: [
             makeExpressionProperty(
                 {
@@ -3988,7 +3988,7 @@ export class SetColorThemeActionComponent extends ActionComponent {
 
 export class ClipboardWriteActionComponent extends ActionComponent {
     static classInfo = makeDerivedClassInfo(ActionComponent.classInfo, {
-        componentPaletteGroupName: t("GUI"),
+        componentPaletteGroupName: "GUI",
         properties: [
             makeExpressionProperty(
                 {
@@ -4561,7 +4561,7 @@ export class LabelOutActionComponent extends ActionComponent {
             </svg>
         ),
         componentHeaderColor: "#c9e4de",
-        componentPaletteLabel: t("Label OUT"),
+        componentPaletteLabel: "Label OUT",
 
         properties: [
             {
@@ -4721,7 +4721,7 @@ export class LabelInActionComponent extends ActionComponent {
             </svg>
         ),
         componentHeaderColor: "#c9e4de",
-        componentPaletteLabel: t("Label IN"),
+        componentPaletteLabel: "Label IN",
 
         properties: [
             {
@@ -4867,7 +4867,7 @@ const DEFAULT_OPTIONS = `{
 
 export class PrintToPDFActionComponent extends ActionComponent {
     static classInfo = makeDerivedClassInfo(ActionComponent.classInfo, {
-        componentPaletteGroupName: t("GUI"),
+        componentPaletteGroupName: "GUI",
         properties: [
             makeExpressionProperty(
                 {
@@ -4977,7 +4977,7 @@ export class PrintToPDFActionComponent extends ActionComponent {
 
 export class FocusWidgetActionComponent extends ActionComponent {
     static classInfo = makeDerivedClassInfo(ActionComponent.classInfo, {
-        componentPaletteGroupName: t("GUI"),
+        componentPaletteGroupName: "GUI",
         properties: [
             makeExpressionProperty(
                 {

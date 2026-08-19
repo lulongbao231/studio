@@ -389,9 +389,10 @@ export class Build extends EezObject {
             },
             {
                 name: "generateSourceCodeForEezFramework",
-                displayName: t(
-                    "Generate source code for EEZ Flow engine (eez-framework)"
-                ),
+                displayName: () =>
+                    t(
+                        "Generate source code for EEZ Flow engine (eez-framework)"
+                    ),
                 type: PropertyType.Boolean,
                 checkboxStyleSwitch: true,
                 disabled: object =>
@@ -970,7 +971,7 @@ export class General extends EezObject {
                 defaultValue: [],
                 partOfNavigation: false,
                 enumerable: false,
-                formText: t(
+                formText: () => t(
                     "After adding an extension, you need to reload the project to see the changes. To reload the project select 'Reload Project' from the 'File' menu."
                 ),
                 disabled: (general: General) =>

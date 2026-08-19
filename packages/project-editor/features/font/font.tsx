@@ -2746,10 +2746,10 @@ export async function onEditGlyphs(object: Font | AdditionalFontSource) {
 const feature: ProjectEditorFeature = {
     name: "eezstudio-project-feature-font",
     version: "0.1.0",
-    description: t("Fonts support for your project"),
+    description: () => t("Fonts support for your project"),
     author: "EEZ",
     authorLogo: "../eez-studio-ui/_images/eez_logo.png",
-    displayName: t("Fonts"),
+    displayName: () => t("Fonts"),
     mandatory: false,
     key: "fonts",
     type: PropertyType.Array,

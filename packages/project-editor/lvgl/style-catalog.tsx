@@ -186,7 +186,7 @@ const width_property_info: LVGLPropertyInfo = {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_WIDTH,
         description:
             t("Sets the width of object. Pixel, percentage and LV_SIZE_CONTENT values can be used. Percentage values are relative to the width of the parent's content area."),
-        defaultValue: t("Widget dependent"),
+        defaultValue: "Widget dependent",
         inherited: false,
         layout: true,
         extDraw: false
@@ -200,7 +200,7 @@ const height_property_info: LVGLPropertyInfo = {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_HEIGHT,
         description:
             t("Sets the height of object. Pixel, percentage and LV_SIZE_CONTENT can be used. Percentage values are relative to the height of the parent's content area."),
-        defaultValue: t("Widget dependent"),
+        defaultValue: "Widget dependent",
         inherited: false,
         layout: true,
         extDraw: false
@@ -798,7 +798,7 @@ export const grid_row_dsc_array_property_info: LVGLPropertyInfo = {
     name: "grid_row_dsc_array",
     displayName: () => t("Grid row descriptor"),
     type: PropertyType.NumberArrayAsString,
-    formText: t("Defines the size of grid rows as a comma or space-separated list of values. Options: fixed value in pixels (e.g. 50), FR(x) (e.g. FR(1), FR(2), etc.) or CONTENT."),
+    formText: () => t("Defines the size of grid rows as a comma or space-separated list of values. Options: fixed value in pixels (e.g. 50), FR(x) (e.g. FR(1), FR(2), etc.) or CONTENT."),
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_GRID_ROW_DSC_ARRAY,
         description:
@@ -818,7 +818,7 @@ export const grid_column_dsc_array_property_info: LVGLPropertyInfo = {
     name: "grid_column_dsc_array",
     displayName: () => t("Grid column descriptor"),
     type: PropertyType.NumberArrayAsString,
-    formText: t("Defines the size of grid columns as a comma or space-separated list of values. Options: fixed value in pixels (e.g. 50), FR(x) (e.g. FR(1), FR(2), etc.) or CONTENT. "),
+    formText: () => t("Defines the size of grid columns as a comma or space-separated list of values. Options: fixed value in pixels (e.g. 50), FR(x) (e.g. FR(1), FR(2), etc.) or CONTENT. "),
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_GRID_COLUMN_DSC_ARRAY,
         description:
@@ -2469,7 +2469,7 @@ const color_filter_opa_property_info: LVGLPropertyInfo = {
 const anim_property_info: LVGLPropertyInfo = {
     name: "anim",
     type: PropertyType.String,
-    formText: t("e.g., delay=1000, repeat_delay=1000, repeat_count=3 (any order, all optional, repeat_count=-1 for infinite)"),
+    formText: () => t("e.g., delay=1000, repeat_delay=1000, repeat_count=3 (any order, all optional, repeat_count=-1 for infinite)"),
     lvglStyleProp: {
         code: LVGL_STYLE_PROP_CODES.LV_STYLE_ANIM,
         description:
@@ -2578,7 +2578,7 @@ export interface LVGLPropertiesGroup {
 
 export const lvglProperties: LVGLPropertiesGroup[] = [
     {
-        groupName: t("POSITION AND SIZE"),
+        groupName: "POSITION AND SIZE",
         groupDescription: t("Properties related to size, position, alignment and layout of the objects."),
         properties: [
             align_property_info,
@@ -2616,7 +2616,7 @@ export const lvglProperties: LVGLPropertiesGroup[] = [
     },
 
     {
-        groupName: t("LAYOUT"),
+        groupName: "LAYOUT",
         groupDescription: t("Properties to describe layout."),
         properties: [
             layout_property_info,
@@ -2641,7 +2641,7 @@ export const lvglProperties: LVGLPropertiesGroup[] = [
     },
 
     {
-        groupName: t("PADDING"),
+        groupName: "PADDING",
         groupDescription: t("Properties to describe spacing between the parent's sides and the children and among the children. Very similar to the padding properties in HTML."),
         properties: [
             pad_top_property_info,
@@ -2655,7 +2655,7 @@ export const lvglProperties: LVGLPropertiesGroup[] = [
     },
 
     {
-        groupName: t("MARGIN"),
+        groupName: "MARGIN",
         groupDescription: t("Properties to describe spacing around an object. Very similar to the margin properties in HTML."),
         properties: [
             margin_top_property_info,
@@ -2666,7 +2666,7 @@ export const lvglProperties: LVGLPropertiesGroup[] = [
     },
 
     {
-        groupName: t("BACKGROUND"),
+        groupName: "BACKGROUND",
         groupDescription: t("Properties to describe the background color and image of the objects."),
         properties: [
             bg_color_property_info,
@@ -2692,7 +2692,7 @@ export const lvglProperties: LVGLPropertiesGroup[] = [
     },
 
     {
-        groupName: t("BORDER"),
+        groupName: "BORDER",
         groupDescription: t("Properties to describe the borders"),
         properties: [
             border_color_property_info,
@@ -2704,7 +2704,7 @@ export const lvglProperties: LVGLPropertiesGroup[] = [
     },
 
     {
-        groupName: t("OUTLINE"),
+        groupName: "OUTLINE",
         groupDescription: t("Properties to describe the outline. It's like a border but drawn outside of the rectangles."),
         properties: [
             outline_width_property_info,
@@ -2715,7 +2715,7 @@ export const lvglProperties: LVGLPropertiesGroup[] = [
     },
 
     {
-        groupName: t("SHADOW"),
+        groupName: "SHADOW",
         groupDescription: t("Properties to describe the shadow drawn under the rectangles."),
         properties: [
             shadow_width_property_info,
@@ -2728,7 +2728,7 @@ export const lvglProperties: LVGLPropertiesGroup[] = [
     },
 
     {
-        groupName: t("IMAGE"),
+        groupName: "IMAGE",
         groupDescription: t("Properties to describe the images"),
         properties: [
             img_opa_property_info,
@@ -2738,7 +2738,7 @@ export const lvglProperties: LVGLPropertiesGroup[] = [
     },
 
     {
-        groupName: t("LINE"),
+        groupName: "LINE",
         groupDescription: t("Properties to describe line-like objects"),
         properties: [
             line_width_property_info,
@@ -2751,7 +2751,7 @@ export const lvglProperties: LVGLPropertiesGroup[] = [
     },
 
     {
-        groupName: t("ARC"),
+        groupName: "ARC",
         groupDescription: t("TODO"),
         properties: [
             arc_width_property_info,
@@ -2763,7 +2763,7 @@ export const lvglProperties: LVGLPropertiesGroup[] = [
     },
 
     {
-        groupName: t("TEXT"),
+        groupName: "TEXT",
         groupDescription: t("Properties to describe the properties of text. All these properties are inherited."),
         properties: [
             text_color_property_info,
@@ -2777,7 +2777,7 @@ export const lvglProperties: LVGLPropertiesGroup[] = [
     },
 
     {
-        groupName: t("MISCELLANEOUS"),
+        groupName: "MISCELLANEOUS",
         groupDescription: t("Mixed properties for various purposes."),
         properties: [
             radius_property_info,

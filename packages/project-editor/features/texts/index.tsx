@@ -437,10 +437,10 @@ export class Texts extends EezObject {
 const feature: ProjectEditorFeature = {
     name: "eezstudio-project-feature-texts",
     version: "0.1.0",
-    description: t("Localized texts support for your project"),
+    description: () => t("Localized texts support for your project"),
     author: "EEZ",
     authorLogo: "../eez-studio-ui/_images/eez_logo.png",
-    displayName: t("Texts"),
+    displayName: () => t("Texts"),
     mandatory: false,
     key: "texts",
     type: PropertyType.Object,

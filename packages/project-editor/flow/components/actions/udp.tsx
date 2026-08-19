@@ -95,7 +95,7 @@ onWasmFlowRuntimeTerminate((wasmFlowRuntime: IWasmFlowRuntime) => {
 export class UDPInActionComponent extends ActionComponent {
     static classInfo = makeDerivedClassInfo(ActionComponent.classInfo, {
         label: () => t("UDP In"),
-        componentPaletteLabel: t("UDP In"),
+        componentPaletteLabel: "UDP In",
 
         properties: [
             {
@@ -354,7 +354,7 @@ registerClass("UDPInActionComponent", UDPInActionComponent);
 export class UDPOutActionComponent extends ActionComponent {
     static classInfo = makeDerivedClassInfo(ActionComponent.classInfo, {
         label: () => t("UDP Out"),
-        componentPaletteLabel: t("UDP Out"),
+        componentPaletteLabel: "UDP Out",
 
         properties: [
             {

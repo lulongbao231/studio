@@ -422,7 +422,7 @@ export class EmbeddedDashboardWidget extends Widget {
         enabledInComponentPalette: (projectType: ProjectType) =>
             projectType === ProjectType.DASHBOARD,
 
-        componentPaletteLabel: t("Embedded Dashboard"),
+        componentPaletteLabel: "Embedded Dashboard",
 
         properties: [
             makeDataPropertyInfo("data", {

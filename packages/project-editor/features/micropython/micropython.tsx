@@ -211,10 +211,10 @@ registerClass("MicroPython", MicroPython);
 const feature: ProjectEditorFeature = {
     name: "eezstudio-project-feature-micropython",
     version: "0.1.0",
-    description: t("MicroPython"),
+    description: () => t("MicroPython"),
     author: "EEZ",
     authorLogo: "../eez-studio-ui/_images/eez_logo.png",
-    displayName: t("MicroPython"),
+    displayName: () => t("MicroPython"),
     mandatory: false,
     key: "micropython",
     type: PropertyType.Object,

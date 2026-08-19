@@ -87,7 +87,7 @@ export class LVGLMeterIndicator extends EezObject {
                 name: "codeIdentifier",
                 type: PropertyType.String,
                 computed: true,
-                formText: t(
+                formText: () => t(
                     "This identifier will be used in the generated source code. It is different from the \"Name\" above because in the source code we are following \"lowercase with underscore\" naming convention."
                 ),
                 disabled: (object: LVGLWidget) => object.codeIdentifier == undefined
@@ -1081,7 +1081,7 @@ class LVGLMeterScale extends EezObject {
                 name: "codeIdentifier",
                 type: PropertyType.String,
                 computed: true,
-                formText: t(
+                formText: () => t(
                     "This identifier will be used in the generated source code. It is different from the \"Name\" above because in the source code we are following \"lowercase with underscore\" naming convention."
                 ),
                 disabled: (object: LVGLWidget) => object.codeIdentifier == undefined

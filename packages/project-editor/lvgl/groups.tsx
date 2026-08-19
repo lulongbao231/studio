@@ -479,10 +479,10 @@ export const LVGLGroupsTab = observer(
 const feature: ProjectEditorFeature = {
     name: "eezstudio-project-feature-lvgl-groups",
     version: "0.1.0",
-    description: t("LVGL Groups"),
+    description: () => t("LVGL Groups"),
     author: "EEZ",
     authorLogo: "../eez-studio-ui/_images/eez_logo.png",
-    displayName: t("LVGL Groups"),
+    displayName: () => t("LVGL Groups"),
     mandatory: true,
     key: "lvglGroups",
     type: PropertyType.Object,

@@ -29,6 +29,7 @@ export class LayoutModels extends AbstractLayoutModels {
     static USER_WIDGETS_TAB_ID = "WIDGETS";
     static ACTIONS_TAB_ID = "ACTIONS";
     static VARIABLES_TAB_ID = "VARIABLES";
+    static STRUCTURE_TAB_ID = "STRUCTURE";
     static CHECKS_TAB_ID = "CHECKS";
     static OUTPUT_TAB_ID = "OUTPUT";
     static SEARCH_TAB_ID = "SEARCH";
@@ -66,138 +67,168 @@ export class LayoutModels extends AbstractLayoutModels {
     static DOCKER_SIMULATOR_PREVIEW_LOGS_TAB_ID =
         "DOCKER_SIMULATOR_PREVIEW_LOGS";
 
-    static PAGES_TAB: FlexLayout.IJsonTabNode = {
-        type: "tab",
-        enableClose: false,
-        name: t("Pages"),
-        component: "pages",
-        icon: "svg:pages",
-        id: LayoutModels.PAGES_TAB_ID
-    };
-    static WIDGETS_TAB: FlexLayout.IJsonTabNode = {
-        type: "tab",
-        enableClose: false,
-        name: t("User Widgets"),
-        component: "widgets",
-        icon: "svg:user_widgets",
-        id: LayoutModels.USER_WIDGETS_TAB_ID
-    };
-    static ACTIONS_TAB: FlexLayout.IJsonTabNode = {
-        type: "tab",
-        enableClose: false,
-        name: t("User Actions"),
-        component: "actions",
-        icon: "material:code",
-        id: LayoutModels.ACTIONS_TAB_ID
-    };
+    static get PAGES_TAB(): FlexLayout.IJsonTabNode {
+        return {
+            type: "tab",
+            enableClose: false,
+            name: t("Pages"),
+            component: "pages",
+            icon: "svg:pages",
+            id: LayoutModels.PAGES_TAB_ID
+        };
+    }
+    static get WIDGETS_TAB(): FlexLayout.IJsonTabNode {
+        return {
+            type: "tab",
+            enableClose: false,
+            name: t("User Widgets"),
+            component: "widgets",
+            icon: "svg:user_widgets",
+            id: LayoutModels.USER_WIDGETS_TAB_ID
+        };
+    }
+    static get ACTIONS_TAB(): FlexLayout.IJsonTabNode {
+        return {
+            type: "tab",
+            enableClose: false,
+            name: t("User Actions"),
+            component: "actions",
+            icon: "material:code",
+            id: LayoutModels.ACTIONS_TAB_ID
+        };
+    }
 
-    static STYLES_TAB: FlexLayout.IJsonTabNode = {
-        type: "tab",
-        enableClose: false,
-        name: t("Styles"),
-        id: LayoutModels.STYLES_TAB_ID,
-        component: "styles",
-        icon: "material:format_color_fill"
-    };
+    static get STYLES_TAB(): FlexLayout.IJsonTabNode {
+        return {
+            type: "tab",
+            enableClose: false,
+            name: t("Styles"),
+            id: LayoutModels.STYLES_TAB_ID,
+            component: "styles",
+            icon: "material:format_color_fill"
+        };
+    }
 
-    static FONTS_TAB: FlexLayout.IJsonTabNode = {
-        type: "tab",
-        enableClose: false,
-        name: t("Fonts"),
-        id: LayoutModels.FONTS_TAB_ID,
-        component: "fonts",
-        icon: "material:font_download"
-    };
+    static get FONTS_TAB(): FlexLayout.IJsonTabNode {
+        return {
+            type: "tab",
+            enableClose: false,
+            name: t("Fonts"),
+            id: LayoutModels.FONTS_TAB_ID,
+            component: "fonts",
+            icon: "material:font_download"
+        };
+    }
 
-    static BITMAPS_TAB: FlexLayout.IJsonTabNode = {
-        type: "tab",
-        enableClose: false,
-        name: t("Bitmaps"),
-        id: LayoutModels.BITMAPS_TAB_ID,
-        component: "bitmaps",
-        icon: "material:image"
-    };
+    static get BITMAPS_TAB(): FlexLayout.IJsonTabNode {
+        return {
+            type: "tab",
+            enableClose: false,
+            name: t("Bitmaps"),
+            id: LayoutModels.BITMAPS_TAB_ID,
+            component: "bitmaps",
+            icon: "material:image"
+        };
+    }
 
-    static THEMES_TAB: FlexLayout.IJsonTabNode = {
-        type: "tab",
-        enableClose: false,
-        name: t("Themes"),
-        id: LayoutModels.THEMES_TAB_ID,
-        component: "themesSideView",
-        icon: "svg:palette"
-    };
+    static get THEMES_TAB(): FlexLayout.IJsonTabNode {
+        return {
+            type: "tab",
+            enableClose: false,
+            name: t("Themes"),
+            id: LayoutModels.THEMES_TAB_ID,
+            component: "themesSideView",
+            icon: "svg:palette"
+        };
+    }
 
-    static TEXTS_TAB: FlexLayout.IJsonTabNode = {
-        type: "tab",
-        enableClose: false,
-        name: t("Texts"),
-        id: LayoutModels.TEXTS_TAB_ID,
-        component: "texts",
-        icon: "svg:language"
-    };
+    static get TEXTS_TAB(): FlexLayout.IJsonTabNode {
+        return {
+            type: "tab",
+            enableClose: false,
+            name: t("Texts"),
+            id: LayoutModels.TEXTS_TAB_ID,
+            component: "texts",
+            icon: "svg:language"
+        };
+    }
 
-    static SCPI_TAB: FlexLayout.IJsonTabNode = {
-        type: "tab",
-        enableClose: false,
-        name: t("SCPI"),
-        id: LayoutModels.SCPI_TAB_ID,
-        component: "scpi",
-        icon: "material:navigate_next"
-    };
+    static get SCPI_TAB(): FlexLayout.IJsonTabNode {
+        return {
+            type: "tab",
+            enableClose: false,
+            name: t("SCPI"),
+            id: LayoutModels.SCPI_TAB_ID,
+            component: "scpi",
+            icon: "material:navigate_next"
+        };
+    }
 
-    static INSTRUMENT_COMMANDS_TAB: FlexLayout.IJsonTabNode = {
-        type: "tab",
-        enableClose: false,
-        name: t("Instrument Commands"),
-        id: LayoutModels.INSTRUMENT_COMMANDS_TAB_ID,
-        component: "instrument-commands",
-        icon: "material:navigate_next"
-    };
+    static get INSTRUMENT_COMMANDS_TAB(): FlexLayout.IJsonTabNode {
+        return {
+            type: "tab",
+            enableClose: false,
+            name: t("Instrument Commands"),
+            id: LayoutModels.INSTRUMENT_COMMANDS_TAB_ID,
+            component: "instrument-commands",
+            icon: "material:navigate_next"
+        };
+    }
 
-    static EXTENSION_DEFINITIONS_TAB: FlexLayout.IJsonTabNode = {
-        type: "tab",
-        enableClose: false,
-        name: t("IEXT"),
-        id: LayoutModels.EXTENSION_DEFINITIONS_TAB_ID,
-        component: "extension-definitions",
-        icon: "material:extension"
-    };
+    static get EXTENSION_DEFINITIONS_TAB(): FlexLayout.IJsonTabNode {
+        return {
+            type: "tab",
+            enableClose: false,
+            name: t("IEXT"),
+            id: LayoutModels.EXTENSION_DEFINITIONS_TAB_ID,
+            component: "extension-definitions",
+            icon: "material:extension"
+        };
+    }
 
-    static CHANGES_TAB: FlexLayout.IJsonTabNode = {
-        type: "tab",
-        enableClose: false,
-        name: t("Changes"),
-        id: LayoutModels.CHANGES_TAB_ID,
-        component: "changes",
-        icon: "svg:changes"
-    };
+    static get CHANGES_TAB(): FlexLayout.IJsonTabNode {
+        return {
+            type: "tab",
+            enableClose: false,
+            name: t("Changes"),
+            id: LayoutModels.CHANGES_TAB_ID,
+            component: "changes",
+            icon: "svg:changes"
+        };
+    }
 
-    static BREAKPOINTS_TAB: FlexLayout.IJsonTabNode = {
-        type: "tab",
-        enableClose: false,
-        name: t("Breakpoints"),
-        id: LayoutModels.BREAKPOINTS_TAB_ID,
-        icon: "svg:breakpoints_panel",
-        component: "breakpointsPanel"
-    };
+    static get BREAKPOINTS_TAB(): FlexLayout.IJsonTabNode {
+        return {
+            type: "tab",
+            enableClose: false,
+            name: t("Breakpoints"),
+            id: LayoutModels.BREAKPOINTS_TAB_ID,
+            icon: "svg:breakpoints_panel",
+            component: "breakpointsPanel"
+        };
+    }
 
-    static LVGL_GROUPS_TAB: FlexLayout.IJsonTabNode = {
-        type: "tab",
-        enableClose: false,
-        name: t("Groups"),
-        id: LayoutModels.LVGL_GROUPS_TAB_ID,
-        component: "lvgl-groups",
-        icon: "material:view_compact"
-    };
+    static get LVGL_GROUPS_TAB(): FlexLayout.IJsonTabNode {
+        return {
+            type: "tab",
+            enableClose: false,
+            name: t("Groups"),
+            id: LayoutModels.LVGL_GROUPS_TAB_ID,
+            component: "lvgl-groups",
+            icon: "material:view_compact"
+        };
+    }
 
-    static COMPONENTS_PALETTE_TAB: FlexLayout.IJsonTabNode = {
-        type: "tab",
-        enableClose: false,
-        name: t("Components Palette"),
-        id: LayoutModels.COMPONENTS_PALETTE_TAB_ID,
-        component: "componentsPalette",
-        icon: "svg:components"
-    };
+    static get COMPONENTS_PALETTE_TAB(): FlexLayout.IJsonTabNode {
+        return {
+            type: "tab",
+            enableClose: false,
+            name: t("Components Palette"),
+            id: LayoutModels.COMPONENTS_PALETTE_TAB_ID,
+            component: "componentsPalette",
+            icon: "svg:components"
+        };
+    }
 
     static iconFactory = (node: FlexLayout.TabNode) => {
         let icon = node.getIcon();
@@ -427,6 +458,7 @@ export class LayoutModels extends AbstractLayoutModels {
                                             {
                                                 type: "tab",
                                                 enableClose: false,
+                                                id: LayoutModels.STRUCTURE_TAB_ID,
                                                 name: t("Widgets Structure"),
                                                 component: "flow-structure",
                                                 icon: "svg:hierarchy"
@@ -1145,6 +1177,42 @@ export class LayoutModels extends AbstractLayoutModels {
                 set: action(model => (this.lvglGroups = model))
             }
         ];
+    }
+
+    // 覆盖基类：切换语言时，除静态页签标题外，还要就地更新已打开
+    // 编辑器页签的标题（其名称来自 Editor.title -> objectToString -> label()，
+    // 内部读取 t()，故切语言后需用最新标题 renameTab）。
+    localizeTabTitles() {
+        super.localizeTabTitles();
+
+        for (const model of this.models) {
+            const currentModel = model.get();
+            if (!currentModel) {
+                continue;
+            }
+
+            currentModel.visitNodes((node: any) => {
+                if (
+                    node instanceof FlexLayout.TabNode &&
+                    node.getComponent() == "editor"
+                ) {
+                    const editor =
+                        this.projectStore.editorsStore.tabIdToEditorMap.get(
+                            node.getId()
+                        );
+                    if (editor) {
+                        currentModel.doAction(
+                            FlexLayout.Actions.renameTab(
+                                node.getId(),
+                                editor.title
+                            )
+                        );
+                    }
+                }
+            });
+        }
+
+        this.projectStore.project.enableTabs();
     }
 
     load(layoutModels: any) {

@@ -123,10 +123,10 @@ registerClass("InstrumentCommands", InstrumentCommands);
 const feature: ProjectEditorFeature = {
     name: "eezstudio-project-feature-instrument-commands",
     version: "0.1.0",
-    description: t("This feature adds support for instrument commands definition"),
+    description: () => t("This feature adds support for instrument commands definition"),
     author: "EEZ",
     authorLogo: "../eez-studio-ui/_images/eez_logo.png",
-    displayName: t("Instrument Commands"),
+    displayName: () => t("Instrument Commands"),
     mandatory: false,
     key: "instrumentCommands",
     type: PropertyType.Object,

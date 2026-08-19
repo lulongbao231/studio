@@ -397,7 +397,7 @@ export class Page extends Flow {
                 type: PropertyType.String,
                 propertyGridGroup: generalGroup,
                 computed: true,
-                formText: t(
+                formText: () => t(
                         "This identifier will be used in the generated source code in the \"Objects\" struct. It is different from the \"Name\" above because in the source code we are following \"lowercase with underscore\" naming convention."
                     ),
                 disabled: (object: Page) => object.codeIdentifier == undefined
@@ -1378,10 +1378,10 @@ registerClass("Page", Page);
 const feature: ProjectEditorFeature = {
     name: "eezstudio-project-feature-page",
     version: "0.1.0",
-    description: t("Pages support for your project"),
+    description: () => t("Pages support for your project"),
     author: "EEZ",
     authorLogo: "../eez-studio-ui/_images/eez_logo.png",
-    displayName: t("Pages"),
+    displayName: () => t("Pages"),
     mandatory: true,
     key: "userPages",
     type: PropertyType.Array,

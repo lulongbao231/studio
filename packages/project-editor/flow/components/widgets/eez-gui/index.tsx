@@ -5689,7 +5689,7 @@ export class DropDownListWidget extends Widget {
 
         componentPaletteGroupName: "!1Input",
 
-        componentPaletteLabel: t("Dropdown"),
+        componentPaletteLabel: "Dropdown",
 
         flowComponentId: WIDGET_TYPE_DROP_DOWN_LIST,
 

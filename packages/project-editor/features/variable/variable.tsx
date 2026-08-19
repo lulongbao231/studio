@@ -1762,10 +1762,10 @@ registerClass("ProjectVariables", ProjectVariables);
 const feature: ProjectEditorFeature = {
     name: "eezstudio-project-feature-variables",
     version: "0.1.0",
-    description: t("Variables, Structures and Enums"),
+    description: () => t("Variables, Structures and Enums"),
     author: "EEZ",
     authorLogo: "../eez-studio-ui/_images/eez_logo.png",
-    displayName: t("Variables"),
+    displayName: () => t("Variables"),
     mandatory: true,
     key: "variables",
     type: PropertyType.Object,

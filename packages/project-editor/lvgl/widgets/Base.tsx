@@ -641,7 +641,7 @@ export class LVGLWidget extends Widget {
                 type: PropertyType.String,
                 propertyGridGroup: generalGroup,
                 computed: true,
-                formText: t(`This identifier will be used in the generated source code in the "Objects" struct. It is different from the "Name" above because in the source code we are following "lowercase with underscore" naming convention.`),
+                formText: () => t(`This identifier will be used in the generated source code in the "Objects" struct. It is different from the "Name" above because in the source code we are following "lowercase with underscore" naming convention.`),
                 disabled: (object: LVGLWidget) => object.codeIdentifier == undefined
             },
             {

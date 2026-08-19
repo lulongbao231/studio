@@ -792,10 +792,9 @@ export class WizardModel {
                 id: "dashboard",
                 projectType: PROJECT_TYPE_NAMES[ProjectType.DASHBOARD],
                 image: DASHBOARD_PROJECT_ICON(128),
-                projectName: t("Dashboard"),
-                description: t(
-                    "Start your new Dashboard project development here."
-                ),
+                projectName: "Dashboard",
+                description:
+                    "Start your new Dashboard project development here.",
                 projectFileUrl: getTemplatePathOrUrl(
                     "templates/dashboard.eez-project"
                 )
@@ -804,10 +803,8 @@ export class WizardModel {
                 id: "firmware",
                 projectType: PROJECT_TYPE_NAMES[ProjectType.FIRMWARE],
                 image: EEZ_GUI_PROJECT_ICON(128),
-                projectName: t("EEZ-GUI"),
-                description: t(
-                    "Start your new EEZ-GUI project development here."
-                ),
+                projectName: "EEZ-GUI",
+                description: "Start your new EEZ-GUI project development here.",
                 projectFileUrl: getTemplatePathOrUrl(
                     "templates/firmware.eez-project"
                 )
@@ -816,8 +813,8 @@ export class WizardModel {
                 id: "LVGL",
                 projectType: PROJECT_TYPE_NAMES[ProjectType.LVGL],
                 image: LVGL_PROJECT_ICON(128),
-                projectName: t("LVGL"),
-                description: t("Start your new LVGL project development here."),
+                projectName: "LVGL",
+                description: "Start your new LVGL project development here.",
                 projectFileUrl: {
                     "8.4.0": getTemplatePathOrUrl(
                         "templates/v0.23.0/LVGL-8.3.eez-project"
@@ -840,10 +837,9 @@ export class WizardModel {
                 id: "LVGL with EEZ Flow",
                 projectType: PROJECT_TYPE_NAMES[ProjectType.LVGL],
                 image: LVGL_WITH_FLOW_PROJECT_ICON(128),
-                projectName: t("LVGL with EEZ Flow"),
-                description: t(
-                    "Start your new LVGL with EEZ Flow project development here."
-                ),
+                projectName: "LVGL with EEZ Flow",
+                description:
+                    "Start your new LVGL with EEZ Flow project development here.",
                 projectFileUrl: {
                     "8.4.0": getTemplatePathOrUrl(
                         "templates/v0.23.0/LVGL with EEZ Flow-8.3.eez-project"
@@ -866,8 +862,8 @@ export class WizardModel {
                 id: "IEXT",
                 projectType: PROJECT_TYPE_NAMES[ProjectType.IEXT],
                 image: IEXT_PROJECT_ICON(128),
-                projectName: t("IEXT"),
-                description: t("Start your new IEXT project development here."),
+                projectName: "IEXT",
+                description: "Start your new IEXT project development here.",
                 projectFileUrl: {
                     SCPI: getTemplatePathOrUrl("templates/IEXT.eez-project"),
                     PROPRIETARY: getTemplatePathOrUrl(
@@ -879,10 +875,9 @@ export class WizardModel {
                 id: "EEZ-GUI Lite",
                 projectType: PROJECT_TYPE_NAMES[ProjectType.EEZ_GUI_LITE],
                 image: EEZ_GUI_LITE_PROJECT_ICON(128),
-                projectName: t("EEZ-GUI Lite"),
-                description: t(
-                    "Start your new EEZ-GUI Lite project development here."
-                ),
+                projectName: "EEZ-GUI Lite",
+                description:
+                    "Start your new EEZ-GUI Lite project development here.",
                 projectFileUrl: getTemplatePathOrUrl(
                     "templates/eez-gui-lite.eez-project"
                 )
@@ -896,10 +891,9 @@ export class WizardModel {
                 id: "applet",
                 projectType: PROJECT_TYPE_NAMES[ProjectType.APPLET],
                 image: APPLET_ICON(128),
-                projectName: t("BB3 Applet"),
-                description: t(
-                    "Start your new BB3 Applet project development here."
-                ),
+                projectName: "BB3 Applet",
+                description:
+                    "Start your new BB3 Applet project development here.",
                 projectFileUrl: getTemplatePathOrUrl(
                     "templates/applet.eez-project"
                 )
@@ -908,10 +902,9 @@ export class WizardModel {
                 id: "resource",
                 projectType: PROJECT_TYPE_NAMES[ProjectType.RESOURCE],
                 image: MICROPYTHON_ICON(128),
-                projectName: t("BB3 MicroPython Script"),
-                description: t(
-                    "Start your new BB3 MicroPython project development here."
-                ),
+                projectName: "BB3 MicroPython Script",
+                description:
+                    "Start your new BB3 MicroPython project development here.",
                 projectFileUrl: getTemplatePathOrUrl(
                     "templates/resource.eez-project"
                 )
@@ -1951,8 +1944,11 @@ export class WizardModel {
 
         const searchTargets = [
             projectType.projectName,
+            t(projectType.projectName || ""),
             projectType.projectType,
+            t(projectType.projectType || ""),
             projectType.description,
+            t(projectType.description || ""),
             projectType.keywords,
             projectType.language,
             projectType.targetPlatform,
