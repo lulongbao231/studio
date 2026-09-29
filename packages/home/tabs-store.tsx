@@ -1012,6 +1012,17 @@ export class Tabs {
     tabs: IHomeTab[] = [];
     activeTab: IHomeTab | undefined;
 
+    // 窗口标题。自绘标题栏（.EezStudio_AppHeader_Title）和 document.title 都读这一处，
+    // 免得格式串写两遍走散。
+    get documentTitle() {
+        if (this.activeTab) {
+            return `${this.activeTab.modified ? MODIFED_MARK : ""}${
+                this.activeTab.titleStr
+            } - EEZ Studio`;
+        }
+        return "EEZ Studio";
+    }
+
     get allTabs() {
         const TabClassToTabDefinition = (TabClass: any) => ({
             instance: new TabClass(this),
@@ -1064,6 +1075,7 @@ export class Tabs {
             tabs: observable,
             activeTab: observable,
             allTabs: computed,
+            documentTitle: computed,
             addInstrumentTab: action,
             addProjectTab: action,
             removeTab: action,
@@ -1154,17 +1166,7 @@ export class Tabs {
             );
 
             autorun(() => {
-                let title;
-
-                if (this.activeTab) {
-                    title = `${this.activeTab.modified ? MODIFED_MARK : ""}${
-                        this.activeTab.titleStr
-                    } - EEZ Studio`;
-                } else {
-                    title = `EEZ Studio`;
-                }
-
-                document.title = title;
+                document.title = this.documentTitle;
             });
 
             onSimpleMessage(

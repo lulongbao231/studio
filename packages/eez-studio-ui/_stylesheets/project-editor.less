@@ -42,7 +42,7 @@
     }
 
     .warning {
-        color: orange;
+        color: @warningTextColor;
     }
 
     .btn-toolbar > button,
@@ -199,7 +199,7 @@
         }
 
         &.warning {
-            color: orange;
+            color: @warningTextColor;
         }
 
         &.scpi {
@@ -799,8 +799,8 @@
                 .title {
                     flex-grow: 1;
                     padding: 4px 0;
-                    background-color: #3fadb5;
-                    color: #333;
+                    background-color: @sectionBackgroundColor;
+                    color: @textColor;
                     display: flex;
                     flex-direction: row;
                     align-items: center;
@@ -840,12 +840,17 @@
                         white-space: nowrap;
                     }
 
+                    // Execution-time chip. The label is the inverse of its own fill
+                    // rather than a fixed white: @darkTextColor is dark in the light
+                    // theme but light in the dark one, so a hardcoded white label
+                    // dropped to 2.3:1 there. In light this is byte-identical to the
+                    // white it replaces.
                     .title-info-execution {
                         position: absolute;
                         left: 0px;
                         top: -22px;
-                        color: white;
-                        background-color: #999;
+                        color: @cardBackgroundColor;
+                        background-color: @darkTextColor;
                         padding: 0 0 0 2px;
                         width: 20px;
                         height: 20px;
@@ -1129,14 +1134,17 @@
             color: @textColor;
         }
 
+        // Breakpoints mean "enabled = filled, disabled = outlined", which the palette can
+        // express without the last cold blue left in the chrome. The ink follows the accent
+        // (white in the light theme, dark in the dark one) instead of hardcoded white.
         &.enabled-breakpoint::before {
-            border: 2px solid blue;
-            background-color: blue;
-            color: white;
+            border: 2px solid @selectionBackgroundColor;
+            background-color: @selectionBackgroundColor;
+            color: @selectionColor;
         }
 
         &.disabled-breakpoint::before {
-            border: 2px solid blue;
+            border: 2px solid @selectionBackgroundColor;
         }
 
         .EezStudio_ScpiBody {
@@ -1290,7 +1298,7 @@
                 height: 18px;
             }
 
-            background-color: #999;
+            background-color: @connectionLineColor;
 
             margin-bottom: var(--size);
 
@@ -1341,7 +1349,13 @@
     }
 
     .EezStudio_CommentActionComponent {
-        background-color: #fff5c2 !important;
+        // Was a literal #fff5c2 (→ #fbeecb) while the ink on it is @textColor,
+        // which is @selectionColor's opposite number: near-black in the light
+        // theme, near-white in the dark one. The literal therefore read fine in
+        // light and sat at 1.07:1 in dark — white on pale cream. This is the
+        // palette's sticky-note callout token, so it inverts with the theme and
+        // @textColor clears 10:1 on it either way.
+        background-color: @balloonBackgroundColor !important;
         border: 0 !important;
 
         .title-enclosure {
@@ -1363,7 +1377,7 @@
             position: relative;
             width: 100%;
             height: 100%;
-            background-color: #fff5c2;
+            background-color: @balloonBackgroundColor;
             color: @textColor;
             border-bottom-left-radius: 3px;
             border-bottom-right-radius: 3px;
@@ -1380,11 +1394,11 @@
 
             trix-editor {
                 border: none;
-                border-top: 1px solid #e0e0e0;
+                border-top: 1px solid @borderColor;
                 border-top-left-radius: 0;
                 border-top-right-radius: 0;
                 min-height: 2rem;
-                color: #333;
+                color: @textColor;
             }
 
             trix-toolbar .trix-button-group:not(:first-child) {
@@ -1405,7 +1419,12 @@
     .EezStudio_ActionComponentDescription {
         position: absolute;
         top: calc(100% + 4px);
-        background-color: #fff5c2 !important;
+        // Same literal-turned-token as the comment note above: the fixed pale
+        // fill only worked in the light theme. Its label is stated rather than
+        // inherited — measured at rgb(0, 0, 0) with the token fill, which on
+        // the dark balloon is 1.6:1.
+        background-color: @balloonBackgroundColor !important;
+        color: @textColor;
         padding: 5px;
         border-radius: 4px;
         box-shadow: @componentShadow;
@@ -1438,18 +1457,24 @@
 
         .EezStudio_FlowEditorSelection_BoundingRect {
             border: 2px solid @selectionBackgroundColor;
-            box-shadow: 2px 2px 4px rgba(128, 128, 128, 0.4);
+            box-shadow: 2px 2px 4px fade(@darkTextColor, 40%);
         }
 
         .EezStudio_FlowEditorSelection_ResizeHandle {
             position: absolute;
-            background-color: white;
+            background-color: @cardBackgroundColor;
             border: 1px solid @selectionBackgroundColor;
         }
 
+        // The third of the three selection outlines, and the only one that was
+        // still off-palette: magenta, which nothing else in the chrome uses.
+        // It has to stay tellable from the two above, so it keeps the 2px
+        // dotted pattern and takes the accent one shade deeper instead —
+        // @lightSelectionColor, the same "same family, darker" step the
+        // success button takes from the primary.
         .EezStudio_FlowEditorSelection_SelectedObjectsParent {
             pointer-events: none;
-            border: 2px dotted magenta;
+            border: 2px dotted @lightSelectionColor;
         }
 
         .connection-line-path {
@@ -1676,7 +1701,7 @@
         background-color: @inErrorBackgroundColor;
     }
     tr.highlighted {
-        background-color: #ff6666;
+        background-color: @highlightWashColor;
     }
 
     td:first-child {
@@ -1692,7 +1717,7 @@
 }
 
 .EezStudio_ConfigurationReferencesPropertyValue {
-    border: 1px solid #ced4da;
+    border: 1px solid @formControlBorderColor;
     border-radius: 0.25rem;
     padding: 0.375rem 0.75rem;
 }
@@ -1714,13 +1739,13 @@
         display: inline-flex;
 
         span.added {
-            background-color: #bbffbb;
-            color: #212529;
+            background-color: @successWashColor;
+            color: @textColor;
         }
 
         span.removed {
-            background-color: #ffbbbb;
-            color: #212529;
+            background-color: @dangerWashColor;
+            color: @textColor;
             text-decoration: line-through;
         }
     }
@@ -1827,7 +1852,7 @@
         display: flex;
         flex-direction: row;
 
-        background-color: white;
+        background-color: @cardBackgroundColor;
         border: 1px solid @borderColor;
     }
 
@@ -2140,15 +2165,15 @@
     }
 
     rect.EezStudio_PageTimeline_Needle {
-        fill: #ff8c00;
+        fill: @textColor;
     }
 
     line.EezStudio_PageTimeline_Needle {
-        stroke: #ff8c00;
+        stroke: @textColor;
     }
 
     text.EezStudio_PageTimeline_Needle {
-        stroke: #ff8c00;
+        stroke: @textColor;
         font-weight: lighter;
     }
 
@@ -2180,17 +2205,17 @@
     }
 
     .EezStudio_PageTimeline_Keyframe {
-        fill: #094771;
+        fill: @selectionBackgroundColor;
     }
 
     .EezStudio_PageTimeline_Keyframe_Selection {
         fill: none;
-        stroke: red;
+        stroke: @dangerColor;
         stroke-width: 1;
     }
 
     .EezStudio_PageTimeline_Keyframe_Point {
-        fill: #ff8c00;
+        fill: @documentationHeadingColor;
     }
 }
 
@@ -2333,24 +2358,24 @@
 
     .value-added,
     .element-added {
-        background-color: #bbffbb;
-        color: #212529;
+        background-color: @successWashColor;
+        color: @textColor;
         margin-right: 4px;
         user-select: text !important;
     }
 
     .value-removed,
     .element-removed {
-        background-color: #ffbbbb;
-        color: #212529;
+        background-color: @dangerWashColor;
+        color: @textColor;
         text-decoration: line-through;
         margin-right: 4px;
         user-select: text !important;
     }
 
     .array-shuffled {
-        background-color: #ffffbb;
-        color: #212529;
+        background-color: @warningWashColor;
+        color: @textColor;
         margin-right: 4px;
     }
 
@@ -2442,18 +2467,18 @@
 
 .EezStudio_ChangesFlowViewer_ChangedObject {
     &.added {
-        box-shadow: 0 0 16px green;
-        border: 2px solid green;
+        box-shadow: 0 0 16px @successTextColor;
+        border: 2px solid @successTextColor;
     }
 
     &.removed {
-        box-shadow: 0 0 16px red;
-        border: 2px solid red;
+        box-shadow: 0 0 16px @dangerColor;
+        border: 2px solid @dangerColor;
     }
 
     &.updated {
-        box-shadow: 0 0 16px #999;
-        border: 2px solid #999;
+        box-shadow: 0 0 16px @darkTextColor;
+        border: 2px solid @darkTextColor;
     }
 
     &.selected {
@@ -2494,15 +2519,15 @@
         display: inline-block;
 
         &.added {
-            background-color: green;
+            background-color: @successTextColor;
         }
 
         &.removed {
-            background-color: red;
+            background-color: @dangerColor;
         }
 
         &.updated {
-            background-color: #999;
+            background-color: @darkTextColor;
         }
     }
 }
@@ -3220,7 +3245,7 @@
         & > div:first-child {
             cursor: pointer;
             &:hover {
-                background-color: #eee;
+                background-color: @hoverBackgroundColor;
             }
         }
         &.collapsed > div:nth-child(2) {
@@ -3350,7 +3375,7 @@
                 transform: translateX(-10px);
                 cursor: pointer;
                 &:hover {
-                    background-color: #eee;
+                    background-color: @hoverBackgroundColor;
                 }
             }
         }
@@ -3363,7 +3388,7 @@
                 transform: translateX(-10px);
                 cursor: pointer;
                 &:hover {
-                    background-color: #eee;
+                    background-color: @hoverBackgroundColor;
                 }
             }
         }
@@ -3380,7 +3405,7 @@
         }
 
         &.highlighted {
-            background-color: #ff6666;
+            background-color: @highlightWashColor;
         }
 
         .EezStudio_CodeEditor {
@@ -3409,25 +3434,27 @@
     flex: 0;
 
     &:hover {
-        background-color: #eee;
+        background-color: @hoverBackgroundColor;
     }
 
     & > div {
         width: 8px;
         height: 8px;
-        border: 1px solid #666;
+        border: 1px solid @darkBorderColor;
     }
 
+    // "no override" swatches follow the surface colour so they stay readable
+    // in dark theme; "modified" inverts to the text colour.
     &.default > div {
-        background-color: #fff;
+        background-color: @componentBackgroundColor;
     }
 
     &.inherited > div {
-        background-color: #fff;
+        background-color: @componentBackgroundColor;
     }
 
     &.modified > div {
-        background-color: #333;
+        background-color: @textColor;
     }
 }
 
@@ -3584,7 +3611,7 @@
             padding-left: 5px;
             padding-top: 5px;
             & > div {
-                border: 2px solid #eee;
+                border: 2px solid @borderColor;
                 padding: 5px;
                 background-color: @backgroundColor;
                 cursor: pointer;
@@ -4128,7 +4155,7 @@
 }
 
 .EezStudio_DockerSimulatorLogsPanel_LogEntry_success .message {
-    color: #28a745;
+    color: @successTextColor;
 }
 
 .EezStudio_DockerSimulatorLogsPanel_LogEntry_error .message {
@@ -4136,7 +4163,7 @@
 }
 
 .EezStudio_DockerSimulatorLogsPanel_LogEntry_warning .message {
-    color: #E97451;
+    color: @warningTextColor;
 }
 
 // Docker Simulator Preview Panel Styles
@@ -4193,7 +4220,7 @@
 }
 
 .EezStudio_DockerSimulatorPreviewPanel_Error {
-    color: #dc3545;
+    color: @errorColor;
 }
 
 .EezStudio_DockerSimulatorPreviewPanel_Error .error-message {
@@ -4213,12 +4240,14 @@
     z-index: 1;
 }
 
+// Warm equivalents of #1e1e1e / #f5f5f5, so the simulator placeholder matches
+// the rest of the reskin (these use the .theme-* classes, not data-bs-theme).
 .theme-dark .EezStudio_DockerSimulatorPreviewPanel_Iframe {
-    background-color: #1e1e1e;
+    background-color: #1a1613;
 }
 
 .theme-light .EezStudio_DockerSimulatorPreviewPanel_Iframe {
-    background-color: #f5f5f5;
+    background-color: #faf6f0;
 }
 
 // Preview Logs Panel Styles
@@ -4287,20 +4316,20 @@
 }
 
 .EezStudio_PreviewLogsPanel_LogEntry_info .type {
-    color: #17a2b8;
+    color: @infoTextColor;
 }
 
 .EezStudio_PreviewLogsPanel_LogEntry_warn .type,
 .EezStudio_PreviewLogsPanel_LogEntry_warning .type {
-    color: #ffc107;
+    color: @warningTextColor;
 }
 
 .EezStudio_PreviewLogsPanel_LogEntry_error .type {
-    color: #dc3545;
+    color: @errorColor;
 }
 
 .EezStudio_PreviewLogsPanel_LogEntry_debug .type {
-    color: #6c757d;
+    color: @darkTextColor;
 }
 
 .EezStudio_PreviewLogsPanel_Empty {

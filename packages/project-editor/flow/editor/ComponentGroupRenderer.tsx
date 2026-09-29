@@ -82,11 +82,11 @@ export const ComponentGroupRenderer = observer(
             top: rect.top,
             width: rect.width,
             height: rect.height,
-            border: isDark ? "1px solid #555" : "1px solid #ccc",
+            border: isDark ? "1px solid #5a3a2b" : "1px solid #edcdbe",
             borderRadius: "8px",
             backgroundColor: isDark
-                ? "rgba(80, 80, 120, 0.15)"
-                : "rgba(200, 200, 255, 0.1)",
+                ? "rgba(224, 122, 82, 0.10)"
+                : "rgba(176, 83, 47, 0.06)",
             boxShadow: isDark
                 ? "0 2px 8px rgba(0, 0, 0, 0.4)"
                 : "0 2px 8px rgba(0, 0, 0, 0.15)",
@@ -101,12 +101,12 @@ export const ComponentGroupRenderer = observer(
             top: "-23px",
             padding: "4px 8px",
             backgroundColor: isDark
-                ? "rgba(60, 60, 90, 0.95)"
-                : "rgba(200, 200, 255, 0.9)",
+                ? "rgba(58, 42, 34, 0.95)"
+                : "rgba(247, 230, 222, 0.95)",
             borderRadius: "0px",
             fontSize: "12px",
             fontWeight: "500",
-            color: isDark ? "#ddd" : "#333",
+            color: isDark ? "#f0a184" : "#7a3a26",
             whiteSpace: "nowrap",
             maxWidth: rect.width - 20,
             overflow: "hidden",

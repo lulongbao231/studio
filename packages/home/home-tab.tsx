@@ -6,8 +6,9 @@ import classNames from "classnames";
 import { Icon } from "eez-studio-ui/icon";
 
 import { t } from "eez-studio-shared/i18n";
+import { studioVersion } from "eez-studio-shared/util";
 
-import { Settings } from "home/settings";
+import { Settings, settingsController } from "home/settings";
 import {
     NewProjectWizard,
     wizardModelTemplates,
@@ -27,16 +28,19 @@ import { instrumentDatabases } from "eez-studio-shared/db";
 
 const SAVED_OPTIONS_VERSION = 1;
 
+// 首页侧边栏当前选中的页面。
+export type HomeTabId =
+    | "open"
+    | "create"
+    | "examples"
+    | "run"
+    | "instruments"
+    | "extensions"
+    | "settings";
+
 // 首页（Home tab）状态：当前导航项、选项的读写。
 class HomeTabStore {
-    activeTab:
-        | "open"
-        | "create"
-        | "examples"
-        | "run"
-        | "instruments"
-        | "extensions"
-        | "settings" = "open";
+    activeTab: HomeTabId = "open";
 
     constructor() {
         this.loadOptions();
@@ -103,70 +107,100 @@ const HOME_TAB_EXAMPLES_ICON = (
 
 ////////////////////////////////////////////////////////////////////////////////
 
-// 首页主体：左侧导航（打开/创建/示例/设置）与对应内容区。【定制】已隐藏「仪器」「扩展」导航。
+// 侧边栏单个导航项：圆角图标胶囊 + 文字标签。
+const HomeNavigationItem = observer(
+    (props: {
+        id: HomeTabId;
+        icon: JSX.Element | string;
+        label: string;
+        title: string;
+        attention?: boolean;
+    }) => (
+        <div
+            className={classNames("EezStudio_HomeTab_NavigationItem", {
+                selected: homeTabStore.activeTab == props.id
+            })}
+            role="button"
+            tabIndex={0}
+            onClick={action(() => {
+                homeTabStore.activeTab = props.id;
+            })}
+            onKeyDown={action((event: React.KeyboardEvent) => {
+                if (event.key == "Enter" || event.key == " ") {
+                    event.preventDefault();
+                    homeTabStore.activeTab = props.id;
+                }
+            })}
+            title={props.title}
+        >
+            {/* Icon renders a <div> wrapper when attention is set, so the chip
+                has to be a <div> too - a <div> inside a <span> is invalid. */}
+            <div className="EezStudio_HomeTab_NavigationItem_IconChip">
+                <Icon
+                    icon={props.icon}
+                    size={20}
+                    attention={props.attention}
+                />
+            </div>
+            <div className="EezStudio_HomeTab_NavigationItem_Label">
+                {props.label}
+            </div>
+        </div>
+    )
+);
+
+////////////////////////////////////////////////////////////////////////////////
+
+// 首页主体：左侧竖向侧边栏（打开项目/创建项目/示例项目/设置中心）与右侧内容区。【定制】已隐藏「仪器」「扩展」入口。
 export const Home = observer(
     class Home extends React.Component {
         render() {
             return (
                 <div className="EezStudio_HomeTab">
-                    <div className="EezStudio_HomeTab_Header">
+                    <div className="EezStudio_HomeTab_Sidebar">
+                        <div className="EezStudio_HomeTab_Sidebar_Brand">
+                            <img
+                                className="EezStudio_HomeTab_Sidebar_Logo"
+                                alt=""
+                                src={
+                                    settingsController.isDarkTheme
+                                        ? "../eez-studio-ui/_images/eez_studio_logo_with_title_dark.png"
+                                        : "../eez-studio-ui/_images/eez_studio_logo_with_title.png"
+                                }
+                            />
+                        </div>
+
                         <div className="EezStudio_HomeTab_Navigation">
-                            <div
-                                className={classNames(
-                                    "EezStudio_HomeTab_NavigationItem",
-                                    {
-                                        selected:
-                                            homeTabStore.activeTab == "open"
-                                    }
-                                )}
-                                onClick={action(() => {
-                                    homeTabStore.activeTab = "open";
-                                })}
+                            <HomeNavigationItem
+                                id="open"
+                                icon={HOME_TAB_OPEN_ICON}
+                                label={t("Open Project")}
                                 title={t(
                                     "Open a local project or select one from the recent list"
                                 )}
-                            >
-                                <Icon icon={HOME_TAB_OPEN_ICON} size={32} />{" "}
-                                {t("Open")}
-                            </div>
-                            <div
-                                className={classNames(
-                                    "EezStudio_HomeTab_NavigationItem",
-                                    {
-                                        selected:
-                                            homeTabStore.activeTab == "create"
-                                    }
-                                )}
-                                onClick={action(() => {
-                                    homeTabStore.activeTab = "create";
-                                })}
+                            />
+                            <HomeNavigationItem
+                                id="create"
+                                icon={HOME_TAB_CREATE_ICON}
+                                label={t("Create Project")}
                                 title={t("Create a new project")}
-                            >
-                                <Icon icon={HOME_TAB_CREATE_ICON} size={32} />{" "}
-                                {t("Create")}
-                            </div>
-                            <div
-                                className={classNames(
-                                    "EezStudio_HomeTab_NavigationItem",
-                                    {
-                                        selected:
-                                            homeTabStore.activeTab == "examples"
-                                    }
+                            />
+                            <HomeNavigationItem
+                                id="examples"
+                                icon={HOME_TAB_EXAMPLES_ICON}
+                                label={t("Example Projects")}
+                                title={t(
+                                    "Example projects ready to run or edit"
                                 )}
-                                onClick={action(() => {
-                                    homeTabStore.activeTab = "examples";
-                                })}
-                                title={t("Example projects ready to run or edit")}
-                            >
-                                <Icon icon={HOME_TAB_EXAMPLES_ICON} size={32} />{" "}
-                                {t("Examples")}
-                            </div>
+                            />
+                            {/*【定制】隐藏「仪器」「扩展」导航入口（恢复时取消本注释）*/}
                             {/*<div
                                 className={classNames(
                                     "EezStudio_HomeTab_NavigationItem",
                                     {
                                         selected:
-                                            homeTabStore.activeTab == "run"
+                                            homeTabStore.activeTab ==
+                                            "run"
                                     }
                                 )}
                                 onClick={action(() => {
@@ -176,7 +210,6 @@ export const Home = observer(
                             >
                                 <Icon icon="material:apps" size={32} /> Run
                             </div>*/}
-                            {/*【定制】隐藏「仪器」「扩展」导航入口（恢复时取消本注释）*/}
                             {/*<div
                                 className={classNames(
                                     "EezStudio_HomeTab_NavigationItem",
@@ -221,43 +254,26 @@ export const Home = observer(
                                 />
                                 {t("Extensions")}
                             </div>*/}
-                            <div
-                                className={classNames(
-                                    "EezStudio_HomeTab_NavigationItem",
-                                    {
-                                        selected:
-                                            homeTabStore.activeTab == "settings"
-                                    }
-                                )}
-                                onClick={action(() => {
-                                    homeTabStore.activeTab = "settings";
-                                })}
+
+                            <div className="EezStudio_HomeTab_Sidebar_Divider" />
+
+                            <HomeNavigationItem
+                                id="settings"
+                                icon="material:settings"
+                                label={t("Settings Center")}
                                 title={t("Global user settings")}
-                            >
-                                <Icon
-                                    icon={"material:settings"}
-                                    size={32}
-                                    attention={
-                                        instrumentDatabases.activeDatabase
-                                            ?.isCompactDatabaseAdvisable
-                                    }
-                                />
-                                {t("Settings")}
-                            </div>
+                                attention={
+                                    instrumentDatabases.activeDatabase
+                                        ?.isCompactDatabaseAdvisable
+                                }
+                            />
                         </div>
-                        {/*
-                        <div className="EezStudio_HomeTab_Tabs">
-                            {tabs.allTabs
-                                .filter(
-                                    tab => tab.instance.category == "common"
-                                )
-                                .map(tab => (
-                                    <TabButton
-                                        key={tab.instance.id}
-                                        tab={tab}
-                                    />
-                                ))}
-                                </div>*/}
+
+                        <div className="EezStudio_HomeTab_Sidebar_Footer">
+                            {t("Version {version}", {
+                                version: studioVersion
+                            })}
+                        </div>
                     </div>
 
                     <div className="EezStudio_HomeTab_Body">

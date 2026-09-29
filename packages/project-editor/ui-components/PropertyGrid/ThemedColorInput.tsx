@@ -42,6 +42,34 @@ const SV_PICKER_HEIGHT = 150;
 const HUE_BAR_HEIGHT = 12;
 const PICKER_PADDING = 10;
 
+// The picker panel and its fields are drawn with inline styles, so they do not follow
+// the theme on their own — without this the popover stayed a white card punched into
+// the dark theme. Values are the same palette tokens the stylesheets use (vars.less /
+// vars-dark.less), inlined here because an inline style cannot read a LESS variable.
+function chrome() {
+    return settingsController.isDarkTheme
+        ? {
+              panelBackground: "#2a241f", // @cardBackgroundColor
+              fieldBackground: "#332c26", // @secondaryButtonBackgroundColor
+              border: "#4a3e34", // @secondaryButtonBorderColor
+              text: "#ede6de", // @textColor
+              dimText: "#a2968b", // @darkTextColor
+              labelText: "#a2968b", // @darkTextColor
+              activeBackground: "#3a2a22", // --bs-primary-bg-subtle
+              activeColor: "#e07a52" // @selectionBackgroundColor
+          }
+        : {
+              panelBackground: "#ffffff",
+              fieldBackground: "#ffffff",
+              border: "#e0d4c4", // @formControlBorderColor
+              text: "#3a322c", // @textColor
+              dimText: "#6b5f55", // @darkTextColor
+              labelText: "#8a7e72", // @historyItemDateColor
+              activeBackground: "#f7e6de", // --bs-primary-bg-subtle
+              activeColor: "#b0532f" // @selectionBackgroundColor
+          };
+}
+
 const ColorPicker = observer(
     class ColorPicker extends React.Component<{
         colorFormat: ColorFormat;
@@ -545,6 +573,7 @@ const ColorPicker = observer(
         });
 
         renderInputFields() {
+            const c = chrome();
             const hex = this.getBaseHexColor();
             const rgb = hsvToRgb(this.hue, this.sat, this.val);
             const hsl = rgbToHsl(rgb.r, rgb.g, rgb.b);
@@ -552,19 +581,19 @@ const ColorPicker = observer(
             const inputStyle: React.CSSProperties = {
                 width: "100%",
                 boxSizing: "border-box",
-                border: "1px solid #ddd",
+                border: "1px solid " + c.border,
                 borderRadius: 3,
                 textAlign: "center",
                 fontSize: 11,
                 padding: "3px 4px",
                 outline: "none",
-                color: "#333",
-                backgroundColor: "#fff"
+                color: c.text,
+                backgroundColor: c.fieldBackground
             };
 
             const labelStyle: React.CSSProperties = {
                 fontSize: 11,
-                color: "#999",
+                color: c.labelText,
                 textAlign: "center",
                 marginTop: 2,
                 userSelect: "none"
@@ -776,12 +805,13 @@ const ColorPicker = observer(
 
             const hasEyeDropper =
                 typeof (window as any).EyeDropper === "function";
+            const c = chrome();
 
             return (
                 <div
                     style={{
                         width: COLOR_PICKER_WIDTH,
-                        background: "#fff",
+                        background: c.panelBackground,
                         borderRadius: 4,
                         boxShadow: "0 2px 10px rgba(0,0,0,0.2)",
                         overflow: "hidden",
@@ -842,9 +872,9 @@ const ColorPicker = observer(
                                     style={{
                                         width: 24,
                                         height: 24,
-                                        border: "1px solid #ddd",
+                                        border: "1px solid " + c.border,
                                         borderRadius: 4,
-                                        background: "#fff",
+                                        background: c.fieldBackground,
                                         cursor: "pointer",
                                         display: "flex",
                                         alignItems: "center",
@@ -859,7 +889,7 @@ const ColorPicker = observer(
                                         height="14"
                                         viewBox="0 0 24 24"
                                         fill="none"
-                                        stroke="#333"
+                                        stroke={c.text}
                                         strokeWidth="2"
                                         strokeLinecap="round"
                                         strokeLinejoin="round"
@@ -940,16 +970,16 @@ const ColorPicker = observer(
                                 style={{
                                     width: 24,
                                     height: 24,
-                                    border: "1px solid #ddd",
+                                    border: "1px solid " + c.border,
                                     borderRadius: 4,
-                                    background: "#fff",
+                                    background: c.fieldBackground,
                                     cursor: "pointer",
                                     display: "flex",
                                     alignItems: "center",
                                     justifyContent: "center",
                                     padding: 0,
                                     fontSize: 10,
-                                    color: "#666",
+                                    color: c.dimText,
                                     flexShrink: 0,
                                     marginTop: 0
                                 }}
@@ -960,7 +990,7 @@ const ColorPicker = observer(
                                     height="14"
                                     viewBox="0 0 24 24"
                                     fill="none"
-                                    stroke="#666"
+                                    stroke={c.dimText}
                                     strokeWidth="2"
                                     strokeLinecap="round"
                                     strokeLinejoin="round"
@@ -977,7 +1007,7 @@ const ColorPicker = observer(
                         <div
                             style={{
                                 marginTop: 8,
-                                borderTop: "1px solid #eee",
+                                borderTop: "1px solid " + c.border,
                                 paddingTop: 8
                             }}
                         >
@@ -1000,18 +1030,18 @@ const ColorPicker = observer(
                                     style={{
                                         flex: 1,
                                         height: 22,
-                                        border: "1px solid #ddd",
+                                        border: "1px solid " + c.border,
                                         borderRadius: 3,
                                         background:
                                             this.adjustMode === "lighten"
-                                                ? "#e8f0fe"
-                                                : "#fff",
+                                                ? c.activeBackground
+                                                : c.fieldBackground,
                                         cursor: "pointer",
                                         fontSize: 10,
                                         color:
                                             this.adjustMode === "lighten"
-                                                ? "#1a73e8"
-                                                : "#666",
+                                                ? c.activeColor
+                                                : c.dimText,
                                         fontWeight:
                                             this.adjustMode === "lighten"
                                                 ? 600
@@ -1033,18 +1063,18 @@ const ColorPicker = observer(
                                     style={{
                                         flex: 1,
                                         height: 22,
-                                        border: "1px solid #ddd",
+                                        border: "1px solid " + c.border,
                                         borderRadius: 3,
                                         background:
                                             this.adjustMode === "darken"
-                                                ? "#e8f0fe"
-                                                : "#fff",
+                                                ? c.activeBackground
+                                                : c.fieldBackground,
                                         cursor: "pointer",
                                         fontSize: 10,
                                         color:
                                             this.adjustMode === "darken"
-                                                ? "#1a73e8"
-                                                : "#666",
+                                                ? c.activeColor
+                                                : c.dimText,
                                         fontWeight:
                                             this.adjustMode === "darken"
                                                 ? 600
@@ -1101,14 +1131,14 @@ const ColorPicker = observer(
                                         }
                                         style={{
                                             width: 42,
-                                            border: "1px solid #ddd",
+                                            border: "1px solid " + c.border,
                                             borderRadius: 3,
                                             textAlign: "center",
                                             fontSize: 11,
                                             padding: "2px 2px",
                                             outline: "none",
-                                            color: "#333",
-                                            backgroundColor: "#fff"
+                                            color: c.text,
+                                            backgroundColor: c.fieldBackground
                                         }}
                                     />
                                     <button
@@ -1116,12 +1146,12 @@ const ColorPicker = observer(
                                         style={{
                                             width: 24,
                                             height: 22,
-                                            border: "1px solid #ddd",
+                                            border: "1px solid " + c.border,
                                             borderRadius: 3,
-                                            background: "#fff",
+                                            background: c.fieldBackground,
                                             cursor: "pointer",
                                             fontSize: 10,
-                                            color: "#666",
+                                            color: c.dimText,
                                             padding: 0,
                                             display: "flex",
                                             alignItems: "center",

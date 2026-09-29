@@ -267,8 +267,8 @@ input::placeholder {
 }
 
 .EezStudio_Loader {
-    border: 4px solid #f3f3f3;
-    border-top: 4px solid #666;
+    border: 4px solid @sectionBackgroundColor;
+    border-top: 4px solid @selectionBackgroundColor;
     border-radius: 50%;
     margin: auto;
     animation: spin 2s linear infinite;
@@ -409,7 +409,7 @@ input::placeholder {
 }
 
 .EezStudio_Ballon {
-    background-color: #ffffa5;
+    background-color: @balloonBackgroundColor;
     padding: 0 10px 5px 10px;
     border-radius: 12px;
 }
@@ -419,7 +419,7 @@ input::placeholder {
     margin-left: 20px;
     border-width: 0 0 20px 30px;
     border-style: solid;
-    border-color: transparent #ffffa5;
+    border-color: transparent @balloonBackgroundColor;
 }
 
 .EezStudio_HeaderWithBody {
@@ -557,8 +557,8 @@ button.EezStudio_Action {
     font-size: 8px;
     line-height: 12px;
     font-weight: bold;
-    background-color: #eee;
-    border: 1px solid #bbb;
+    background-color: @sectionBackgroundColor;
+    border: 1px solid @darkBorderColor;
     padding: 0 1px;
     left: 12px;
     top: 12px;
@@ -580,9 +580,9 @@ button.EezStudio_Action {
     height: 6px;
     bottom: -2px;
     right: -2px;
-    background-color: red;
+    background-color: @dangerColor;
     border-radius: 3px;
-    box-shadow: 0px 0px 6px 2px rgba(255, 0, 0, 0.3);
+    box-shadow: 0px 0px 6px 2px fade(@dangerColor, 30%);
 }
 
 .EezStudio_SearchInput_Container {
@@ -659,16 +659,22 @@ button.EezStudio_Action {
             visibility: visible;
         }
 
+        // An unfocused selected row is the pale wash, not the accent fill, so its ink is
+        // the pale-state ink. This block used to hardcode white/@selectionColor, which is
+        // only right for the accent fill below: in the light theme a row that had lost
+        // focus drew white text and white icons on #e7dccf (1.35:1), so the row's contents
+        // vanished the moment you clicked any other panel. Same rule .EezStudio_List,
+        // .EezStudio_List_Selectable and .EezStudio_SimpleTree in this file already follow.
         .EezStudio_Action {
-            color: white;
+            color: @nonFocusedSelectionColor;
         }
 
         .EezStudio_Action:hover {
-            color: #aaa;
+            color: @actionHoverColor;
         }
 
         td {
-            color: @selectionColor;
+            color: @nonFocusedSelectionColor;
         }
     }
 
@@ -678,9 +684,22 @@ button.EezStudio_Action {
             color: @hoverColor;
         }
 
+        // Only on focus is the row the accent fill, so only here does @selectionColor apply.
         > tbody > tr.selected {
             background-color: @selectionBackgroundColor;
             color: @selectionColor;
+
+            .EezStudio_Action {
+                color: @selectionColor;
+            }
+
+            .EezStudio_Action:hover {
+                color: @lightSelectionBackgroundColor;
+            }
+
+            td {
+                color: @selectionColor;
+            }
         }
     }
 
@@ -778,7 +797,7 @@ button.EezStudio_Action {
                 padding-top: 3px;
 
                 &:hover {
-                    color: red;
+                    color: @dangerColor;
                 }
             }
         }
@@ -792,7 +811,7 @@ button.EezStudio_Action {
             padding: 3px;
             cursor: pointer;
             &:hover {
-                background: #ddd;
+                background: @hoverBackgroundColor;
             }
         }
 
@@ -820,7 +839,7 @@ button.EezStudio_Action {
                 padding: 10px;
                 background-color: @backgroundColor;
                 border-radius: 4px;
-                box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
+                box-shadow: 0px 0px 4px 0px fade(@darkTextColor, 30%);
             }
 
             &.open > div {
@@ -852,10 +871,10 @@ button.EezStudio_Action {
 }
 
 .EezStudio_SvgButtonGroup {
-    fill: #999;
+    fill: @darkTextColor;
 
     &:hover {
-        fill: #333;
+        fill: @textColor;
     }
 
     &:active {
@@ -886,10 +905,10 @@ button.EezStudio_Action {
 
     .key {
         font-size: 16px;
-        color: #0094ff;
+        color: @selectionBackgroundColor;
         margin-top: 10px;
         margin-right: 5px;
-        border: 1px solid #0094ff;
+        border: 1px solid @selectionBackgroundColor;
         padding: 0 8px;
         border-radius: 8px;
     }
@@ -944,9 +963,74 @@ button.EezStudio_Action {
     }
 }
 
+// 窗口标题栏。window.ts 用 titleBarStyle:"hidden" 去掉原生标题栏后，这一条就是标题栏：
+// 系统只把最小化/最大化/关闭按钮叠在右上角，整条可拖拽，里面只放窗口标题。
 .EezStudio_AppHeader {
     display: flex;
     flex-direction: row;
+    align-items: center;
+
+    flex-shrink: 0;
+
+    // 高度必须等于 main/title-bar.ts 的 TITLE_BAR_HEIGHT（含 1px 下边框），
+    // 否则系统按钮会和标题栏错位。
+    height: 38px;
+    padding: 0 12px;
+
+    background-color: @panelHeaderColor;
+    border-bottom: 1px solid @borderColor;
+}
+
+.EezStudio_AppHeader_Title {
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+// 菜单栏。原生菜单栏被 titleBarStyle:"hidden" 带走了（见 main/menu.ts），所以自己画一条：
+// 页面里只有顶层标签（文件/编辑/视图/帮助），点开弹的是主进程的真原生菜单。
+// 顺序沿用 Windows 习惯：标题栏 → 菜单栏 → tab 栏。
+.EezStudio_MenuBar {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+
+    flex-shrink: 0;
+
+    height: 30px;
+    background-color: @panelHeaderColor;
+    border-bottom: 1px solid @borderColor;
+}
+
+.EezStudio_MenuBar_Item {
+    display: flex;
+    align-items: center;
+
+    padding: 0 10px;
+
+    // 菜单标签不是正文，别让鼠标变成 I 型光标，也别被框选。
+    cursor: default;
+    user-select: none;
+    white-space: nowrap;
+
+    // .open 是原生菜单弹着时的状态（原生菜单一关就由主进程通知清掉）。
+    &:hover,
+    &.open {
+        background-color: @hoverBackgroundColor;
+    }
+}
+
+// tab 栏是标题栏下面独立的一条，不塞进标题栏里。
+.EezStudio_TabsBar {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+
+    flex-shrink: 0;
+    min-width: 0;
+
+    height: 38px;
     background-color: @panelHeaderColor;
     border-bottom: 1px solid @borderColor;
 }
@@ -1081,6 +1165,15 @@ button.EezStudio_Action {
                 &.selected {
                     background-color: @selectionBackgroundColor;
                     color: @selectionColor;
+
+                    // On focus the row is the accent fill, so the edit icon goes back to
+                    // the accent ink (see the unfocused rule further down this block).
+                    & > .EditIcon {
+                        color: @selectionColor;
+                        &:hover {
+                            color: @lightSelectionBackgroundColor;
+                        }
+                    }
                 }
             }
         }
@@ -1129,9 +1222,12 @@ button.EezStudio_Action {
 
         &.selected {
             & > .EditIcon {
-                color: white;
+                // The selected row here is the pale wash until the tree takes focus, so the
+                // icon ink is the pale-state ink. It was white, which on #e7dccf is 1.35:1 —
+                // the edit icon only appears on hover, and then it was invisible.
+                color: @nonFocusedSelectionColor;
                 &:hover {
-                    color: #ddd;
+                    color: @actionHoverColor;
                 }
             }
         }
@@ -1190,7 +1286,7 @@ button.EezStudio_Action {
 
 #EezStudio_ModalContent {
     .EezStudio_ImagePreview {
-        background-color: black;
+        background-color: @mediaMatColor;
     }
 }
 
@@ -1215,12 +1311,23 @@ button.EezStudio_Action {
             visibility: visible;
         }
 
+        // See .EezStudio_Table above: the unfocused row is the pale wash, so its action
+        // icons must be the pale-state ink, not white.
         .EezStudio_Action {
-            color: white;
+            color: @nonFocusedSelectionColor;
         }
 
         .EezStudio_Action:hover {
-            color: #aaa;
+            color: @actionHoverColor;
+        }
+
+        // The td needs its own colour, it cannot inherit from the tr above: Bootstrap's
+        // `.table > :not(caption) > * > *` sets td colour outright (0,1,1), and that beats
+        // inheritance however specific the tr selector is. Without this the row's text kept
+        // the --bs-emphasis-color, which on the accent fill is 3.68:1. .EezStudio_Table and
+        // the instrument log table both already spell this out.
+        td {
+            color: @nonFocusedSelectionColor;
         }
     }
 
@@ -1233,6 +1340,18 @@ button.EezStudio_Action {
         > tbody > tr.selected {
             background-color: @selectionBackgroundColor;
             color: @selectionColor;
+
+            .EezStudio_Action {
+                color: @selectionColor;
+            }
+
+            .EezStudio_Action:hover {
+                color: @lightSelectionBackgroundColor;
+            }
+
+            td {
+                color: @selectionColor;
+            }
         }
     }
 
@@ -1263,6 +1382,12 @@ button.EezStudio_Action {
     td {
         padding: 1px 2px;
         box-shadow: none;
+        // Bootstrap's `.table > :not(caption) > * > *` paints --bs-table-bg on every cell,
+        // and that opaque fill covers the row's own background — so a selected row in the
+        // debugger's watch panel (this table's only user) showed no highlight at all, in
+        // either theme. `th` keeps its opaque background on purpose: it is sticky, and
+        // rows would otherwise scroll visibly behind it. .EezStudio_Table clears both.
+        background-color: transparent;
     }
 
     th.sort-enabled {
@@ -1471,3 +1596,7 @@ button.EezStudio_Action {
 @import "component-doc";
 
 @import "documentation-browser";
+
+// Must stay last: the warm reskin overrides need to win over every module
+// stylesheet above, and both main.less / main-dark.less reach it through here.
+@import "theme";

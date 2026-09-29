@@ -138,17 +138,19 @@ const HL1 = 10;
 const WL2 = 8;
 const HL2 = Math.max(W, H) / 2;
 
+// Outlines were cold grey (#ddd / #eee); warmed to match @darkBorderColor and
+// @sectionBackgroundColor in _stylesheets/vars.less.
 const RFC = "#fff";
-const RSC = "#ddd";
-const LCD = "#DDD";
+const RSC = "#d8ccbc";
+const LCD = "#d8ccbc";
 const LCE = "#999";
 const LCA = "blue";
 
 // preview rect colors
-const PRFC = "#eee";
-const PRSC = "#ddd";
+const PRFC = "#f5eee4";
+const PRSC = "#d8ccbc";
 const PCRFC = "#fff";
-const PCRSC = "#ddd";
+const PCRSC = "#d8ccbc";
 const PWRFC = "#0f0";
 const PWRSC = "#0f0";
 

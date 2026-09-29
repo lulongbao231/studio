@@ -6,6 +6,7 @@ import * as FlexLayout from "flexlayout-react";
 import { IconAction, ButtonAction } from "eez-studio-ui/action";
 import { layoutModels, SideDock2 } from "eez-studio-ui/side-dock";
 import { SearchInput } from "eez-studio-ui/search-input";
+import { theme } from "eez-studio-ui/theme";
 
 import { t } from "eez-studio-shared/i18n";
 
@@ -43,7 +44,7 @@ export const DeletedHistoryItemsTools = observer(
                     />,
                     <IconAction
                         key="purge"
-                        color="#dc3545"
+                        color={theme().errorColor}
                         icon="material:delete_forever"
                         title={t("Purge selected history items")}
                         onClick={

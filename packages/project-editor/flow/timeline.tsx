@@ -2141,7 +2141,7 @@ const WidgetTimelinePathCurves = observer(
     (props: { widgetTimelinePath: WidgetTimelinePath }) => {
         const CURVE_STROKE_WIDTH_SELECTED = 2;
         const CURVE_STROKE_WIDTH = 1;
-        const CURVE_COLOR_SELECTED = "#337bb7";
+        const CURVE_COLOR_SELECTED = "#b0532f";
         const CURVE_COLOR_WIDGET_SELECTED = addAlphaToColor(
             CURVE_COLOR_SELECTED,
             0.9
@@ -2149,7 +2149,7 @@ const WidgetTimelinePathCurves = observer(
         const CURVE_COLOR = addAlphaToColor(CURVE_COLOR_SELECTED, 0.3);
 
         const LINE_TO_CONTROL_POINT_STROKE_WIDTH = 0.5;
-        const LINE_TO_CONTROL_POINT_COLOR_SELECTED = "#337bb7";
+        const LINE_TO_CONTROL_POINT_COLOR_SELECTED = "#b0532f";
         const LINE_TO_CONTROL_POINT_COLOR = addAlphaToColor(
             LINE_TO_CONTROL_POINT_COLOR_SELECTED,
             0.5
@@ -2279,10 +2279,10 @@ const WidgetTimelinePathCurves = observer(
 
 const WidgetTimelinePathHandles = observer(
     (props: { widgetTimelinePath: WidgetTimelinePath }) => {
-        const CONTROL_POINT_HANDLE_STROKE_COLOR = "#337bb7";
+        const CONTROL_POINT_HANDLE_STROKE_COLOR = "#b0532f";
         const CONTROL_POINT_HANDLE_STROKE_WIDTH = 1.5;
         const CONTROL_POINT_HANDLE_FILL_COLOR = "white";
-        const CONTROL_POINT_HANDLE_FILL_COLOR_SELECTED = "#337bb7";
+        const CONTROL_POINT_HANDLE_FILL_COLOR_SELECTED = "#b0532f";
         const CONTROL_POINT_RADIUS = 5;
 
         const FROM_POINT_HANDLE_STROKE_WIDTH = 1.5;

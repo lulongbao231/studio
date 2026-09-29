@@ -179,7 +179,7 @@ export class RulersController {
     static BAND_WIDTH = 8;
 
     get color() {
-        return globalViewOptions.blackBackground ? "#d4e5f3" : "#337BB7";
+        return globalViewOptions.blackBackground ? "#f0c4b0" : "#b0532f";
     }
 
     get fillOpacity() {

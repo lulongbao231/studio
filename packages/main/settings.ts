@@ -10,6 +10,7 @@ import {
     reaction
 } from "mobx";
 import DatabaseConstructor from "better-sqlite3";
+import { updateTitleBarOverlays } from "main/title-bar";
 
 import { getUserDataPath } from "eez-studio-shared/util-electron";
 import { SETTINGS_FILE_NAME, DEFAULT_DB_NAME } from "eez-studio-shared/conf";
@@ -124,7 +125,10 @@ class Settings {
         });
 
         autorun(() => {
-            nativeTheme.themeSource = this.isDarkTheme ? "dark" : "light";
+            const isDarkTheme = this.isDarkTheme;
+            nativeTheme.themeSource = isDarkTheme ? "dark" : "light";
+            // 自绘标题栏右上角的系统按钮颜色不会随 nativeTheme 变，要显式同步。
+            updateTitleBarOverlays(isDarkTheme);
         });
     }
 

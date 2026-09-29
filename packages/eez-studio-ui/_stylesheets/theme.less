@@ -1,0 +1,524 @@
+////////////////////////////////////////////////////////////////////////////////
+// Warm reskin overrides.
+//
+// Imported LAST from app.less so these win over Bootstrap 5.3 (which is loaded
+// before main.css) and over the module stylesheets (home / project-editor /
+// instrument / BB3). Reached by BOTH theme entry points, since main.less and
+// main-dark.less only differ in which vars file they import first — so write
+// every value in terms of the vars, never a literal.
+//
+// Scope discipline: colours, radii, shadows and borders only. No layout.
+
+////////////////////////////////////////////////////////////////////////////////
+// Scrollbars (app.less only styles the tab strip's, so add them globally)
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: @scrollThumbColor @scrollTrackColor;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: @scrollThumbColor;
+    border-radius: 999px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: @darkBorderColor;
+    background-clip: content-box;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Buttons
+
+.btn {
+    --bs-btn-border-radius: 10px;
+    --bs-btn-font-weight: 500;
+}
+
+// Bootstrap hardcodes the --bs-btn-* custom properties per variant, so
+// overriding --bs-primary alone has no effect here — each one is restated.
+//
+// The label ink is @selectionColor, not #ffffff. This file is shared by both
+// themes, and every filled variant below is a mid-tone terracotta: white on it
+// reads in the light theme (where @selectionBackgroundColor is the dark #b0532f,
+// 5.09:1) but not in the dark one (where it is the *light* #e07a52). Measured
+// on the dark palette, a #ffffff label sat at 2.97:1 on the primary, 2.50:1 on
+// its hover, 3.95:1 on success and 3.67:1 on danger. @selectionColor is by
+// definition the ink for the accent fill, so it is white here and #2a1a12
+// there, and a single token takes every state of every variant to 4.5:1 or
+// better in both themes. See the note on @selectionColor in vars-dark.less.
+.btn-primary {
+    --bs-btn-color: @selectionColor;
+    --bs-btn-bg: @selectionBackgroundColor;
+    --bs-btn-border-color: @selectionBackgroundColor;
+    --bs-btn-hover-color: @selectionColor;
+    --bs-btn-hover-bg: @actionHoverColor;
+    --bs-btn-hover-border-color: @actionHoverColor;
+    --bs-btn-active-color: @selectionColor;
+    --bs-btn-active-bg: @actionHoverColor;
+    --bs-btn-active-border-color: @actionHoverColor;
+    --bs-btn-disabled-color: @selectionColor;
+    --bs-btn-disabled-bg: @selectionBackgroundColor;
+    --bs-btn-disabled-border-color: @selectionBackgroundColor;
+    --bs-btn-focus-shadow-rgb: var(--bs-primary-rgb);
+
+    box-shadow: 0 1px 2px rgba(58, 50, 44, 0.12);
+}
+
+.btn-secondary {
+    --bs-btn-color: @textColor;
+    --bs-btn-bg: @secondaryButtonBackgroundColor;
+    --bs-btn-border-color: @secondaryButtonBorderColor;
+    --bs-btn-hover-color: @textColor;
+    --bs-btn-hover-bg: @secondaryButtonHoverBackgroundColor;
+    --bs-btn-hover-border-color: @secondaryButtonBorderColor;
+    --bs-btn-active-color: @textColor;
+    --bs-btn-active-bg: @secondaryButtonHoverBackgroundColor;
+    --bs-btn-active-border-color: @secondaryButtonBorderColor;
+    --bs-btn-disabled-color: @textColor;
+    --bs-btn-disabled-bg: @secondaryButtonBackgroundColor;
+    --bs-btn-disabled-border-color: @secondaryButtonBorderColor;
+}
+
+// Affirmative action button (OK / Apply / Create / Confirm). Same terracotta
+// family as the primary so there is only one accent in the palette, but one
+// shade deeper — see the note in vars.less. Its label takes the same ink as
+// the primary's: both fills are mid-tone, so both need the accent's ink.
+.btn-success {
+    --bs-btn-color: @selectionColor;
+    --bs-btn-bg: @successButtonBackgroundColor;
+    --bs-btn-border-color: @successButtonBackgroundColor;
+    --bs-btn-hover-color: @selectionColor;
+    --bs-btn-hover-bg: @successButtonHoverBackgroundColor;
+    --bs-btn-hover-border-color: @successButtonHoverBackgroundColor;
+    --bs-btn-active-color: @selectionColor;
+    --bs-btn-active-bg: @successButtonHoverBackgroundColor;
+    --bs-btn-active-border-color: @successButtonHoverBackgroundColor;
+    --bs-btn-disabled-color: @selectionColor;
+    --bs-btn-disabled-bg: @successButtonBackgroundColor;
+    --bs-btn-disabled-border-color: @successButtonBackgroundColor;
+}
+
+// Destructive action (delete / remove / discard). Restated for the same reason as
+// .btn-primary — Bootstrap hardcodes #dc3545 here and never consults --bs-danger.
+// The colour is the red end of the terracotta range; see vars.less. Same ink
+// again: @dangerColor is the same mid-tone register as the other two fills.
+.btn-danger {
+    --bs-btn-color: @selectionColor;
+    --bs-btn-bg: @dangerColor;
+    --bs-btn-border-color: @dangerColor;
+    --bs-btn-hover-color: @selectionColor;
+    --bs-btn-hover-bg: @dangerHoverColor;
+    --bs-btn-hover-border-color: @dangerHoverColor;
+    --bs-btn-active-color: @selectionColor;
+    --bs-btn-active-bg: @dangerHoverColor;
+    --bs-btn-active-border-color: @dangerHoverColor;
+    --bs-btn-disabled-color: @selectionColor;
+    --bs-btn-disabled-bg: @dangerColor;
+    --bs-btn-disabled-border-color: @dangerColor;
+    --bs-btn-focus-shadow-rgb: var(--bs-danger-rgb);
+}
+
+.btn-outline-primary {
+    --bs-btn-color: @selectionBackgroundColor;
+    --bs-btn-border-color: @selectionBackgroundColor;
+    --bs-btn-hover-color: @selectionColor;
+    --bs-btn-hover-bg: @selectionBackgroundColor;
+    --bs-btn-hover-border-color: @selectionBackgroundColor;
+    --bs-btn-active-color: @selectionColor;
+    --bs-btn-active-bg: @actionHoverColor;
+    --bs-btn-active-border-color: @actionHoverColor;
+    --bs-btn-disabled-color: @selectionBackgroundColor;
+    --bs-btn-disabled-border-color: @selectionBackgroundColor;
+}
+
+.btn-outline-danger {
+    --bs-btn-color: @dangerColor;
+    --bs-btn-border-color: @dangerColor;
+    --bs-btn-hover-color: @selectionColor;
+    --bs-btn-hover-bg: @dangerColor;
+    --bs-btn-hover-border-color: @dangerColor;
+    --bs-btn-active-color: @selectionColor;
+    --bs-btn-active-bg: @dangerHoverColor;
+    --bs-btn-active-border-color: @dangerHoverColor;
+    --bs-btn-disabled-color: @dangerColor;
+    --bs-btn-disabled-border-color: @dangerColor;
+}
+
+// Bootstrap hardcodes the blue focus ring on these and, unlike .btn-close's
+// icon, never retints it in its dark block. Same ring as the form controls
+// above.
+.btn-close {
+    --bs-btn-close-focus-shadow: 0 0 0 var(--bs-focus-ring-width)
+        rgba(var(--bs-primary-rgb), 0.25);
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Bootstrap component custom properties that a :root override cannot reach.
+//
+// Bootstrap 5.3 declares the active-state and bar colours on the component
+// class itself — .dropdown-menu, .list-group, .nav-pills, .nav-tabs,
+// .pagination, .progress — and not on :root. An element's own declaration
+// always beats the value it would otherwise inherit, so the :root block in
+// vars.less / vars-dark.less never applied to any of them and each one kept
+// rendering Bootstrap's #0d6efd, measured live in both themes. Declaring them
+// on the component is what takes effect, the same fix .btn-primary above needs.
+//
+// .nav-tabs is the exception that proves it: its local value is
+// var(--bs-body-bg), which the palette does re-point, so it was already right
+// and needs nothing here.
+
+.dropdown-menu {
+    --bs-dropdown-link-active-bg: @selectionBackgroundColor;
+    --bs-dropdown-link-active-color: @selectionColor;
+}
+
+.list-group {
+    --bs-list-group-active-bg: @selectionBackgroundColor;
+    --bs-list-group-active-border-color: @selectionBackgroundColor;
+    --bs-list-group-active-color: @selectionColor;
+}
+
+.nav-pills {
+    --bs-nav-pills-link-active-bg: @selectionBackgroundColor;
+    --bs-nav-pills-link-active-color: @selectionColor;
+}
+
+.pagination {
+    --bs-pagination-active-bg: @selectionBackgroundColor;
+    --bs-pagination-active-border-color: @selectionBackgroundColor;
+    --bs-pagination-active-color: @selectionColor;
+    --bs-pagination-focus-box-shadow: 0 0 0 var(--bs-focus-ring-width)
+        rgba(var(--bs-primary-rgb), 0.25);
+}
+
+.progress {
+    --bs-progress-bar-bg: @selectionBackgroundColor;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Badges with a semantic fill.
+//
+// Bootstrap paints .bg-success / .bg-warning / .bg-info from its own raw palette
+// (--bs-success-rgb and friends: #198754, #ffc107, #0dcaf0) and gives .badge a
+// white label, so as rendered these were white on lemon at 1.63:1 and white on
+// cyan at 1.96:1 — the two least readable surfaces in the app — with a cold
+// green beside them. This app's palette has no semantic *fills* at all: status
+// colour is a wash carrying @textColor (see the wash block in vars.less), which
+// is what these become. Scoped to .badge so the same utilities cannot be
+// repurposed as a fill elsewhere without a decision.
+//
+// The four call sites that add `text-dark` by hand (the BB3 firmware and module
+// banners) keep working and, in the dark theme, start working: #000 on the dark
+// wash was 1.5:1, while @textColor on it is 10.4:1.
+//
+// Both properties need !important, and for different reasons: .bg-* carries
+// !important on its own background-color, and .text-dark does on its colour —
+// so without it the fill is Bootstrap's and, in the dark theme, the hand-added
+// text-dark label beats the wash's ink and lands back at 1.5:1.
+
+.badge.bg-success {
+    background-color: @successWashColor !important;
+    color: @textColor !important;
+}
+
+.badge.bg-warning {
+    background-color: @warningWashColor !important;
+    color: @textColor !important;
+}
+
+.badge.bg-info {
+    background-color: @infoWashColor !important;
+    color: @textColor !important;
+}
+
+.badge.bg-danger {
+    background-color: @dangerWashColor !important;
+    color: @textColor !important;
+}
+
+// The same problem without a semantic colour: Bootstrap's .bg-secondary is
+// --bs-secondary-rgb under .badge's white label, measured at 3.96:1 in light
+// and 2.89:1 in dark. Extensions Manager's "not installed" chip is its only
+// consumer, and a neutral chip is already a thing this palette has — this is
+// the app's section fill with the page's own ink (11.9:1 / 11.1:1).
+.badge.bg-secondary {
+    background-color: @sectionBackgroundColor !important;
+    color: @textColor !important;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Form controls
+
+.form-control,
+.form-select {
+    border-radius: var(--bs-border-radius);
+    border-color: @formControlBorderColor;
+    background-color: @cardBackgroundColor;
+}
+
+// Bootstrap hardcodes #86b7fe and rgba(13, 110, 253, 0.25) for these.
+.form-control:focus,
+.form-select:focus {
+    border-color: @selectionBackgroundColor;
+    box-shadow: 0 0 0 var(--bs-focus-ring-width)
+        rgba(var(--bs-primary-rgb), 0.25);
+}
+
+.form-check-input:checked,
+.form-check-input[type="checkbox"]:indeterminate {
+    background-color: @selectionBackgroundColor;
+    border-color: @selectionBackgroundColor;
+}
+
+.form-check-input:focus {
+    border-color: @selectionBackgroundColor;
+    box-shadow: 0 0 0 var(--bs-focus-ring-width)
+        rgba(var(--bs-primary-rgb), 0.25);
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Card-like surfaces
+
+.card,
+.modal-content,
+.dropdown-menu,
+.popover {
+    --bs-card-bg: @cardBackgroundColor;
+    --bs-modal-bg: @cardBackgroundColor;
+    --bs-dropdown-bg: @cardBackgroundColor;
+    --bs-popover-bg: @cardBackgroundColor;
+
+    border-color: @cardBorderColor;
+    box-shadow: @componentShadow;
+}
+
+.card,
+.modal-content {
+    border-radius: var(--bs-border-radius-lg);
+}
+
+.modal > .modal-dialog > .modal-content {
+    box-shadow: @modalDialogDropdownShadow;
+}
+
+.modal-header,
+.modal-footer {
+    border-color: @borderColor;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Window title bar.
+//
+// packages/main/window.ts creates app windows with titleBarStyle: "hidden", so
+// .EezStudio_AppHeader IS the native title bar: it holds nothing but the window
+// title, the whole strip is draggable, and the system's minimize / maximize /
+// close buttons are painted over its top-right by titleBarOverlay.
+//
+// The tabs are a separate strip BELOW it (.EezStudio_TabsBar, app.less) — a tab
+// strip is not part of a title bar, and putting them in one element made the
+// active tab read as a hole punched in the bar. app.less:717-852 keeps styling
+// the tabs; the warm palette reaches them through the @panelHeaderColor /
+// @activeTabBackgroundColor / @selectionBackgroundColor vars it already uses.
+//
+// The right padding keeps the title clear of the caption buttons. Chromium only
+// defines the titlebar-area-* env vars when the overlay is active, and the
+// fallbacks collapse the calc to 0 elsewhere, so the rule is inert on windows
+// without an overlay (macOS, and any platform where it is unsupported).
+
+// app.less:104 draws a 1px @borderColor hairline above whatever the first child
+// of #EezStudio_Content happens to be. It was there to separate the page from
+// the native title bar; now that child IS the title bar, the hairline lands on
+// the window's own top edge as a pale stripe (sampled #e8dfd3 at y=0 across the
+// full width) and shoves the bar 1px down, out of register with the 38px
+// titleBarOverlay. The header's own border-bottom already separates the bar from
+// the page below, so the hairline is pure surplus.
+#EezStudio_Content > div:first-child {
+    border-top: none;
+}
+
+.EezStudio_AppHeader {
+    -webkit-app-region: drag;
+
+    background-color: @titleBarBackgroundColor;
+    border-bottom: 1px solid @titleBarDividerColor;
+    box-shadow: none;
+
+    padding-left: calc(12px + env(titlebar-area-x, 0px));
+    padding-right: calc(12px + 100% - env(titlebar-area-width, 100%));
+
+    // Nothing in the bar is interactive today (it holds only the title), but
+    // keep the opt-out so a control added here later does not get swallowed by
+    // the drag region.
+    button,
+    input,
+    select,
+    a {
+        -webkit-app-region: no-drag;
+    }
+}
+
+.EezStudio_AppHeader_Title {
+    color: @titleBarTextColor;
+    font-weight: 500;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Badges / progress
+
+.badge {
+    --bs-badge-border-radius: 999px;
+    --bs-badge-padding-x: 0.6em;
+    --bs-badge-font-weight: 500;
+}
+
+.progress {
+    --bs-progress-bg: @sectionBackgroundColor;
+    --bs-progress-border-radius: 999px;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// flexlayout-react ships a neutral grey palette (light.css / dark.css) that
+// reads cold next to the warm surfaces. app.less:1362-1429 only overrides part
+// of it.
+//
+// Scope must be .flexlayout__layout, NOT .flexlayout__tabset: the shipped
+// stylesheet defines --color-tab-selected etc. as `var(--color-text)` on
+// .flexlayout__layout, and substitution happens against THAT element's own
+// computed value. Overriding --color-text further down the tree has no effect,
+// because the derived properties were already substituted before they inherit.
+// main.css loads after #flexlayout-css in index.html, so same-specificity wins.
+
+.flexlayout__layout {
+    --color-text: @textColor;
+    --color-background: @backgroundColor;
+    --color-base: @backgroundColor;
+    // The 1..6 ramp is referenced by the derived properties below.
+    --color-1: @panelHeaderColor;
+    --color-2: @sectionBackgroundColor;
+    --color-3: @sectionBackgroundColor;
+    --color-4: @borderColor;
+    --color-5: @darkBorderColor;
+    --color-6: @darkBorderColor;
+    --color-overflow: @darkTextColor;
+    --color-icon: @darkTextColor;
+
+    --color-tabset-background: @panelHeaderColor;
+    --color-tabset-background-selected: @panelHeaderColor;
+    --color-tabset-background-maximized: @darkBorderColor;
+    --color-tabset-divider-line: @borderColor;
+    --color-tabset-header-background: @panelHeaderColor;
+    --color-tabset-header: @textColor;
+
+    --color-border-background: @panelHeaderColor;
+    --color-border-divider-line: @borderColor;
+
+    --color-tab-selected: @textColor;
+    --color-tab-selected-background: @cardBackgroundColor;
+    --color-tab-unselected: @darkTextColor;
+    --color-tab-textbox: @textColor;
+    --color-tab-textbox-background: @cardBackgroundColor;
+    --color-border-tab-selected: @textColor;
+    --color-border-tab-selected-background: @cardBackgroundColor;
+    --color-border-tab-unselected: @darkTextColor;
+    --color-border-tab-unselected-background: @panelHeaderColor;
+
+    --color-splitter: @panelHeaderColor;
+    --color-splitter-hover: @borderColor;
+    --color-splitter-drag: @darkBorderColor;
+
+    --color-drag-rect: @selectionBackgroundColor;
+    --color-drag-rect-background: @sectionBackgroundColor;
+
+    --color-popup-unselected: @textColor;
+    --color-popup-unselected-background: @cardBackgroundColor;
+    --color-popup-selected: @textColor;
+    --color-popup-selected-background: @sectionBackgroundColor;
+
+    --color-edge-marker: @selectionBackgroundColor;
+    --color-edge-icon: @selectionBackgroundColor;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Home page panels: home.less already gives these a hairline border and a 10px
+// radius, so just upgrade them to cards. The :not() chain excludes the siblings
+// that home.less deliberately resets to border: none.
+
+.EezStudio_HomeTab_Projects_Body
+    > div:not(.EezStudio_HomeTab_Projects_Space):not(.EezStudio_HomeTab_Projects_Actions):not(.EezStudio_HomeTab_Projects_ProjectInfo),
+.EezStudio_NewProjectWizard_Body
+    > div:not(.EezStudio_NewProjectWizard_Space):not(.EezStudio_NewProjectWizard_NoProjects),
+.EezStudio_ExtensionsManager_Body
+    > div:not(.EezStudio_ExtensionsManager_SubNavigation):not(.EezStudio_ExtensionsManager_NoExtensions) {
+    border-radius: 12px;
+    background-color: @cardBackgroundColor;
+    box-shadow: @componentShadow;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Toast notifications.
+//
+// react-toastify ships its own palette (--toastify-color-light: #fff,
+// --toastify-text-color-light: #757575, and the four #e74c3c / #07bc0c /
+// #f1c40f / #3498db icon colours) and notification.tsx renders
+// <ToastContainer> with no `theme` prop, so every toast took the light preset
+// in both themes: a white card with a #e74c3c cross on the dark page. Setting
+// the variables on :root is enough to retheme it — ReactToastify.css is pulled
+// in near the top of app.less and this file is imported last, so an
+// equal-specificity :root here wins on source order.
+
+:root {
+    --toastify-color-light: @cardBackgroundColor;
+    --toastify-text-color-light: @textColor;
+
+    --toastify-color-info: @infoTextColor;
+    --toastify-color-success: @successTextColor;
+    --toastify-color-warning: @warningTextColor;
+    --toastify-color-error: @dangerColor;
+
+    --toastify-icon-color-info: @infoTextColor;
+    --toastify-icon-color-success: @successTextColor;
+    --toastify-icon-color-warning: @warningTextColor;
+    --toastify-icon-color-error: @dangerColor;
+
+    --toastify-color-progress-light: @selectionBackgroundColor;
+    --toastify-toast-bd-radius: var(--bs-border-radius);
+    --toastify-font-family: inherit;
+}
+
+// The base rule's own shadow is a neutral rgba(0, 0, 0, 0.1); pair the card
+// surface with the app's warm shadow and a hairline border so a toast reads as
+// one of this app's cards rather than a floating web widget.
+.Toastify__toast {
+    border: 1px solid @cardBorderColor;
+    box-shadow: @componentShadow;
+}
+
+.Toastify__close-button--light {
+    color: @textColor;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Status-icon colour helper.
+//
+// The Icon component merges its `style` prop over whatever a stylesheet says
+// (icon.tsx builds iconStyle from it and applies it inline), so the two
+// "completed" tick icons cannot be recoloured from CSS while they set their
+// colour that way. They ask for this class instead — the only layer that can
+// follow the theme. No !important is needed: nothing sets a `color` on
+// .EezStudio_Icon at this specificity, and this file is imported last.
+
+.EezStudio_Icon_Success {
+    color: @successTextColor;
+}

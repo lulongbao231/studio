@@ -179,9 +179,9 @@ export const ConnectionLineShape = observer(
                             y={center.y}
                             horizontalAlignment="center"
                             verticalAlignment="center"
-                            backgroundColor="#fff5c2"
+                            backgroundColor="#fbeecb"
                             textColor={"#212529"}
-                            border={{ color: "#fff5c2" }}
+                            border={{ color: "#fbeecb" }}
                         />
                     )}
             </g>
@@ -418,8 +418,8 @@ function AnimationCurveEndMarker() {
             <path
                 d="M4,4 L4,12 L14,8 L4,4 L4,12"
                 style={{
-                    stroke: "#337bb7",
-                    fill: "#337bb7",
+                    stroke: "#b0532f",
+                    fill: "#b0532f",
                     strokeLinecap: "butt",
                     strokeLinejoin: "round"
                 }}

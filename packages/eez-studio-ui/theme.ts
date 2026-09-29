@@ -5,6 +5,9 @@ export interface ThemeInterface {
     borderColor: string;
     panelHeaderColor: string;
     selectionBackgroundColor: string;
+    errorColor: string;
+    textColor: string;
+    successColor: string;
     connectionLineColor: string;
     selectedConnectionLineColor: string;
     seqConnectionLineColor: string;
@@ -12,28 +15,36 @@ export interface ThemeInterface {
     disabledLineColor: string;
 }
 
+// Keep in sync with _stylesheets/vars.less and vars-dark.less — these values
+// are drawn to SVG/canvas chrome that sits next to the LESS-styled UI.
 export const lightTheme: ThemeInterface = {
-    backgroundColor: "white",
-    borderColor: "#e0e0e0",
-    panelHeaderColor: "#f0f0f0",
-    selectionBackgroundColor: "#337bb7",
+    backgroundColor: "#faf6f0",
+    borderColor: "#e8dfd3",
+    panelHeaderColor: "#f6f0e7",
+    selectionBackgroundColor: "#b0532f",
+    errorColor: "#b23f36",
+    textColor: "#3a322c",
+    successColor: "#456f3a",
     connectionLineColor: "#999",
     selectedConnectionLineColor: "red",
     seqConnectionLineColor: "#3FADB5",
     activeConnectionLineColor: "blue",
-    disabledLineColor: "#aaa"
+    disabledLineColor: "#c9bcae"
 };
 
 export const darkTheme: ThemeInterface = {
-    backgroundColor: "#222222",
-    borderColor: "#444444",
-    panelHeaderColor: "#333333",
-    selectionBackgroundColor: "#337bb7",
+    backgroundColor: "#1e1a17",
+    borderColor: "#3b322a",
+    panelHeaderColor: "#2f2822",
+    selectionBackgroundColor: "#e07a52",
+    errorColor: "#d9604c",
+    textColor: "#ede6de",
+    successColor: "#6fae5c",
     connectionLineColor: "#999",
     selectedConnectionLineColor: "red",
     seqConnectionLineColor: "#3FADB5",
     activeConnectionLineColor: "blue",
-    disabledLineColor: "#999"
+    disabledLineColor: "#5a4d40"
 };
 
 export const theme = () =>

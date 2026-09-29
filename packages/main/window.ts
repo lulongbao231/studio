@@ -9,6 +9,11 @@ import {
     settingsRegisterWindow,
     settingsSetWindowBoundsIntoParams
 } from "main/settings";
+import {
+    getTitleBarOverlayColors,
+    isTitleBarOverlaySupported,
+    TITLE_BAR_HEIGHT
+} from "main/title-bar";
 import { sourceRootDir } from "eez-studio-shared/util";
 import { t } from "eez-studio-shared/i18n";
 import {
@@ -86,6 +91,19 @@ export function createWindow(params: IWindowParams) {
     };
 
     const showHidden = params.showHidden === true;
+
+    // 应用窗口改用自绘标题栏：标题栏区域由页面自己画（.EezStudio_AppHeader），
+    // 系统只把最小化/最大化/关闭按钮叠在右上角，颜色由 titleBarOverlay 指定。
+    // 辅助窗口（打印等）不加载 home/index.html，没有可拖拽的标题栏，保持原生边框。
+    if (!params.utilityWindow) {
+        windowContructorParams.titleBarStyle = "hidden";
+        if (isTitleBarOverlaySupported()) {
+            windowContructorParams.titleBarOverlay = {
+                ...getTitleBarOverlayColors(settings.isDarkTheme),
+                height: TITLE_BAR_HEIGHT
+            };
+        }
+    }
 
     if (!showHidden) {
         settingsSetWindowBoundsIntoParams(params.url, windowContructorParams);

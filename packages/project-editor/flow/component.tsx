@@ -112,6 +112,7 @@ import {
 } from "project-editor/features/variable/value-type";
 import { expressionBuilder } from "./expression/ExpressionBuilder";
 import { getComponentName } from "project-editor/flow/components/components-registry";
+import { mostReadable } from "eez-studio-shared/color";
 import { ProjectEditor } from "project-editor/project-editor-interface";
 import { FLOW_ITERATOR_INDEX_VARIABLE } from "project-editor/features/variable/defs";
 import type {
@@ -4241,7 +4242,12 @@ function renderActionComponent(
             backgroundColor = classInfo.componentHeaderColor(actionNode);
         }
         titleStyle = {
-            backgroundColor
+            backgroundColor,
+            // The header colour is a fixed categorical pastel, the same in both themes, so
+            // its label must not follow @textColor: in the dark theme that put #ede6de on
+            // e.g. #C0DEED, about 1.1:1. Same rule the components palette already applies
+            // (getComponentVisualData in components-registry.ts).
+            color: mostReadable(backgroundColor, ["#fff", "#333"])
         };
     }
 

@@ -7,6 +7,7 @@ import classNames from "classnames";
 
 import { Icon } from "eez-studio-ui/icon";
 import { IconAction } from "eez-studio-ui/action";
+import { theme } from "eez-studio-ui/theme";
 
 import { t } from "eez-studio-shared/i18n";
 
@@ -448,7 +449,7 @@ export const BootstrapDialog = observer(
                         key={button.id}
                         icon={button.icon!}
                         title={button.title || ""}
-                        style={{ color: "#333" }}
+                        style={{ color: theme().textColor }}
                         onClick={button.onClick}
                         enabled={!button.disabled}
                     />

@@ -15,6 +15,7 @@ import { makeLazyComponent } from "eez-studio-ui/lazy-component";
 
 import { HomeTab, IHomeTab, InstrumentTab, tabs } from "home/tabs-store";
 import "home/home-tab";
+import { MenuBar } from "home/menu-bar";
 
 import type { InstrumentObject } from "instrument/instrument-object";
 import {
@@ -34,7 +35,18 @@ const MainContent = observer(
         render() {
             return (
                 <VerticalHeaderWithBody style={{ height: "100%" }}>
+                    {/* 标题栏只放窗口标题：main/window.ts 用 titleBarStyle:"hidden"
+                        去掉了原生标题栏，这一条就是标题栏本身（可拖拽，系统按钮叠在右上角）。 */}
                     <Header className="EezStudio_AppHeader">
+                        <div className="EezStudio_AppHeader_Title">
+                            {tabs.documentTitle}
+                        </div>
+                    </Header>
+                    {/* 菜单栏：原生菜单栏被 titleBarStyle:"hidden" 带走了，所以这里自己画一条，
+                        点开由主进程弹原生菜单（home/menu-bar.tsx）。 */}
+                    <MenuBar />
+                    {/* tab 栏在标题栏下面单独一条，不混进标题栏。 */}
+                    <div className="EezStudio_TabsBar">
                         <TabsView
                             tabs={tabs.tabs}
                             moveTab={action(
@@ -55,7 +67,7 @@ const MainContent = observer(
                             tabs.activeTab instanceof InstrumentTab) && (
                             <SessionInfoContainer />
                         )}
-                    </Header>
+                    </div>
                     <Body>
                         <Tabs />
                     </Body>

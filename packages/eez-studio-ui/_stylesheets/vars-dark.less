@@ -1,63 +1,76 @@
 @backgroundColor: var(--bs-body-bg);
 @textColor: var(--bs-body-color);
-@sectionBackgroundColor: #555555;
-@borderColor: #444444;
-@darkBorderColor: #404040;
+@sectionBackgroundColor: #332c26;
+@borderColor: #3b322a;
+@darkBorderColor: #4a3e34;
 @panelHeaderColor: var(--bs-tertiary-bg);
-@selectionBackgroundColor: #3682c1;
-@selectionColor: #e1e1e1;
-@lightSelectionBackgroundColor: #93bde0;
-@lightSelectionColor: #e1e1e1;
-@tableBorderColor: #444444;
-@nonFocusedSelectionBackgroundColor: #666;
-@nonFocusedSelectionColor: #eee;
-@hoverBackgroundColor: #666;
-@hoverColor: #e1e1e1;
-@scrollTrackColor: #f1f1f1;
-@scrollThumbColor: #c1c1c1;
-@darkTextColor: #ddd;
-@focusBackgroundColor: #4e94d1;
-@focusColor: #444;
+@selectionBackgroundColor: #e07a52;
+// The dark accent is a *light* terracotta, so its ink has to be dark — the mirror of the
+// light theme, where the accent is dark and the ink is white. With the near-white #ede6de
+// every selected row, tab and chip sat at 2.40:1. #2a1a12 brings them to 5.64:1. All 38
+// uses of this token are ink on @selectionBackgroundColor (or on a rule that inherits it
+// from @selectionBackgroundColor), so this one value fixes them together.
+@selectionColor: #2a1a12;
+@lightSelectionBackgroundColor: #4a3e34;
+@lightSelectionColor: #f0a184;
+@tableBorderColor: #3b322a;
+@nonFocusedSelectionBackgroundColor: #4a3e34;
+@nonFocusedSelectionColor: #ede6de;
+@hoverBackgroundColor: #3d342c;
+@hoverColor: #ede6de;
+@scrollTrackColor: #332c26;
+@scrollThumbColor: #5a4d40;
+@darkTextColor: #a2968b;
+@focusBackgroundColor: #3a2a22;
+@focusColor: #ede6de;
 @dragSourceBackgroundColor: #e040fb;
 @dragSourceColor: white;
-@dropTargetBackgroundColor: #7c4dff;
+@dropTargetBackgroundColor: #e07a52;
 @dropTargetColor: #ffffff;
-@dropPlaceColor: #7c4dff;
-@errorColor: #dc3545;
-@warningBackgroundColor: #ffc107;
-@warningColor: #212529;
-@actionHoverColor: #0056b3;
+@dropPlaceColor: #e07a52;
+// Neutral mat behind media (image / PDF previews) — see vars.less.
+@mediaMatColor: #12100e;
+// Aliased to the danger red — see vars.less.
+@errorColor: @dangerColor;
+// Warning banner fill + its label — see vars.less. Here the fill is the same amber as
+// @warningTextColor below and the label is the page colour: 8.0:1.
+@warningBackgroundColor: #d9a441;
+@warningColor: #1e1a17;
+@actionHoverColor: #ec8a63;
 @connectionLineColor: #999;
-@trixToolbarColor: #eee;
+@trixToolbarColor: #332c26;
 
 @selectedConnectionLineColor: red;
 @seqConnectionLineColor: #3fadb5;
 @activeConnectionLineColor: rgb(18, 18, 48);
-@connectionLineInTheMakingColor: #337bb7;
-@activeTabBackgroundColor: #666666;
-@disabledConnectionLineColor: #999;
+@connectionLineInTheMakingColor: #e07a52;
+// See vars.less: same selected tint as the home sidebar's current item. #2a241f sat
+// within 0.004 luminance of the strip's @panelHeaderColor (#2f2822), so the tint is what
+// marks the tab here; @textColor on it is 11:1.
+@activeTabBackgroundColor: @sidebarItemSelectedBackgroundColor;
+@disabledConnectionLineColor: #5a4d40;
 
 @actionSelectedTextColor: white;
-@actionDisabledColor: #666;
+@actionDisabledColor: #5a4d40;
 
-@readOnlyListItem: #f5f5f5;
+@readOnlyListItem: #332c26;
 
 @splitterBackgroundColor: @panelHeaderColor;
 @splitterBorderColor: @borderColor;
 @splitterHoverColor: @borderColor;
 @splitterSize: 8px;
 
-@panelBorderColor: #444444;
-@buttonColor: #444;
+@panelBorderColor: #3b322a;
+@buttonColor: #ede6de;
 
 @BB3_StartPageGridGap: 40px;
 
-@componentBackgroundColor: #333;
-@componentBorder: #333;
+@componentBackgroundColor: #2a241f;
+@componentBorder: #3b322a;
 @componentBody: @backgroundColor;
 
-@calendarMonthBackgroundDayLevel0BackgroundColor: #666;
-@calendarMonthBackgroundDayLevel0Color: white;
+@calendarMonthBackgroundDayLevel0BackgroundColor: #3b322a;
+@calendarMonthBackgroundDayLevel0Color: #ede6de;
 @calendarMonthBackgroundDayLevel1BackgroundColor: #c6e48b;
 @calendarMonthBackgroundDayLevel1Color: #333;
 @calendarMonthBackgroundDayLevel2BackgroundColor: #7bc96f;
@@ -73,11 +86,11 @@
 @connectedHistoryItemColor: lightgreen;
 @disconnectedHistoryItemColor: orange;
 @fileHistoryItemBackgroundColor: lightsteelblue;
-@listHistoryItemBackgroundColor: #f5f5f5;
-@requestHistoryItemBackgroundColor: beige;
-@scriptHistoryItemBackgroundColor: #f5f5f5;
-@plotterHistoryItemBackgroundColor: #f5f5f5;
-@chartHistoryItemBackgroundColor: #f5f5f5;
+@listHistoryItemBackgroundColor: #332c26;
+@requestHistoryItemBackgroundColor: #3a3025;
+@scriptHistoryItemBackgroundColor: #332c26;
+@plotterHistoryItemBackgroundColor: #332c26;
+@chartHistoryItemBackgroundColor: #332c26;
 @sessionHistoryItemSessionStartBackground: linear-gradient(
     rgba(215, 255, 215, 1),
     rgba(0, 255, 0, 0)
@@ -87,31 +100,174 @@
     rgba(255, 215, 215, 1)
 );
 
-@historyItemDateColor: #6c757d;
-
-:root {
-    --bs-light-rgb: 64, 64, 64;
-}
+@historyItemDateColor: #a2968b;
 
 @debuggerPanelLogItemScpi: lightblue;
 
-@componentShadow: 2px 2px 8px rgb(0, 0, 0, 0.5);
+@componentShadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.5);
 @componentBodyShadow: none;
 
 @panelHeaderColorInsideFlexLayout: rgba(var(--bs-tertiary-bg-rgb), 1);
 
-@formControlBorderColor: #515151;
+@formControlBorderColor: #4a3e34;
 
-@pageTimelineRowColor: #303030;
-@pageTimelineSelectedRowColor: #606060;
+@pageTimelineRowColor: #302a24;
+@pageTimelineSelectedRowColor: #4a3e34;
 
-@documentationHeadingColor: #3388ff;
+@documentationHeadingColor: #e8916d;
 
 @inErrorTextColor: #333;
-@inErrorBackgroundColor: #ffcccc;
+@inErrorBackgroundColor: #5a2a22;
 
 @tipBoxColor: @textColor;
 @tipBoxBackgroundColor: #003100;
 @tipBoxBorderColor: #009400;
 
-@modalDialogDropdownShadow: 4px 4px 24px rgba(0, 0, 0, 0.8);
+@modalDialogDropdownShadow: 0 12px 40px rgba(0, 0, 0, 0.7);
+
+////////////////////////////////////////////////////////////////////////////////
+// Warm reskin tokens — must stay in sync with vars.less
+
+@cardBackgroundColor: #2a241f;
+@cardBorderColor: #3b322a;
+@secondaryButtonBackgroundColor: #332c26;
+@secondaryButtonBorderColor: #4a3e34;
+@secondaryButtonHoverBackgroundColor: #3d342c;
+// The dark rail keeps the relationship it already had — here it is *lighter* than
+// the page, the opposite of the light theme, because a darker-than-page rail on a
+// near-black page has nothing left to go darker into. Same parallel-gradient
+// mechanism as vars.less so the two themes stay structurally identical; the top
+// colour is unchanged, so the visible part of the rail looks exactly as before.
+@sidebarBackgroundColor: #2a241f;
+@sidebarBackgroundImage: linear-gradient(180deg, #2a241f 0%, #221d19 100%);
+// Unchanged in dark: this is @sectionBackgroundColor, which already reads as a
+// warm chip against the rail here.
+@sidebarItemIconBackgroundColor: #332c26;
+@sidebarItemHoverBackgroundColor: #332c26;
+@sidebarItemSelectedBackgroundColor: #3a2a22;
+@sidebarItemSelectedColor: #e07a52;
+// Deep terracotta, see vars.less. Hover goes lighter because that is the
+// direction the dark palette moves for every other action button. A hair
+// lighter than the #c4663d first chosen: @selectionColor's dark ink on that
+// measured 4.24:1, just under AA for a button label, and this clears it at
+// 4.73:1 without reading as a different colour. Its only consumer is
+// .btn-success.
+@successButtonBackgroundColor: #cc6f45;
+@successButtonHoverBackgroundColor: #d4754a;
+// Destructive / error red, dark counterpart of the block in vars.less. Lighter than
+// the light theme's because it has to read on a near-black page: 4.9:1 as error text
+// on #1e1a17, and white on it as a button clears 3.7:1 — better than this palette's
+// own primary (#e07a52, 3.0:1), which is the bar the dark theme already accepts.
+@dangerColor: #d9604c;
+// Lighter, matching the direction every other dark hover moves.
+@dangerHoverColor: #e57a66;
+// Alert wash + its label. #f0a598 on #3a201c is 7.5:1.
+@dangerTextColor: #f0a598;
+@dangerBackgroundColor: #3a201c;
+@dangerBorderColor: #5a2f28;
+// Semantic text colours — see vars.less. Same four roles, lifted instead of deepened
+// so they read on the near-black page (6.8:1, 7.6:1, 8.0:1, and @errorColor's 4.9:1).
+@successTextColor: #6fae5c;
+@infoTextColor: #63b3c4;
+@warningTextColor: #d9a441;
+// Soft washes — see vars.less. These carry @textColor (#ede6de here), which is 10.8:1
+// on the lightest of them.
+@successWashColor: #253322;
+@dangerWashColor: #3d211d;
+@warningWashColor: #3b3118;
+// Informational wash — see vars.less.
+@infoWashColor: #1d3134;
+@highlightWashColor: #40331c;
+@balloonBackgroundColor: #3b3118;
+
+// Custom (self-drawn) window title bar. Background and text must stay in sync
+// with TITLE_BAR_DARK in packages/main/title-bar.ts. Dark uses a deeper
+// terracotta than vars.less so a full-width bar does not glare.
+@titleBarBackgroundColor: #7a3a26;
+@titleBarTextColor: #f6ded2;
+@titleBarDividerColor: #6b3220;
+
+////////////////////////////////////////////////////////////////////////////////
+// Bootstrap custom property overrides.
+//
+// Gated on :root[data-bs-theme="dark"] (specificity 0,2,0) so it beats
+// Bootstrap's own [data-bs-theme=dark] block regardless of source order; the
+// bare :root is a fallback for the brief window between setAttribute and the
+// main-css href swap in packages/home/settings.tsx onThemeSwitched.
+
+:root,
+:root[data-bs-theme="dark"] {
+    --bs-light-rgb: 64, 64, 64;
+
+    --bs-primary: #e07a52;
+    --bs-primary-rgb: 224, 122, 82;
+    --bs-primary-text-emphasis: #f0a184;
+    --bs-primary-bg-subtle: #3a2a22;
+    --bs-primary-border-subtle: #5a3a2b;
+    --bs-secondary: #a2968b;
+    --bs-secondary-rgb: 162, 150, 139;
+
+    --bs-body-bg: #1e1a17;
+    --bs-body-bg-rgb: 30, 26, 23;
+    --bs-body-color: #ede6de;
+    --bs-body-color-rgb: 237, 230, 222;
+    --bs-emphasis-color: #fbf7f2;
+    --bs-emphasis-color-rgb: 251, 247, 242;
+    --bs-secondary-color: rgba(237, 230, 222, 0.7);
+    --bs-secondary-color-rgb: 237, 230, 222;
+    --bs-secondary-bg: #332c26;
+    --bs-secondary-bg-rgb: 51, 44, 38;
+    --bs-tertiary-bg: #2f2822;
+    --bs-tertiary-bg-rgb: 47, 40, 34;
+    --bs-border-color: #3b322a;
+    --bs-border-color-translucent: rgba(59, 50, 42, 0.7);
+
+    --bs-link-color: #e8916d;
+    --bs-link-color-rgb: 232, 145, 109;
+    --bs-link-hover-color: #f0a184;
+    --bs-link-hover-color-rgb: 240, 161, 132;
+
+    --bs-border-radius: 0.625rem;
+    --bs-border-radius-sm: 0.5rem;
+    --bs-border-radius-lg: 0.875rem;
+    --bs-border-radius-xl: 1.25rem;
+    --bs-border-radius-pill: 999px;
+
+    --bs-focus-ring-color: rgba(224, 122, 82, 0.4);
+    --bs-focus-ring-width: 0.25rem;
+
+    // See vars.less: the active-state and bar colours for dropdown, list-group,
+    // nav-pills, pagination and progress cannot be set from :root, because
+    // Bootstrap declares them on the components. theme.less holds them, and
+    // that is where their dark ink comes from too.
+
+    // Semantic status colours — the RGB forms of the @*TextColor tokens below.
+    // Bootstrap's raw palette is what .text-* / .bg-* read, and only the danger
+    // trio is overridden here otherwise; on this near-black page Bootstrap's
+    // cold #198754 sat at 3.8:1.
+    --bs-success-rgb: 111, 174, 92; // @successTextColor #6fae5c
+    --bs-info-rgb: 99, 179, 196; // @infoTextColor #63b3c4
+    --bs-warning-rgb: 217, 164, 65; // @warningTextColor #d9a441
+
+    // .alert-warning — see vars.less. Bootstrap's dark warning alert is its own
+    // #332701 / #ffda6a pair; this is the palette's wash and label (5.7:1).
+    --bs-warning-bg-subtle: @warningWashColor;
+    --bs-warning-text-emphasis: @warningTextColor;
+    --bs-warning-border-subtle: @warningBackgroundColor;
+
+    // Danger. See vars.less: these cover .text-danger and .alert-danger app-wide;
+    // the two button variants hardcode #dc3545 and live in theme.less.
+    --bs-danger: @dangerColor;
+    --bs-danger-rgb: 217, 96, 76;
+    --bs-danger-text-emphasis: @dangerTextColor;
+    --bs-danger-bg-subtle: @dangerBackgroundColor;
+    --bs-danger-border-subtle: @dangerBorderColor;
+}
+
+// Warm page gradient (see vars.less for rationale).
+body {
+    background-color: var(--bs-body-bg);
+    background-image: linear-gradient(180deg, #221d19 0%, #1a1613 100%);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}

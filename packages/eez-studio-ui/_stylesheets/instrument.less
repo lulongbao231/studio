@@ -148,8 +148,8 @@
     flex-grow: 0;
     padding: 10px;
     border-bottom: 1px solid @borderColor;
-    background-color: #d7f8da;
-    color: #333;
+    background-color: @lightSelectionBackgroundColor;
+    color: @lightSelectionColor;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -192,14 +192,14 @@
         img {
             object-fit: contain;
             flex-grow: 1;
-            background-color: black;
+            background-color: @mediaMatColor;
             cursor: zoom-out;
         }
     }
 
     &.EezStudio_PdfPreview {
         .EezStudio_Body {
-            background-color: #525659;
+            background-color: #4a423a;
             overflow: hidden;
 
             & > div {
@@ -225,7 +225,7 @@
     &.EezStudio_ImagePreview {
         cursor: zoom-in;
         img {
-            background-color: black;
+            background-color: @mediaMatColor;
             width: 480px;
         }
     }
@@ -304,12 +304,12 @@
     padding: 0px 10px;
     overflow: visible;
 
-    color: #212529;
+    color: @textColor;
 
     p,
     pre {
         margin-bottom: 0;
-        color: #333;
+        color: @textColor;
     }
 
     pre {
@@ -504,7 +504,7 @@
     flex-direction: row;
 
     table {
-        color: #212529 !important;
+        color: @textColor !important;
     }
 }
 
@@ -530,7 +530,7 @@
     flex-direction: row;
 
     table {
-        color: #212529 !important;
+        color: @textColor !important;
     }
 }
 
@@ -974,7 +974,7 @@
     cursor: pointer;
     padding: 4px;
     background-color: @panelHeaderColor;
-    color: #777;
+    color: @darkTextColor;
     border: 0;
     border-radius: 0.25rem;
 
@@ -1225,7 +1225,7 @@
 }
 
 .EezStudio_BookmarksTableContainer {
-    background-color: white;
+    background-color: @cardBackgroundColor;
     overflow: auto;
     width: calc(100% - 20px);
     height: calc(100% - 20px);
@@ -1591,7 +1591,7 @@
             & > tr {
                 & > td {
                     padding: 5px;
-                    border-right: 1px solid #dee2e6;
+                    border-right: 1px solid @borderColor;
                 }
 
                 & > td:last-child {
@@ -1601,7 +1601,7 @@
 
             & > tr:last-child {
                 & > td {
-                    border-bottom: 1px solid #dee2e6;
+                    border-bottom: 1px solid @borderColor;
                 }
             }
 
@@ -1653,9 +1653,10 @@
 .EezStudio_Keybinding_Part {
     display: inline-block;
     padding: 1px 6px;
-    background-color: #666;
-    color: white;
-    border-radius: 4px;
+    // Matches the help page keycap treatment in app.less (.key).
+    color: @selectionBackgroundColor;
+    border: 1px solid @selectionBackgroundColor;
+    border-radius: 8px;
     text-transform: capitalize;
     font-size: 90%;
 }

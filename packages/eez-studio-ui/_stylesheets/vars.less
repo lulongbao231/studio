@@ -1,63 +1,91 @@
 @backgroundColor: var(--bs-body-bg);
 @textColor: var(--bs-body-color);
-@sectionBackgroundColor: #f0f0f0;
-@borderColor: #e2e2e2;
-@darkBorderColor: #c5c5c5;
+@sectionBackgroundColor: #f5eee4;
+@borderColor: #e8dfd3;
+@darkBorderColor: #d8ccbc;
 @panelHeaderColor: var(--bs-tertiary-bg);
-@selectionBackgroundColor: #337bb7;
+// The accent: every selected row / tab / chip, every primary button, and the
+// pagination, list-group, nav-pill and dropdown active states. #c2603f carried a
+// white label at 4.17:1 — under AA, and the largest accessibility shortfall in
+// the palette (measured on a selected tree row and on .btn-primary). #b0532f is
+// the same terracotta ~8% deeper, at 5.09:1, and keeps the hue within half a
+// degree of the old one, so nothing about the look changes but the weight. It was
+// already the success button's value, so the whole terracotta ladder moved one
+// notch deeper together — see @actionHoverColor and @successButtonBackgroundColor.
+@selectionBackgroundColor: #b0532f;
 @selectionColor: white;
-@lightSelectionBackgroundColor: #93bde0;
-@lightSelectionColor: white;
-@tableBorderColor: #e0e0e0;
-@nonFocusedSelectionBackgroundColor: #c5c5c5;
-@nonFocusedSelectionColor: black;
-@hoverBackgroundColor: #c5c5c5;
-@hoverColor: black;
-@scrollTrackColor: #f1f1f1;
-@scrollThumbColor: #c1c1c1;
-@darkTextColor: #555;
-@focusBackgroundColor: #4e94d1;
-@focusColor: #444;
+@lightSelectionBackgroundColor: #f0d9cd;
+@lightSelectionColor: #7a3a26;
+@tableBorderColor: #ede5da;
+@nonFocusedSelectionBackgroundColor: #e7dccf;
+@nonFocusedSelectionColor: #3a322c;
+@hoverBackgroundColor: #f0e6d9;
+@hoverColor: #3a322c;
+@scrollTrackColor: #f5eee4;
+@scrollThumbColor: #d8ccbc;
+@darkTextColor: #6b5f55;
+@focusBackgroundColor: #f2ded3;
+@focusColor: #3a322c;
 @dragSourceBackgroundColor: #e040fb;
 @dragSourceColor: white;
-@dropTargetBackgroundColor: #7c4dff;
+@dropTargetBackgroundColor: #b0532f;
 @dropTargetColor: #ffffff;
-@dropPlaceColor: #7c4dff;
-@errorColor: #dc3545;
-@warningBackgroundColor: #ffc107;
-@warningColor: #212529;
-@actionHoverColor: #0056b3;
+@dropPlaceColor: #b0532f;
+// Error text / borders / fills. Aliased to the danger red so the app has exactly one
+// red — see the danger block below. (LESS resolves this lazily, so the forward
+// reference is fine.)
+@errorColor: @dangerColor;
+// Neutral mat behind media (image / PDF previews). Pure black is a cold hole punched
+// in an otherwise warm window; this is the page gradient's own dark end, so the mat
+// reads as the palette's own shadow rather than as an absence of colour.
+@mediaMatColor: #1a1613;
+// Warning banner fill + its label. Bootstrap's lemon #ffc107 reads as a cold block on
+// cream; this is the same amber pulled toward ochre. Dark-on-light already had enough
+// contrast (7.8:1), and the warmer pair is slightly better at 9.1:1.
+@warningBackgroundColor: #f2c14e;
+@warningColor: #2a241f;
+// The primary button's hover / active fill, and also the accent's "darker
+// register" used as text and icon ink (app.less, project-editor.less). Moved down
+// with @selectionBackgroundColor so the hover keeps its original step: against the
+// new accent the old #a94f31 sat within 0.014 luminance of it and would have read
+// as no hover at all. It also improves those ink uses — 5.07:1 on the cream page
+// before, 6.33:1 now.
+@actionHoverColor: #96431f;
 @connectionLineColor: #999;
-@trixToolbarColor: #eee;
+@trixToolbarColor: #f5eee4;
 
 @selectedConnectionLineColor: red;
 @seqConnectionLineColor: #3fadb5;
 @activeConnectionLineColor: blue;
-@connectionLineInTheMakingColor: #337bb7;
-@activeTabBackgroundColor: #ffffff;
-@disabledConnectionLineColor: #aaa;
+@connectionLineInTheMakingColor: #b0532f;
+// Upstream's white read as a card punched into the warm tab strip (which is
+// @panelHeaderColor), so the active tab now wears the same selected tint as the home
+// sidebar's current item — the app's only other selected navigation surface. @textColor
+// on it is 8.7:1.
+@activeTabBackgroundColor: @sidebarItemSelectedBackgroundColor;
+@disabledConnectionLineColor: #c9bcae;
 
 @actionSelectedTextColor: white;
-@actionDisabledColor: #ccc;
+@actionDisabledColor: #d8ccbc;
 
-@readOnlyListItem: #f5f5f5;
+@readOnlyListItem: #f5eee4;
 
 @splitterBackgroundColor: @panelHeaderColor;
 @splitterBorderColor: @borderColor;
 @splitterHoverColor: @borderColor;
 @splitterSize: 8px;
 
-@panelBorderColor: #e7eaec;
-@buttonColor: #444;
+@panelBorderColor: #e8dfd3;
+@buttonColor: #3a322c;
 
 @BB3_StartPageGridGap: 40px;
 
-@componentBackgroundColor: #fffcf7;
-@componentBorder: #fffcf7;
+@componentBackgroundColor: #ffffff;
+@componentBorder: #ffffff;
 @componentBody: @backgroundColor;
 
-@calendarMonthBackgroundDayLevel0BackgroundColor: #ebedf0;
-@calendarMonthBackgroundDayLevel0Color: #333;
+@calendarMonthBackgroundDayLevel0BackgroundColor: #efe7dc;
+@calendarMonthBackgroundDayLevel0Color: #3a322c;
 @calendarMonthBackgroundDayLevel1BackgroundColor: #c6e48b;
 @calendarMonthBackgroundDayLevel1Color: #333;
 @calendarMonthBackgroundDayLevel2BackgroundColor: #7bc96f;
@@ -73,11 +101,11 @@
 @connectedHistoryItemColor: darkgreen;
 @disconnectedHistoryItemColor: orange;
 @fileHistoryItemBackgroundColor: lightsteelblue;
-@listHistoryItemBackgroundColor: #f5f5f5;
-@requestHistoryItemBackgroundColor: beige;
-@scriptHistoryItemBackgroundColor: #f5f5f5;
-@plotterHistoryItemBackgroundColor: #f5f5f5;
-@chartHistoryItemBackgroundColor: #f5f5f5;
+@listHistoryItemBackgroundColor: #f5eee4;
+@requestHistoryItemBackgroundColor: #f2e8d8;
+@scriptHistoryItemBackgroundColor: #f5eee4;
+@plotterHistoryItemBackgroundColor: #f5eee4;
+@chartHistoryItemBackgroundColor: #f5eee4;
 @sessionHistoryItemSessionStartBackground: linear-gradient(
     rgba(0, 255, 0, 0.1),
     rgba(0, 255, 0, 0)
@@ -87,27 +115,214 @@
     rgba(255, 0, 0, 0.1)
 );
 
-@historyItemDateColor: #6c757d;
+@historyItemDateColor: #8a7e72;
 
 @debuggerPanelLogItemScpi: blue;
 
-@componentShadow: 1px 1px 4px rgba(22, 33, 74, 0.2);
+@componentShadow: 0 1px 2px rgba(58, 50, 44, 0.06),
+    0 8px 24px rgba(58, 50, 44, 0.08);
 @componentBodyShadow: none;
 
 @panelHeaderColorInsideFlexLayout: var(--bs-tertiary-bg);
 
-@formControlBorderColor: #ced4da;
+@formControlBorderColor: #e0d4c4;
 
-@pageTimelineRowColor: #e0e0e0;
-@pageTimelineSelectedRowColor: #a0a0a0;
+@pageTimelineRowColor: #ede5da;
+@pageTimelineSelectedRowColor: #d9b9a6;
 
-@documentationHeadingColor: #0066cc;
+@documentationHeadingColor: #a94f31;
 
 @inErrorTextColor: @textColor;
-@inErrorBackgroundColor: #ffcccc;
+@inErrorBackgroundColor: #fbe0d8;
 
 @tipBoxColor: @textColor;
 @tipBoxBackgroundColor: #e6f6e6;
 @tipBoxBorderColor: #c3e6c3;
 
-@modalDialogDropdownShadow: 4px 4px 16px rgba(64, 64, 64, 0.5);
+@modalDialogDropdownShadow: 0 12px 40px rgba(58, 50, 44, 0.18);
+
+////////////////////////////////////////////////////////////////////////////////
+// Warm reskin tokens — must stay in sync with vars-dark.less
+
+@cardBackgroundColor: #ffffff;
+@cardBorderColor: #ece3d7;
+@secondaryButtonBackgroundColor: #ffffff;
+@secondaryButtonBorderColor: #e0d4c4;
+@secondaryButtonHoverBackgroundColor: #f7f1e8;
+// The sidebar is NOT a white panel: it is the page's own warm gradient pulled
+// ~5% darker, so the whole window reads as one surface and only the hairline at
+// its right edge marks the column. Measured off the reference screenshot: its
+// sidebar sits a constant (5,9,12) below the page at every height, i.e. the two
+// share one gradient direction. @sidebarBackgroundColor is only the fallback
+// fill for the one frame before the gradient paints.
+@sidebarBackgroundColor: #f3ebdf;
+@sidebarBackgroundImage: linear-gradient(180deg, #f6efe3 0%, #f0e6d6 100%);
+// Icon chip: more saturated than the panel, per the reference, where every chip
+// samples #e4c8b1 against a #e5d9c6 rail. The old value was @sectionBackgroundColor
+// (#f5eee4), which is now indistinguishable from the panel it sits on.
+@sidebarItemIconBackgroundColor: #f6dfcf;
+// Hover goes darker, the direction every other hover token in this palette moves.
+@sidebarItemHoverBackgroundColor: #ebe0cd;
+// Selected pill is the app's existing "soft selection" wash (cf.
+// @lightSelectionBackgroundColor / @lightSelectionColor) rather than a new colour,
+// but pushed one step deeper so it outranks the hover tint: at #f2ddcd it was
+// slightly paler than the hover, so hovering a neighbouring item looked heavier
+// than being on the current one. #7a3a26 label on this is 5.9:1.
+@sidebarItemSelectedBackgroundColor: #edd2ba;
+@sidebarItemSelectedColor: #7a3a26;
+// Affirmative action (OK / Apply / Create / Confirm). Green reads cold against
+// cream, so this is terracotta one step deeper than @selectionBackgroundColor:
+// same family, so the app keeps a single warm accent, but visibly the "commit"
+// shade rather than a duplicate of the primary. It moved with the accent — the
+// old value IS the new accent, so it had to — landing on the next rung down:
+// 6.46:1 with a white label, against the primary's 5.09:1.
+@successButtonBackgroundColor: #9a4526;
+@successButtonHoverBackgroundColor: #833b1d;
+
+// Destructive / error red. Bootstrap's #dc3545 is a cold candy red that sits on this
+// palette like a foreign object; this is the red end of the same terracotta range
+// (hue ~4deg, against the primary's ~15deg and the success button's ~17deg), so the
+// three are told apart at a glance while still reading as one family.
+// One value carries both roles rather than two: white label on it clears 5.7:1, and
+// as error text on the cream page it clears 5.3:1.
+@dangerColor: #b23f36;
+@dangerHoverColor: #9a352d;
+// Alert wash + its label. #8a2f26 on #fbe4de is 6.9:1.
+@dangerTextColor: #8a2f26;
+@dangerBackgroundColor: #fbe4de;
+@dangerBorderColor: #f0c8bd;
+
+// Semantic TEXT colours for log levels and status labels.
+// The palette's accent tokens are FILLS: @selectionBackgroundColor and
+// @successButtonBackgroundColor were picked to carry a white label, so they are not
+// the right ink for a status label — deepening the accent has since taken them to
+// 4.73:1 and 5.92:1 on the page, but they still read as "a button colour". Each value
+// below is the same idea taken dark enough to clear 4.5:1 outright, so the levels stay
+// distinguishable from one another without any of them being unreadable.
+@successTextColor: #456f3a; // 5.4:1 (was Bootstrap #28a745 at 2.9:1)
+@infoTextColor: #2f6b7a; // 5.6:1 (was Bootstrap #17a2b8 at 2.8:1)
+@warningTextColor: #8a6414; // 5.0:1 (was Bootstrap #ffc107 at 1.6:1 — invisible on cream)
+// (the red is @errorColor above — already 5.3:1)
+
+// Soft washes for inline emphasis: the changes-panel diff badges, the instrument
+// history selection banner, search-hit rows. These only ever carry @textColor
+// rather than a fixed dark, so they invert with the theme.
+@successWashColor: #e3efd8;
+@dangerWashColor: #fadfd8;
+@warningWashColor: #f8ecc9;
+// Informational wash — the one member the set was missing. .bg-info had no
+// palette answer, so it fell through to Bootstrap's cyan; this is the same
+// idea as @infoTextColor taken down to wash strength.
+@infoWashColor: #dcecef;
+@highlightWashColor: #f8e3bd;
+// The sticky-note callout — the instrument history's balloon, plus the two the
+// Flow canvas draws: the comment component's body and the balloon under an
+// action component that has a description. All three put @textColor on it, so
+// they have to invert with the theme.
+@balloonBackgroundColor: #fdf3c8;
+
+// Custom (self-drawn) window title bar. The background and the (cream) text
+// must stay in sync with TITLE_BAR_LIGHT in packages/main/title-bar.ts — the
+// main process paints the native caption buttons from there and cannot read
+// LESS. Tracks the accent, so it moved with it — which also takes its cream title
+// from 3.82:1 to 4.66:1.
+@titleBarBackgroundColor: #b0532f;
+@titleBarTextColor: #fdf3ee;
+@titleBarDividerColor: #994a29;
+
+////////////////////////////////////////////////////////////////////////////////
+// Bootstrap custom property overrides.
+//
+// main.css is loaded after bootstrap.min.css, so a same-specificity rule wins
+// on source order. Plain `:root` (not `:root[data-bs-theme="light"]`) is
+// deliberate: the data-bs-theme attribute does not exist until React boots
+// (see packages/home/settings.tsx onThemeSwitched), and gating on it would
+// leave the first paint on Bootstrap's stock blue.
+
+:root {
+    --bs-primary: #b0532f;
+    --bs-primary-rgb: 176, 83, 47;
+    --bs-primary-text-emphasis: #7a3a26;
+    --bs-primary-bg-subtle: #f7e6de;
+    --bs-primary-border-subtle: #edcdbe;
+    --bs-secondary: #8a7e72;
+    --bs-secondary-rgb: 138, 126, 114;
+
+    --bs-body-bg: #faf6f0;
+    --bs-body-bg-rgb: 250, 246, 240;
+    --bs-body-color: #3a322c;
+    --bs-body-color-rgb: 58, 50, 44;
+    --bs-emphasis-color: #2a241f;
+    --bs-emphasis-color-rgb: 42, 36, 31;
+    --bs-secondary-color: rgba(58, 50, 44, 0.7);
+    --bs-secondary-color-rgb: 58, 50, 44;
+    --bs-secondary-bg: #f5eee4;
+    --bs-secondary-bg-rgb: 245, 238, 228;
+    --bs-tertiary-bg: #f6f0e7;
+    --bs-tertiary-bg-rgb: 246, 240, 231;
+    --bs-border-color: #e8dfd3;
+    --bs-border-color-translucent: rgba(232, 223, 211, 0.7);
+
+    --bs-link-color: #b0552f;
+    --bs-link-color-rgb: 176, 85, 47;
+    --bs-link-hover-color: #8a4a32;
+    --bs-link-hover-color-rgb: 138, 74, 50;
+
+    --bs-border-radius: 0.625rem;
+    --bs-border-radius-sm: 0.5rem;
+    --bs-border-radius-lg: 0.875rem;
+    --bs-border-radius-xl: 1.25rem;
+    --bs-border-radius-pill: 999px;
+
+    --bs-focus-ring-color: rgba(176, 83, 47, 0.35);
+    --bs-focus-ring-width: 0.25rem;
+
+    // The active-state and bar colours — dropdown item, list-group item,
+    // nav-pills link, pagination link, progress bar — are deliberately NOT
+    // here. Bootstrap 5.3 declares each of those on the component class itself
+    // (.dropdown-menu, .list-group, .nav-pills, .pagination, .progress) rather
+    // than on :root, and an element's own declaration beats what it would
+    // inherit, so a value set here never applied and all five kept rendering
+    // #0d6efd. They live in theme.less, on the components. --bs-nav-tabs-link-active-bg
+    // is the one that was already correct from here: Bootstrap scopes it too,
+    // but to var(--bs-body-bg), which this block does re-point.
+
+    // Semantic status colours. Bootstrap paints .text-* and .bg-* from its raw
+    // palette — #198754 success, #ffc107 warning, #0dcaf0 info — and only the
+    // danger trio further down is overridden. These are the RGB forms of the
+    // @*TextColor tokens below, so a `.text-success` label lands at 5.4:1 on
+    // the cream page instead of Bootstrap's cold-green 4.2:1.
+    --bs-success-rgb: 69, 111, 58; // @successTextColor #456f3a
+    --bs-info-rgb: 47, 107, 122; // @infoTextColor #2f6b7a
+    --bs-warning-rgb: 138, 100, 20; // @warningTextColor #8a6414
+
+    // .alert-warning — the only .alert-* variant in use that the danger trio
+    // below does not already cover. Bootstrap's stock warning alert is a pale
+    // lemon (#fff3cd under #664d03); this is the palette's own warning wash and
+    // label, the pair home.less and instrument.less already use for a warning
+    // banner (9.1:1).
+    --bs-warning-bg-subtle: @warningWashColor;
+    --bs-warning-text-emphasis: @warningTextColor;
+    --bs-warning-border-subtle: @warningBackgroundColor;
+
+    // Danger. Unlike the primary above, these four are enough on their own for every
+    // danger surface EXCEPT the buttons: .text-danger reads --bs-danger-rgb, and
+    // .alert-danger derives all three of its colours from the *-subtle/-emphasis
+    // pair, so 38 of the app's 55 danger sites follow from here. .btn-danger and
+    // .btn-outline-danger hardcode #dc3545 and are restated in theme.less.
+    --bs-danger: @dangerColor;
+    --bs-danger-rgb: 178, 63, 54;
+    --bs-danger-text-emphasis: @dangerTextColor;
+    --bs-danger-bg-subtle: @dangerBackgroundColor;
+    --bs-danger-border-subtle: @dangerBorderColor;
+}
+
+// Warm page gradient. #EezStudio_Content is position:absolute and paints no
+// background of its own, so this shows through on the home page and the
+// project editor chrome.
+body {
+    background-color: var(--bs-body-bg);
+    background-image: linear-gradient(180deg, #fdfaf5 0%, #f7f1e8 100%);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}

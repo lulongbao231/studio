@@ -4,6 +4,13 @@ import { guid } from "eez-studio-shared/guid";
 
 ////////////////////////////////////////////////////////////////////////////////
 
+// The align/distribute family below draws the same little scene in all 14 icons: the
+// shape being moved (a #fff-to-tint gradient), the other shapes (a neutral dark), and
+// the reference edge (a red stroke). The tint and the stroke are the palette's own
+// terracotta and red at matching lightness, so the toolbar stops being the one cold
+// blue and the one pure red left in the app's chrome. They are literal values rather
+// than theme tokens because the pictogram reads the same in both themes.
+
 export const ALIGN_HORIZONTAL_LEFT_ICON = () => {
     const id = guid();
     return (
@@ -65,7 +72,7 @@ export const ALIGN_HORIZONTAL_LEFT_ICON = () => {
                 />
                 <linearGradient id={`${id}-a`}>
                     <stop offset="0" stopColor="#fff" />
-                    <stop offset="1" stopColor="#98b6d3" />
+                    <stop offset="1" stopColor="#dda48c" />
                 </linearGradient>
                 <linearGradient id={`${id}-b`}>
                     <stop offset="0" stopColor="#5a5a5a" />
@@ -184,7 +191,7 @@ export const ALIGN_HORIZONTAL_LEFT_ICON = () => {
                 d="M-27.4588 175.5271v23.0451"
                 transform="matrix(1 0 0 .998 27.9834 -174.6772)"
                 fill="none"
-                stroke="#c80000"
+                stroke="#b23f36"
                 strokeWidth="1.001"
                 strokeLinecap="square"
             />
@@ -297,7 +304,7 @@ export const ALIGN_HORIZONTAL_CENTER_ICON = () => {
                 />
                 <linearGradient id={`${id}-b`}>
                     <stop offset="0" stopColor="#fff" />
-                    <stop offset="1" stopColor="#98b6d3" />
+                    <stop offset="1" stopColor="#dda48c" />
                 </linearGradient>
             </defs>
             <g
@@ -374,7 +381,7 @@ export const ALIGN_HORIZONTAL_CENTER_ICON = () => {
                 d="M-27.4588 175.5271v23.0451"
                 transform="matrix(1 0 0 .998 38.9667 -174.677)"
                 fill="none"
-                stroke="#c80000"
+                stroke="#b23f36"
                 strokeWidth="1.001"
                 strokeLinecap="square"
             />
@@ -427,7 +434,7 @@ export const ALIGN_HORIZONTAL_RIGHT_ICON = () => {
                 />
                 <linearGradient id={`${id}-a`}>
                     <stop offset="0" stopColor="#fff" />
-                    <stop offset="1" stopColor="#98b6d3" />
+                    <stop offset="1" stopColor="#dda48c" />
                 </linearGradient>
                 <linearGradient
                     gradientTransform="matrix(3.33312 0 0 1.67182 -155.1792 -171.7462)"
@@ -562,7 +569,7 @@ export const ALIGN_HORIZONTAL_RIGHT_ICON = () => {
                 d="M-27.4588 175.5271v23.0451"
                 transform="matrix(1 0 0 .998 50.9834 -174.6772)"
                 fill="none"
-                stroke="#c80000"
+                stroke="#b23f36"
                 strokeWidth="1.001"
                 strokeLinecap="square"
             />
@@ -615,7 +622,7 @@ export const ALIGN_VERTICAL_TOP_ICON = () => {
                 />
                 <linearGradient id={`${id}-a`}>
                     <stop offset="0" stopColor="#fff" />
-                    <stop offset="1" stopColor="#98b6d3" />
+                    <stop offset="1" stopColor="#dda48c" />
                 </linearGradient>
                 <linearGradient
                     gradientTransform="matrix(3.33312 0 0 1.67182 -155.1792 -171.7462)"
@@ -754,7 +761,7 @@ export const ALIGN_VERTICAL_TOP_ICON = () => {
                 d="M-27.4588 175.5271v23.0451"
                 transform="matrix(0 1 -.998 0 198.6757 27.98)"
                 fill="none"
-                stroke="#c80000"
+                stroke="#b23f36"
                 strokeWidth="1.001"
                 strokeLinecap="square"
             />
@@ -837,7 +844,7 @@ export const ALIGN_VERTICAL_CENTER_ICON = () => {
                 />
                 <linearGradient id={`${id}-a`}>
                     <stop offset="0" stopColor="#fff" />
-                    <stop offset="1" stopColor="#98b6d3" />
+                    <stop offset="1" stopColor="#dda48c" />
                 </linearGradient>
                 <linearGradient
                     gradientTransform="matrix(1.35325 0 0 1.00088 -58.1835 -22.139)"
@@ -943,7 +950,7 @@ export const ALIGN_VERTICAL_CENTER_ICON = () => {
                 d="M-27.4588 175.5271v23.0451"
                 transform="matrix(0 1 -.998 0 198.6763 38.9593)"
                 fill="none"
-                stroke="#c80000"
+                stroke="#b23f36"
                 strokeWidth="1.001"
                 strokeLinecap="square"
             />
@@ -1056,7 +1063,7 @@ export const ALIGN_VERTICAL_BOTTOM_ICON = () => {
                 />
                 <linearGradient id={`${id}-a`}>
                     <stop offset="0" stopColor="#fff" />
-                    <stop offset="1" stopColor="#98b6d3" />
+                    <stop offset="1" stopColor="#dda48c" />
                 </linearGradient>
             </defs>
             <path
@@ -1130,7 +1137,7 @@ export const ALIGN_VERTICAL_BOTTOM_ICON = () => {
                 d="M-27.4588 175.5271v23.0451"
                 transform="matrix(0 1 -.998 0 198.6757 49.9602)"
                 fill="none"
-                stroke="#c80000"
+                stroke="#b23f36"
                 strokeWidth="1.001"
                 strokeLinecap="square"
             />
@@ -1158,7 +1165,7 @@ export const DISTRIBUTE_HORIZONTAL_LEFT_ICON = () => {
                     <stop
                         offset={1}
                         style={{
-                            stopColor: "#98b6d3"
+                            stopColor: "#dda48c"
                         }}
                     />
                 </linearGradient>
@@ -1302,7 +1309,7 @@ export const DISTRIBUTE_HORIZONTAL_LEFT_ICON = () => {
                 <g
                     style={{
                         fill: "none",
-                        stroke: "#c80000"
+                        stroke: "#b23f36"
                     }}
                 >
                     <path d="m  0.5,0 0,12" />
@@ -1336,7 +1343,7 @@ export const DISTRIBUTE_HORIZONTAL_CENTER_ICON = () => {
                     <stop
                         offset={1}
                         style={{
-                            stopColor: "#98b6d3"
+                            stopColor: "#dda48c"
                         }}
                     />
                 </linearGradient>
@@ -1480,7 +1487,7 @@ export const DISTRIBUTE_HORIZONTAL_CENTER_ICON = () => {
                 <g
                     style={{
                         fill: "none",
-                        stroke: "#c80000"
+                        stroke: "#b23f36"
                     }}
                 >
                     <path d="m  3.5,0 0,12" />
@@ -1514,7 +1521,7 @@ export const DISTRIBUTE_HORIZONTAL_RIGHT_ICON = () => {
                     <stop
                         offset={1}
                         style={{
-                            stopColor: "#98b6d3"
+                            stopColor: "#dda48c"
                         }}
                     />
                 </linearGradient>
@@ -1658,7 +1665,7 @@ export const DISTRIBUTE_HORIZONTAL_RIGHT_ICON = () => {
                 <g
                     style={{
                         fill: "none",
-                        stroke: "#c80000"
+                        stroke: "#b23f36"
                     }}
                 >
                     <path d="m  5.5,0 0,12" />
@@ -1677,7 +1684,7 @@ export const DISTRIBUTE_HORIZONTAL_GAPS_ICON = () => {
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
             <path
                 d="M.5 6.5h3v15h-3zm10 2h3v9h-3zm10-3h3v18h-3z"
-                fill="#98b6d3"
+                fill="#dda48c"
                 stroke="#222"
                 strokeLinejoin="round"
             />
@@ -1689,7 +1696,7 @@ export const DISTRIBUTE_HORIZONTAL_GAPS_ICON = () => {
             <path
                 d="M3.5 0v12m7-12v12m3-12v12m7-12v12"
                 fill="none"
-                stroke="#c80000"
+                stroke="#b23f36"
             />
             <path d="M6 3 4 1.5 6 0v1h2V0l2 1.5L8 3V2H6zm10 0-2-1.5L16 0v1h2V0l2 1.5L18 3V2h-2z" />
         </svg>
@@ -1703,7 +1710,7 @@ export const DISTRIBUTE_VERTICAL_TOP_ICON = () => {
             <defs>
                 <linearGradient id={`${id}-a`}>
                     <stop offset="0" style={{ stopColor: "#fff" }} />
-                    <stop offset="1" style={{ stopColor: "#98b6d3" }} />
+                    <stop offset="1" style={{ stopColor: "#dda48c" }} />
                 </linearGradient>
                 <linearGradient
                     xlinkHref={`#${id}-a`}
@@ -1788,7 +1795,7 @@ export const DISTRIBUTE_VERTICAL_TOP_ICON = () => {
                 <use xlinkHref={`#${id}-e`} transform="translate(3.5 12.5)" />
                 <use xlinkHref={`#${id}-f`} transform="translate(12.5 14.5)" />
                 <use xlinkHref={`#${id}-g`} transform="translate(20.5 15.5)" />
-                <g style={{ fill: "none", stroke: "#c80000" }}>
+                <g style={{ fill: "none", stroke: "#b23f36" }}>
                     <path d="M.5 0v12M9.5 0v12M18.5 0v12" />
                 </g>
                 <path d="M3 3 1 1.5 3 0v1h4V0l2 1.5L7 3V2H3zM12 3l-2-1.5L12 0v1h4V0l2 1.5L16 3V2h-4z" />
@@ -1804,7 +1811,7 @@ export const DISTRIBUTE_VERTICAL_CENTER_ICON = () => {
             <defs>
                 <linearGradient id={`${id}-a`}>
                     <stop offset="0" style={{ stopColor: "#fff" }} />
-                    <stop offset="1" style={{ stopColor: "#98b6d3" }} />
+                    <stop offset="1" style={{ stopColor: "#dda48c" }} />
                 </linearGradient>
                 <linearGradient
                     xlinkHref={`#${id}-a`}
@@ -1889,7 +1896,7 @@ export const DISTRIBUTE_VERTICAL_CENTER_ICON = () => {
                 <use xlinkHref={`#${id}-e`} transform="translate(3.5 12.5)" />
                 <use xlinkHref={`#${id}-f`} transform="translate(12.5 14.5)" />
                 <use xlinkHref={`#${id}-g`} transform="translate(21.5 15.5)" />
-                <g style={{ fill: "none", stroke: "#c80000" }}>
+                <g style={{ fill: "none", stroke: "#b23f36" }}>
                     <path d="M3.5 0v12M12.5 0v12M21.5 0v12" />
                 </g>
                 <path d="M6 3 4 1.5 6 0v1h4V0l2 1.5L10 3V2H6zM15 3l-2-1.5L15 0v1h4V0l2 1.5L19 3V2h-4z" />
@@ -1905,7 +1912,7 @@ export const DISTRIBUTE_VERTICAL_BOTTOM_ICON = () => {
             <defs>
                 <linearGradient id={`${id}-a`}>
                     <stop offset="0" style={{ stopColor: "#fff" }} />
-                    <stop offset="1" style={{ stopColor: "#98b6d3" }} />
+                    <stop offset="1" style={{ stopColor: "#dda48c" }} />
                 </linearGradient>
                 <linearGradient
                     xlinkHref={`#${id}-a`}
@@ -1990,7 +1997,7 @@ export const DISTRIBUTE_VERTICAL_BOTTOM_ICON = () => {
                 <use xlinkHref={`#${id}-e`} transform="translate(20.5 12.5)" />
                 <use xlinkHref={`#${id}-f`} transform="translate(11.5 14.5)" />
                 <use xlinkHref={`#${id}-g`} transform="translate(3.5 15.5)" />
-                <g style={{ fill: "none", stroke: "#c80000" }}>
+                <g style={{ fill: "none", stroke: "#b23f36" }}>
                     <path d="M5.5 0v12M14.5 0v12M23.5 0v12" />
                 </g>
                 <path d="M8 3 6 1.5 8 0v1h4V0l2 1.5L12 3V2H8zM17 3l-2-1.5L17 0v1h4V0l2 1.5L21 3V2h-4z" />
@@ -2004,7 +2011,7 @@ export const DISTRIBUTE_VERTICAL_GAPS_ICON = () => {
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
             <path
                 d="M6.5.5v3h15v-3zm2 10v3h9v-3zm-3 10v3h18v-3z"
-                fill="#98b6d3"
+                fill="#dda48c"
                 stroke="#222"
                 strokeLinejoin="round"
             />
@@ -2016,7 +2023,7 @@ export const DISTRIBUTE_VERTICAL_GAPS_ICON = () => {
             <path
                 d="M0 3.5h12m-12 7h12m-12 3h12m-12 7h12"
                 fill="none"
-                stroke="#c80000"
+                stroke="#b23f36"
             />
             <path d="M3 6 1.5 4 0 6h1v2H0l1.5 2L3 8H2V6zm0 10-1.5-2L0 16h1v2H0l1.5 2L3 18H2v-2z" />
         </svg>

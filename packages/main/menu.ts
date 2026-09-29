@@ -925,6 +925,66 @@ autorun(() => {
             Menu.setApplicationMenu(menu);
         }
     }
+
+    // 重建后让各窗口页面内的自绘菜单栏重新取标签（见下面「自绘菜单栏」一节）。
+    for (let i = 0; i < windows.length; i++) {
+        const webContents = windows[i].browserWindow.webContents;
+        if (!webContents.isDestroyed()) {
+            webContents.send("menu-bar-changed");
+        }
+    }
+});
+
+////////////////////////////////////////////////////////////////////////////////
+// 自绘菜单栏支持
+//
+// Windows/Linux 上 titleBarStyle:"hidden"（main/window.ts，为了自绘橙色标题栏）会连带
+// 去掉原生菜单栏 —— 菜单栏本来就是原生边框的一部分，而且 Electron 不允许单独把它加回来
+// （实测：isMenuBarVisible() 恒为 false，setMenuBarVisibility(true) 也无效）。所以菜单栏
+// 改由页面自己画（home/menu-bar.tsx）：页面只负责画顶层标签和位置，点开时从这里弹出真正
+// 的原生菜单，菜单内容、勾选状态、禁用状态仍然只有本文件这一处来源。
+//
+// 快捷键不需要在这里转发：原生菜单栏虽然不显示，加速键表仍然挂在窗口上（实测
+// Ctrl+Shift+F 依旧能打开「查找项目组件」）。反过来，如果这里再转发一遍，一次按键会触发两次。
+
+ipcMain.on("get-menu-bar-items", function (event: any) {
+    const menu = Menu.getApplicationMenu();
+
+    event.returnValue = menu ? menu.items.map(item => ({ label: item.label })) : [];
+});
+
+ipcMain.on("popup-menu-bar-item", function (
+    event: any,
+    index: number,
+    x: number,
+    y: number
+) {
+    const menu = Menu.getApplicationMenu();
+    const item = menu && menu.items[index];
+
+    if (!item || !item.submenu) {
+        return;
+    }
+
+    const browserWindow = BrowserWindow.fromWebContents(event.sender);
+    if (!browserWindow) {
+        return;
+    }
+
+    // 页面给的是 CSS 像素，popup 要的是 DIP —— 用户用「视图 → 放大」缩放后两者不相等。
+    const zoomFactor = event.sender.getZoomFactor();
+
+    item.submenu.popup({
+        window: browserWindow,
+        x: Math.round(x * zoomFactor),
+        y: Math.round(y * zoomFactor),
+        callback: () => {
+            // 原生菜单关闭后清掉页面上的高亮态。
+            if (!event.sender.isDestroyed()) {
+                event.sender.send("menu-bar-item-closed", index);
+            }
+        }
+    });
 });
 
 ////////////////////////////////////////////////////////////////////////////////

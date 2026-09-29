@@ -19,7 +19,7 @@ export function LabelWithProgress({
             {progress == 100 ? (
                 <Icon
                     icon="material:check_circle"
-                    style={{ color: "green" }}
+                    className="EezStudio_Icon_Success"
                     size={20}
                 />
             ) : (

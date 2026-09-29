@@ -43,6 +43,7 @@ import type {
 } from "project-editor/flow/flow-interfaces";
 
 import { guid } from "eez-studio-shared/guid";
+import { mostReadable } from "eez-studio-shared/color";
 
 import {
     ActionComponent,
@@ -4095,7 +4096,7 @@ export class NoopActionComponent extends ActionComponent {
                 <rect x="4" y="4" width="16" height="16" rx="2" />
             </svg>
         ),
-        componentHeaderColor: "#fff5c2"
+        componentHeaderColor: "#fbeecb"
     });
 
     name: string;
@@ -4325,7 +4326,7 @@ export class CommentActionComponent extends ActionComponent {
                 <path d="M13 0H1C.45 0 0 .45 0 1v8c0 .55.45 1 1 1h2v3.5L6.5 10H13c.55 0 1-.45 1-1V1c0-.55-.45-1-1-1zm0 9H6l-2 2V9H1V1h12v8z" />
             </svg>
         ),
-        componentHeaderColor: "#fff5c2",
+        componentHeaderColor: "#fbeecb",
         isFlowExecutableComponent: false,
         getResizeHandlers(object: CommentActionComponent) {
             return object.getResizeHandlers();
@@ -4674,7 +4675,10 @@ export class LabelOutActionComponent extends ActionComponent {
             }
 
             titleStyle = {
-                backgroundColor
+                backgroundColor,
+                // See component.tsx: the pastel header is theme-independent, so its label
+                // must be too, or it disappears in the dark theme.
+                color: mostReadable(backgroundColor, ["#fff", "#333"])
             };
         }
 
@@ -4819,7 +4823,10 @@ export class LabelInActionComponent extends ActionComponent {
             }
 
             titleStyle = {
-                backgroundColor
+                backgroundColor,
+                // See component.tsx: the pastel header is theme-independent, so its label
+                // must be too, or it disappears in the dark theme.
+                color: mostReadable(backgroundColor, ["#fff", "#333"])
             };
         }
 

@@ -46,9 +46,11 @@ export const ShortcutButton = observer(
                     <>
                         <span
                             className="EezStudio_Keybinding_Part"
+                            // No colour here on purpose: the class already draws the
+                            // themed keycap. A hardcoded #333-on-white overrode it, so
+                            // this was the one chip that stayed a white tile in the
+                            // dark theme. Opacity is the only thing that varies.
                             style={{
-                                color: "#333",
-                                backgroundColor: "white",
                                 opacity: this.props.isActive ? "1.0" : "0.2"
                             }}
                         >
